@@ -1,0 +1,41 @@
+@media screen and (min-width:320px) and (max-width:576px) {
+    .login-right-side {
+        padding: 25px;
+        width: 96%;
+        margin: 20px auto;
+        border-top-left-radius: 40px;
+    border-bottom-right-radius: 40px;
+    }
+    .login-body {
+        height: auto;
+    }
+    .login-left-side img {
+        width: 100%;
+    }
+    
+}
+
+@media screen and (min-width:577px) and (max-width:992px) {
+    .login-right-side {
+        margin: 20px auto;
+    }
+    .login-body {
+        height: auto;
+    }
+}
+
+@media screen and (min-width:992px) and (max-width:1340px) {
+    .login-left-side.flex-css {
+        height: 100%;
+        padding: 20px;
+    }
+    .login-left-side img {
+        width: 100%;
+    }
+    .login-right-side {
+        width: 90%;
+    }    
+    .login-body {
+        height: auto;
+    }
+}
