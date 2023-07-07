@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, ViewChild, EventEmitter, Input  } from '@angular/core';
 
 @Component({
   selector: 'app-menu',
@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent implements OnInit {
-
+  @Input() showSideNav: boolean = false;
   constructor() { }
 
   ngOnInit(): void {

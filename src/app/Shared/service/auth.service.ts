@@ -65,15 +65,15 @@ export class AuthService {
 
 
   // On Logout
-  // logout() {
-  //   localStorage.clear();
-  //   localStorage.removeItem("currentUser");
-  //   localStorage.removeItem('user');
-  //   this.router.navigate([''])
-  //     .then(() => {
-  //       window.location.reload();
-  //     });
-  // }
+  logout() {
+    localStorage.clear();
+    localStorage.removeItem("currentUser");
+    localStorage.removeItem('user');
+    this.router.navigate([''])
+      .then(() => {
+        window.location.reload();
+      });
+  }
 
   
   // getAllNotifictionList(data: any) {
