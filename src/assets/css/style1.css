@@ -14,6 +14,11 @@ body {
     height: 100%;
 }
 
+.login_page,
+.row {
+    height: 100%;
+}
+
 .login_page div[class^="col"] {
     height: 100%;
 }
@@ -258,8 +263,9 @@ p:last-child {
 .form-landing h3 {
     margin-bottom: 10px;
     text-align: center;
-    font-weight: 600;
+    font-weight: 400;
     font-size: 28px;
+    color: #b34b75;
 }
 
 .form-landing p {
@@ -271,12 +277,10 @@ p:last-child {
 .form-landing input[type="text"],
 .form-landing input[type="tel"],
 .form-landing input[type="email"] {
-    box-shadow: 0px 0px 6px #c3c3c3;
-    border: none;
     background: none;
     height: 45px;
     font-size: 14px;
-    border-radius: 3px;
+    border-radius: 50px;
     margin-bottom: 15px;
     line-height: 40px;
 }
@@ -284,18 +288,16 @@ p:last-child {
 .form-landing input[type="text"]::placeholder,
 .form-landing input[type="tel"]::placeholder,
 .form-landing input[type="email"]::placeholder {
-    font-weight: 400;
+    font-weight: 400;    
 }
 
-.form-landing label {
-    font-size: 14px;
-}
+.form-landing label {font-size: 16px;}
 
 .form-landing input[type="submit"] {
-    background: #FF2D55;
+    background: #b34b75;
     border: none;
     font-size: 17px;
-    border-radius: 5px;
+    border-radius: 50px;
     height: 50px;
     max-width: 100%;
     color: #fff;

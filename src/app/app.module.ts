@@ -27,12 +27,13 @@ import { JwtInterceptor } from './Shared/helper/jwt.interceptor';
     BrowserModule,
     AppRoutingModule,
     AuthModule,
+    LayoutModule,
     HomeModule,
     ReactiveFormsModule,
     FormsModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    LayoutModule
+
   ],
   providers: [ DatePipe,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },],

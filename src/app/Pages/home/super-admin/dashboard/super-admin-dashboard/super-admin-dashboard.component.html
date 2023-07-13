@@ -1,9 +1,179 @@
+
+
 <div class="app-main__outer">
-    <!-- <div class="app-main__inner">		 -->
-		
-		
-		
-				<div class="admin_a form_dashbord">	
-<p>super-admin-dashboard works!</p>
-</div>
-</div>
+    <div class="app-main__inner">
+        
+        <div class="text-center d-table">
+            <h3>Dashboard</h3>
+        </div>
+        
+        <div class="row total_admin mt-20 mb-30" style="height: auto;">
+            <div class="col-lg-6 col-md-12">
+                <a [routerLink]="['/admin-list']" class="btn_ta">
+                <img src="assets/img/admin.svg" style="width: 22px; margin-right: 5px;"> Total Admin</a>
+            </div>
+            <div class="col-lg-6 col-md-12 xs-sm-mt-20">							
+                <a [routerLink]="['/salon-list']" class="btn_ta ml-auto"><img src="assets/img/salon.svg" style="width: 22px; margin-right: 5px;"> Total Salon</a>
+            </div>
+        </div>
+
+        <div class="d-flex align-items-center mt-20 mb-20" style="height: auto;">						
+            <h4>Total Admin</h4>						
+            <a  [routerLink]="['/admin-list']" class="ml-auto view_alltxt">View All</a>						
+        </div>
+        
+        <div class="table-responsive">
+            <table class="table admin_table">
+                
+                <tr>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Date</th>
+                    <th>Phone No.</th>
+                    <th>Action</th>
+                </tr>
+                
+                <tr>
+                    <td class="profile">
+                        <img src="assets/img/product_items.png" class="img-responsive">		
+                    </td>
+                    <td>Test 1</td>							
+                    <td>26-06-2023</td>
+                    <td>9888000111</td>
+                    <td class="action">
+                    <a href="#"><i style="background:#3270b8; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;" class="fa fa-eye"></i></a>
+                    <a href="#"><i style="background:#10b9d0; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;" class="fa fa-pencil"></i></a>
+                    <a href="#"><i style="background:#9f0a2a; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;" class="fa fa-times"></i></a>
+                    </td>
+                </tr> 
+                
+                <tr>
+                    <td class="profile">
+                        <img src="assets/img/product_items.png" class="img-responsive">				
+                    </td>
+                    <td>Test 1</td>								
+                    <td>26-06-2023</td>
+                    <td>9888000111</td>
+                    <td class="action">
+                    <a href="#"><i style="background:#3270b8; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;" class="fa fa-eye"></i></a>
+                    <a href="#"><i style="background:#10b9d0; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;" class="fa fa-pencil"></i></a>
+                    <a href="#"><i style="background:#9f0a2a; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;" class="fa fa-times"></i></a>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td class="profile">
+                        <img src="assets/img/product_items.png" class="img-responsive">			
+                    </td>
+                    <td>Test 1</td>							
+                    <td>26-06-2023</td>
+                    <td>9888000111</td>
+                    <td class="action">
+                    <a href="#"><i style="background:#3270b8; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;" class="fa fa-eye"></i></a>
+                    <a href="#"><i style="background:#10b9d0; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;" class="fa fa-pencil"></i></a>
+                    <a href="#"><i style="background:#9f0a2a; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;" class="fa fa-times"></i></a>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td class="profile">
+                        <img src="assets/img/product_items.png" class="img-responsive">			
+                    </td>
+                    <td>Test 1</td>						
+                    <td>26-06-2023</td>
+                    <td>9888000111</td>
+                    <td class="action">
+                    <a href="#"><i style="background:#3270b8; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;" class="fa fa-eye"></i></a>
+                    <a href="#"><i style="background:#10b9d0; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;" class="fa fa-pencil"></i></a>
+                    <a href="#"><i style="background:#9f0a2a; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;" class="fa fa-times"></i></a>
+                    </td>
+                </tr>
+                
+                
+            </table>
+            <hr>
+        </div>
+
+
+
+      <!-- total salon -->
+
+      <div class="d-flex align-items-center mt-20 mb-20" style="height: auto;">						
+        <h4>Total Salon</h4>						
+        <a [routerLink]="['/salon-list']" class="ml-auto view_alltxt">View All</a>						
+    </div>
+    
+    <div class="table-responsive">
+        <table class="table admin_table">
+            
+            <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Date</th>
+                <th>Phone No.</th>
+                <th>Action</th>
+            </tr>
+            
+            <tr>
+                <td class="profile">
+                    <img src="assets/img/product_items.png" class="img-responsive">		
+                </td>
+                <td>Test 1</td>							
+                <td>26-06-2023</td>
+                <td>9888000111</td>
+                <td class="action">
+                <a href="#"><i style="background:#3270b8; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;" class="fa fa-eye"></i></a>
+                <a href="#"><i style="background:#10b9d0; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;" class="fa fa-pencil"></i></a>
+                <a href="#"><i style="background:#9f0a2a; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;" class="fa fa-times"></i></a>
+                </td>
+            </tr> 
+            
+            <tr>
+                <td class="profile">
+                    <img src="assets/img/product_items.png" class="img-responsive">				
+                </td>
+                <td>Test 1</td>								
+                <td>26-06-2023</td>
+                <td>9888000111</td>
+                <td class="action">
+                <a href="#"><i style="background:#3270b8; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;" class="fa fa-eye"></i></a>
+                <a href="#"><i style="background:#10b9d0; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;" class="fa fa-pencil"></i></a>
+                <a href="#"><i style="background:#9f0a2a; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;" class="fa fa-times"></i></a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="profile">
+                    <img src="assets/img/product_items.png" class="img-responsive">			
+                </td>
+                <td>Test 1</td>							
+                <td>26-06-2023</td>
+                <td>9888000111</td>
+                <td class="action">
+                <a href="#"><i style="background:#3270b8; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;" class="fa fa-eye"></i></a>
+                <a href="#"><i style="background:#10b9d0; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;" class="fa fa-pencil"></i></a>
+                <a href="#"><i style="background:#9f0a2a; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;" class="fa fa-times"></i></a>
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="profile">
+                    <img src="assets/img/product_items.png" class="img-responsive">			
+                </td>
+                <td>Test 1</td>						
+                <td>26-06-2023</td>
+                <td>9888000111</td>
+                <td class="action">
+                <a href="#"><i style="background:#3270b8; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;" class="fa fa-eye"></i></a>
+                <a href="#"><i style="background:#10b9d0; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;" class="fa fa-pencil"></i></a>
+                <a href="#"><i style="background:#9f0a2a; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;" class="fa fa-times"></i></a>
+                </td>
+            </tr>
+            
+            
+        </table>
+    </div>
+        
+    </div>						
+</div>	
+
