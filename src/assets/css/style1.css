@@ -84,6 +84,10 @@ header {
     background-size: cover !important;
 }
 
+.action a {
+    margin-right:5px;
+}
+
 .pt-none {
     padding-top: 0px;
 }
@@ -311,7 +315,7 @@ p:last-child {
 }
 
 .form-landing input[type="submit"]:hover {
-    background: #406390;
+    background: #b34b75;
 }
 
 .xs-sm-logo {
@@ -402,7 +406,7 @@ body.closed-sidebar .header__pane{left:0px;}
 }
 
 .border-btn:hover {
-    background: #002c6fed;
+    background: #b34b75;
     color: #fff;
     text-decoration: none;
 }
@@ -411,15 +415,15 @@ body.closed-sidebar .header__pane{left:0px;}
     color: #fff;
     background: #b34b75;
     padding: 0px 25px;
-    height: 50px;
-    line-height: 50px;
+    height: 47px;
+    line-height: 47px;
     border-radius: 7px;
     font-size: 15px;
     border: 1px solid #b34b75;
 }
 
 .btn_blue:hover {
-    background: #002c6fed;
+    background: #b34b75;
     color: #fff;
     text-decoration: none;
 }
@@ -1045,5 +1049,9 @@ ul.ngx-pagination.ng-star-inserted {
 }
 
 .view_alltxt {
+    color: #000;
+}
+
+.view_alltxt:hover {
     color: #b34b75;
 }

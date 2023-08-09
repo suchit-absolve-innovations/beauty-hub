@@ -10,18 +10,13 @@ import { ReactiveFormsModule , FormsModule} from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DatePipe } from '@angular/common';
 import { JwtInterceptor } from './Shared/helper/jwt.interceptor';
-
-
+import { NgxSpinnerModule } from "ngx-spinner";
+import { ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    
-
-
-
- 
   ],
   imports: [
     BrowserModule,
@@ -33,7 +28,12 @@ import { JwtInterceptor } from './Shared/helper/jwt.interceptor';
     FormsModule,
     BrowserAnimationsModule,
     HttpClientModule,
-
+    NgxSpinnerModule,
+    ToastrModule.forRoot({
+      timeOut: 4000,
+      positionClass: 'toast-bottom-right',
+      preventDuplicates: true,
+    }),
   ],
   providers: [ DatePipe,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },],
