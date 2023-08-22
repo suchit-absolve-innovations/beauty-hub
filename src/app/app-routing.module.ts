@@ -3,8 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 
 
 
-const AuthModule = () => import('./Pages/auth/auth.module').then(x => x.AuthModule);
-const HomeModule = () => import('./Pages/home/home.module').then(x => x.HomeModule);
+const AuthModule = () => import('./Pages/Auth/auth.module').then(x => x.AuthModule);
+const HomeModule = () => import('./Pages/Home/home.module').then(x => x.HomeModule);
 
 
 const routes: Routes = [

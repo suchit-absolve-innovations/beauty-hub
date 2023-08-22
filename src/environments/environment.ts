@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   apiUrl: "https://0b8ih6rjy7.execute-api.ap-south-1.amazonaws.com/",
-  //  rootPathUrl: "https://zigykarttestfile.s3.ap-south-1.amazonaws.com/FileToSave/",
+   rootPathUrl: "https://beautyhubtest-file.s3.ap-south-1.amazonaws.com/FileToSave/",
 };
 
 /*

@@ -46,7 +46,7 @@ export enum ApiEndPoint {
     brandImage = "api/Upload/UploadBrandImage",
     QRImage = "/api/Upload/UploadQRCode",
     getBrandList = "api/Brand/GetBrandList",
-    getBannerList = "api/Content/GetBannerList",
+  
     getBannerDetail = "api/Content/GetBannerDetail",
     addBanner = "api/Admin/AddBanner",
     updateBanner = "api/Admin/UpdateBanner",
@@ -78,6 +78,10 @@ export enum ApiEndPoint {
     orderStatus = "api/Vendor/SetOrderStatus",
     paymentStatus = "api/Vendor/SetPaymentStatus",
 
-    // Admin User Form APi 
+   // SALON API
+
+   getBannerList = "api/Content/GetBannerList",
+
+
 
 }

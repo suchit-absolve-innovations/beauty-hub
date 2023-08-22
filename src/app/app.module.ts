@@ -3,8 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthModule } from './Pages/auth/auth.module';
-import { HomeModule } from './Pages/home/home.module';
+
+
 import { LayoutModule } from './layout/layout.module';
 import { ReactiveFormsModule , FormsModule} from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -12,6 +12,10 @@ import { DatePipe } from '@angular/common';
 import { JwtInterceptor } from './Shared/helper/jwt.interceptor';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { ToastrModule } from 'ngx-toastr';
+import { AuthModule } from './Pages/Auth/auth.module';
+import { HomeModule } from './Pages/Home/home.module';
+
+
 
 
 @NgModule({

@@ -349,10 +349,7 @@ export class ContentService {
 
     return this.http.get<any>(environment.apiUrl + ApiEndPoint.productList + '?pageNumber=' + id.pageNumber + '&pageSize=' + id.pageSize + '&brandId=' + id.brandId)
   }
-  // Banner
-  getBanner(data: any) {
-    return this.http.get<any>(environment.apiUrl + ApiEndPoint.getBannerList + '?pageNumber=' + data.pageNumber + '&pageSize=' + data.pageSize)
-  }
+
 
   // Banner Detail
   bannerDetail(bannerId: any) {
@@ -621,6 +618,14 @@ deleteNotification(notificationId:any){
   return this.http.delete<any>(environment.apiUrl + ApiEndPoint.deleteBroadcastNotification + '?notificationId=' + notificationId)
 }
 
+
+
+// SALON API //
+
+  // Banner
+  getBanner(data: any) {
+    return this.http.get<any>(environment.apiUrl + ApiEndPoint.getBannerList + '?pageNumber=' + data.pageNumber + '&pageSize=' + data.pageSize)
+  }
 
 
 
