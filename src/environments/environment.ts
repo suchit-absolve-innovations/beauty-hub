@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: "https://jadpl424gj.execute-api.ap-south-1.amazonaws.com/",
+  apiUrl: "https://0b8ih6rjy7.execute-api.ap-south-1.amazonaws.com/",
   //  rootPathUrl: "https://zigykarttestfile.s3.ap-south-1.amazonaws.com/FileToSave/",
 };
 
