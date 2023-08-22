@@ -25,25 +25,25 @@ export class AuthService {
 
   // Admin Login //
 
-  // login(user: Login) {
-    
-  //   return this.http.post<any>(environment.apiUrl + ApiEndPoint.login, user)
-  //     .pipe(map(user => {
-  //       if (user.data) {
-  //         localStorage.setItem('currentUser', JSON.stringify(user));
-  //         localStorage.setItem('id', user.data.id);
-  //         localStorage.setItem('vendorId', user.data.vendorId );
-  //         localStorage.setItem('shopImage', user.data.shopImage );
-  //         localStorage.setItem('firstName', user.data.firstName );
-  //         localStorage.setItem('user', user.data.role);
-  //         localStorage.setItem('shopName', user.data.ShopName );
-  //         this.currentUserSubject.next(user);
-  //       } else {
-  //         this.router.navigateByUrl('/login')
-  //       }
-  //       return user;
-  //     }));
-  // }
+  login(user: Login) {
+    debugger
+    return this.http.post<any>(environment.apiUrl + ApiEndPoint.login, user)
+      .pipe(map(user => {
+        if (user.data) {
+          localStorage.setItem('currentUser', JSON.stringify(user));
+          // localStorage.setItem('id', user.data.id);
+          // localStorage.setItem('vendorId', user.data.vendorId );
+          // localStorage.setItem('shopImage', user.data.shopImage );
+          // localStorage.setItem('firstName', user.data.firstName );
+          // localStorage.setItem('user', user.data.role);
+          // localStorage.setItem('shopName', user.data.ShopName );
+          this.currentUserSubject.next(user);
+        } else {
+          this.router.navigateByUrl('/login')
+        }
+        return user;
+      }));
+  }
 
   // signup(data:any){
   //   return this.http.post<any>(environment.apiUrl + ApiEndPoint.signup,data)

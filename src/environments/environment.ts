@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  apiUrl: "https://jadpl424gj.execute-api.ap-south-1.amazonaws.com/",
+  //  rootPathUrl: "https://zigykarttestfile.s3.ap-south-1.amazonaws.com/FileToSave/",
 };
 
 /*

@@ -60,11 +60,23 @@ export class LoginComponent implements OnInit {
 // post login 
 
 onLogin(){
+  debugger
   this.submitted = true;
   if (this.loginForm.invalid) {
     this.toasterService.error('Incorrect Username');
     this.spinner.hide();
     return;
   }
+  this.formPayload = {
+    emailOrPhone: this.loginForm.value.emailOrPhone,
+    password: this.loginForm.value.password,
+  }
+  this.auth.login(this.formPayload).subscribe((response) => {
+    
+    if (response.isSuccess) {
+      this.toasterService.success(response.messages);
+          this.router.navigateByUrl('/dashboard');
+    }
+  });
 }
 }
