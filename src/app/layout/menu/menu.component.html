@@ -14,14 +14,22 @@
    <div class="app-sidebar sidebar-shadow">		
    <div class="scrollbar-sidebar">
     <div class="app-sidebar__inner">
-        <ul class="sidebar_menu mobile-menu-holder">
-            <li><a [routerLink]="['/super-Admin-Dashboard']"  class="nav-link" routerLinkActive="active">Dashboard</a></li>
-            <li><a [routerLink]="['/admin-list']" >Admin</a></li>
-            <li><a [routerLink]="['/salon-list']">Salon</a></li>
-            <li><a [routerLink]="['/category-list']">Category</a></li>
-            <li><a  [routerLink]="['/banner-list']">Banners</a></li>
-            <li><a >Coupons</a></li>
-            <li><a >Collections</a></li>
+        <ul class="vertical-nav-menu nav-pills">
+            <li class="nav-item nav-pills parent"  *ngFor="let route of routes" >
+                <a routerLinkActive="mm-active" #rla="routerLinkActive" [routerLink]="'/' + route.routerLink" *ngIf="!route?.sub">
+                 <span>{{route.name}}</span>
+                </a>
+                <!-- <ul class="sub-nav">
+                    <li *ngFor="let r of route.subRoutes"  class="parent">
+                        <a routerLinkActive="mm-active" #rla="routerLinkActive" [routerLink]="'/' + r.routerLink">
+                            <span>{{r.name}}</span>
+                        </a>
+                    </li>
+                    
+                </ul> -->
+                
+        
+            </li>
         </ul>
     </div>
 </div>

@@ -62,6 +62,7 @@ export class LoginComponent implements OnInit {
 onLogin(){
   debugger
   this.submitted = true;
+  this.spinner.show();
   if (this.loginForm.invalid) {
     this.toasterService.error('Incorrect Username');
     this.spinner.hide();
@@ -74,8 +75,39 @@ onLogin(){
   this.auth.login(this.formPayload).subscribe((response) => {
     
     if (response.isSuccess) {
-      this.toasterService.success(response.messages);
-          this.router.navigateByUrl('/dashboard');
+      this.userRole = response.data;
+      localStorage.setItem('role', this.userRole?.role);
+      if (this.userRole?.role == 'SuperAdmin') {
+        // this.updateToken();
+        this.toasterService.success(response.messages);
+        this.router.navigateByUrl('/super-Admin-Dashboard');
+        this.spinner.hide();
+      }
+      if (this.userRole?.role == 'Admin') {
+        // this.updateToken();
+        this.toasterService.success(response.messages);
+        this.router.navigateByUrl('/admin-user-dashboard');
+        this.spinner.hide();
+      }
+      if (this.userRole?.role == 'Vendor') {
+        // this.updateToken();
+        debugger
+        // this.vendorId = localStorage.getItem('vendorId')
+        // this.getvendorDetail();
+        this.toasterService.success(response.messages);
+        this.router.navigateByUrl('orders-list');
+        this.spinner.hide();
+      }
+      if (this.userRole?.role == 'Distributor') {
+        // this.updateToken();
+        this.toasterService.success(response.messages);
+        this.router.navigateByUrl('distributor-vendor-list');
+        this.spinner.hide();
+      }
+    } else {
+      this.spinner.hide();
+      this.toasterService.error(response.messages);
+      this.spinner.hide();
     }
   });
 }
