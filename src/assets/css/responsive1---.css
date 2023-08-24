@@ -8,15 +8,11 @@
 
 @media (min-width: 992px) and (max-width: 1023px) {
 	.admin_a a{font-size: 14px;}
-     
 }
 
 @media (min-width: 768px) and (max-width: 991px) {
-	.sm_condition img{width: 170px;}
+	.sm_condition img{width: 250px;}
 	.sm_condition h2{font-size: 3.5vw;}
-     .login {
-          width: 90%;
-      }
 }
 
 @media only screen and (max-width: 991px) {
@@ -195,7 +191,7 @@
     }
 }
  @media (min-width: 320px) and (max-width: 480px) {	
-	.admin_a{width: 100%; padding: 10px;}
+	.admin_a{width: 100%; padding: 25px;}
 	.if_xs_btn{
 		-ms-flex-wrap: wrap;
 		flex-wrap: wrap;

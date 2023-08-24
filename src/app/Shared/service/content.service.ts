@@ -627,7 +627,37 @@ deleteNotification(notificationId:any){
     return this.http.get<any>(environment.apiUrl + ApiEndPoint.getBannerList + '?pageNumber=' + data.pageNumber + '&pageSize=' + data.pageSize)
   }
 
+ // Plans
+ getPlansListAdmin(planType:any) {
+  return this.http.get<any>(environment.apiUrl + ApiEndPoint.getPlanList + '?planType=' + planType)
+}
 
+getPlansList() {
+  return this.http.get<any>(environment.apiUrl + ApiEndPoint.getPlanList)
+}
+getPlansListFilter(planType:any) {
+  return this.http.get<any>(environment.apiUrl + ApiEndPoint.getPlanList + '?planType=' + planType)
+}
+
+getPlansListVendor(data: any) {
+  return this.http.get<any>(environment.apiUrl + ApiEndPoint.getPlanList + '?vendorId=' + data.vendorId + '&planType=' + data.planType)
+}
+
+addPlan(data: any) {
+  return this.http.post<any>(environment.apiUrl + ApiEndPoint.addUpdatePlan, data)
+}
+
+planDetail(membershipPlanId: any) {
+  return this.http.get<any>(environment.apiUrl + ApiEndPoint.getPlanDetail + '?membershipPlanId=' + membershipPlanId)
+}
+
+deletePlan(membershipPlanId: any) {
+  return this.http.delete<any>(environment.apiUrl + ApiEndPoint.deleteAddedPlan + '?membershipPlanId=' + membershipPlanId)
+}
+
+planUpdate(data: any) {
+  return this.http.post<any>(environment.apiUrl + ApiEndPoint.updatePlan, data)
+}
 
 
 

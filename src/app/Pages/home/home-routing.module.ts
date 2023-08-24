@@ -13,7 +13,8 @@ import { CategoryListComponent } from './SuperAdmin/Category/category-list/categ
 import { AddEditCategoryComponent } from './SuperAdmin/Category/add-edit-category/add-edit-category.component';
 import { BannerListComponent } from './SuperAdmin/Banners/banner-list/banner-list.component';
 import { AddEditBannerComponent } from './SuperAdmin/Banners/add-edit-banner/add-edit-banner.component';
-
+import { MembershipAddEditComponent } from './SuperAdmin/Membership/membership-add-edit/membership-add-edit.component';
+import { MembershipListComponent } from './SuperAdmin/Membership/membership-list/membership-list.component';
 
 
 
@@ -39,6 +40,8 @@ const routes: Routes = [
      { path: 'banner-list', component: BannerListComponent},
      { path: 'banner-list/add-edit-banner', component: AddEditBannerComponent},
      { path: 'banner-list/banner-detail/:id', component: BannerDetailComponent},
+     { path: 'plan-list',component: MembershipListComponent},
+     { path: 'plan-list/add-edit-plan',component: MembershipAddEditComponent},
 
     ]
     

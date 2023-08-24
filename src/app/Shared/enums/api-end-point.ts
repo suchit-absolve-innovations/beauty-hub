@@ -81,6 +81,11 @@ export enum ApiEndPoint {
    // SALON API
 
    getBannerList = "api/Content/GetBannerList",
+   getPlanList = "/api/Admin/getMembershipPlanList",
+   addUpdatePlan = "/api/Admin/addUpdateMembershipPlan",
+   getPlanDetail = "api/Admin/getMembershipPlanDetail",
+   deleteAddedPlan = "api/Admin/deleteMembershipPlan",
+   updatePlan = "/api/Admin/addUpdateMembershipPlan",
 
 
 

@@ -14,6 +14,8 @@ import { BannerListComponent } from './SuperAdmin/Banners/banner-list/banner-lis
 import { BannerDetailComponent } from './SuperAdmin/Banners/banner-detail/banner-detail.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { MembershipListComponent } from './SuperAdmin/Membership/membership-list/membership-list.component';
+import { MembershipAddEditComponent } from './SuperAdmin/Membership/membership-add-edit/membership-add-edit.component';
 
 
 
@@ -35,6 +37,8 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
    AddEditBannerComponent,
    BannerListComponent,
    BannerDetailComponent,
+   MembershipListComponent,
+   MembershipAddEditComponent,
 
   ],
   imports: [
