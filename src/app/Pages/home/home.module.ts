@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeRoutingModule } from './home-routing.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SuperAdminDashboardComponent } from './SuperAdmin/SuperDashboard/super-admin-dashboard/super-admin-dashboard.component';
 import { AdminListComponent } from './SuperAdmin/Admin/admin-list/admin-list.component';
 import { CategoryListComponent } from './SuperAdmin/Category/category-list/category-list.component';
@@ -12,6 +12,9 @@ import { AddEditCategoryComponent } from './SuperAdmin/Category/add-edit-categor
 import { AddEditBannerComponent } from './SuperAdmin/Banners/add-edit-banner/add-edit-banner.component';
 import { BannerListComponent } from './SuperAdmin/Banners/banner-list/banner-list.component';
 import { BannerDetailComponent } from './SuperAdmin/Banners/banner-detail/banner-detail.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+
 
 
 
@@ -37,7 +40,10 @@ import { BannerDetailComponent } from './SuperAdmin/Banners/banner-detail/banner
   imports: [
     CommonModule,
     HomeRoutingModule,
-    ReactiveFormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    NgxPaginationModule,
+    Ng2SearchPipeModule
   ]
 })
 export class HomeModule { }

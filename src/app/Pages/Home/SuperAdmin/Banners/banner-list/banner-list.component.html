@@ -10,7 +10,8 @@
 
         <div class="admin_a form_dashbord">
         <div class="d-flex if_xs_btn mt-30">
-            <input type="text" placeholder="Search Here" class="btn_border search_here" style="width:25%!important;">
+            <input type="text" placeholder="Search Here" class="btn_border search_here"  [(ngModel)]="searchText"
+            style="width:25%!important;">
 
             <a [routerLink]="['/banner-list/add-edit-banner']" class="btn_blue ml-auto">Add Banner </a>
         </div>
@@ -26,7 +27,7 @@
                     <th>Action</th>
                 </tr>
                 <tr
-                    *ngFor="let item of bannerList  ">
+                    *ngFor="let item of bannerList | filter:searchText | paginate: {itemsPerPage: 10, currentPage: page, totalItems: totalItems,id: '1' } ">
                     <td>
                         {{item?.createDate}}
                     </td>
@@ -83,11 +84,8 @@
 
         </div>
         </div>
-
-
-
-    
-        
+        <pagination-controls (pageChange)="((page = $event))" id="1" (pageIndex)="page" class="paginate-doctor-list">
+        </pagination-controls>
     </div>						
 </div>	
 
