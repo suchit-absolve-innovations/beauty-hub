@@ -36,7 +36,7 @@ export class SalonListComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.page = +params['page'] || 0; // Use the 'page' query parameter value, or default to 1
     });
-    // this.getVendorList();
+     this.getVendorList();
 
     this.form = this.formBuilder.group({
       transactionId: ['']
@@ -44,9 +44,7 @@ export class SalonListComponent implements OnInit {
   }
 
   performSearch() {
-    
- // Your existing search logic...
-    // Clear query parameters
+
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: { page: null },
@@ -64,7 +62,7 @@ export class SalonListComponent implements OnInit {
     });
   }
 
-  /*** vendor list ***/
+
 
   getVendorList() {
     let payload = {
@@ -80,12 +78,13 @@ export class SalonListComponent implements OnInit {
     });
   }
 
-  /*** Vendor Accept Reject  ***/
+
 
   vendorStatusAccept(data: any) {
+  debugger
     let payload = {
       vendorId: data.vendorId,
-      shopId: data.shopId,
+      salonId: data.salonId,
       status: 1
     }
     this.spinner.show();

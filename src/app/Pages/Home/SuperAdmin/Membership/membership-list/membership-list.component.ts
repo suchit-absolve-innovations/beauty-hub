@@ -16,7 +16,7 @@ export class MembershipListComponent implements OnInit {
   public searchText: any = '';
  membershipPlanId: any;
  form: any;
- // planType: any;
+
 
   constructor(private toasterService: ToastrService,
     private spinner: NgxSpinnerService,
@@ -37,7 +37,7 @@ export class MembershipListComponent implements OnInit {
     });
   }
 
-   /*** Plan List ***/
+ 
 
    getPlanList() {
     this.spinner.show();
@@ -72,6 +72,7 @@ export class MembershipListComponent implements OnInit {
 
   }
   deleteAddedPlan(){
+    debugger
     this.spinner.show();
       return this.content.deletePlan(this.membershipPlanId).subscribe(response => {
         if (response.isSuccess) {

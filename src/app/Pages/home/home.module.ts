@@ -51,7 +51,8 @@ import { BuyMebershipPlanListComponent } from './SuperAdmin/Saolon/buy-mebership
     FormsModule,
     ReactiveFormsModule,
     NgxPaginationModule,
-    Ng2SearchPipeModule
+    Ng2SearchPipeModule,
+ 
   ]
 })
 export class HomeModule { }

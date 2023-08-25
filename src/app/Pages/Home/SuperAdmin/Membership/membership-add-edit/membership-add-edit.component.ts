@@ -46,7 +46,6 @@ export class MembershipAddEditComponent implements OnInit {
       gsttype: ['Exclusive', [Validators.required]],
       gstinPercentage: ['', [Validators.required]],
       planDescription: ['null'],
-      planType: [],
       isPopular: [''],
     });
   }
@@ -103,7 +102,6 @@ export class MembershipAddEditComponent implements OnInit {
         gstinPercentage: this.planForm.value.gstinPercentage,
         planDescription: this.planForm.value.planDescription,
         planPrice: planPrice,
-        planType: this.planForm.value.planType,
         isPopular: data1.status,
       }
       // this.formPayload.planDuration = parseInt(this.planForm.value.planDuration, 10);
@@ -182,7 +180,6 @@ export class MembershipAddEditComponent implements OnInit {
           gstinPercentage:this.planDetail.gstinPercentage,
           planDescription: this.planDetail.planDescription,
           planPrice: this.planDetail.planPrice,
-          planType: this.planDetail.planType,
           isPopular: this.planDetail.isPopular,
 
         });

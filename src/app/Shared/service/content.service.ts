@@ -105,11 +105,6 @@ export class ContentService {
   }
 
 
-  // vendor list 
-
-  getVendorList(data: any) {
-    return this.http.get<any>(environment.apiUrl + ApiEndPoint.vendorList + '?pageNumber=' + data.pageNumber + '&pageSize=' + data.pageSize)
-  }
 
 
 
@@ -119,11 +114,7 @@ export class ContentService {
     return this.http.get<any>(environment.apiUrl + ApiEndPoint.vendorDetail + '?vendorId=' + vendorId, {})
   }
 
-  // Vendor accept reject 
 
-  vendorAcceptReject(data: any) {
-    return this.http.post<any>(environment.apiUrl + ApiEndPoint.vendorStatus, data)
-  }
 
   // Admin User List 
 
@@ -659,9 +650,6 @@ planUpdate(data: any) {
   return this.http.post<any>(environment.apiUrl + ApiEndPoint.updatePlan, data)
 }
 
-
-// SALON
-
   // Super Admin Profile Update
 
   getSuperAdminDetail() {
@@ -693,6 +681,18 @@ planUpdate(data: any) {
     }
 
 
+    // vendor list 
+
+    getVendorList(data: any) {
+      return this.http.get<any>(environment.apiUrl + ApiEndPoint.vendorList + '?pageNumber=' + data.pageNumber + '&pageSize=' + data.pageSize)
+    }
+  
+
+  // Vendor accept reject 
+
+  vendorAcceptReject(data: any) {
+    return this.http.post<any>(environment.apiUrl + ApiEndPoint.vendorStatus, data)
+  }
 
 
 }
