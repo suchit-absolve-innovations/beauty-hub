@@ -17,7 +17,7 @@ declare var $: any;
 export class BuyMebershipPlanListComponent implements OnInit {
 
   planList: any;
-  membershipPlanId: any;
+  membershipPlanIds: any;
   membershipRecordId!: string;
   login = localStorage.getItem('role');
   vendorId = localStorage.getItem('id');
@@ -26,7 +26,7 @@ export class BuyMebershipPlanListComponent implements OnInit {
   accountDetail: any;
   editImages: any
   imageFile!: { link: any; file: any; name: any; type: any; };
-  paymentReceiptId: any;
+  paymentReceiptIds: any;
   private isRefreshed: boolean = false;
   x!: any;
 
@@ -153,6 +153,8 @@ debugger
       this.content.getBuyMemberShipPlanList().subscribe(response => {
         if (response.isSuccess) {
           this.planList = response.data;
+          // this.membershipPlanIds = response.data.membershipPlanId
+       
           this.spinner.hide();
         } else {
           this.spinner.hide();
@@ -187,18 +189,18 @@ debugger
 
 
   // get payment data 
-  detail(item: any) {
+  // detail(item: any) {
 
-    if (item.planName == 'Free') {
-      this.free();
-    } else {
-      // this.price = item.planPrice
-      this.membershipPlanId = item.membershipPlanId
-      // this.totalAmount = item.totalAmount
-      // this.paymentOptionally();
-      this.showModal();
-    }
-  }
+  //   if (item.planName == 'Free') {
+  //     this.free();
+  //   } else {
+  //     // this.price = item.planPrice
+  //     this.membershipPlanIds = item.membershipPlanId
+  //     // this.totalAmount = item.totalAmount
+  //     // this.paymentOptionally();
+  //     this.showModal();
+  //   }
+  // }
 
 
   showModal() {
@@ -261,29 +263,42 @@ debugger
     }
   }
 
-  // paybycashAdmin() {
 
-  //   let payload = {
-  //     vendorId: null,
-  //     membershipPlanId: this.membershipPlanId,
-  //     paymentReceiptId: 0,
-  //     paymentMethod: 'InCash',
-  //     createdBy: null
-  //   }
-  //   this.content.bycashPayment(payload).subscribe(response => {
-  //     if (response.isSuccess) {
-  //       this.toaster.success(response.messages)
-  //       this.membershipRecordId = response.data.membershipRecordId
+  // get plan id 
 
-  //       this.router.navigateByUrl('/super-vendor-list/super-add-vendor/' + this.membershipRecordId)
-  //         .then(() => {
-  //           window.location.reload();
-  //         });
-  //     } else {
-  //       this.toaster.error(response.messages)
-  //     }
-  //   });
-  // }
+  getPlanId(data:any){
+this.membershipPlanIds = data
+console.log(this.membershipPlanIds)
+  }
+
+
+
+
+
+  buyMemberShip() {
+debugger
+    let payload = {
+   
+      membershipPlanId: this.membershipPlanIds,
+      paymentReceiptId: this.paymentReceiptIds,
+      paymentMethod: 'PayByUPI',
+      createdBy: null
+     
+    }
+    this.content.buyMemberShipPlan(payload).subscribe(response => {
+      if (response.isSuccess) {
+        this.toaster.success(response.messages)
+        // this.membershipRecordId = response.data.membershipRecordId
+
+        this.router.navigateByUrl('/salon-list/add-salon')
+          .then(() => {
+            window.location.reload();
+          });
+      } else {
+        this.toaster.error(response.messages)
+      }
+    });
+  }
 
 
 
@@ -331,28 +346,28 @@ debugger
           name: event.srcElement.files[0].name,
           type: event.srcElement.files[0].type
         };
-        // this.fileChangeEvent();
+        this.fileChangeEvent();
       };
       reader.readAsDataURL(event.target.files[0]);
     }
   }
 
 
-  // fileChangeEvent() {
-  //   let formData = new FormData();
-  //   formData.append("paymentReceipt", this.imageFile?.file);
-  //   this.content.uploadReceiptImage(formData).subscribe(response => {
+  fileChangeEvent() {
+    let formData = new FormData();
+    formData.append("paymentReceipt", this.imageFile?.file);
+    this.content.uploadReceiptImage(formData).subscribe(response => {
 
-  //     if (response.isSuccess) {
-  //       this.toaster.success(response.messages);
+      if (response.isSuccess) {
+        this.toaster.success(response.messages);
 
-  //       this.paymentReceiptId = response.data.paymentReceiptId
+        this.paymentReceiptIds = response.data.paymentReceiptId
 
-  //     } else {
-  //       this.toaster.error(response.error)
-  //     }
-  //   });
-  // }
+      } else {
+        this.toaster.error(response.error)
+      }
+    });
+  }
 
 
   myFunction() {

@@ -675,6 +675,22 @@ planUpdate(data: any) {
   getBuyMemberShipPlanList(){
     return this.http.get<any>(environment.apiUrl + ApiEndPoint.getBuyMemberShipPlan)
   }
+    // Upload Receipt
+    uploadReceiptImage(data: any) {
+      const headers = new HttpHeaders();
+      headers.append('Content-Type', 'multipart/form-data');
+      const options = {
+        headers: headers
+      };
+      return this.http.post<any>(environment.apiUrl + ApiEndPoint.uploadReceipt, data, options).pipe(map((data: any) => {
+        localStorage.setItem('File', data);
+        return data;
+      }));
+  
+    }
+    buyMemberShipPlan(data:any){
+      return this.http.post<any>(environment.apiUrl + ApiEndPoint.buyMemberShipPlan, data)
+    }
 
 
 

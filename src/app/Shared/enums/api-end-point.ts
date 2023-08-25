@@ -84,6 +84,7 @@ export enum ApiEndPoint {
    deleteHomeBanners = "api/Admin/DeleteBanner",
    getPlanList = "api/Admin/getMembershipPlanList",
    getBuyMemberShipPlan= "api/Admin/getMembershipPlanList",
+   uploadReceipt = "api/Upload/UploadPaymentReceipt",
    addUpdatePlan = "/api/Admin/addUpdateMembershipPlan",
    getPlanDetail = "api/Admin/getMembershipPlanDetail",
    deleteAddedPlan = "api/Admin/deleteMembershipPlan",
@@ -91,6 +92,7 @@ export enum ApiEndPoint {
    superProfile = "UpdateSuperAdminDetail",
   superProfileDetail = "api/Admin/GetSuperAdminDetail",
   postSuperAdmimProfile = "/api/Admin/UpdateSuperAdminDetail",
+  buyMemberShipPlan = "api/Vendor/buyMembershipPlan",
 
 
 
