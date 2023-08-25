@@ -290,7 +290,7 @@ debugger
         this.toaster.success(response.messages)
         // this.membershipRecordId = response.data.membershipRecordId
 
-        this.router.navigateByUrl('/salon-list/add-salon')
+        this.router.navigateByUrl('/salon-list/buy-membership-plan/add-salon')
           .then(() => {
             window.location.reload();
           });

@@ -5,8 +5,6 @@ import { LayoutComponent } from 'src/app/layout/layout.component';
 
 import { BannerDetailComponent } from './SuperAdmin/Banners/banner-detail/banner-detail.component';
 import { SuperAdminDashboardComponent } from './SuperAdmin/SuperDashboard/super-admin-dashboard/super-admin-dashboard.component';
-import { SalonListComponent } from './SuperAdmin/Saolon/salon-list/salon-list.component';
-import { AddSalonsComponent } from './SuperAdmin/Saolon/add-salons/add-salons.component';
 import { AdminListComponent } from './SuperAdmin/Admin/admin-list/admin-list.component';
 import { AddEditAdminComponent } from './SuperAdmin/Admin/add-edit-admin/add-edit-admin.component';
 import { CategoryListComponent } from './SuperAdmin/Category/category-list/category-list.component';
@@ -16,7 +14,10 @@ import { AddEditBannerComponent } from './SuperAdmin/Banners/add-edit-banner/add
 import { MembershipAddEditComponent } from './SuperAdmin/Membership/membership-add-edit/membership-add-edit.component';
 import { MembershipListComponent } from './SuperAdmin/Membership/membership-list/membership-list.component';
 import { SuperAdminProfileComponent } from './SuperAdmin/Profile/super-admin-profile/super-admin-profile.component';
-import { BuyMebershipPlanListComponent } from './SuperAdmin/Saolon/buy-mebership-plan-list/buy-mebership-plan-list.component';
+import { SalonListComponent } from './SuperAdmin/Salon/salon-list/salon-list.component';
+import { AddSalonsComponent } from './SuperAdmin/Salon/add-salons/add-salons.component';
+import { SalonDetailComponent } from './SuperAdmin/Salon/salon-detail/salon-detail.component';
+import { BuyMebershipPlanListComponent } from './SuperAdmin/Salon/buy-mebership-plan-list/buy-mebership-plan-list.component';
 
 
 
@@ -34,7 +35,8 @@ const routes: Routes = [
     children: [
      { path: 'super-Admin-Dashboard', component: SuperAdminDashboardComponent},     
      { path: 'salon-list', component: SalonListComponent},    
-     { path: 'salon-list/add-salon', component: AddSalonsComponent},
+     { path: 'salon-list/buy-membership-plan/add-salon', component: AddSalonsComponent},
+     { path: 'salon-list/salon-detail',component:SalonDetailComponent},
      { path: 'admin-list', component: AdminListComponent},
      { path: 'admin-list/add-edit-admin',component: AddEditAdminComponent},
      { path: 'category-list', component: CategoryListComponent},
@@ -45,7 +47,8 @@ const routes: Routes = [
      { path: 'plan-list',component: MembershipListComponent},
      { path: 'plan-list/add-edit-plan',component: MembershipAddEditComponent},
      { path: 'super-admin-profile',component: SuperAdminProfileComponent},
-     { path: 'buy-membership-plan',component: BuyMebershipPlanListComponent}
+     { path: 'salon-list/buy-membership-plan',component: BuyMebershipPlanListComponent},
+     
 
     ]
     
