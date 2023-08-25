@@ -11,8 +11,9 @@
         <div class="admin_a form_dashbord">
         <div class="d-flex if_xs_btn mt-30">
             <input type="text" placeholder="Search Salon" class="btn_border search_here" style="width:25%!important;">
+            <!-- <a class="btn_blue ml-auto" data-toggle="modal" data-target="#myModalpurchase-membership">Add Salon</a> -->
 
-            <a [routerLink]="['/salon-list/add-salon']" class="btn_blue ml-auto">Add Salon </a>
+            <a [routerLink]="['/buy-membership-plan']" class="btn_blue ml-auto">Add Salon </a>
         </div>
         
         <div class="table-responsive">
@@ -87,11 +88,66 @@
             <hr>
         </div>
         </div>
-
-
-
-    
         
     </div>						
 </div>	
+<!-- modal -->
+
+<div class="modal fade" id="myModalpurchase-membership" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog max_sf modal-dialog-centered" role="document"
+        style="border-radius:15px; overflow:hidden; border:none;">
+        <div class="modal-content for-payment popup_advance">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <div class="modal-body text-center">
+                <!-- <div><a type="button" class=" btn_blue ml-auto my-3" (click)="purchaseMembershipRoute()">Purchase
+                        Membership</a></div> -->
+
+                <div class="modal-dropdown dropdown w-100 text-center">
+                    <a type="button" class=" btn_blue ml-auto mt-3  dropdown-toggle" style="min-width: 200px;"
+                        id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">Select Membership</a>
+
+                    <div class="sub-modal shadow  dropdown-menu drop-input" id="myDIV3"
+                        aria-labelledby="dropdownMenuButton">
+
+
+                        <button type="submit" class="btn_blue submodal-submit my-3">Grocery</button>
+                        <button type="submit" class="btn_blue submodal-submit my-3" >Dairy</button>
+                        <button type="submit" class="btn_blue submodal-submit my-3" >Combo</button>
+                        <!-- <button type="submit" class="btn_blue submodal-submit my-3" (click)="purchaseMembershipRoute(1)">Grocery</button>
+                        <button type="submit" class="btn_blue submodal-submit my-3" (click)="purchaseMembershipRoute(2)">Dairy</button>
+                        <button type="submit" class="btn_blue submodal-submit my-3" (click)="purchaseMembershipRoute(3)">Combo</button> -->
+                    </div>
+
+                </div>
+                <!-- <div>  <a type="button" class=" btn_blue ml-auto my-3" style="min-width: 200px;">Add Merchant Id</a> </div> -->
+
+                <div class="modal-dropdown dropdown w-100 text-center">
+                    <a type="button" class=" btn_blue ml-auto mt-3  dropdown-toggle" style="min-width: 200px;"
+                        id="dropdownMenuButton1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Add
+                        Transaction Id</a>
+                    <form [formGroup]="form">
+                        <div class="sub-modal shadow  dropdown-menu drop-input" id="myDIV3"
+                            aria-labelledby="dropdownMenuButton">
+
+                            <input formControlName="transactionId" type="text" name="bannerimage">
+                            <button type="submit" class="btn_blue submodal-submit my-3"
+                            >Submit</button>
+                                    <!-- <button type="submit" class="btn_blue submodal-submit my-3"
+                                (click)="checkTransactionId()">Submit</button> -->
+
+                        </div>
+                    </form>
+                </div>
+
+                <!-- <a type="button" class=" btn_blue ml-auto my-3" >Add Merchant Id</a> -->
+            </div>
+
+
+        </div>
+    </div>
+</div>
 

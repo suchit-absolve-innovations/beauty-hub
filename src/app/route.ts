@@ -32,9 +32,9 @@ export const RoleRoutes = {
     // {
     //   name: "Notification", value: "MANAGE_ReI", isEnabled: false, routerLink: "super-notification-list", acl: 'dashboard', subRoutes: []
     // },
-    // {
-    //   name: "Profile", value: "MANAGE_ReI", isEnabled: false, routerLink: "super-admin-Profile", acl: 'dashboard', subRoutes: []
-    // },
+    {
+      name: "Profile", value: "MANAGE_ReI", isEnabled: false, routerLink: "super-admin-profile", acl: 'dashboard', subRoutes: []
+    },
     // {
     //   name: "Generate Link", isEnabled: false, value: "MANAGE_APPOINTMENT_TAB", routerLink: "/generate-link", acl: '', subRoutes: []
     // },

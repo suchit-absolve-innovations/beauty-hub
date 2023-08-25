@@ -47,10 +47,7 @@ export enum ApiEndPoint {
     QRImage = "/api/Upload/UploadQRCode",
     getBrandList = "api/Brand/GetBrandList",
   
-    getBannerDetail = "api/Content/GetBannerDetail",
-    addBanner = "api/Admin/AddBanner",
-    updateBanner = "api/Admin/UpdateBanner",
-    deleteHomeBanners = "api/Admin/DeleteBanner",
+   
     productContainerType = "api/Content/GetProductContainerTypeList",
     productQunatity = "api/Content/GetProductQuantityTypeList",
     addProduct = "api/Product/AddProduct",
@@ -81,11 +78,19 @@ export enum ApiEndPoint {
    // SALON API
 
    getBannerList = "api/Content/GetBannerList",
-   getPlanList = "/api/Admin/getMembershipPlanList",
+   getBannerDetail = "api/Content/GetBannerDetail",
+   addBanner = "api/Admin/AddBanner",
+   updateBanner = "api/Admin/UpdateBanner",
+   deleteHomeBanners = "api/Admin/DeleteBanner",
+   getPlanList = "api/Admin/getMembershipPlanList",
+   getBuyMemberShipPlan= "api/Admin/getMembershipPlanList",
    addUpdatePlan = "/api/Admin/addUpdateMembershipPlan",
    getPlanDetail = "api/Admin/getMembershipPlanDetail",
    deleteAddedPlan = "api/Admin/deleteMembershipPlan",
    updatePlan = "/api/Admin/addUpdateMembershipPlan",
+   superProfile = "UpdateSuperAdminDetail",
+  superProfileDetail = "api/Admin/GetSuperAdminDetail",
+  postSuperAdmimProfile = "/api/Admin/UpdateSuperAdminDetail",
 
 
 

@@ -15,6 +15,8 @@ import { BannerListComponent } from './SuperAdmin/Banners/banner-list/banner-lis
 import { AddEditBannerComponent } from './SuperAdmin/Banners/add-edit-banner/add-edit-banner.component';
 import { MembershipAddEditComponent } from './SuperAdmin/Membership/membership-add-edit/membership-add-edit.component';
 import { MembershipListComponent } from './SuperAdmin/Membership/membership-list/membership-list.component';
+import { SuperAdminProfileComponent } from './SuperAdmin/Profile/super-admin-profile/super-admin-profile.component';
+import { BuyMebershipPlanListComponent } from './SuperAdmin/Saolon/buy-mebership-plan-list/buy-mebership-plan-list.component';
 
 
 
@@ -42,6 +44,8 @@ const routes: Routes = [
      { path: 'banner-list/banner-detail/:id', component: BannerDetailComponent},
      { path: 'plan-list',component: MembershipListComponent},
      { path: 'plan-list/add-edit-plan',component: MembershipAddEditComponent},
+     { path: 'super-admin-profile',component: SuperAdminProfileComponent},
+     { path: 'buy-membership-plan',component: BuyMebershipPlanListComponent}
 
     ]
     

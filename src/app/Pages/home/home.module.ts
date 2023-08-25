@@ -16,6 +16,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { MembershipListComponent } from './SuperAdmin/Membership/membership-list/membership-list.component';
 import { MembershipAddEditComponent } from './SuperAdmin/Membership/membership-add-edit/membership-add-edit.component';
+import { SuperAdminProfileComponent } from './SuperAdmin/Profile/super-admin-profile/super-admin-profile.component';
+import { BuyMebershipPlanListComponent } from './SuperAdmin/Saolon/buy-mebership-plan-list/buy-mebership-plan-list.component';
 
 
 
@@ -39,6 +41,8 @@ import { MembershipAddEditComponent } from './SuperAdmin/Membership/membership-a
    BannerDetailComponent,
    MembershipListComponent,
    MembershipAddEditComponent,
+   SuperAdminProfileComponent,
+   BuyMebershipPlanListComponent,
 
   ],
   imports: [

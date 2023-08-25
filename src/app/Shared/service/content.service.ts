@@ -660,6 +660,23 @@ planUpdate(data: any) {
 }
 
 
+// SALON
+
+  // Super Admin Profile Update
+
+  getSuperAdminDetail() {
+    return this.http.get<any>(environment.apiUrl + ApiEndPoint.superProfileDetail)
+  }
+
+  updateSuperAdmimProfile(data: any) {
+    return this.http.post<any>(environment.apiUrl + ApiEndPoint.postSuperAdmimProfile, data)
+  }
+
+  getBuyMemberShipPlanList(){
+    return this.http.get<any>(environment.apiUrl + ApiEndPoint.getBuyMemberShipPlan)
+  }
+
+
 
 
 }
