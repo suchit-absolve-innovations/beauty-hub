@@ -33,7 +33,7 @@ export class MembershipAddEditComponent implements OnInit {
   ngOnInit(): void {
     this.membershipPlanId = this.route.snapshot.queryParams;
     this.setPlanForm();
-    this.getPlanDetail()
+    this.getPlanDetail();
   }
 
 
@@ -54,6 +54,7 @@ export class MembershipAddEditComponent implements OnInit {
   get f() {
     return this.planForm['controls'];
   }
+
   backClicked() {
     this._location.back();
   }
@@ -106,16 +107,16 @@ export class MembershipAddEditComponent implements OnInit {
         isPopular: data1.status,
       }
       // this.formPayload.planDuration = parseInt(this.planForm.value.planDuration, 10);
-      this.spinner.show()
+      this.spinner.show();
       this.contentService.planUpdate(Payload).subscribe((response) => {
         if (response.isSuccess) {
-          this.spinner.hide()
+          this.spinner.hide();
           this.toasterService.success(response.messages);
-          this.router.navigateByUrl('/plan-list')
+          this.router.navigateByUrl('/plan-list');
    
         } else {
-          this.toasterService.error(response.messages)
-          this.spinner.hide()
+          this.toasterService.error(response.messages);
+          this.spinner.hide();
         } 
         // this.toasterService.success(response.messages);
         //   this.router.navigateByUrl('/plan-list')
@@ -151,19 +152,19 @@ export class MembershipAddEditComponent implements OnInit {
             isPopular: data1.status,
           }
           this.formPayload.planDuration = parseInt(this.planForm.value.planDuration, 10);
-          this.spinner.show()
+          this.spinner.show();
           this.contentService.addPlan(this.formPayload).subscribe((response) => {
             if (response.isSuccess) {
-              this.spinner.hide()
+              this.spinner.hide();
               this.toasterService.success(response.messages);
-              this.router.navigateByUrl('/plan-list')
+              this.router.navigateByUrl('/plan-list');
        
             } else {
-              this.toasterService.error(response.messages)
-              this.spinner.hide()
+              this.toasterService.error(response.messages);
+              this.spinner.hide();
             } 
 
-          })
+          });
     }
   }
 
@@ -184,7 +185,7 @@ export class MembershipAddEditComponent implements OnInit {
           planType: this.planDetail.planType,
           isPopular: this.planDetail.isPopular,
 
-        })
+        });
         //  this.data = response.data.planDescription  
 
         this.spinner.hide();

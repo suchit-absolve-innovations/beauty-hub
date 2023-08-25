@@ -2403,8 +2403,8 @@ fieldset:disabled a.btn {
 }
 .btn-primary {
   color: #fff;
-  background-color: #002C6F;
-  border-color: #002C6F;
+  background-color: #85214f;
+  border-color: #85214f;
 }
 .btn-primary:hover {
   color: #fff;
@@ -5396,7 +5396,7 @@ a.close.disabled {
   opacity: 0;
 }
 .modal-backdrop.show {
-  opacity: -0.5;
+  opacity: 0.5;
 }
 .modal-header {
   display: flex;
@@ -9531,7 +9531,7 @@ button,
 }
 .vertical-nav-menu ul > li > a.mm-active {
   color: #fff;
-  background: #002C6F;
+  background: #85214f;
   font-weight: 700;
 }
 .app-sidebar.sidebar-text-light {
