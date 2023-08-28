@@ -51,17 +51,7 @@ export class ContentService {
 
   // Category Image upload 
 
-  shopImage(data: any) {
-    const headers = new HttpHeaders();
-    headers.append('Content-Type', 'multipart/form-data');
-    const options = {
-      headers: headers
-    };
-    return this.http.post<any>(environment.apiUrl + ApiEndPoint.shopImage, data, options).pipe(map((data: any) => {
-      localStorage.setItem('File', data);
-      return data;
-    }));
-  }
+
 
   // Add Form Api //
 
@@ -90,19 +80,7 @@ export class ContentService {
     return this.http.post<any>(environment.apiUrl + ApiEndPoint.UpdateVendor, data)
   }
 
-   // OR Image upload 
-
-   UploadQrImage(data: any) {
-    const headers = new HttpHeaders();
-    headers.append('Content-Type', 'multipart/form-data');
-    const options = {
-      headers: headers
-    };
-    return this.http.post<any>(environment.apiUrl + ApiEndPoint.QRImage, data, options).pipe(map((data: any) => {
-      localStorage.setItem('File', data);
-      return data;
-    }));
-  }
+  
 
 
 
@@ -694,5 +672,34 @@ planUpdate(data: any) {
     return this.http.post<any>(environment.apiUrl + ApiEndPoint.vendorStatus, data)
   }
 
+
+  // salon image 
+
+  salonImage(data: any) {
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'multipart/form-data');
+    const options = {
+      headers: headers
+    };
+    return this.http.post<any>(environment.apiUrl + ApiEndPoint.salonImage, data, options).pipe(map((data: any) => {
+      localStorage.setItem('File', data);
+      return data;
+    }));
+  }
+
+
+   // OR Image upload 
+
+   UploadQrImage(data: any) {
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'multipart/form-data');
+    const options = {
+      headers: headers
+    };
+    return this.http.post<any>(environment.apiUrl + ApiEndPoint.QRImage, data, options).pipe(map((data: any) => {
+      localStorage.setItem('File', data);
+      return data;
+    }));
+  }
 
 }

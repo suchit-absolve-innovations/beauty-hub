@@ -6,7 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ContentService } from 'src/app/Shared/service/content.service';
 import { environment } from 'src/environments/environment';
 import { Location } from '@angular/common';
-// import { MapsAPILoader, AgmMap } from '@agm/core';
+ import { MapsAPILoader, AgmMap } from '@agm/core';
 
 @Component({
   selector: 'app-add-salons',
@@ -40,9 +40,9 @@ export class AddSalonsComponent implements OnInit {
   fileToUpload: any;
   imageUrl: any;
   name: any;
-  ShopId: any;
+  SalonId: any;
   imageFiles!: { link: any; file: any; name: any; type: any; };
-  Shop: any;
+  Salon: any;
   ShopImage: any;
   upidetail: any;
   upidetailId: any = [];
@@ -56,15 +56,15 @@ export class AddSalonsComponent implements OnInit {
   recordId!: number;
 
   // // Google Map
-  // addressLat!: number;
-  // addressLong!: number;
-  // zoom!: number;
-  // addressCountry!: string;
+  addressLat!: number;
+  addressLong!: number;
+  zoom!: number;
+  addressCountry!: string;
    addressStreet!: string;
-  // private geoCoder!: google.maps.Geocoder;
-  // @ViewChild('search')
-  // public searchElementRef!: ElementRef;
-  // inputAddress: string | undefined;
+  private geoCoder!: google.maps.Geocoder;
+  @ViewChild('search')
+  public searchElementRef!: ElementRef;
+  inputAddress: string | undefined;
   constructor(private router: Router,
     private ngZone: NgZone,
     private formBuilder: FormBuilder,
@@ -73,33 +73,35 @@ export class AddSalonsComponent implements OnInit {
     private toasterService: ToastrService,
     private route: ActivatedRoute,
     private _location: Location,
-    //  private mapsAPILoader: MapsAPILoader,
+    private mapsAPILoader: MapsAPILoader,
     ) { }
 
     ngOnInit(): void {
-      // maps
-      // this.mapsAPILoader.load().then(() => {
-      //   this.setCurrentLocation();
-      //   this.geoCoder = new google.maps.Geocoder;
-      //   let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
-      //   autocomplete.addListener("place_changed", () => {
-      //     this.ngZone.run(() => {
-      //       let place: google.maps.places.PlaceResult = autocomplete.getPlace();
-      //       this.inputAddress = place.formatted_address
-  
-  
-      //       if (place.geometry === undefined || place.geometry === null) {
-      //         return;
-      //       }
-      //       this.addressLat = place.geometry.location.lat();
-      //       this.addressLong = place.geometry.location.lng();
-          
-      //       this.zoom = 12;
-      //     });
-      //   });
-      // });
-      this.membershipRecordId = this.route.snapshot.paramMap.get('id');
+      debugger
+      this.membershipRecordId = localStorage.getItem('membershipRecordId');
       this.recordId = parseInt(this.membershipRecordId)
+      // maps
+      this.mapsAPILoader.load().then(() => {
+        this.setCurrentLocation();
+        this.geoCoder = new google.maps.Geocoder;
+        let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
+        autocomplete.addListener("place_changed", () => {
+          this.ngZone.run(() => {
+            let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+            this.inputAddress = place.formatted_address
+  
+  
+            if (place.geometry === undefined || place.geometry === null) {
+              return;
+            }
+            this.addressLat = place.geometry.location.lat();
+            this.addressLong = place.geometry.location.lng();
+          
+            this.zoom = 12;
+          });
+        });
+      });
+   
       this.vendorForm();
       this.getCountry();
       this.rootUrl = environment.rootPathUrl;
@@ -115,58 +117,58 @@ export class AddSalonsComponent implements OnInit {
     }
   
     // for map
-    // mapReady(map: any) {
+    mapReady(map: any) {
   
-    //   map.setOptions({
-    //     zoomControl: "true",
-    //     zoomControlOptions: {
-    //       position: google.maps.ControlPosition.TOP_RIGHT
-    //     }
-    //   });
-    //   //this.loader = true;
-    //   map.addListener("dragend", () => {
+      map.setOptions({
+        zoomControl: "true",
+        zoomControlOptions: {
+          position: google.maps.ControlPosition.TOP_RIGHT
+        }
+      });
+      //this.loader = true;
+      map.addListener("dragend", () => {
    
-    //     // do something with centerLatitude/centerLongitude
-    //     //api call to load dynamic marker for your application
-    //     //this.loader = false;
-    //   });
-    // }
+        // do something with centerLatitude/centerLongitude
+        //api call to load dynamic marker for your application
+        //this.loader = false;
+      });
+    }
   
   
-    // private setCurrentLocation() {
-    //   if ('geolocation' in navigator) {
-    //     navigator.geolocation.getCurrentPosition((position) => {
-    //       this.addressLat = position.coords.latitude;
-    //       this.addressLong = position.coords.longitude;
-    //       this.zoom = 14;
+    private setCurrentLocation() {
+      if ('geolocation' in navigator) {
+        navigator.geolocation.getCurrentPosition((position) => {
+          this.addressLat = position.coords.latitude;
+          this.addressLong = position.coords.longitude;
+          this.zoom = 14;
   
-    //       this.getAddress(this.addressLat, this.addressLong);
-    //     });
-    //   }
-    // }
+          this.getAddress(this.addressLat, this.addressLong);
+        });
+      }
+    }
   
   
   
-    // getAddress(addressLat: number, addressLong: number) {
-    //   this.geoCoder.geocode({ 'location': { lat: addressLat, lng: addressLong } }, (results, status) => {
+    getAddress(addressLat: number, addressLong: number) {
+      this.geoCoder.geocode({ 'location': { lat: addressLat, lng: addressLong } }, (results, status) => {
   
-    //     if (status === 'OK') {
-    //       if (results[0]) {
+        if (status === 'OK') {
+          if (results[0]) {
   
-    //         this.zoom = 12;
+            this.zoom = 12;
   
-    //         this.addressStreet = results[0].formatted_address;
-    //         this.addressCountry = results[13].formatted_address;
+            this.addressStreet = results[0]?.formatted_address;
+            this.addressCountry = results[13]?.formatted_address;
   
-    //       } else {
+          } else {
   
-    //         window.alert('No results found');
-    //       }
-    //     } else {
-    //       window.alert('Geocoder failed due to: ' + status);
-    //     }
-    //   });
-    // }
+            window.alert('No results found');
+          }
+        } else {
+          window.alert('Geocoder failed due to: ' + status);
+        }
+      });
+    }
   
     /** Vendor Form **/
     vendorForm() {
@@ -176,12 +178,13 @@ export class AddSalonsComponent implements OnInit {
         gender: ['', [Validators.required]],
         phoneNumber: ['', [Validators.required]],
         dialCode: ['', [Validators.required]],
+        deviceType:['laptop'],
         countryId: [101],
         stateId: ['', [Validators.required]],
         email: ['', [Validators.required, Validators.email]],
         membershipRecordId: [this.recordId],
   
-        shopDetail: this.formBuilder.array([
+        salonDetail: this.formBuilder.array([
           this.businessDetail(),
         ]),
   
@@ -212,14 +215,15 @@ export class AddSalonsComponent implements OnInit {
   
     businessDetail() {
       return this.formBuilder.group({
-        shopName: ['', [Validators.required]],
-        shopDescription: ['', [Validators.required]],
+        salonName: ['', [Validators.required]],
+        salonType: ['',[Validators.required]],
+        salonDescription: ['', [Validators.required]],
         gstnumber: ['', [Validators.required]],
         businessPAN: ['', [Validators.required]],
         city: ['', [Validators.required]],
         zip: ['', [Validators.required]],
         landmark: ['', [Validators.required]],
-        shopAddress: [null,],
+        salonAddress: [null,],
       });
     }
   
@@ -240,10 +244,8 @@ export class AddSalonsComponent implements OnInit {
     upiDetails() {
       return this.formBuilder.group({
         upiid: ['', [Validators.required]],
-        bankName: ['', [Validators.required]],
         accountHolderName: ['', [Validators.required]],
         isActive: [],
-        qrcode: []
       });
     }
   
@@ -270,8 +272,8 @@ export class AddSalonsComponent implements OnInit {
   
     /*** Form Validation ***/
   
-    get shopDetail(): FormArray {
-      return this.form.get('shopDetail') as FormArray;
+    get salonDetail(): FormArray {
+      return this.form.get('salonDetail') as FormArray;
     }
   
     get bankDetail(): FormArray {
@@ -359,14 +361,15 @@ export class AddSalonsComponent implements OnInit {
     }
   
   
-    /*** Post Vendor  ***/
+  
   
     postVendor() {
+      debugger
       this.submitted = false;
       if (this.form.invalid) {
         return;
       }
-  
+      debugger
       let checkStatus: any;
       if (this.isActive == true) {
         checkStatus = true;
@@ -381,6 +384,7 @@ export class AddSalonsComponent implements OnInit {
       let data1 = {
         status: checkStatus
       }
+      debugger
       if (this.vendorDetailPatch) {
         let payload = {
           email: this.form.value.email,
@@ -394,15 +398,16 @@ export class AddSalonsComponent implements OnInit {
           vendorId: this.vendorDetailPatch.vendorId,
           upiDetail: this.form.value.upiDetail,
   
-          shopDetail: [{
-            shopName: this.form.value.shopDetail[0]?.shopName,
-            shopDescription: this.form.value.shopDetail[0]?.shopDescription,
-            shopAddress: this.form.value.shopDetail[0]?.shopAddress,
-            landmark: this.form.value.shopDetail[0]?.landmark,
-            city: this.form.value.shopDetail[0]?.city,
-            zip: this.form.value.shopDetail[0]?.zip,
-            gstnumber: this.form.value.shopDetail[0]?.gstnumber,
-            businessPAN: this.form.value.shopDetail[0]?.businessPAN,
+          salonDetail: [{
+            salonName: this.form.value.salonDetail[0]?.salonName,
+            salonDescription: this.form.value.salonDetail[0]?.salonDescription,
+            salonType:this.form.value.salonDetail[0]?.salonType,
+            salonAddress: this.form.value.salonDetail[0]?.salonAddress,
+            landmark: this.form.value.salonDetail[0]?.landmark,
+            city: this.form.value.salonDetail[0]?.city,
+            zip: this.form.value.salonDetail[0]?.zip,
+            gstnumber: this.form.value.salonDetail[0]?.gstnumber,
+            businessPAN: this.form.value.salonDetail[0]?.businessPAN,
             shopId: this.shopDetailPatch[0]?.shopId,
           }],
   
@@ -415,7 +420,7 @@ export class AddSalonsComponent implements OnInit {
             bankId: this.bankDetailPatch[0]?.bankId,
           }],
           // upiDetail: [{
-          //   // upidetailId :this.form.value.upiDetail[0].upidetailId,
+          //    upidetailId :this.form.value.upiDetail[0].upidetailId,
           //   upiid: this.form.value.upiDetail.upiid,
           //   bankName: this.form.value.upiDetail.bankName,
           //   accountHolderName: this.form.value.upiDetail.accountHolderName,
@@ -427,8 +432,8 @@ export class AddSalonsComponent implements OnInit {
         this.contentService.editVendor(payload).subscribe(response => {
           if (response.isSuccess) {
             this.imageId = this.vendorDetailPatch.vendorId;
-            this.Shop = response.data.shopResponses;
-            this.ShopId = this.Shop[0];
+            this.Salon = response.data.salonResponses;
+            this.SalonId = this.Salon[0];
             this.upidetail = response.data.upiResponses;
             this.getItemById();
             this.ids = this.getItemById();
@@ -443,6 +448,7 @@ export class AddSalonsComponent implements OnInit {
           }
         });
       } else {
+        debugger
         this.spinner.show();
         let payload1 = {
           email: this.form.value.email,
@@ -455,17 +461,19 @@ export class AddSalonsComponent implements OnInit {
           stateId: this.form.value.stateId,
           membershipRecordId: this.recordId,
           upiDetail: this.form.value.upiDetail,
-          shopDetail: [{
-            shopName: this.form.value.shopDetail[0]?.shopName,
-            shopDescription: this.form.value.shopDetail[0]?.shopDescription,
-            // shopAddress: this.inputAddress,
-            landmark: this.form.value.shopDetail[0]?.landmark,
-            city: this.form.value.shopDetail[0]?.city,
-            zip: this.form.value.shopDetail[0]?.zip,
-            gstnumber: this.form.value.shopDetail[0]?.gstnumber,
-            businessPAN: this.form.value.shopDetail[0]?.businessPAN,
-            // addressLatitude: this.addressLat.toString(),
-            // addressLongitude: this.addressLong.toString(),
+          deviceType: this.form.value.deviceType,
+          salonDetail: [{
+            salonName: this.form.value.salonDetail[0]?.salonName,
+            salonDescription: this.form.value.salonDetail[0]?.salonDescription,
+            salonType:this.form.value.salonDetail[0]?.salonType,
+            salonAddress: this.inputAddress,
+            landmark: this.form.value.salonDetail[0]?.landmark,
+            city: this.form.value.salonDetail[0]?.city,
+            zip: this.form.value.salonDetail[0]?.zip,
+            gstnumber: this.form.value.salonDetail[0]?.gstnumber,
+            businessPAN: this.form.value.salonDetail[0]?.businessPAN,
+            addressLatitude: this.addressLat.toString(),
+           addressLongitude: this.addressLong.toString(),
           }],
           bankDetail: [{
             bankName: this.form.value.bankDetail[0]?.bankName,
@@ -484,12 +492,13 @@ export class AddSalonsComponent implements OnInit {
           // }]
   
         }
+        debugger
         this.contentService.addVendor(payload1).subscribe(response => {
           if (response.isSuccess) {
             this.spinner.hide();
             this.imageId = response.data.vendorId;
-            this.Shop = response.data.shopResponses;
-            this.ShopId = this.Shop[0];
+            this.Salon = response.data.shopResponses;
+            this.SalonId = this.Salon[0];
             this.upidetail = response.data.upiResponses;
             this.getItemById();
   
@@ -530,9 +539,9 @@ export class AddSalonsComponent implements OnInit {
   
     fileChangeEvents() {
       let formData = new FormData();
-      formData.append("ShopImage", this.imageFiles?.file);
-      formData.append("ShopId", this.ShopId.shopId);
-      this.contentService.shopImage(formData).subscribe(response => {
+      formData.append("SalonImage", this.imageFiles?.file);
+      formData.append("SalonId", this.SalonId.salonId);
+      this.contentService.salonImage(formData).subscribe(response => {
       });
     }
   

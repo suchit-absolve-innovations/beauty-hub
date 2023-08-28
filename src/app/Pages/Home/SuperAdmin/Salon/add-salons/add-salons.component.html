@@ -139,53 +139,79 @@
   
             <!-- end first form -->
   
-            <div class="vendor-form bg-white" formArrayName="shopDetail">
+            <div class="vendor-form bg-white" formArrayName="salonDetail">
   
                 <h3>Business Detail</h3><!-- Title Here -->
-                <div class="this_row" *ngFor="let item of shopDetail.controls;  let i = index;" [formGroupName]="i">
+                <div class="this_row" *ngFor="let item of salonDetail.controls;  let i = index;" [formGroupName]="i">
                     <div class="row">
                         <div class="col-lg-12 col-md-12 mb-20">
-                            <label>Shop Image</label><br>
+                            <label>Salon Image</label><br>
   
                         <input class="uploadFile img" name="bannerimage"   #Image type="file" (change)="handleFileInput($event)" />
                        
                        <!-- <label>{{imageUrl}}</label> -->
                         <label class="preview-butn" *ngIf="imageUrl"  data-toggle="modal" data-target="#myModal">preview</label>
                         </div>
-                        <div class="col-lg-12 col-md-12">
-                            <label>Shop name</label>
-                            <input type="text" class="control-form" formControlName="shopName" value="shopName">
+                        <!-- <div class="col-lg-12 col-md-12">
+                            <label>Salon name</label>
+                            <input type="text" class="control-form" formControlName="salonName" value="salon Name">
                             <label
-                                *ngIf="shopDetail.controls[i].get('shopName')?.errors?.['required'] && submitted != null && !submitted"
+                                *ngIf="salonDetail.controls[i].get('salonName')?.errors?.['required'] && submitted != null && !submitted"
                                 class="invalid-formdata">
-                                Shop name is required.
+                                Salon name is required.
                             </label>
   
+                        </div> -->
+
+
+
+                        <div class="col-lg-6 col-md-12">
+                            <label>Salon name</label>
+                            <input type="text" class="control-form" formControlName="salonName" value="salon Name">
+                            <label
+                                *ngIf="salonDetail.controls[i].get('salonName')?.errors?.['required'] && submitted != null && !submitted"
+                                class="invalid-formdata">
+                                Salon name is required.
+                            </label>
                         </div>
   
+                        <div class="col-lg-6 col-md-12">
+                            <label>Select Type</label>
+                            <select type="text" class="control-form" formControlName="salonType">
+                                <option>Male</option>
+                                <option>Female</option>
+                                <option>Unisex</option>
+                            </select>
+                        </div>
+
+
+  
                         <div class="col-lg-12 col-md-12">
-                            <label>Shop Description</label>
-                            <textarea type="text" class="control-form" formControlName="shopDescription"></textarea>
+                            <label>Salon Description</label>
+                            <textarea type="text" class="control-form" formControlName="salonDescription"></textarea>
                             <label
-                                *ngIf="shopDetail.controls[i].get('shopDescription')?.errors?.['required'] && submitted != null && !submitted"
+                                *ngIf="salonDetail.controls[i].get('salonDescription')?.errors?.['required'] && submitted != null && !submitted"
                                 class="invalid-formdata">
                                 Description is required.
                             </label>
                         </div>
   
                         <div class="col-lg-12 col-md-12">
-                          <h5 class="mb-3">Shop Address</h5>
+                          <h5 class="mb-3">Salon Address</h5>
                           <input type="text" class="form-control" (keydown.enter)="$event.preventDefault()"
                             placeholder="Search Nearest Location" autocorrect="on" autocapitalize="off" spellcheck="off"
                             type="text"  [(ngModel)]="addressStreet" [ngModelOptions]="{standalone: true}" #search>
           
                     
                         <br>
-                        <!-- <agm-map (mapReady)="mapReady($event)" style="height:240px" [zoom]="zoom" [latitude]="addressLat"
+                        <agm-map (mapReady)="mapReady($event)" style="height:240px" [zoom]="zoom" [latitude]="addressLat"
                           [longitude]="addressLong">
                           <agm-marker [latitude]="addressLat" [longitude]="addressLong" [markerDraggable]="true"></agm-marker>
           
-                        </agm-map> -->
+                        </agm-map>
+                        <!-- <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
+                            <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+                          </agm-map> -->
           
           
           
@@ -197,7 +223,7 @@
                             <label>Landmark</label>
                             <input type="text" class="control-form" formControlName="landmark">
                             <label
-                                *ngIf="shopDetail.controls[i].get('landmark')?.errors?.['required'] && submitted != null && !submitted"
+                                *ngIf="salonDetail.controls[i].get('landmark')?.errors?.['required'] && submitted != null && !submitted"
                                 class="invalid-formdata">
                                 Landmark is required.
                             </label>
@@ -207,7 +233,7 @@
                             <label>City</label>
                             <input type="text" class="control-form" formControlName="city">
                             <label
-                                *ngIf="shopDetail.controls[i].get('city')?.errors?.['required'] && submitted != null && !submitted"
+                                *ngIf="salonDetail.controls[i].get('city')?.errors?.['required'] && submitted != null && !submitted"
                                 class="invalid-formdata">
                                 City is required.
                             </label>
@@ -217,7 +243,7 @@
                             <label>Zip Code</label>
                             <input type="text" class="control-form" formControlName="zip" numbersOnly>
                             <label
-                                *ngIf="shopDetail.controls[i].get('zip')?.errors?.['required'] && submitted != null && !submitted"
+                                *ngIf="salonDetail.controls[i].get('zip')?.errors?.['required'] && submitted != null && !submitted"
                                 class="invalid-formdata">
                                 Zip code is required.
                             </label>
@@ -226,7 +252,7 @@
                         <div class="col-lg-3 col-md-12">
                             <label>GST No</label>
                             <input type="text" class="control-form" formControlName="gstnumber" >
-                            <label *ngIf="shopDetail.controls[i].get('gstnumber')?.errors?.['required'] && submitted != null && !submitted"
+                            <label *ngIf="salonDetail.controls[i].get('gstnumber')?.errors?.['required'] && submitted != null && !submitted"
                             class="invalid-formdata">
                                 Please enter your valid GST number.
                             </label>
@@ -236,7 +262,7 @@
                             <label>PAN</label>
                             <input type="text" class="control-form" formControlName="businessPAN">
                             <label
-                                *ngIf="shopDetail.controls[i].get('businessPAN')?.errors?.['required'] && submitted != null && !submitted"
+                                *ngIf="salonDetail.controls[i].get('businessPAN')?.errors?.['required'] && submitted != null && !submitted"
                                 class="invalid-formdata">
                                 Pan no is required.
                             </label>
@@ -336,12 +362,9 @@
                         </div>
                     </div>
                         <div  class="row" *ngFor="let item of List1().controls;  let i = index;" [formGroupName]="i">
-                        <div class="col-lg-5 col-md-12">
-                            <label>Bank Name </label>
-                            <input type="text" formControlName="bankName" class="control-form">
-                        </div>
+                  
   
-                        <div class="col-lg-5 col-md-12">
+                        <div class="col-lg-10 col-md-12">
                             <label>Account Holder Name</label>
                             <input type="text"formControlName="accountHolderName" class="control-form">
                         </div>

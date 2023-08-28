@@ -15,7 +15,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { AuthModule } from './Pages/Auth/auth.module';
 import { HomeModule } from './Pages/Home/home.module';
 import { NgxSpinnerModule } from 'ngx-spinner';
-
+import { AgmCoreModule } from '@agm/core';
 
 
 
@@ -39,6 +39,10 @@ import { NgxSpinnerModule } from 'ngx-spinner';
       positionClass: 'toast-bottom-right',
       preventDuplicates: true,
     }),
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyAqVkAIpWw38LEG9LghW1s0ZzSW-PUsjt0',
+      libraries: ['places']
+    })
   ],
   providers: [ DatePipe,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },],

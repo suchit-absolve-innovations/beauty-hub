@@ -290,6 +290,9 @@ debugger
         this.toaster.success(response.messages)
         // this.membershipRecordId = response.data.membershipRecordId
 
+        // this.router.navigateByUrl('/salon-list/buy-membership-plan/add-salon')
+         this.membershipRecordId = response.data.membershipRecordId
+         localStorage.setItem('membershipRecordId', this.membershipRecordId)
         this.router.navigateByUrl('/salon-list/buy-membership-plan/add-salon')
           .then(() => {
             window.location.reload();

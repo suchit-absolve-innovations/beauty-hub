@@ -20,6 +20,7 @@ import { SalonListComponent } from './SuperAdmin/Salon/salon-list/salon-list.com
 import { AddSalonsComponent } from './SuperAdmin/Salon/add-salons/add-salons.component';
 import { BuyMebershipPlanListComponent } from './SuperAdmin/Salon/buy-mebership-plan-list/buy-mebership-plan-list.component';
 import { SalonDetailComponent } from './SuperAdmin/Salon/salon-detail/salon-detail.component';
+import { AgmCoreModule } from '@agm/core';
 
 
 
@@ -55,6 +56,11 @@ import { SalonDetailComponent } from './SuperAdmin/Salon/salon-detail/salon-deta
     ReactiveFormsModule,
     NgxPaginationModule,
     Ng2SearchPipeModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyAqVkAIpWw38LEG9LghW1s0ZzSW-PUsjt0',
+      libraries: ['places']
+    })
+
  
   ]
 })
