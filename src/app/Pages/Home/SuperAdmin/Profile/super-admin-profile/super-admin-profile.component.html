@@ -137,27 +137,27 @@
                         </div>
                     </div>
                     <div class="row" *ngFor="let item of List1().controls;  let i = index;" [formGroupName]="i">
-                        <div class="col-lg-5 col-md-12">
+                        <div class="col-lg-5 col-md-12" >
                             <label>UPI Id </label>
                             <input type="text" class="control-form" numberOnly formControlName="upiid">
                         </div>
 
-                        <div class="col-lg-5 col-md-12">
+                        <div class="col-lg-5 col-md-12" >
                             <label>Account Holder Name</label>
                             <input type="text" class="control-form" formControlName="accountHolderName">
                         </div>
-                        <div class="col-lg-2">
+                        <div class="col-lg-2" >
                             <a class="trash-butn" (click)="deleteHomeData(item,i)"><i class="fa fa-trash"></i></a>
                         </div>
 
                        
                         <div class="col-lg-6 col-md-12">
-                            <label>QR Image</label><br>
+                            <label>QR Image</label>
                             <!-- <input name="bannerimage" type="file" class="uploadFile img" formControlName="qrcode" #Image
                                 (change)="handleQrFileInput($event)"> -->
                             <label data-toggle="modal" data-target="#vendorpreview" class="preview-butn">preview</label>
                         </div>
-                        <div class="col-lg-6 col-md-12 mt-3">
+                        <div class="col-lg-6 col-md-12">
                             <label class="mr-3">Status</label>
                             <label class="switch">
                                 <input type="checkbox" formControlName="isActive" (change)='checkStatus($event)'>
