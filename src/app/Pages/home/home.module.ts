@@ -21,6 +21,8 @@ import { AddSalonsComponent } from './SuperAdmin/Salon/add-salons/add-salons.com
 import { BuyMebershipPlanListComponent } from './SuperAdmin/Salon/buy-mebership-plan-list/buy-mebership-plan-list.component';
 import { SalonDetailComponent } from './SuperAdmin/Salon/salon-detail/salon-detail.component';
 import { QRCodeModule } from 'angularx-qrcode';
+import { AgmCoreModule } from '@agm/core';
+
 
 
 
@@ -56,8 +58,13 @@ import { QRCodeModule } from 'angularx-qrcode';
     ReactiveFormsModule,
     NgxPaginationModule,
     Ng2SearchPipeModule,
-    QRCodeModule
+    QRCodeModule,
     
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyAqVkAIpWw38LEG9LghW1s0ZzSW-PUsjt0',
+      libraries: ['places']
+    })
+
  
   ]
 })

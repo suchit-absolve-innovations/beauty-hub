@@ -54,7 +54,7 @@ export enum ApiEndPoint {
     updateProduct = "api/Product/UpdateProduct",
     productImage = "api/Upload/UploadProductImage",
     base64 = "api/Upload/GetProductImageInBase64",
-    shopImage = "api/Upload/UploadShopImage",
+    salonImage = "api/Upload/UploadaSlonImage",
     getShopBannerList = "api/Vendor/GetShopBannerList",
     deleteShopBanners = "api/Vendor/DeleteShopBanner",
     postStatus = "api/Product/SetProductStatus",
