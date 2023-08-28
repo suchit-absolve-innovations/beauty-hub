@@ -59,8 +59,7 @@ import { AddSalonsComponent } from './SuperAdmin/Salon/add-salons/add-salons.com
     ReactiveFormsModule,
     NgxPaginationModule,
     Ng2SearchPipeModule,
-    QRCodeModule,
-    
+    QRCodeModule,    
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAqVkAIpWw38LEG9LghW1s0ZzSW-PUsjt0',
       libraries: ['places']
