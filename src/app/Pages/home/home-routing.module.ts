@@ -36,7 +36,7 @@ const routes: Routes = [
      { path: 'super-Admin-Dashboard', component: SuperAdminDashboardComponent},     
      { path: 'salon-list', component: SalonListComponent},    
      { path: 'salon-list/buy-membership-plan/add-salon', component: AddSalonsComponent},
-     { path: 'salon-list/salon-detail',component:SalonDetailComponent},
+     { path: 'salon-list/salon-detail/:id/:id2',component:SalonDetailComponent},
      { path: 'admin-list', component: AdminListComponent},
      { path: 'admin-list/add-edit-admin',component: AddEditAdminComponent},
      { path: 'category-list', component: CategoryListComponent},

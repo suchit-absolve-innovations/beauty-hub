@@ -11,16 +11,10 @@
         </div> -->
 
         <div class="d-flex if_xs_btn mt-30">
-<<<<<<< Updated upstream:src/app/Pages/Home/SuperAdmin/Saolon/salon-list/salon-list.component.html
-            <input type="text" placeholder="Search Vendor" class="btn_border search_here" [(ngModel)]="searchText"
-                (click)="performSearch()">
-            <a class="btn_blue ml-auto" [routerLink]="['/buy-membership-plan']">Add Salon</a>
-=======
             <input type="text" placeholder="Search Salon" class="btn_border search_here" style="width:25%!important;">
             <!-- <a class="btn_blue ml-auto" data-toggle="modal" data-target="#myModalpurchase-membership">Add Salon</a> -->
 
             <a [routerLink]="['/salon-list/buy-membership-plan']" class="btn_blue ml-auto">Add Salon </a>
->>>>>>> Stashed changes:src/app/Pages/Home/SuperAdmin/Salon/salon-list/salon-list.component.html
         </div>
 
         <div class="table-responsive">
@@ -59,7 +53,7 @@
                         <!-- <p>{{item?.statusDisplay}}</p> -->
                     </td>
                     <td>
-                        <a [routerLink]="['/super-vendor-list/super-vendor-detail/',  item?.vendorId, item?.shopId]"><i
+                        <a [routerLink]="['/salon-list/salon-detail/',  item?.vendorId , item.salonId]"><i
                                 class="fa fa-eye"></i></a>
                         <a (click)="editPlan(item)"><i class="fa fa-pencil"></i></a>
                         <a data-toggle="modal" data-target="#list-cross-mess" (click)="delet(item)">

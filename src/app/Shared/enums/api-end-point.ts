@@ -20,7 +20,7 @@ export enum ApiEndPoint {
     addVendor = "api/Admin/AddVendor",
     UpdateVendor = "api/Admin/UpdateVendor",
     vendorList = "api/Admin/GetVendorList",
-    vendorDetail = "api/Admin/GetVendorDetail",
+ 
     vendorStatus = "api/Admin/SetVendorStatus",
     AdminUserList = "api/Admin/GetAdminUserList",
     AdminUserDetail = "api/Admin/GetAdminUserDetail",
@@ -93,6 +93,7 @@ export enum ApiEndPoint {
   superProfileDetail = "api/Admin/GetSuperAdminDetail",
   postSuperAdmimProfile = "/api/Admin/UpdateSuperAdminDetail",
   buyMemberShipPlan = "api/Vendor/buyMembershipPlan",
+  vendorDetail = "api/Admin/GetVendorDetail",
 
 
 

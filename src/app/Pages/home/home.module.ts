@@ -20,6 +20,7 @@ import { SalonListComponent } from './SuperAdmin/Salon/salon-list/salon-list.com
 import { AddSalonsComponent } from './SuperAdmin/Salon/add-salons/add-salons.component';
 import { BuyMebershipPlanListComponent } from './SuperAdmin/Salon/buy-mebership-plan-list/buy-mebership-plan-list.component';
 import { SalonDetailComponent } from './SuperAdmin/Salon/salon-detail/salon-detail.component';
+import { QRCodeModule } from 'angularx-qrcode';
 
 
 
@@ -55,6 +56,8 @@ import { SalonDetailComponent } from './SuperAdmin/Salon/salon-detail/salon-deta
     ReactiveFormsModule,
     NgxPaginationModule,
     Ng2SearchPipeModule,
+    QRCodeModule
+    
  
   ]
 })
