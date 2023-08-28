@@ -16,12 +16,13 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { MembershipListComponent } from './SuperAdmin/Membership/membership-list/membership-list.component';
 import { MembershipAddEditComponent } from './SuperAdmin/Membership/membership-add-edit/membership-add-edit.component';
 import { SuperAdminProfileComponent } from './SuperAdmin/Profile/super-admin-profile/super-admin-profile.component';
-import { SalonListComponent } from './SuperAdmin/Salon/salon-list/salon-list.component';
-import { AddSalonsComponent } from './SuperAdmin/Salon/add-salons/add-salons.component';
+
 import { BuyMebershipPlanListComponent } from './SuperAdmin/Salon/buy-mebership-plan-list/buy-mebership-plan-list.component';
 import { SalonDetailComponent } from './SuperAdmin/Salon/salon-detail/salon-detail.component';
 import { QRCodeModule } from 'angularx-qrcode';
 import { AgmCoreModule } from '@agm/core';
+import { SalonListComponent } from './SuperAdmin/Salon/salon-list/salon-list.component';
+import { AddSalonsComponent } from './SuperAdmin/Salon/add-salons/add-salons.component';
 
 
 

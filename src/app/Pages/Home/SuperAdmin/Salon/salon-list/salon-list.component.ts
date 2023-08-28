@@ -20,6 +20,7 @@ export class SalonListComponent implements OnInit {
   form!: FormGroup;
   // Get value to set list accept reject condition 
 
+  
    value = localStorage.getItem('user');
   vendorId: any;
   membershipRecordId: any;
