@@ -226,12 +226,7 @@ export class ContentService {
 
   
 
-  // Category Delete
 
-  mainCategoryDelete(MainProductCategoryId: any) {
-    return this.http.delete<any>(environment.apiUrl + ApiEndPoint.deleteMainCategory + '?MainProductCategoryId=' + MainProductCategoryId)
-
-  }
 
   // Sub Category Delete
 
@@ -704,5 +699,12 @@ planUpdate(data: any) {
   categoryDetail(mainCategoryId: any) {
     return this.http.get<any>(environment.apiUrl + ApiEndPoint.categoryDetail + '?mainCategoryId=' + mainCategoryId)
   }
+
+    // Category Delete
+
+    mainCategoryDelete(mainCategoryId: any) {
+      return this.http.delete<any>(environment.apiUrl + ApiEndPoint.deleteMainCategory + '?mainCategoryId=' + mainCategoryId)
+  
+    }
 
 }

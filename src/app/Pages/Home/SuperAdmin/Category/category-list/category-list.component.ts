@@ -33,7 +33,7 @@ export class CategoryListComponent implements OnInit {
     vendorDetail: any;
     shopId: any;
     categoryRequestList: any;
-    mainProductCategoryId: any;
+    mainCategoryId: any;
 
 
     form: any;
@@ -302,13 +302,13 @@ export class CategoryListComponent implements OnInit {
    
     delet(data:any){
       
-  this.mainProductCategoryId = data.mainProductCategoryId;
+  this.mainCategoryId = data.mainCategoryId;
   
    }
   
     deleteMainCategory() {
       this.spinner.show();
-      this.content.mainCategoryDelete(this.mainProductCategoryId).subscribe(response => {
+      this.content.mainCategoryDelete(this.mainCategoryId).subscribe(response => {
         if (response.isSuccess) {
           this.spinner.hide();
          //   this.ngZone.run(() => { this.getcategoryList(); })

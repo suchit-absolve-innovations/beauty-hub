@@ -7,7 +7,7 @@ import { BannerDetailComponent } from './SuperAdmin/Banners/banner-detail/banner
 import { SuperAdminDashboardComponent } from './SuperAdmin/SuperDashboard/super-admin-dashboard/super-admin-dashboard.component';
 import { AdminListComponent } from './SuperAdmin/Admin/admin-list/admin-list.component';
 import { AddEditAdminComponent } from './SuperAdmin/Admin/add-edit-admin/add-edit-admin.component';
-import { CategoryListComponent } from './SuperAdmin/Category/category-list/category-list.component';
+
 import { AddEditCategoryComponent } from './SuperAdmin/Category/add-edit-category/add-edit-category.component';
 import { BannerListComponent } from './SuperAdmin/Banners/banner-list/banner-list.component';
 import { AddEditBannerComponent } from './SuperAdmin/Banners/add-edit-banner/add-edit-banner.component';
@@ -22,6 +22,7 @@ import { SubCategoryListComponent } from './SuperAdmin/Category/sub-category-lis
 import { AddEditSubCategoryComponent } from './SuperAdmin/Category/sub-category-list/add-edit-sub-category/add-edit-sub-category.component';
 import { AddEditSubSubCategoryComponent } from './SuperAdmin/Category/sub-sub-category-list/add-edit-sub-sub-category/add-edit-sub-sub-category.component';
 import { SubSubCategoryListComponent } from './SuperAdmin/Category/sub-sub-category-list/sub-sub-category-list.component';
+import { CategoryListComponent } from './SuperAdmin/Category/category-list/category-list.component';
 
 
 

@@ -37,7 +37,7 @@ export enum ApiEndPoint {
    
   
    
-    deleteMainCategory = "api/Category/DeleteProductCategory",
+    
     deleteSubCategory = "api/Category/DeleteProductCategory",
     addBrand = "api/Brand/AddBrand",
     updateBrand = "api/Brand/UpdateBrand",
@@ -98,5 +98,6 @@ export enum ApiEndPoint {
   addCategory = "api/Category/AddCategory",
   categoryDetail = "api/Category/GetCategoryDetail",
   updateCategory = "api/Category/UpdateCategory",
+  deleteMainCategory = "api/Category/DeleteCategory",
 
 }
