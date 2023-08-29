@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { HomeRoutingModule } from './home-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SuperAdminDashboardComponent } from './SuperAdmin/SuperDashboard/super-admin-dashboard/super-admin-dashboard.component';
@@ -23,6 +23,11 @@ import { QRCodeModule } from 'angularx-qrcode';
 import { AgmCoreModule } from '@agm/core';
 import { SalonListComponent } from './SuperAdmin/Salon/salon-list/salon-list.component';
 import { AddSalonsComponent } from './SuperAdmin/Salon/add-salons/add-salons.component';
+import { CommonModule } from '@angular/common';
+import { SubCategoryListComponent } from './SuperAdmin/Category/sub-category-list/sub-category-list.component';
+import { AddEditSubCategoryComponent } from './SuperAdmin/Category/sub-category-list/add-edit-sub-category/add-edit-sub-category.component';
+import { SubSubCategoryListComponent } from './SuperAdmin/Category/sub-sub-category-list/sub-sub-category-list.component';
+import { AddEditSubSubCategoryComponent } from './SuperAdmin/Category/sub-sub-category-list/add-edit-sub-sub-category/add-edit-sub-sub-category.component';
 
 
 
@@ -50,6 +55,10 @@ import { AddSalonsComponent } from './SuperAdmin/Salon/add-salons/add-salons.com
    SuperAdminProfileComponent,
    BuyMebershipPlanListComponent,
    SalonDetailComponent,
+   SubCategoryListComponent,
+   AddEditSubCategoryComponent,
+   SubSubCategoryListComponent,
+   AddEditSubSubCategoryComponent,
 
   ],
   imports: [

@@ -64,7 +64,8 @@ export class CategoryListComponent implements OnInit {
       this.rootUrl = environment.rootPathUrl;
       this.getvendorDetail();
       this.getProductCategoryRequestList();
-      this.getList();
+      // this.getList();
+      this.getsuperlist();
   }
   
   switchToTab(tabId: string) {
@@ -190,22 +191,23 @@ export class CategoryListComponent implements OnInit {
   
     // check api for list
   
-    getList(){
+    // getList(){
   
-      if(this.login == 'SuperAdmin'){
-        this.getsuperlist();
-      } else if (this.login == 'Admin'){
-        this.getsuperlist();
-      } else {
-        this.getcategoryList();
-      }
+    //   if(this.login == 'SuperAdmin'){
+    //     this.getsuperlist();
+    //   } else if (this.login == 'Admin'){
+    //     this.getsuperlist();
+    //   } else {
+    //     this.getcategoryList();
+    //   }
   
-    }
+    // }
   
     /*** Category List ***/
   
     getsuperlist(){
-      //  this.spinner.show();
+       this.spinner.show();
+       this.deleteMainCategory
       this.content.getcategory().subscribe(response => {
         if (response.isSuccess) {
           this.categoryList = response.data;
@@ -215,16 +217,16 @@ export class CategoryListComponent implements OnInit {
       });
     }
   
-    getcategoryList(){
-    // this.spinner.show();
-      this.content.getcategoryVendor(this.shopId).subscribe(response => {
-        if (response.isSuccess) {
-          this.categoryList = response.data;
+    // getcategoryList(){
+    // // this.spinner.show();
+    //   this.content.getcategoryVendor(this.shopId).subscribe(response => {
+    //     if (response.isSuccess) {
+    //       this.categoryList = response.data;
         
-        //  this.spinner.hide();
-        }
-      });
-    }
+    //     //  this.spinner.hide();
+    //     }
+    //   });
+    // }
   
     // Product Category Requests List
     getProductCategoryRequestList(){
@@ -325,7 +327,7 @@ export class CategoryListComponent implements OnInit {
            this.vendorDetail = response.data
           this.shopId = this.vendorDetail.shopResponses[0]?.shopId
       
-           this.getList();
+          //  this.getList();
           // this.bankDetail = this.vendorDetail.bankResponses
         }
         this.spinner.hide()

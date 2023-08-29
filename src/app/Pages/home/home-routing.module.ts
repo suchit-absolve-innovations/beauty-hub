@@ -18,6 +18,10 @@ import { SalonListComponent } from './SuperAdmin/Salon/salon-list/salon-list.com
 import { AddSalonsComponent } from './SuperAdmin/Salon/add-salons/add-salons.component';
 import { SalonDetailComponent } from './SuperAdmin/Salon/salon-detail/salon-detail.component';
 import { BuyMebershipPlanListComponent } from './SuperAdmin/Salon/buy-mebership-plan-list/buy-mebership-plan-list.component';
+import { SubCategoryListComponent } from './SuperAdmin/Category/sub-category-list/sub-category-list.component';
+import { AddEditSubCategoryComponent } from './SuperAdmin/Category/sub-category-list/add-edit-sub-category/add-edit-sub-category.component';
+import { AddEditSubSubCategoryComponent } from './SuperAdmin/Category/sub-sub-category-list/add-edit-sub-sub-category/add-edit-sub-sub-category.component';
+import { SubSubCategoryListComponent } from './SuperAdmin/Category/sub-sub-category-list/sub-sub-category-list.component';
 
 
 
@@ -41,6 +45,10 @@ const routes: Routes = [
      { path: 'admin-list/add-edit-admin',component: AddEditAdminComponent},
      { path: 'category-list', component: CategoryListComponent},
      { path: 'category-list/add-edit-category', component: AddEditCategoryComponent},
+     { path: 'category-list/sub-category-list',component:SubCategoryListComponent},
+     { path: 'category-list/sub-category-list/addEdit-sub-category',component:AddEditSubCategoryComponent},
+     { path: 'category-list/sub-category-list/subSub-category-list',component:SubSubCategoryListComponent},
+     { path: 'category-list/sub-category-list/subSub-category-list/AddEdit-subSub-Category',component:AddEditSubSubCategoryComponent},
      { path: 'banner-list', component: BannerListComponent},
      { path: 'banner-list/add-edit-banner', component: AddEditBannerComponent},
      { path: 'banner-list/banner-detail/:id', component: BannerDetailComponent},
@@ -48,6 +56,7 @@ const routes: Routes = [
      { path: 'plan-list/add-edit-plan',component: MembershipAddEditComponent},
      { path: 'super-admin-profile',component: SuperAdminProfileComponent},
      { path: 'salon-list/buy-membership-plan',component: BuyMebershipPlanListComponent},
+    
      
 
     ]

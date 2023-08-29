@@ -441,7 +441,7 @@ export class AddSalonsComponent implements OnInit {
             this.fileChangeEvents();
             this.fileQrChangeEvents();
             this.toasterService.success(response.messages);
-            this.router.navigateByUrl('/distributor-vendor-list');
+            this.router.navigateByUrl('/salon-list');
           } else {
             this.spinner.hide();
             this.toasterService.error(response.messages);
@@ -507,7 +507,7 @@ export class AddSalonsComponent implements OnInit {
             this.fileChangeEvents();
             this.fileQrChangeEvents();
             this.toasterService.success(response.messages);
-            this.router.navigateByUrl('/distributor-vendor-list');
+            this.router.navigateByUrl('/salon-list');
           } else {
             this.spinner.hide();
             this.toasterService.error(response.messages);
@@ -640,27 +640,29 @@ export class AddSalonsComponent implements OnInit {
       }
     }
   
-    // edit vendor
-  
-    // Vendor detail 
+
+
     getVendorDetail(id: string) {
       // this.spinner.show();
+      debugger
       this.contentService.getVendorDetail(id).subscribe(response => {
         if (response.isSuccess) {
           this.spinner.hide();
           this.clearFormArray(this.List1());
           this.vendorDetailPatch = response.data
+          console.log(this.vendorDetailPatch)
           this.imageId = response.data.vendorId
-          this.shopDetailPatch = this.vendorDetailPatch.shopResponses
+          this.shopDetailPatch = this.vendorDetailPatch.salonResponses
           this.bankDetailPatch = this.vendorDetailPatch.bankResponses
           this.upiDetailPatch = this.vendorDetailPatch.upiResponses
           //  this.upidetailIds =this.vendorDetailPatch.upiResponses.upidetailId
           this.editImages = this.rootUrl + this.vendorDetailPatch?.profilePic;
-          this.imageUrl = this.rootUrl + this.shopDetailPatch[0]?.shopImage
+          this.imageUrl = this.rootUrl + this.shopDetailPatch[0]?.salonImage
           this.getCountry();
           this.patchShopDetail();
           this.patchBankDetail();
           // this.patchUpiDetail();
+          debugger
           this.form.patchValue({
             firstName: this.vendorDetailPatch.firstName,
             lastName: this.vendorDetailPatch.lastName,
@@ -694,10 +696,11 @@ export class AddSalonsComponent implements OnInit {
   
     patchShopDetail() {
       var data = {
-        shopDetail: [{
-          shopId: this.shopDetailPatch[0]?.shopId,
-          shopName: this.shopDetailPatch[0]?.shopName,
-          shopDescription: this.shopDetailPatch[0]?.shopDescription,
+        salonDetail: [{
+          salonId: this.shopDetailPatch[0]?.salonId,
+          salonName: this.shopDetailPatch[0]?.salonName,
+          salonType: this.shopDetailPatch[0]?.salonType,
+          salonDescription: this.shopDetailPatch[0]?.salonDescription,
           shopAddress: this.shopDetailPatch[0]?.shopAddress,
           landmark: this.shopDetailPatch[0]?.landmark,
           city: this.shopDetailPatch[0]?.city,

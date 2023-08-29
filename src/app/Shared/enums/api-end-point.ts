@@ -28,13 +28,13 @@ export enum ApiEndPoint {
     UpdateAdminUser = "api/Admin/UpdateAdminUser",
     deleteVendor = "api/Admin/DeleteVendor",
     deleteAdminUser = "api/Admin/DeleteAdminUser",
-    getcategoryList = "api/Category/GetProductCategoryList",
+   
     getcategoryListSuper = "api/Vendor/GetVendorProductCategoryList",
     getcategoryVendor = "/api/Vendor/GetVendorProductCategoryList",
     getProductCategoryRequestList = "api/Category/GetProductCategoryRequests",
     acceptRejectCategory = "/api/Category/SetCategoryStatus",
     categoryStatus = "api/Vendor/SetVendorCategoryStatus",
-    addCategory = "api/Category/AddProductCategory",
+   
     updateCategory = "api/Category/UpdateProductCategory",
     categoryDetail = "api/Category/GetProductCategoryDetail",
     deleteMainCategory = "api/Category/DeleteProductCategory",
@@ -94,6 +94,8 @@ export enum ApiEndPoint {
   postSuperAdmimProfile = "/api/Admin/UpdateSuperAdminDetail",
   buyMemberShipPlan = "api/Vendor/buyMembershipPlan",
   vendorDetail = "api/Admin/GetVendorDetail",
+  getcategoryList = "api/Category/GetCategoryList",
+  addCategory = "api/Category/AddCategory",
 
 
 
