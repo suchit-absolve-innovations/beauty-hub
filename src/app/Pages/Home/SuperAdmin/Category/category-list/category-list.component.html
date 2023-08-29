@@ -14,6 +14,7 @@
             <div class="d-flex if_xs_btn mt-30">
                 <input type="text" placeholder="Search Category" class="btn_border search_here" [(ngModel)]="searchText"
                     (click)="performSearch()">
+                    <a data-toggle="modal" data-target="#myModalpurchase-membership" class="btn_blue ml-3 mb-0">Filter</a>
                 <a [routerLink]="['/category-list/add-edit-category']" class="btn_blue ml-auto">Add New Category</a>
             </div>
 
@@ -188,6 +189,7 @@
             <div class="d-flex if_xs_btn mt-30">
                 <input type="text" placeholder="Search Category" class="btn_border search_here" [(ngModel)]="searchText"
                     (click)="performSearch()">
+                    <a data-toggle="modal" data-target="#myModalpurchase-membership" class="btn_blue ml-3 mb-0">Filter</a>
                 <a [routerLink]="['/category-list/add-edit-category']" class="btn_blue ml-auto">Add New Category</a>
             </div>
             <!-- <ul class="nav nav-pills nav-justified mb-5 " id="pills-tab" role="tablist">
@@ -222,8 +224,9 @@
 
                             <tr>
                                 <!-- <th>Serial No.</th> -->
-                                <th>Category Name</th>
+                                <th>Category Name</th>                               
                                 <th>Category Image</th>
+                                <th>Category Type</th>
                                 <th>Date</th>
                                 <th>Action</th>
                             </tr>
@@ -234,6 +237,9 @@
                                 </td>
                                 <td class="profile"><img [src]="rootUrl + item?.categoryImage" class="img-responsive">
                                 </td>
+                                <td *ngIf="item?.categoryType == 1">Male</td>
+                                <td *ngIf="item?.categoryType == 2">Female</td>
+                                <td *ngIf="item?.categoryType == 3">Male & Female</td>
                                 <td>{{item?.createDate}}</td>
 
                                 <td>
@@ -323,8 +329,8 @@
                                 <td>
                                     <span *ngIf="item?.categoryStatus == 2" class="td-span">Rejected</span>
                                     <div *ngIf="item?.categoryStatus == 0">
-                                        <a (click)="acceptCategory(item)" class="border-btn greenbutton">Accept</a>
-                                        <a (click)="rejectCategory(item)" class="btn_blue redbutton">Reject</a>
+                                        <!-- <a (click)="acceptCategory(item)" class="border-btn greenbutton">Accept</a>
+                                        <a (click)="rejectCategory(item)" class="btn_blue redbutton">Reject</a> -->
                                     </div>
                                 </td>
                                 <td>
@@ -385,6 +391,44 @@
 
                 </div>
             </div>
+
+                <!-- modal -->
+
+<div class="modal fade" id="myModalpurchase-membership" tabindex="-1" role="dialog"
+aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+<div class="modal-dialog max_sf modal-dialog-centered" role="document"
+    style="border-radius:15px; overflow:hidden; border:none;">
+    <div class="modal-content for-payment popup_advance">
+        <div class="modal-header">
+            <h5 class="modal-title">Apply Filter</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <form [formGroup]="form">
+            <div class="modal-body vendor-form pb-0 ">
+                <div class="">
+                    <label>Select Filter</label>
+                    <select type="text" class="control-form mb-0 btn_border" formControlName="CategoryType">
+                        <!-- <option value="">Select </option> -->
+                        <option value="0" >All</option>
+                        <option value="1">Male</option>
+                        <option value="2">Female</option>
+                        <option value="3">Male & Female</option>
+                    </select>
+                </div>
+            </div>
+        </form>
+        <div class="modal-footer">
+            <a type="button" class=" border-btn cancelinfilter" data-dismiss="modal"
+                (click)="backClickedreload()">Reset</a>
+            <a type="button" class=" btn_blue" (click)="getCategoryListFilter()" >Apply</a>
+        </div>
+
+    </div>
+</div>
+</div>
+
 
         </div>
 

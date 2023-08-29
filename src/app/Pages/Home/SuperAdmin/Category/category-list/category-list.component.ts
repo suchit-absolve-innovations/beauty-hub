@@ -4,6 +4,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ContentService } from 'src/app/Shared/service/content.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-category-list',
@@ -33,12 +34,16 @@ export class CategoryListComponent implements OnInit {
     shopId: any;
     categoryRequestList: any;
     mainProductCategoryId: any;
+
+
+    form: any;
     constructor(private toaster: ToastrService,
       private spinner: NgxSpinnerService,
       private content: ContentService,
       private router: Router,
       private ngZone: NgZone,
-      private route: ActivatedRoute,) {
+      private route: ActivatedRoute,
+      private formBuilder: FormBuilder,) {
           // Get the initial active tab and pagination values from the query parameters
           const queryParams = this.route.snapshot.queryParams;
           this.activeTab = queryParams['tab'] || 'pills-categorylist';
@@ -50,10 +55,7 @@ export class CategoryListComponent implements OnInit {
        }
   
     ngOnInit(): void {
-      // this.route.queryParams.subscribe(params => {
-      //   this.page = +params['page'] || 0; // Use the 'page' query parameter value, or default to 1
-      // });
-      
+ 
         // Check if the active tab is not set in the query parameters
         if (!this.activeTab) {
           // Set the default active tab when the page is initially loaded
@@ -62,10 +64,11 @@ export class CategoryListComponent implements OnInit {
           this.updateQueryParams();
         }
       this.rootUrl = environment.rootPathUrl;
-      this.getvendorDetail();
-      this.getProductCategoryRequestList();
+      // this.getvendorDetail();
+      // this.getProductCategoryRequestList();
       // this.getList();
       this.getsuperlist();
+      this.filterListForm();
   }
   
   switchToTab(tabId: string) {
@@ -124,10 +127,7 @@ export class CategoryListComponent implements OnInit {
       queryParamsHandling: 'merge'
     });
   }
-  performSearch() {
-    
-    // Your existing search logic...
-  
+  performSearch() { 
     // Clear query parameters
     this.page1 = 1
     this.page2 = 1;
@@ -136,11 +136,7 @@ export class CategoryListComponent implements OnInit {
       queryParams: { page1: null , page2: null, page3: null , page4:null},
       queryParamsHandling: 'merge'
     });
-    
-      
-  
   }
-  
   
   
     checkActiveStatus(data: any) {
@@ -175,8 +171,7 @@ export class CategoryListComponent implements OnInit {
       });
     }
   
-    postUnActiveStatus(data: any) {
-      
+    postUnActiveStatus(data: any) {  
       let payload = {
         mainProductCategoryId: data,
         shopId:this.shopId,
@@ -185,7 +180,6 @@ export class CategoryListComponent implements OnInit {
       // this.spinner.show();
       this.content.statusPostCategory(payload).subscribe(response => {
         // this.spinner.hide();
-  
       });
     }
   
@@ -216,6 +210,30 @@ export class CategoryListComponent implements OnInit {
         }
       });
     }
+
+    filterListForm() {
+      this.form = this.formBuilder.group({
+        CategoryType: [''],
+      });
+    }
+    getCategoryListFilter() {
+      debugger
+      this.spinner.show();
+   
+      this.content.getFilterCategoryList(this.form.value.CategoryType).subscribe(response => {
+        if (response.isSuccess) {
+          this.categoryList = response.data;
+          this.spinner.hide();
+        }
+      });
+    }
+  
+    backClickedreload() {
+      this.router.navigateByUrl('/category-list')
+        .then(() => {
+          window.location.reload();
+        });
+    }
   
     // getcategoryList(){
     // // this.spinner.show();
@@ -229,58 +247,58 @@ export class CategoryListComponent implements OnInit {
     // }
   
     // Product Category Requests List
-    getProductCategoryRequestList(){
+    // getProductCategoryRequestList(){
       
-      this.content.productCategoryRequestList().subscribe(response => {
-        if (response.isSuccess) {
-          this.categoryRequestList = response.data;
+    //   this.content.productCategoryRequestList().subscribe(response => {
+    //     if (response.isSuccess) {
+    //       this.categoryRequestList = response.data;
         
-         this.spinner.hide();
-        }
-      });
-    }
+    //      this.spinner.hide();
+    //     }
+    //   });
+    // }
   
-    acceptCategory(data:any){
+    // acceptCategory(data:any){
       
-      let payload = {
-        mainProductCategoryId: data.mainProductCategoryId,
-        subProductCategoryId: data.subProductCategoryId,
-        subSubProductCategoryId: data.subSubProductCategoryId,
-        status: 1
-      }
-      // this.spinner.show();
-      this.content.acceptRejectCategorys(payload).subscribe(response => {
-        if (response.isSuccess) {
-          this.spinner.hide();
-          this.ngZone.run(() => { this.getProductCategoryRequestList() });
-          this.toaster.success(response.messages);
-        } else {
-          this.spinner.hide();
-          this.toaster.error(response.messages)
-        }
-      });
-    }
+    //   let payload = {
+    //     mainProductCategoryId: data.mainProductCategoryId,
+    //     subProductCategoryId: data.subProductCategoryId,
+    //     subSubProductCategoryId: data.subSubProductCategoryId,
+    //     status: 1
+    //   }
+    //   // this.spinner.show();
+    //   this.content.acceptRejectCategorys(payload).subscribe(response => {
+    //     if (response.isSuccess) {
+    //       this.spinner.hide();
+    //       this.ngZone.run(() => { this.getProductCategoryRequestList() });
+    //       this.toaster.success(response.messages);
+    //     } else {
+    //       this.spinner.hide();
+    //       this.toaster.error(response.messages)
+    //     }
+    //   });
+    // }
   
-   rejectCategory(data:any){
+  //  rejectCategory(data:any){
       
-      let payload = {
-        mainProductCategoryId: data.mainProductCategoryId,
-        subProductCategoryId: data.subProductCategoryId,
-        subSubProductCategoryId: data.subSubProductCategoryId,
-        status: 2
-      }
-      // this.spinner.show();
-      this.content.acceptRejectCategorys(payload).subscribe(response => {
-        if (response.isSuccess) {
-          this.spinner.hide();
-          this.ngZone.run(() => { this.getProductCategoryRequestList() });
-          this.toaster.success(response.messages);
-        } else {
-          this.spinner.hide();
-          this.toaster.error(response.messages)
-        }
-      });
-    }
+  //     let payload = {
+  //       mainProductCategoryId: data.mainProductCategoryId,
+  //       subProductCategoryId: data.subProductCategoryId,
+  //       subSubProductCategoryId: data.subSubProductCategoryId,
+  //       status: 2
+  //     }
+  //     // this.spinner.show();
+  //     this.content.acceptRejectCategorys(payload).subscribe(response => {
+  //       if (response.isSuccess) {
+  //         this.spinner.hide();
+  //         this.ngZone.run(() => { this.getProductCategoryRequestList() });
+  //         this.toaster.success(response.messages);
+  //       } else {
+  //         this.spinner.hide();
+  //         this.toaster.error(response.messages)
+  //       }
+  //     });
+  //   }
    
     delet(data:any){
       
@@ -319,20 +337,22 @@ export class CategoryListComponent implements OnInit {
   
      /** Vendor Detail **/
   
-     getvendorDetail() {
+    //  getvendorDetail() {
   
-      // this.spinner.show();
-      this.content.getVendorDetail(this.vendorId).subscribe(response => {
-        if (response.isSuccess) {
-           this.vendorDetail = response.data
-          this.shopId = this.vendorDetail.shopResponses[0]?.shopId
+    //   // this.spinner.show();
+    //   this.content.getVendorDetail(this.vendorId).subscribe(response => {
+    //     if (response.isSuccess) {
+    //        this.vendorDetail = response.data
+    //       this.shopId = this.vendorDetail.shopResponses[0]?.shopId
       
-          //  this.getList();
-          // this.bankDetail = this.vendorDetail.bankResponses
-        }
-        this.spinner.hide()
-      })
-    }
+    //       //  this.getList();
+    //       // this.bankDetail = this.vendorDetail.bankResponses
+    //     }
+    //     this.spinner.hide()
+    //   })
+    // }
+   
+
   
   }
   

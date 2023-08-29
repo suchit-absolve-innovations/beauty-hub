@@ -702,4 +702,8 @@ planUpdate(data: any) {
     }));
   }
 
+  getFilterCategoryList(CategoryType:any){
+    return this.http.get<any>(environment.apiUrl + ApiEndPoint.getcategoryList + '?CategoryType=' + CategoryType)
+  }
+
 }
