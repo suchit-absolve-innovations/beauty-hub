@@ -29,7 +29,7 @@ export class SubCategoryListComponent implements OnInit {
   shopId: any;
   vendorId= localStorage.getItem('vendorId')
   MainCategoryId: any;
-  subProductCategoryId: any;
+  subCategoryId: any;
   form: any;
 
   constructor(
@@ -214,16 +214,16 @@ export class SubCategoryListComponent implements OnInit {
 
   delet(data:any){
     
-this.subProductCategoryId = data.subProductCategoryId;
+this.subCategoryId = data.subCategoryId;
 
   }
 
   deleteSubCategory() {
     this.spinner.show();
-    this.content.subCategoryDelete(this.subProductCategoryId).subscribe(response => {
+    this.content.subCategoryDelete(this.subCategoryId).subscribe(response => {
       if (response.isSuccess) {
         this.spinner.hide();
-        // this.ngZone.run(() => { this.getSubcategoryList(); })
+      window.location.reload();
         this.toaster.success(response.messages);
       } else {
         this.spinner.hide();

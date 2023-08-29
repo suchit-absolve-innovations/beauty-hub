@@ -54,6 +54,7 @@ export class AddEditSubCategoryComponent implements OnInit {
     this.form = this.formBuilder.group({
       categoryName: ['', [Validators.required]],
       categoryDescription: [''],
+      categoryType: ['']
    
     });
   }
@@ -70,28 +71,31 @@ export class AddEditSubCategoryComponent implements OnInit {
   }
 
   postCategory(){
+    debugger
     this.submitted = true;
     if (this.form.invalid) {
       return;
     }
     if (this.detail) { 
       let payload = {
-         subProductCategoryId: this.Id,
+         subCategoryId: this.Id2,
         categoryName: this.form.value.categoryName,
         categoryDescription: this.form.value.categoryDescription,
+        categoryType: this.form.value.categoryType
       }
       this.content.UpdateSubCategory(payload).subscribe(response => {
         this.subId = response.data.subProductCategoryId
-        this.fileChangeEvent();
+        // this.fileChangeEvent();
         this.afterResponse(response);
       });
 
     } else{
 
       let payload = {
-        mainProductCategoryId: this.Id2,
+        mainCategoryId: this.Id,
         categoryName: this.form.value.categoryName,
         categoryDescription: this.form.value.categoryDescription,
+        categoryType: this.form.value.categoryType
       
       }
       this.content.addSubCategory(payload).subscribe(response => {
@@ -104,12 +108,12 @@ export class AddEditSubCategoryComponent implements OnInit {
     }
  }
 
-    /*** for validation ***/
+   
     get f() {
       return this.form.controls;
     }
 
-// for status message
+
 afterResponse(response: any) {
 if (response && response.statusCode == 200) {
   if (response.isSuccess) {
@@ -135,12 +139,13 @@ showModal() {
  $('#myModal').modal('show');
 }
 
-  // Category Patch
+
 
   getCategoryDetail(){
+    debugger
   let payload = { 
-    MainProductCategoryId : this.Id2,
-    SubProductCategoryId : this.Id
+    mainCategoryId : this.Id,
+    subCategoryId : this.Id2
   }
   
     this.content.SubcategoryDetail(payload).subscribe( response => { 
@@ -151,6 +156,7 @@ showModal() {
         this.form.patchValue({
           categoryName: this.detail.categoryName,
           categoryDescription: this.detail.categoryDescription,
+          categoryType: this.detail.categoryType
         });
       }
 

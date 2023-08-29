@@ -188,11 +188,7 @@ export class ContentService {
   getFilterSubSubCategory(id: any) {
     return this.http.get<any>(environment.apiUrl + ApiEndPoint.productList + '?pageNumber=' + id.pageNumber + '&pageSize=' + id.pageSize + '&subSubProductCategoryId=' + id.subSubProductCategoryId)
   }
-  //  Add Sub Category
-  addSubCategory(data: any) {
-    return this.http.post<any>(environment.apiUrl + ApiEndPoint.addCategory, data)
 
-  }
 
   
   SubSubcategoryDetail(data: any) {
@@ -213,11 +209,7 @@ export class ContentService {
   }
 
 
-  // Sub  Category Detail
 
-  SubcategoryDetail(data: any) {
-    return this.http.get<any>(environment.apiUrl + ApiEndPoint.categoryDetail + '?MainProductCategoryId=' + data.MainProductCategoryId + '&SubProductCategoryId=' + data.SubProductCategoryId)
-  }
 
 
 
@@ -225,11 +217,7 @@ export class ContentService {
 
 
 
-  // Sub Category Delete
 
-  subCategoryDelete(SubProductCategoryId: any) {
-    return this.http.delete<any>(environment.apiUrl + ApiEndPoint.deleteSubCategory + '?SubProductCategoryId=' + SubProductCategoryId)
-  }
 
 
   SubSubCategorys(data: any) {
@@ -708,5 +696,23 @@ planUpdate(data: any) {
     debugger
     return this.http.get<any>(environment.apiUrl + ApiEndPoint.getcategoryList + '?MainCategoryId=' + MainCategoryId )
   }
+
+    //  Add Sub Category
+    addSubCategory(data: any) {
+      return this.http.post<any>(environment.apiUrl + ApiEndPoint.addCategory, data)
+  
+    }
+
+      // Sub  Category Detail
+
+  SubcategoryDetail(data: any) {
+    return this.http.get<any>(environment.apiUrl + ApiEndPoint.categoryDetail + '?mainCategoryId=' + data.mainCategoryId + '&SubCategoryId=' + data.subCategoryId)
+  }
+
+    // Sub Category Delete
+
+    subCategoryDelete(subCategoryId: any) {
+      return this.http.delete<any>(environment.apiUrl + ApiEndPoint.deleteSubCategory + '?subCategoryId=' + subCategoryId)
+    }
 
 }
