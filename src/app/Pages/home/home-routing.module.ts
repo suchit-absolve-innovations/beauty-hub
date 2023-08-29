@@ -47,6 +47,7 @@ const routes: Routes = [
      { path: 'category-list/add-edit-category', component: AddEditCategoryComponent},
      { path: 'category-list/sub-category-list',component:SubCategoryListComponent},
      { path: 'category-list/sub-category-list/addEdit-sub-category',component:AddEditSubCategoryComponent},
+     { path: 'category-list/sub-category-list/addEdit-sub-category/:id',component:AddEditSubCategoryComponent},
      { path: 'category-list/sub-category-list/subSub-category-list',component:SubSubCategoryListComponent},
      { path: 'category-list/sub-category-list/subSub-category-list/AddEdit-subSub-Category',component:AddEditSubSubCategoryComponent},
      { path: 'banner-list', component: BannerListComponent},

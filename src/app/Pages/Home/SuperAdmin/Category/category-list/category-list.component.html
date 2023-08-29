@@ -247,9 +247,10 @@
                                     <a *ngIf="item.isNext == true"
                                         [routerLink]="['/category-list/sub-category-list']  "><i
                                             class="fa fa-eye"></i></a>
-                                    <a *ngIf="item.isNext == false"><i
-                                            style="background:#d1d5da; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;"
-                                            class="fa fa-eye"></i></a>
+                                            <a *ngIf="item.isNext == false"
+                                            [routerLink]="['/category-list/sub-category-list/addEdit-sub-category/'] + item.mainCategoryId"><i
+                                                class="fa fa-plus"></i></a>
+            
 
                                     <a (click)="edit(item)"><i class="fa fa-pencil"></i></a>
                                     <!-- <a (click)="deleteMainCategory(item.mainProductCategoryId)"><i

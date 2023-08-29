@@ -35,8 +35,8 @@ export enum ApiEndPoint {
     acceptRejectCategory = "/api/Category/SetCategoryStatus",
     categoryStatus = "api/Vendor/SetVendorCategoryStatus",
    
-    updateCategory = "api/Category/UpdateProductCategory",
-    categoryDetail = "api/Category/GetProductCategoryDetail",
+  
+   
     deleteMainCategory = "api/Category/DeleteProductCategory",
     deleteSubCategory = "api/Category/DeleteProductCategory",
     addBrand = "api/Brand/AddBrand",
@@ -96,7 +96,7 @@ export enum ApiEndPoint {
   vendorDetail = "api/Admin/GetVendorDetail",
   getcategoryList = "api/Category/GetCategoryList",
   addCategory = "api/Category/AddCategory",
-
-
+  categoryDetail = "api/Category/GetCategoryDetail",
+  updateCategory = "api/Category/UpdateCategory",
 
 }

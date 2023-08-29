@@ -55,11 +55,12 @@
                         </div>								
                     </div>
                     <div class="col-lg-6 col-md-12">
-                        <label>Type</label>
-                        <select type="text" class="control-form" formControlName="gender" (click)="onGenderChange($event)">
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                            <option value="Unisex">Unisex</option>
+                        <label>Category Type</label>
+                        <select type="text" class="control-form" formControlName="categoryType" (change)="onGenderChange($event)">
+                            <option >Select</option>
+                            <option value="1">Male</option>
+                            <option value="2">Female</option>
+                            <option value="3">Male & Female</option>
                         </select>
                         <!-- <div *ngIf="f['categoryName'].errors['required']" style="color: #fd0000;">Category Name is
                             required</div> -->
