@@ -23,7 +23,7 @@ export class AddEditCategoryComponent implements OnInit {
   imageFile!: { link: any; file: any; name: any; type: any; };
   id: any;
   mainId: any;
-
+  categoryType : any;
   constructor(
     private formBuilder: FormBuilder,
     private contentService: ContentService,
@@ -37,10 +37,11 @@ export class AddEditCategoryComponent implements OnInit {
   ngOnInit(): void {
     this.rootUrl = environment.rootPathUrl;
     this.categoryForm();
-
+debugger
     this.route.queryParams.subscribe((params: any) => {
       if (params.id) {
         this.getCategoryDetail(params.id);
+    
       }
     });
   }
@@ -48,51 +49,55 @@ export class AddEditCategoryComponent implements OnInit {
     this._location.back();
   }
 
-  /*** for validation ***/
+ 
   get f() {
     return this.form.controls;
   }
 
-  /** Add Category Form **/
+ 
   categoryForm() {
     this.form = this.formBuilder.group({
       categoryName: ['', [Validators.required]],
       categoryDescription: [''],
+      categoryType:['']
     });
   }
 
   postCategory() {
+    debugger
     this.submitted = true;
     if (this.form.invalid) {
       return;
     }
     if (this.detail) {
       let payload = {
-        mainProductCategoryId: this.id,
+        mainCategoryId: this.detail.mainCategoryId,
         categoryName: this.form.value.categoryName,
         categoryDescription: this.form.value.categoryDescription,
+        categoryType : this.form.value.categoryType
       }
       this.contentService.UpdateCategory(payload).subscribe(response => {
         this.mainId = response.data?.mainProductCategoryId
-        this.fileChangeEvent();
+        // this.fileChangeEvent();
         this.afterResponse(response);
       });
     } else {
       let payload = {
         categoryName: this.form.value.categoryName,
         categoryDescription: this.form.value.categoryDescription,
+        categoryType : this.form.value.categoryType
       }
       this.contentService.addCategory(payload).subscribe(response => {
 
         this.mainId = response.data?.mainProductCategoryId
-        this.fileChangeEvent();
+        // this.fileChangeEvent();
         this.afterResponses(response);
 
       });
     }
   }
 
-  // for status message
+  
   afterResponse(response: any) {
     if (response && response.statusCode == 200) {
       if (response.isSuccess) {
@@ -107,7 +112,6 @@ export class AddEditCategoryComponent implements OnInit {
   }
 
 
-  // for status message
   afterResponses(response: any) {
     if (response && response.statusCode == 200) {
       if (response.isSuccess) {
@@ -134,7 +138,6 @@ export class AddEditCategoryComponent implements OnInit {
   }
 
 
-  // Category Patch
 
   getCategoryDetail(id: string) {
     this.contentService.categoryDetail(id).subscribe(response => {
@@ -146,6 +149,7 @@ export class AddEditCategoryComponent implements OnInit {
         this.form.patchValue({
           categoryName: this.detail.categoryName,
           categoryDescription: this.detail.categoryDescription,
+          categoryType : this.detail.categoryType
         });
       }
 
@@ -154,8 +158,6 @@ export class AddEditCategoryComponent implements OnInit {
 
 
 
-  /*** Image Upload ***/
-  // image upload 
   imagesUpload(event: any) {
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader();
@@ -183,15 +185,16 @@ export class AddEditCategoryComponent implements OnInit {
   }
 
 
-    // Handle changes in the select dropdown
+   
     onGenderChange(event: any) {
+      debugger
       const selectedGender = event.target.value;
-      if (selectedGender === 'Male') {
-        this.form.patchValue({ male: true, female: false });
-      } else if (selectedGender === 'Female') {
-        this.form.patchValue({ male: false, female: true });
-      } else {
-        this.form.patchValue({ male: true, female: true });
+      if (selectedGender === '1') {
+      this.categoryType =  this.form.patchValue({ male: true, female: false });
+      } else if (selectedGender === '2') {
+     this.categoryType =   this.form.patchValue({ male: false, female: true });
+      } else if (selectedGender === '3') {
+      this.categoryType =  this.form.patchValue({ male: true, female: true });
       }
     }
 

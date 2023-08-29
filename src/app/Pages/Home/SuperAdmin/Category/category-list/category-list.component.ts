@@ -311,7 +311,7 @@ export class CategoryListComponent implements OnInit {
       this.router.navigate(['/category-list/add-edit-category'],
         {
           queryParams: {
-            id: data.mainProductCategoryId
+            id: data.mainCategoryId
           }
         });
     }

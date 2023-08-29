@@ -222,24 +222,9 @@ export class ContentService {
     return this.http.get<any>(environment.apiUrl + ApiEndPoint.categoryDetail + '?MainProductCategoryId=' + data.MainProductCategoryId + '&SubProductCategoryId=' + data.SubProductCategoryId)
   }
 
-  //  Add Category
-  addCategory(data: any) {
-    return this.http.post<any>(environment.apiUrl + ApiEndPoint.addCategory, data)
 
-  }
 
-  // Update Category 
-
-  UpdateCategory(data: any) {
-    return this.http.post<any>(environment.apiUrl + ApiEndPoint.updateCategory, data)
-
-  }
-
-  // Category Detail
-
-  categoryDetail(MainProductCategoryId: any) {
-    return this.http.get<any>(environment.apiUrl + ApiEndPoint.categoryDetail + '?MainProductCategoryId=' + MainProductCategoryId)
-  }
+  
 
   // Category Delete
 
@@ -700,6 +685,26 @@ planUpdate(data: any) {
       localStorage.setItem('File', data);
       return data;
     }));
+  }
+
+    //  Add Category
+    addCategory(data: any) {
+      return this.http.post<any>(environment.apiUrl + ApiEndPoint.addCategory, data)
+  
+    }
+
+
+    // Update Category 
+
+  UpdateCategory(data: any) {
+    return this.http.post<any>(environment.apiUrl + ApiEndPoint.updateCategory, data)
+
+  }
+
+  // Category Detail
+
+  categoryDetail(mainCategoryId: any) {
+    return this.http.get<any>(environment.apiUrl + ApiEndPoint.categoryDetail + '?mainCategoryId=' + mainCategoryId)
   }
 
 }
