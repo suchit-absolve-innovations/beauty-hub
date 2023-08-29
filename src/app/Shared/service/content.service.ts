@@ -173,10 +173,7 @@ export class ContentService {
   }
 
 
-  SubCategorySuper(MainProductCategoryId: any) {
-    debugger
-    return this.http.get<any>(environment.apiUrl + ApiEndPoint.getcategoryList + '?MainProductCategoryId=' + MainProductCategoryId )
-  }
+
 
   getFilterSubCategory(id: any) {
     return this.http.get<any>(environment.apiUrl + ApiEndPoint.productList + '?pageNumber=' + id.pageNumber + '&pageSize=' + id.pageSize + '&subProductCategoryId=' + id.subProductCategoryId)
@@ -706,5 +703,10 @@ planUpdate(data: any) {
       return this.http.delete<any>(environment.apiUrl + ApiEndPoint.deleteMainCategory + '?mainCategoryId=' + mainCategoryId)
   
     }
+
+      subCategorySuper(MainCategoryId: any) {
+    debugger
+    return this.http.get<any>(environment.apiUrl + ApiEndPoint.getcategoryList + '?MainCategoryId=' + MainCategoryId )
+  }
 
 }

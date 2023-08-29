@@ -5,6 +5,7 @@ import { ContentService } from 'src/app/Shared/service/content.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { Location } from '@angular/common';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-sub-category-list',
@@ -27,8 +28,9 @@ export class SubCategoryListComponent implements OnInit {
   vendorDetail: any;
   shopId: any;
   vendorId= localStorage.getItem('vendorId')
-  MainProductCategoryId: any;
+  MainCategoryId: any;
   subProductCategoryId: any;
+  form: any;
 
   constructor(
     private spinner: NgxSpinnerService,
@@ -38,14 +40,17 @@ export class SubCategoryListComponent implements OnInit {
     private route: ActivatedRoute,
     private toaster: ToastrService,
     private _location: Location,
+    private formBuilder: FormBuilder,
+    
   ) { }
 
   ngOnInit(): void {
     this.Id = this.route.snapshot.paramMap.get('id');
     this.rootUrl = environment.rootPathUrl;
-    this.getvendorDetail();
+    // this.getvendorDetail();
+    
     this.getList();
-    // this.getList();
+    this.filterSubListForm();
     // this.getSubcategoryList();
 
   }
@@ -107,21 +112,21 @@ export class SubCategoryListComponent implements OnInit {
 
      /** Vendor Detail **/
 
-     getvendorDetail() {
+    //  getvendorDetail() {
       
-          this.spinner.show();
-          this.content.getVendorDetail(this.vendorId).subscribe(response => {
-            if (response.isSuccess) {
-               this.vendorDetail = response.data
-              this.shopId = this.vendorDetail.shopResponses[0]?.shopId
+    //       this.spinner.show();
+    //       this.content.getVendorDetail(this.vendorId).subscribe(response => {
+    //         if (response.isSuccess) {
+    //            this.vendorDetail = response.data
+    //           this.shopId = this.vendorDetail.shopResponses[0]?.shopId
             
-              this.getList();
+    //           this.getList();
             
-              // this.bankDetail = this.vendorDetail.bankResponses
-            }
-            this.spinner.hide()
-          })
-        }
+    //           // this.bankDetail = this.vendorDetail.bankResponses
+    //         }
+    //         this.spinner.hide()
+    //       })
+    //     }
 
 
         // set condition to list 
@@ -144,17 +149,49 @@ export class SubCategoryListComponent implements OnInit {
     
         this.spinner.show();
         // let payload = {
-          this.MainProductCategoryId = parseInt(this.Id),
+          this.MainCategoryId = parseInt(this.Id),
         
         // }
-        this.content.SubCategorySuper(this.MainProductCategoryId).subscribe(response => {
+        this.content.subCategorySuper(this.MainCategoryId).subscribe(response => {
           if (response.isSuccess) {
             this.categoryList = response.data;
-    
+            this.toaster.success(response.messages);
             this.spinner.hide();
+          }else{
+            this.spinner.hide();
+            this.toaster.success(response.messages);
           }
         });
       }
+
+
+      filterSubListForm() {
+        this.form = this.formBuilder.group({
+          CategoryType: [''],
+        });
+      }
+      getSubCategoryListFilter() {
+        debugger
+        this.spinner.show();
+     
+        this.content.getFilterCategoryList(this.form.value.CategoryType).subscribe(response => {
+          if (response.isSuccess) {
+            this.categoryList = response.data;
+            this.toaster.success(response.messages);
+            this.spinner.hide();
+          }else{
+            this.spinner.hide();
+            this.toaster.success(response.messages);
+          }
+        });
+      }
+      backClickedreload() {
+        this.router.navigateByUrl('/category-list')
+          .then(() => {
+            window.location.reload();
+          });
+      }
+    
 
   // Vendor
 

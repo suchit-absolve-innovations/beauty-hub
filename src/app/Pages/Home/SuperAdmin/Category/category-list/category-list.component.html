@@ -245,7 +245,7 @@
                                 <td>
 
                                     <a *ngIf="item.isNext == true"
-                                        [routerLink]="['/category-list/sub-category-list']  "><i
+                                        [routerLink]="['/category-list/sub-category-list/'] + item.mainCategoryId "><i
                                             class="fa fa-eye"></i></a>
                                             <a *ngIf="item.isNext == false"
                                             [routerLink]="['/category-list/sub-category-list/addEdit-sub-category/'] + item.mainCategoryId"><i

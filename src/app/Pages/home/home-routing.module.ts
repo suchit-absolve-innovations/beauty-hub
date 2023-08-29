@@ -46,7 +46,7 @@ const routes: Routes = [
      { path: 'admin-list/add-edit-admin',component: AddEditAdminComponent},
      { path: 'category-list', component: CategoryListComponent},
      { path: 'category-list/add-edit-category', component: AddEditCategoryComponent},
-     { path: 'category-list/sub-category-list',component:SubCategoryListComponent},
+     { path: 'category-list/sub-category-list/:id',component:SubCategoryListComponent},
      { path: 'category-list/sub-category-list/addEdit-sub-category',component:AddEditSubCategoryComponent},
      { path: 'category-list/sub-category-list/addEdit-sub-category/:id',component:AddEditSubCategoryComponent},
      { path: 'category-list/sub-category-list/subSub-category-list',component:SubSubCategoryListComponent},
