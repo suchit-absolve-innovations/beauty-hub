@@ -56,15 +56,15 @@
                     </div>
                     <div class="col-lg-6 col-md-12">
                         <label>Type</label>
-                        <select type="text" class="control-form" formControlName="gender">
-                            <option>Male</option>
-                            <option>Female</option>
-                            <option>Unisex</option>
+                        <select type="text" class="control-form" formControlName="gender" (click)="onGenderChange($event)">
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Unisex">Unisex</option>
                         </select>
-                        <div *ngIf="f['categoryName'].errors['required']" style="color: #fd0000;">Category Name is
-                            required</div>
+                        <!-- <div *ngIf="f['categoryName'].errors['required']" style="color: #fd0000;">Category Name is
+                            required</div> -->
       
-                    </div>
+                    <!-- </div> -->
                     </div>
                     
                     

@@ -77,14 +77,11 @@ export class AddEditCategoryComponent implements OnInit {
         this.fileChangeEvent();
         this.afterResponse(response);
       });
-
     } else {
-
       let payload = {
         categoryName: this.form.value.categoryName,
         categoryDescription: this.form.value.categoryDescription,
       }
-
       this.contentService.addCategory(payload).subscribe(response => {
 
         this.mainId = response.data?.mainProductCategoryId
@@ -184,6 +181,19 @@ export class AddEditCategoryComponent implements OnInit {
 
     });
   }
+
+
+    // Handle changes in the select dropdown
+    onGenderChange(event: any) {
+      const selectedGender = event.target.value;
+      if (selectedGender === 'Male') {
+        this.form.patchValue({ male: true, female: false });
+      } else if (selectedGender === 'Female') {
+        this.form.patchValue({ male: false, female: true });
+      } else {
+        this.form.patchValue({ male: true, female: true });
+      }
+    }
 
 
 } 

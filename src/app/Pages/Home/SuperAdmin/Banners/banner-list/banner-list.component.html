@@ -40,14 +40,11 @@
                     <!-- <td>{{item.createDate}}</td> -->
                     <td>
 
-                        <a [routerLink]="['/banner-list/banner-detail/'] + item?.bannerId "><i
-                                class="fa fa-eye"></i></a>
+                        <a [routerLink]="['/banner-list/banner-detail/'] + item?.bannerId "><i style="background:#e6629f; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;" class="fa fa-eye"></i></a>
 
-                        <a (click)="edit(item)"><i class="fa fa-pencil"></i></a>
+                        <a (click)="edit(item)"><i style="background:#9f2d61; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;" class="fa fa-pencil"></i></a>
 
-                        <a (click)="delet(item)"><i
-                                   
-                                    class="fa fa-times"></i></a>
+                        <a (click)="delet(item)"><i style="background:#9f0a2a; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;" class="fa fa-times"></i></a>
 
                         <!-- <a data-toggle="modal" data-target="#list-cross-mess" (click)="delet(item)">
                             <i class="fa fa-times"></i>

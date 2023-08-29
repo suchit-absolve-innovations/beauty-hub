@@ -2574,6 +2574,7 @@ button.submodal-submit {
 }
 label.invalid-formdata{
     font-weight: 400!important;
+    color: red;
 }
 
 /* layout notification*/
