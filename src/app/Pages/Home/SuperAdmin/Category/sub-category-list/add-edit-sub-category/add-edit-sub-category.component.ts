@@ -24,6 +24,7 @@ export class AddEditSubCategoryComponent implements OnInit {
   rootUrl!: string;
   Id2: any;
   subId: any;
+  categoryType: any;
 
   constructor(
     private spinner: NgxSpinnerService,
@@ -55,6 +56,17 @@ export class AddEditSubCategoryComponent implements OnInit {
       categoryDescription: [''],
    
     });
+  }
+  onGenderChange(event: any) {
+    debugger
+    const selectedGender = event.target.value;
+    if (selectedGender === '1') {
+    this.categoryType =  this.form.patchValue({ male: true, female: false });
+    } else if (selectedGender === '2') {
+   this.categoryType =   this.form.patchValue({ male: false, female: true });
+    } else if (selectedGender === '3') {
+    this.categoryType =  this.form.patchValue({ male: true, female: true });
+    }
   }
 
   postCategory(){
