@@ -22,6 +22,7 @@
                 <tr>
                     <th>Category Name</th>
                     <th>Sub Category Image</th>
+                    <th>Category Type</th>
                     <th>Date</th>
                     <th *ngIf="login == 'Vendor'">Status</th>
                     <th>Action</th>
@@ -31,32 +32,33 @@
                     *ngFor="let item of categoryList | filter:searchText | paginate: {itemsPerPage: 10, currentPage: page, totalItems: totalItems,id: '1' } ">
                     <td>{{item?.categoryName}}</td>
                     <td class="profile"><img [src]="rootUrl + item?.categoryImage" class="img-responsive"></td>
+                    <td *ngIf="item?.categoryType == 1">Male</td>
+                    <td *ngIf="item?.categoryType == 2">Female</td>
+                    <td *ngIf="item?.categoryType == 3">Male & Female</td>
                     <td>{{item?.createDate}}</td>
 
-                    <td *ngIf="login == 'Vendor'">
-                        <!-- <label class="switch" *ngIf="item.status == 0">
-                            <span>Pending</span>
-                        </label> -->
+                    <!-- <td *ngIf="login == 'Vendor'">
+                       
                         <label class="switch" *ngIf="item?.status == true">
                             <input type="checkbox" checked (click)="checkActiveStatus(item?.subProductCategoryId)">
                             <span class="slider round"></span>
-                            <!-- <p>Active</p> -->
+                        
                         </label>
                         <label class="switch" *ngIf="item?.status == false">
                             <input type="checkbox" (click)="checkInactiveStatus(item?.subProductCategoryId)">
                             <span class="slider round"></span>
-                            <!-- <p>UnActive</p> -->
+                       
                         </label>
-                    </td>
+                    </td> -->
                     <td>
-                        <a *ngIf="item.isNext == true"
+                        <!-- <a *ngIf="item.isNext == true"
                             [routerLink]="['/category-list/sub-category-list/subSub-category-list'] "><i
                                 class="fa fa-eye"></i></a>
                         <a *ngIf="item.isNext == false"
                             [routerLink]="['/category-list/sub-category-list/subSub-category-list/AddEdit-subSub-Category'] "><i
-                                class="fa fa-plus"></i></a>
+                                class="fa fa-plus"></i></a> -->
                         <a *ngIf="login == 'SuperAdmin'  && 'Admin' "
-                            [routerLink]="['/category-list/sub-category/Sub-add-edit/',  item?.subProductCategoryId, item.mainProductCategoryId]">
+                            [routerLink]="['/category-list/sub-category-list/addEdit-sub-category/',   item.mainCategoryId ,item?.subCategoryId]">
                             <i class="fa fa-pencil"></i>
                         </a>
                         <!-- <a *ngIf="login == 'SuperAdmin' && 'Admin'" (click)="deleteSubCategory(item.subProductCategoryId)"><i
