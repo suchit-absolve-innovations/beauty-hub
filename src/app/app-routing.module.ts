@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './Shared/auth.guard';
+import { environment } from 'src/environments/environment';
 
 
 
@@ -11,16 +13,17 @@ const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   {
     path: 'auth',
-    loadChildren: AuthModule, 
+    loadChildren: AuthModule,  canActivate: [AuthGuard]
   },
   {
-    path: 'dashboard',
+    path: 'super-Admin-Dashboard',
     loadChildren: HomeModule
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes,
+  !environment.production ? { enableTracing: false, useHash: true, scrollPositionRestoration: 'enabled' } : { scrollPositionRestoration: 'enabled', useHash: true })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

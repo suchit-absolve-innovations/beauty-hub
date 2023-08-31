@@ -176,8 +176,8 @@ export class AddSalonsComponent implements OnInit {
         firstName: ['', [Validators.required]],
         lastName: ['', [Validators.required]],
         gender: ['', [Validators.required]],
-        phoneNumber: ['', [Validators.required]],
-        dialCode: ['', [Validators.required]],
+        phoneNumber: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
+        dialCode: ['91', [Validators.required]],
         deviceType:['laptop'],
         countryId: [101],
         stateId: ['', [Validators.required]],
@@ -366,9 +366,10 @@ export class AddSalonsComponent implements OnInit {
     postVendor() {
       debugger
       this.submitted = false;
-      if (this.form.invalid) {
-        return;
-      }
+    if (this.form.invalid) {
+      this.toasterService.error("Form Incomplete: Please fill in all the required fields correctly");
+      return;
+    }
       debugger
       let checkStatus: any;
       if (this.isActive == true) {
@@ -402,7 +403,7 @@ export class AddSalonsComponent implements OnInit {
             salonName: this.form.value.salonDetail[0]?.salonName,
             salonDescription: this.form.value.salonDetail[0]?.salonDescription,
             salonType:this.form.value.salonDetail[0]?.salonType,
-            salonAddress: this.form.value.salonDetail[0]?.salonAddress,
+            salonAddress: this.inputAddress,
             landmark: this.form.value.salonDetail[0]?.landmark,
             city: this.form.value.salonDetail[0]?.city,
             zip: this.form.value.salonDetail[0]?.zip,

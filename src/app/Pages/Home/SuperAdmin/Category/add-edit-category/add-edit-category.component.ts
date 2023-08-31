@@ -51,7 +51,7 @@ debugger
 
  
   get f() {
-    return this.form.controls;
+    return this.form['controls'];
   }
 
  
@@ -59,7 +59,7 @@ debugger
     this.form = this.formBuilder.group({
       categoryName: ['', [Validators.required]],
       categoryDescription: [''],
-      categoryType:['']
+      categoryType:['',[Validators.required]]
     });
   }
 
@@ -77,8 +77,8 @@ debugger
         categoryType : this.form.value.categoryType
       }
       this.contentService.UpdateCategory(payload).subscribe(response => {
-        this.mainId = response.data?.mainProductCategoryId
-        // this.fileChangeEvent();
+        this.mainId = response.data?.mainCategoryId
+        this.fileChangeEvent();
         this.afterResponse(response);
       });
     } else {
@@ -89,8 +89,8 @@ debugger
       }
       this.contentService.addCategory(payload).subscribe(response => {
 
-        this.mainId = response.data?.mainProductCategoryId
-        // this.fileChangeEvent();
+        this.mainId = response.data?.mainCategoryId
+        this.fileChangeEvent();
         this.afterResponses(response);
 
       });
@@ -143,7 +143,7 @@ debugger
     this.contentService.categoryDetail(id).subscribe(response => {
       if (response.isSuccess) {
         this.detail = response.data;
-        this.id = this.detail.mainProductCategoryId
+        this.id = this.detail.mainCategoryId
 
         this.editImages = this.rootUrl + this.detail?.categoryImage;
         this.form.patchValue({
@@ -176,9 +176,10 @@ debugger
 
 
   fileChangeEvent() {
+    debugger
     let formData = new FormData();
     formData.append("CategoryImage", this.imageFile?.file);
-    formData.append("MainProductCategoryId", this.mainId);
+    formData.append("MainCategoryId", this.mainId);
     this.contentService.categoryImage(formData).subscribe(response => {
 
     });

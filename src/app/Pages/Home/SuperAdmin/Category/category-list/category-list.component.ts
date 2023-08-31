@@ -56,6 +56,7 @@ export class CategoryListComponent implements OnInit {
   
     ngOnInit(): void {
  
+      this.rootUrl = environment.rootPathUrl;
         // Check if the active tab is not set in the query parameters
         if (!this.activeTab) {
           // Set the default active tab when the page is initially loaded
@@ -63,7 +64,7 @@ export class CategoryListComponent implements OnInit {
           // Update the query parameters with the default active tab
           this.updateQueryParams();
         }
-      this.rootUrl = environment.rootPathUrl;
+     
       // this.getvendorDetail();
       // this.getProductCategoryRequestList();
       // this.getList();
@@ -223,6 +224,7 @@ export class CategoryListComponent implements OnInit {
       this.content.getFilterCategoryList(this.form.value.CategoryType).subscribe(response => {
         if (response.isSuccess) {
           this.categoryList = response.data;
+          
           this.spinner.hide();
         }
       });

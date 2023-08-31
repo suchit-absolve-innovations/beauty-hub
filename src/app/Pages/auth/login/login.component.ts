@@ -86,7 +86,7 @@ onLogin(){
       if (this.userRole?.role == 'Admin') {
         // this.updateToken();
         this.toasterService.success(response.messages);
-        this.router.navigateByUrl('/admin-user-dashboard');
+        this.router.navigateByUrl('/vendor-profile');
         this.spinner.hide();
       }
       if (this.userRole?.role == 'Vendor') {
@@ -95,7 +95,7 @@ onLogin(){
         // this.vendorId = localStorage.getItem('vendorId')
         // this.getvendorDetail();
         this.toasterService.success(response.messages);
-        this.router.navigateByUrl('orders-list');
+        this.router.navigateByUrl('vendor-profile');
         this.spinner.hide();
       }
       if (this.userRole?.role == 'Distributor') {

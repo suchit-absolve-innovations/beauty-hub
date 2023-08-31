@@ -55,10 +55,11 @@
                             <option value="2">Female</option>
                             <option value="3">Male & Female</option>
                         </select>
-                        <!-- <div *ngIf="f['categoryName'].errors['required']" style="color: #fd0000;">Category Name is
-                            required</div> -->
-      
-                    <!-- </div> -->
+                        <div *ngIf="submitted && f['categoryType'].errors" class="help-block">
+                            <div *ngIf="f['categoryType'].errors['required']" style="color: #fd0000;">Category Type is
+                                required</div>
+          
+                        </div>	
                     </div>
                     
                     <div class="col-lg-12 col-md-12">

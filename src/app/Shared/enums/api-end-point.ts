@@ -2,7 +2,7 @@ export enum ApiEndPoint {
     login = "api/Users/Login",
     signup = "api/Users/Register",
     ImageUpload = "api/Upload/UploadProfilePic",
-    categoryImageUpload = "api/Upload/UploadProductCategoryImage",
+    
 
     // for notification 
     tockenFcm = 'api/Notification/updateFCMToken',
@@ -100,5 +100,6 @@ export enum ApiEndPoint {
   updateCategory = "api/Category/UpdateCategory",
   deleteMainCategory = "api/Category/DeleteCategory",
   deleteSubCategory = "api/Category/DeleteCategory",
+  categoryImageUpload = "/api/Upload/UploadCategoryImage",
 
 }

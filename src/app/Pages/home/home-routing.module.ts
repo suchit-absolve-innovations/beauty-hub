@@ -23,6 +23,8 @@ import { AddEditSubCategoryComponent } from './SuperAdmin/Category/sub-category-
 import { AddEditSubSubCategoryComponent } from './SuperAdmin/Category/sub-sub-category-list/add-edit-sub-sub-category/add-edit-sub-sub-category.component';
 import { SubSubCategoryListComponent } from './SuperAdmin/Category/sub-sub-category-list/sub-sub-category-list.component';
 import { CategoryListComponent } from './SuperAdmin/Category/category-list/category-list.component';
+import { VendorProfileComponent } from './Vendor/vendor-profile/vendor-profile.component';
+import { ShopBannerListComponent } from './Vendor/shop-banner-list/shop-banner-list.component';
 
 
 
@@ -30,7 +32,7 @@ const routes: Routes = [
 
   {
     path: '',
-    redirectTo: 'dashboard',
+    redirectTo: 'super-Admin-Dashboard',
     pathMatch: 'full'
   },
   {
@@ -60,6 +62,10 @@ const routes: Routes = [
      { path: 'plan-list/add-edit-plan',component: MembershipAddEditComponent},
      { path: 'super-admin-profile',component: SuperAdminProfileComponent},
      { path: 'salon-list/buy-membership-plan',component: BuyMebershipPlanListComponent},
+
+     //vendor//
+     { path: 'vendor-profile',component: VendorProfileComponent},
+     { path: 'Shop-banner-list',component: ShopBannerListComponent}
     
      
 

@@ -54,7 +54,7 @@ export class AddEditSubCategoryComponent implements OnInit {
     this.form = this.formBuilder.group({
       categoryName: ['', [Validators.required]],
       categoryDescription: [''],
-      categoryType: ['']
+      categoryType: ['',[Validators.required]]
    
     });
   }
@@ -84,8 +84,8 @@ export class AddEditSubCategoryComponent implements OnInit {
         categoryType: this.form.value.categoryType
       }
       this.content.UpdateSubCategory(payload).subscribe(response => {
-        this.subId = response.data.subProductCategoryId
-        // this.fileChangeEvent();
+        this.subId = response.data.subCategoryId
+        this.fileChangeEvent();
         this.afterResponse(response);
       });
 
@@ -99,7 +99,7 @@ export class AddEditSubCategoryComponent implements OnInit {
       
       }
       this.content.addSubCategory(payload).subscribe(response => {
-        this.subId = response.data?.subProductCategoryId
+        this.subId = response.data?.subCategoryId
 
         this.fileChangeEvent();
         this.afterResponse(response);
@@ -109,9 +109,9 @@ export class AddEditSubCategoryComponent implements OnInit {
  }
 
    
-    get f() {
-      return this.form.controls;
-    }
+ get f() {
+  return this.form['controls'];
+}
 
 
 afterResponse(response: any) {
@@ -184,9 +184,10 @@ imagesUpload(event: any) {
 }
 
 fileChangeEvent() {
+  debugger
   let formData = new FormData();
   formData.append("CategoryImage", this.imageFile?.file);
-  formData.append("SubProductCategoryId", this.subId);
+  formData.append("SubCategoryId", this.subId);
   this.content.categoryImage(formData).subscribe(response => {
 
   });

@@ -70,9 +70,9 @@ export const RoleRoutes = {
   ],
   Vendor: [
 
-    {
-      name: "Product", value: "MANAGE_ReI", isEnabled: false, routerLink: "vendor-products-list", acl: '', subRoutes: []
-    },
+    // {
+    //   name: "Product", value: "MANAGE_ReI", isEnabled: false, routerLink: "vendor-products-list", acl: '', subRoutes: []
+    // },
     {
       name: "Banners", value: "MANAGE_ReI", isEnabled: false, routerLink: "shop-banner-list", acl: 'dashboard', subRoutes: []
     },
@@ -80,9 +80,9 @@ export const RoleRoutes = {
       name: "Categories", value: "MANAGE_ReI", isEnabled: false, routerLink: "category-list", acl: '', subRoutes: []
     },
 
-    {
-      name: "Orders", value: "MANAGE_ReI", isEnabled: false, routerLink: "orders-list", acl: '', subRoutes: []
-    },
+    // {
+    //   name: "Orders", value: "MANAGE_ReI", isEnabled: false, routerLink: "orders-list", acl: '', subRoutes: []
+    // },
 
     {
       name: "Profile", isEnabled: false, value: "MANAGE_APPOINTMENT_TAB", routerLink: "/vendor-profile", acl: '', subRoutes: []
@@ -91,15 +91,15 @@ export const RoleRoutes = {
       name: "Subscription", isEnabled: true, value: "MANAGE_APPOINTMENT_TAB", routerLink: "/membership-plan-list", acl: '', subRoutes: []
 
     },
-    {
-      name: "Notification", value: "MANAGE_ReI", isEnabled: false, routerLink: "vendor-notification-list", acl: 'dashboard', subRoutes: []
-    },
-    {
-      name: "Generate Link", isEnabled: false, value: "MANAGE_APPOINTMENT_TAB", routerLink: "/generate-link", acl: '', subRoutes: []
-    },
-    {
-      name: "Dairy Service", value: "MANAGE_ReI",  isEnabled: false, routerLink: "Vendor/setting/appinfo", acl: '', subRoutes: []
-    },
+    // {
+    //   name: "Notification", value: "MANAGE_ReI", isEnabled: false, routerLink: "vendor-notification-list", acl: 'dashboard', subRoutes: []
+    // },
+    // {
+    //   name: "Generate Link", isEnabled: false, value: "MANAGE_APPOINTMENT_TAB", routerLink: "/generate-link", acl: '', subRoutes: []
+    // },
+    // {
+    //   name: "Dairy Service", value: "MANAGE_ReI",  isEnabled: false, routerLink: "Vendor/setting/appinfo", acl: '', subRoutes: []
+    // },
   //    {
   //     name: "Settings",  isEnabled: false, value: "MANAGE_APPOINTMENT_TAB", routerLink: "setting", acl: '',
   //     subRoutes: [

@@ -34,20 +34,7 @@ export class ContentService {
   }
 
 
-  // Category Image upload 
-
-  categoryImage(data: any) {
-    const headers = new HttpHeaders();
-    headers.append('Content-Type', 'multipart/form-data');
-    const options = {
-      headers: headers
-    };
-    return this.http.post<any>(environment.apiUrl + ApiEndPoint.categoryImageUpload, data, options).pipe(map((data: any) => {
-      localStorage.setItem('File', data);
-      return data;
-    }));
-  }
-
+ 
 
   // Category Image upload 
 
@@ -86,11 +73,6 @@ export class ContentService {
 
 
 
-  // Vendor Detail 
-
-  getVendorDetail(vendorId: any) {
-    return this.http.get<any>(environment.apiUrl + ApiEndPoint.vendorDetail + '?vendorId=' + vendorId, {})
-  }
 
 
 
@@ -714,5 +696,25 @@ planUpdate(data: any) {
     subCategoryDelete(subCategoryId: any) {
       return this.http.delete<any>(environment.apiUrl + ApiEndPoint.deleteSubCategory + '?subCategoryId=' + subCategoryId)
     }
+     // Category Image upload 
+
+  categoryImage(data: any) {
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'multipart/form-data');
+    const options = {
+      headers: headers
+    };
+    return this.http.post<any>(environment.apiUrl + ApiEndPoint.categoryImageUpload, data, options).pipe(map((data: any) => {
+      localStorage.setItem('File', data);
+      return data;
+    }));
+  }
+
+    // Vendor Detail 
+
+    getVendorDetail(vendorId: any) {
+      return this.http.get<any>(environment.apiUrl + ApiEndPoint.vendorDetail + '?vendorId=' + vendorId, {})
+    }
+  
 
 }
