@@ -31,7 +31,7 @@ export class AuthService {
       .pipe(map(user => {
         if (user.data) {
           localStorage.setItem('currentUser', JSON.stringify(user));
-          // localStorage.setItem('id', user.data.id);
+          localStorage.setItem('salonId', user.data.salonId);
           localStorage.setItem('vendorId', user.data.vendorId );
           // localStorage.setItem('shopImage', user.data.shopImage );
           // localStorage.setItem('firstName', user.data.firstName );

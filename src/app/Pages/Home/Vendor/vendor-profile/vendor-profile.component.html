@@ -100,14 +100,14 @@
                     </div>
                 </div>
             </div>
-            <div class="vendor-form bg-white" formArrayName="shopDetail">
+            <div class="vendor-form bg-white" formArrayName="salonDetail">
                 <h3>Business Detail</h3>
-                <div class="this_row" *ngFor="let item of shopDetail.controls;  let i = index;" [formGroupName]="i">
+                <div class="this_row" *ngFor="let item of salonDetail.controls;  let i = index;" [formGroupName]="i">
                     <div class="row ">
                         <div class="col-lg-12 col-md-12 mb-20">
                             <label>Shop Image</label>
                             <br>
-                            <input name="bannerimage" type="file" class="uploadFile img"
+                            <input name="bannerimage" type="file" class="uploadFile img" #image1
                                 (change)="handleFileInput($event)">
                             <label data-toggle="modal" data-target="#myModal3" class="preview-butn">preview</label>
                         </div>
@@ -116,16 +116,24 @@
                             <input type="text" class="control-form " formControlName="salonName">
                         </div>
                         <div class="col-lg-6 col-md-12">
+                            <label>Select Type</label>
+                            <select type="text" class="control-form" formControlName="salonType">
+                                <option>Male</option>
+                                <option>Female</option>
+                                <option>Unisex</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-6 col-md-12">
                             <label>GST Number</label>
                             <input type="text" class="control-form " formControlName="gstnumber">
-                            <label *ngIf="shopDetail?.invalid && submitted != null && !submitted" class="invalid-formdata">
+                            <!-- <label *ngIf="salonDetail?.invalid && submitted != null && !submitted" class="invalid-formdata">
                                 Please enter your valid GST number.
-                            </label>
+                            </label> -->
                         </div>
-                        <div class="col-lg-12 col-md-12">
+                        <div class="col-lg-6 col-md-12">
                             <label>Business Pan</label>
                             <input type="text" class="control-form " formControlName="businessPAN">
-                            <!-- <label *ngIf="shopDetail?.invalid && submitted != null && !submitted" class="invalid-formdata">
+                            <!-- <label *ngIf="salonDetail?.invalid && submitted != null && !submitted" class="invalid-formdata">
                                 Please enter your valid bussiness Pan number.
                             </label> -->
                         </div>
@@ -187,13 +195,17 @@
                             <input type="text" class="control-form" formControlName="bankAccountNumber" numbersOnly>
                         </div>
 
-                        <div class="col-lg-4 col-md-12">
+                        <!-- <div class="col-lg-4 col-md-12">
                             <label>IFSC Code</label>
                             <input type="text" class="control-form" formControlName="ifsc">
                             <label *ngIf="bankDetail?.invalid && submitted != null && !submitted" class="invalid-formdata">
                                 IFSC code must contain only alphabets and numbers.
                             </label>
                             
+                        </div> -->
+                        <div class="col-lg-4 col-md-12">
+                            <label>IFSC Code</label>
+                            <input type="text" class="control-form" formControlName="ifsc">
                         </div>
 
                         <div class="col-lg-4 col-md-12">
@@ -232,8 +244,8 @@
                        
                         <div class="col-lg-6 col-md-12">
                             <label>QR Image</label>
-                            <!-- <input name="bannerimage" type="file" class="uploadFile img" formControlName="qrcode" #Image
-                                (change)="handleQrFileInput($event)"> -->
+                            <input name="bannerimage" type="file" class="uploadFile img" formControlName="qrcode" #image
+                                (change)="handleQrFileInput($event)">
                             <label data-toggle="modal" data-target="#vendorpreview" class="preview-butn">preview</label>
                         </div>
                         <div class="col-lg-6 col-md-12">
@@ -295,7 +307,7 @@
             </button>
             <div class="modal-body text-center">
                 <div class="imagePreview vendor-preview">
-                    <img class="image">
+                    <img class="image" [src]="QrimageUrl" >
                 </div>
 
 

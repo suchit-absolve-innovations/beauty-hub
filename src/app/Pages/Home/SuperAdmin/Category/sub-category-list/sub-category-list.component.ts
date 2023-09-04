@@ -26,7 +26,7 @@ export class SubCategoryListComponent implements OnInit {
   unActive: boolean = false;
   shopDetail: any;
   vendorDetail: any;
-  shopId: any;
+  salonId = localStorage.getItem('salonId')
   vendorId= localStorage.getItem('vendorId')
   MainCategoryId: any;
   subCategoryId: any;
@@ -87,7 +87,7 @@ export class SubCategoryListComponent implements OnInit {
 
     let payload = {
       subProductCategoryId: data,
-      shopId:this.shopId,
+      SalonId:this.salonId,
       status: true
     }
     // this.spinner.show();
@@ -99,7 +99,7 @@ export class SubCategoryListComponent implements OnInit {
     
     let payload = {
       subProductCategoryId: data,
-      shopId:this.shopId,
+      SalonId:this.salonId,
       status: false
     }
     // this.spinner.show();
@@ -200,7 +200,7 @@ export class SubCategoryListComponent implements OnInit {
     this.spinner.show();
     let payload = {
       MainProductCategoryId : parseInt(this.Id),
-      ShopId :  this.shopId
+      salonId :  this.salonId
     }
     this.content.SubCategory(payload).subscribe(response => {
       if (response.isSuccess) {

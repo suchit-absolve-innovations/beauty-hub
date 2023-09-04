@@ -37,9 +37,9 @@ export class VendorProfileComponent implements OnInit {
   fileToUpload: any;
   imageUrl: any;
   name: any;
-  ShopId: any;
+  SalonId: any;
   imageFiles!: { link: any; file: any; name: any; type: any; };
-  Shop: any;
+  Salon: any;
   ShopImage: any;
   countriesList: any;
   vendorIds = localStorage.getItem('vendorId');
@@ -47,7 +47,9 @@ export class VendorProfileComponent implements OnInit {
   toggleValue: boolean = true;
   upidetailId: any = [];
   urls: any = [];
+  urls1: any = [];
   ids: any[]= [];
+  image1: any;
   image: any;
   isActive!: boolean;
   upidetailIds: any;
@@ -62,6 +64,7 @@ export class VendorProfileComponent implements OnInit {
  @ViewChild('search')
  public searchElementRef!: ElementRef;
  inputAddress: string | undefined;
+  QrimageUrl: any;
   constructor(private router: Router,
     private formBuilder: FormBuilder,
     private spinner: NgxSpinnerService,
@@ -121,7 +124,7 @@ export class VendorProfileComponent implements OnInit {
       stateId: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
 
-      shopDetail: this.formBuilder.array([
+      salonDetail: this.formBuilder.array([
         this.businessDetail(),
 
       ]),
@@ -149,6 +152,7 @@ export class VendorProfileComponent implements OnInit {
   businessDetail() {
     return this.formBuilder.group({
       salonName: ['', [Validators.required]],
+      salonType: ['',[Validators.required]],
       salonDescription: ['', [Validators.required]],
       gstnumber:  ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9]+$'), Validators.minLength(15), Validators.maxLength(15)]],
       businessPAN: ['', [Validators.required]],
@@ -209,10 +213,10 @@ export class VendorProfileComponent implements OnInit {
   }
 
 
-  /*** Form Validation ***/
 
-  get shopDetail(): FormArray {
-    return this.form.get('shopDetail') as FormArray;
+
+  get salonDetail(): FormArray {
+    return this.form.get('salonDetail') as FormArray;
   }
 
   get bankDetail(): FormArray {
@@ -364,7 +368,7 @@ getAddress(addressLat: number, addressLong: number) {
     this.spinner.show();
     this.contentService.getVendorDetail(this.vendorIds).subscribe(response => {
       if (response.isSuccess) {
-        // this.spinner.hide();
+        this.spinner.hide();
         this.clearFormArray(this.List1());
         this.vendorDetailPatch = response.data
         this.imageId = response.data.vendorId
@@ -374,6 +378,7 @@ getAddress(addressLat: number, addressLong: number) {
         this.upiDetailPatch = this.vendorDetailPatch.upiResponses
         this.editImages = this.rootUrl + this.vendorDetailPatch?.profilePic;
         this.imageUrl = this.rootUrl + this.shopDetailPatch[0]?.salonImage
+        this.QrimageUrl = this.rootUrl + this.upiDetailPatch[0]?.qrcode
         this.getCountry();
         this.patchShopDetail();
         this.patchBankDetail();
@@ -409,9 +414,10 @@ getAddress(addressLat: number, addressLong: number) {
   }
   patchShopDetail() {
     var data = {
-      shopDetail: [{
+      salonDetail: [{
         salonId: this.shopDetailPatch[0]?.salonId,
         salonName: this.shopDetailPatch[0]?.salonName,
+        salonType:this.shopDetailPatch[0]?.salonType,
         salonDescription: this.shopDetailPatch[0]?.salonDescription,
         shopAddress: this.shopDetailPatch[0]?.shopAddress,
         landmark: this.shopDetailPatch[0]?.landmark,
@@ -448,57 +454,6 @@ getAddress(addressLat: number, addressLong: number) {
  
 
 
-  // QR Image 
-  handleQrFileInput(event: any) {
-    
-    const files = event.target.files;
-    
-    for (let i = 0; i < files.length; i++) {
-      const file = files[i];
-      this.image = file
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        const imageDataUrl = reader.result as string;
-        this.urls.push(imageDataUrl);
-      };
-    }
-  }
-
-
-  fileQrChangeEvents() {
-    
-    const formData = new FormData();
-    for (let i = 0; i < this.urls.length; i++) {
-      const imageDataUrl = this.urls[i];
-      const blob = this.dataURItoBlob(imageDataUrl);
-      formData.append('qrcode', blob, `image_${i}.png`);
-
-    }
-    this.upidetailId =this.ids
-    formData.append("upidetailIds", this.upidetailId);
-    this.contentService.UploadQrImage(formData).subscribe(response => {
-    });
-  }
-
-  private dataURItoBlob(dataURI: string): Blob {
-    
-    const byteString = atob(dataURI.split(',')[1]);
-    const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
-    const ab = new ArrayBuffer(byteString.length);
-    const ia = new Uint8Array(ab);
-    for (let i = 0; i < byteString.length; i++) {
-      ia[i] = byteString.charCodeAt(i);
-    }
-    return new Blob([ab], { type: mimeString });
-  }
-
-
-  getItemById(): any[] {
-    
-    return this.upidetail.map((item: { upidetailId: any; }) => item.upidetailId);
-  }
-
   checkStatus(event: any) {
    
     if (event.currentTarget?.checked) {
@@ -522,14 +477,14 @@ getAddress(addressLat: number, addressLong: number) {
   }
 
 
-    /*** Post Vendor  ***/
+
 
     postVendor() {
-      
-      this.submitted = false;
-      if (this.form.invalid) {
-        return;
-      }
+      debugger
+      // this.submitted = false;
+      // if (this.form.invalid) {
+      //   return;
+      // }
     
       let checkStatus: any;
       if (this.isActive == true) {
@@ -557,16 +512,17 @@ getAddress(addressLat: number, addressLong: number) {
           stateId: this.form.value.stateId,
           vendorId: this.vendorDetailPatch.vendorId,
           upiDetail: this.form.value.upiDetail,
-          shopDetail: [{
-            shopName: this.form.value.shopDetail[0]?.shopName,
-            shopDescription: this.form.value.shopDetail[0]?.shopDescription,
+          salonDetail: [{
+            salonName: this.form.value.salonDetail[0]?.salonName,
+            salonType:this.form.value.salonDetail[0]?.salonType,
+            salonDescription: this.form.value.salonDetail[0]?.salonDescription,
             shopAddress: this.addressStreet,
-            landmark: this.form.value.shopDetail[0]?.landmark,
-            city: this.form.value.shopDetail[0]?.city,
-            zip: this.form.value.shopDetail[0]?.zip,
-            gstnumber: this.form.value.shopDetail[0]?.gstnumber,
-            businessPAN: this.form.value.shopDetail[0]?.businessPAN,
-            shopId: this.shopDetailPatch[0]?.shopId,
+            landmark: this.form.value.salonDetail[0]?.landmark,
+            city: this.form.value.salonDetail[0]?.city,
+            zip: this.form.value.salonDetail[0]?.zip,
+            gstnumber: this.form.value.salonDetail[0]?.gstnumber,
+            businessPAN: this.form.value.salonDetail[0]?.businessPAN,
+            salonId: this.shopDetailPatch[0]?.salonId,
             addressLatitude: this.addressLat.toString(),
             addressLongitude: this.addressLong.toString(),
   
@@ -590,22 +546,22 @@ getAddress(addressLat: number, addressLong: number) {
           // }]
   
         }
-        this.spinner.show()
-        this.contentService.editVendor(payload).subscribe(response => {
+        // this.spinner.show()
+        this.contentService.updateVendorProfile(payload).subscribe(response => {
          
           if (response.isSuccess) {
             this.imageId = this.vendorDetailPatch.vendorId;
-            this.Shop = response.data.shopResponses;
-            this.ShopId = this.Shop[0];
+            this.Salon = response.data.salonResponses;
+            this.SalonId = this.Salon[0];
             this.upidetail = response.data.upiResponses;
             this.getItemById();
-            
             this.ids = this.getItemById();
-            this.fileChangeEvent();
-            // this.fileChangeEvents();
             this.fileQrChangeEvents();
+            this.fileChangeEvent();
+            this.fileChangeEvents();
+            
             this.toasterService.success(response.messages);
-            this.router.navigateByUrl('/vendor-product-list');
+            // this.router.navigateByUrl('/salon-list');
           } else {
             this.spinner.hide();
             this.toasterService.error(response.messages);
@@ -613,68 +569,126 @@ getAddress(addressLat: number, addressLong: number) {
         });
       }
     }
-
-   // Shop Image 
-   handleFileInput(event: any) {
-    if (event.target.files && event.target.files[0]) {
-
-      //Show image preview
-      let reader = new FileReader();
-      reader.onload = (_event: any) => {
-        this.imageUrl = _event.target.result;
-
-        this.imageFiles = {
-          link: _event.target.result,
-          file: event.srcElement.files[0],
-          name: event.srcElement.files[0].name,
-          type: event.srcElement.files[0].type
-        };
-      }
-      reader.readAsDataURL(event.target.files[0]);
-    }
-  }
-
-
-  // fileChangeEvents() {
-  //   let formData = new FormData();
-  //   formData.append("ShopImage", this.imageFiles?.file);
-  //   formData.append("ShopId", this.ShopId.shopId);
-  //   this.contentService.shopImage(formData).subscribe(response => {
-  //   });
-  // }
-
-
-
-  /*** Image Upload ***/
-  // image upload 
-  imagesUpload(event: any) {
-    if (event.target.files && event.target.files[0]) {
+  // Shop Image 
+  handleFileInput(event: any) {
+    debugger
+    const files = event.target.files;
+    for (let e = 0; e < files.length; e++) {
+      const file = files[e];
+      this.image1 = file
       const reader = new FileReader();
-      reader.onload = (_event: any) => {
-
-        this.imageFile = {
-          link: _event.target.result,
-          file: event.srcElement.files[0],
-          name: event.srcElement.files[0].name,
-          type: event.srcElement.files[0].type
-        };
-
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        const imageDataUrl1 = reader.result as string;
+        this.urls1.push(imageDataUrl1);
       };
-      // this.name = this.imageFile.link
-      reader.readAsDataURL(event.target.files[0]);
-
     }
   }
 
 
-  fileChangeEvent() {    
-    let formData = new FormData();
-    formData.append("ProfilePic", this.imageFile?.file);
-    formData.append("Id", this.imageId);
-    this.contentService.uploadImage(formData).subscribe(response => {
+  fileChangeEvents() {
+    debugger
+    const formData = new FormData();
+    for (let e = 0; e < this.urls1.length; e++) {
+      const imageDataUrl1 = this.urls1[e];
+      const blob = this.dataURItoBlob1(imageDataUrl1);
+      formData.append('SalonImage', blob, `image_${e}.png`);
+    }
+    // formData.append("SalonImage", this.imageFiles?.file);
+    formData.append("SalonId", this.SalonId.salonId);
+    this.contentService.salonImage(formData).subscribe(response => {
     });
   }
+  private dataURItoBlob1(dataURI: string): Blob {
 
+    const byteString = atob(dataURI.split(',')[1]);
+    const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+    const ab = new ArrayBuffer(byteString.length);
+    const ia = new Uint8Array(ab);
+    for (let e = 0; e < byteString.length; e++) {
+      ia[e] = byteString.charCodeAt(e);
+    }
+    return new Blob([ab], { type: mimeString });
+  }
+
+  
+  
+  
+    /*** Image Upload ***/
+    // image upload 
+    imagesUpload(event: any) {
+      if (event.target.files && event.target.files[0]) {
+        const reader = new FileReader();
+        reader.onload = (_event: any) => {
+          this.imageFile = {
+            link: _event.target.result,
+            file: event.srcElement.files[0],
+            name: event.srcElement.files[0].name,
+            type: event.srcElement.files[0].type
+          };
+        };
+        // this.name = this.imageFile.link
+        reader.readAsDataURL(event.target.files[0]);
+      }
+    }
+  
+    fileChangeEvent() {
+      debugger
+      let formData = new FormData();
+      formData.append("ProfilePic", this.imageFile?.file);
+      formData.append("Id", this.imageId);
+      this.contentService.uploadImage(formData).subscribe(response => {
+      });
+    }
+  
+  
+    handleQrFileInput(event: any) {
+      const files = event.target.files;
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        this.image = file
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+          const imageDataUrl = reader.result as string;
+          this.urls.push(imageDataUrl);
+        };
+      }
+    }
+  
+  
+    fileQrChangeEvents() {
+      debugger
+      const formData = new FormData();
+      for (let i = 0; i < this.urls.length; i++) {
+        const imageDataUrl = this.urls[i];
+        const blob = this.dataURItoBlob(imageDataUrl);
+        formData.append('qrcode', blob, `image_${i}.png`);
+      }
+      this.upidetailId = this.ids
+      formData.append("upidetailIds", this.upidetailId);
+      this.contentService.UploadQrImage(formData).subscribe(response => {
+      });
+    }
+  
+    private dataURItoBlob(dataURI: string): Blob {
+  
+      const byteString = atob(dataURI.split(',')[1]);
+      const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+      const ab = new ArrayBuffer(byteString.length);
+      const ia = new Uint8Array(ab);
+      for (let i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
+      }
+      return new Blob([ab], { type: mimeString });
+    }
+    getItemById(): any[] {
+      return this.upidetail.map((item: { upidetailId: any; }) => item.upidetailId);
+    }
+  
+  
+
+  
   cancel(){
     this.router.navigateByUrl('/vendor-product-list')
     .then(() => {

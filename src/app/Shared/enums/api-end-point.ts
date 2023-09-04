@@ -18,7 +18,7 @@ export enum ApiEndPoint {
     getCountry = "api/Content/GetCountries",
     getState = "api/Content/GetStates",
     addVendor = "api/Admin/AddVendor",
-    UpdateVendor = "api/Admin/UpdateVendor",
+   
     vendorList = "api/Admin/GetVendorList",
  
     vendorStatus = "api/Admin/SetVendorStatus",
@@ -29,8 +29,8 @@ export enum ApiEndPoint {
     deleteVendor = "api/Admin/DeleteVendor",
     deleteAdminUser = "api/Admin/DeleteAdminUser",
    
-    getcategoryListSuper = "api/Vendor/GetVendorProductCategoryList",
-    getcategoryVendor = "/api/Vendor/GetVendorProductCategoryList",
+    
+    
     getProductCategoryRequestList = "api/Category/GetProductCategoryRequests",
     acceptRejectCategory = "/api/Category/SetCategoryStatus",
     categoryStatus = "api/Vendor/SetVendorCategoryStatus",
@@ -101,5 +101,8 @@ export enum ApiEndPoint {
   deleteMainCategory = "api/Category/DeleteCategory",
   deleteSubCategory = "api/Category/DeleteCategory",
   categoryImageUpload = "/api/Upload/UploadCategoryImage",
+  UpdateVendor = "api/Admin/UpdateVendor",
+  getcategoryVendor = "api/Vendor/GetVendorCategoryList",
+  getcategoryListSuper = "api/Vendor/GetVendorCategoryList",
 
 }

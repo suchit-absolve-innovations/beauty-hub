@@ -31,7 +31,7 @@ export class CategoryListComponent implements OnInit {
     unActive: boolean = false;
     shopDetail: any;
     vendorDetail: any;
-    shopId: any;
+    salonId = localStorage.getItem('salonId')
     categoryRequestList: any;
     mainCategoryId: any;
 
@@ -67,10 +67,22 @@ export class CategoryListComponent implements OnInit {
      
       // this.getvendorDetail();
       // this.getProductCategoryRequestList();
-      // this.getList();
-      this.getsuperlist();
+      this.getList();
+      // this.getsuperlist();
       this.filterListForm();
   }
+
+  getList(){
+  
+      if(this.login == 'SuperAdmin'){
+        this.getsuperlist();
+      } else if (this.login == 'Admin'){
+        this.getsuperlist();
+      } else {
+        this.getVendorcategoryList();
+      }
+  
+    }
   
   switchToTab(tabId: string) {
     // Set the active tab
@@ -163,7 +175,7 @@ export class CategoryListComponent implements OnInit {
   
       let payload = {
         mainProductCategoryId: data,
-        shopId:this.shopId,
+        salonId:this.salonId,
         status: true
       }
       // this.spinner.show();
@@ -175,7 +187,7 @@ export class CategoryListComponent implements OnInit {
     postUnActiveStatus(data: any) {  
       let payload = {
         mainProductCategoryId: data,
-        shopId:this.shopId,
+        salonId:this.salonId,
         status: false
       }
       // this.spinner.show();
@@ -184,20 +196,7 @@ export class CategoryListComponent implements OnInit {
       });
     }
   
-    // check api for list
-  
-    // getList(){
-  
-    //   if(this.login == 'SuperAdmin'){
-    //     this.getsuperlist();
-    //   } else if (this.login == 'Admin'){
-    //     this.getsuperlist();
-    //   } else {
-    //     this.getcategoryList();
-    //   }
-  
-    // }
-  
+    
     /*** Category List ***/
   
     getsuperlist(){
@@ -236,17 +235,19 @@ export class CategoryListComponent implements OnInit {
           window.location.reload();
         });
     }
+
   
-    // getcategoryList(){
-    // // this.spinner.show();
-    //   this.content.getcategoryVendor(this.shopId).subscribe(response => {
-    //     if (response.isSuccess) {
-    //       this.categoryList = response.data;
+    getVendorcategoryList(){
+      debugger
+    // this.spinner.show();
+      this.content.getcategoryVendor(this.salonId).subscribe(response => {
+        if (response.isSuccess) {
+          this.categoryList = response.data;
         
-    //     //  this.spinner.hide();
-    //     }
-    //   });
-    // }
+        //  this.spinner.hide();
+        }
+      });
+    }
   
     // Product Category Requests List
     // getProductCategoryRequestList(){

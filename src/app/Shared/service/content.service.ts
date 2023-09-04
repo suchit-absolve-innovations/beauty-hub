@@ -63,9 +63,6 @@ export class ContentService {
 
   // Edit Vendor
 
-  editVendor(data: any) {
-    return this.http.post<any>(environment.apiUrl + ApiEndPoint.UpdateVendor, data)
-  }
 
   
 
@@ -120,12 +117,7 @@ export class ContentService {
 
   }
 
-  //vendor
 
-  getcategoryVendor(shopId:any) {
-    return this.http.get<any>(environment.apiUrl + ApiEndPoint.getcategoryVendor + '?ShopId=' + shopId)
-
-  }
 
 
   productCategoryRequestList(){
@@ -148,11 +140,7 @@ export class ContentService {
 
   }
 
-  // Sub Category List 
 
-  SubCategory(data: any) {
-    return this.http.get<any>(environment.apiUrl + ApiEndPoint.getcategoryListSuper + '?MainProductCategoryId=' + data.MainProductCategoryId + '&ShopId=' + data.ShopId)
-  }
 
 
 
@@ -715,6 +703,27 @@ planUpdate(data: any) {
     getVendorDetail(vendorId: any) {
       return this.http.get<any>(environment.apiUrl + ApiEndPoint.vendorDetail + '?vendorId=' + vendorId, {})
     }
+
+    editVendor(data: any) {
+      return this.http.post<any>(environment.apiUrl + ApiEndPoint.UpdateVendor, data)
+    }
+  
+    updateVendorProfile(data: any) {
+      return this.http.post<any>(environment.apiUrl + ApiEndPoint.UpdateVendor, data)
+    }
+     
+
+  getcategoryVendor(SalonId:any) {
+    return this.http.get<any>(environment.apiUrl + ApiEndPoint.getcategoryVendor + '?SalonId=' + SalonId)
+
+  }
+    // Sub Category List 
+
+    SubCategory(data: any) {
+      return this.http.get<any>(environment.apiUrl + ApiEndPoint.getcategoryListSuper + '?MainProductCategoryId=' + data.MainProductCategoryId + '&SalonId=' + data.SalonId)
+    }
+  
+  
   
 
 }

@@ -63,10 +63,10 @@
                         <td>
 
                             <a *ngIf="item.isNext == true"
-                                [routerLink]="['/category-list/sub-category/'] + item.mainProductCategoryId "><i
+                                [routerLink]="['/category-list/sub-category/'] + item.mainCategoryId "><i
                                 style="background:#e6629f; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;"  class="fa fa-eye"></i></a>
                             <a *ngIf="item.isNext == false"
-                                [routerLink]="['/category-list/sub-category/Sub-add/'] + item.mainProductCategoryId"><i
+                                [routerLink]="['/category-list/sub-category-list/addEdit-sub-category/'] + item.mainCategoryId"><i
                                     class="fa fa-plus"></i></a>
 
                             <!-- <a (click)="edit(item)"><i

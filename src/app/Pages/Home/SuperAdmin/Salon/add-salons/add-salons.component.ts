@@ -47,6 +47,7 @@ export class AddSalonsComponent implements OnInit {
   upidetail: any;
   upidetailId: any = [];
   urls: any = [];
+  
   ids: any[] = [];
   upiDetailPatch: any;
   image: any;
@@ -520,31 +521,45 @@ export class AddSalonsComponent implements OnInit {
   
     // Shop Image 
     handleFileInput(event: any) {
-      if (event.target.files && event.target.files[0]) {
-  
-        //Show image preview
-        let reader = new FileReader();
-        reader.onload = (_event: any) => {
-          this.imageUrl = _event.target.result;
-          this.imageFiles = {
-            link: _event.target.result,
-            file: event.srcElement.files[0],
-            name: event.srcElement.files[0].name,
-            type: event.srcElement.files[0].type
-          };
-        }
-        reader.readAsDataURL(event.target.files[0]);
+      const files = event.target.files;
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        this.image = file
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+          const imageDataUrl = reader.result as string;
+          this.urls.push(imageDataUrl);
+        };
       }
     }
   
   
     fileChangeEvents() {
-      let formData = new FormData();
-      formData.append("SalonImage", this.imageFiles?.file);
+      // let formData = new FormData();
+      const formData = new FormData();
+      for (let i = 0; i < this.urls.length; i++) {
+        const imageDataUrl = this.urls[i];
+        const blob = this.dataURItoBlob1(imageDataUrl);
+        formData.append('SalonImage', blob, `image_${i}.png`);
+      }
+      // formData.append("SalonImage", this.imageFiles?.file);
       formData.append("SalonId", this.SalonId.salonId);
       this.contentService.salonImage(formData).subscribe(response => {
       });
     }
+    private dataURItoBlob1(dataURI: string): Blob {
+  
+      const byteString = atob(dataURI.split(',')[1]);
+      const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+      const ab = new ArrayBuffer(byteString.length);
+      const ia = new Uint8Array(ab);
+      for (let i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
+      }
+      return new Blob([ab], { type: mimeString });
+    }
+  
   
   
   
