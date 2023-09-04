@@ -99,7 +99,7 @@ export class SubCategoryListComponent implements OnInit {
     
     let payload = {
       subProductCategoryId: data,
-      SalonId:this.salonId,
+      salonId:this.salonId,
       status: false
     }
     // this.spinner.show();

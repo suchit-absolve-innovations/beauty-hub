@@ -298,24 +298,8 @@ export class ContentService {
   }
 
 
-  // Shop Banner
-  getShopBanner(data: any) {
-    return this.http.get<any>(environment.apiUrl + ApiEndPoint.getShopBannerList + '?shopId=' + data.shopId + '&shopBannerType=' + data.shopBannerType)
-  }
 
 
-  getFilterShopMain(data: any) {
-    return this.http.get<any>(environment.apiUrl + ApiEndPoint.getShopBannerList + '?shopId=' + data.shopId + '&mainProductCategoryId=' + data.mainProductCategoryId)
-  }
-
-  getfilerShopSub(data: any) {
-    return this.http.get<any>(environment.apiUrl + ApiEndPoint.getShopBannerList + '?shopId=' + data.shopId + '&subProductCategoryId=' + data.subProductCategoryId)
-  }
-
-
-  getfilerShopSubSub(data: any) {
-    return this.http.get<any>(environment.apiUrl + ApiEndPoint.getShopBannerList + '?shopId=' + data.shopId + '&subSubProductCategoryId=' + data.subSubProductCategoryId)
-  }
 
 
 
@@ -717,13 +701,33 @@ planUpdate(data: any) {
     return this.http.get<any>(environment.apiUrl + ApiEndPoint.getcategoryVendor + '?SalonId=' + SalonId)
 
   }
+  
+  
+      // Shop Banner
+      getShopBanner(data: any) {
+    return this.http.get<any>(environment.apiUrl + ApiEndPoint.getSalonBannerList + '?salonId=' + data.salonId + '&salonBannerType=' + data.salonBannerType)
+  }
+
+  getFilterShopMain(data: any) {
+    return this.http.get<any>(environment.apiUrl + ApiEndPoint.getSalonBannerList + '?salonId=' + data.salonId + '&mainCategoryId=' + data.mainProductCategoryId)
+  }
+
+  getfilerShopSub(data: any) {
+    return this.http.get<any>(environment.apiUrl + ApiEndPoint.getSalonBannerList + '?shopId=' + data.shopId + '&subPCategoryId=' + data.subProductCategoryId)
+  }
+
     // Sub Category List 
 
-    SubCategory(data: any) {
-      return this.http.get<any>(environment.apiUrl + ApiEndPoint.getcategoryListSuper + '?MainProductCategoryId=' + data.MainProductCategoryId + '&SalonId=' + data.SalonId)
+    SubCategory(MainCategoryId: any) {
+      debugger
+      return this.http.get<any>(environment.apiUrl + ApiEndPoint.getcategoryListSuper + '?MainCategoryId=' + MainCategoryId )
     }
   
-  
+
+  // getfilerShopSubSub(data: any) {
+  //   return this.http.get<any>(environment.apiUrl + ApiEndPoint.getSalonBannerList + '?shopId=' + data.shopId + '&subSubProductCategoryId=' + data.subSubProductCategoryId)
+  // }
+
   
 
 }

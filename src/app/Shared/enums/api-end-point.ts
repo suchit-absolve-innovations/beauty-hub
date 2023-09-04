@@ -55,7 +55,7 @@ export enum ApiEndPoint {
     productImage = "api/Upload/UploadProductImage",
     base64 = "api/Upload/GetProductImageInBase64",
     salonImage = "api/Upload/UploadaSlonImage",
-    getShopBannerList = "api/Vendor/GetShopBannerList",
+   
     deleteShopBanners = "api/Vendor/DeleteShopBanner",
     postStatus = "api/Product/SetProductStatus",
     productList = "api/Product/GetProductList",
@@ -104,5 +104,6 @@ export enum ApiEndPoint {
   UpdateVendor = "api/Admin/UpdateVendor",
   getcategoryVendor = "api/Vendor/GetVendorCategoryList",
   getcategoryListSuper = "api/Vendor/GetVendorCategoryList",
+  getSalonBannerList = "api/Vendor/GetSalonBannerList",
 
 }
