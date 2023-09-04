@@ -31,11 +31,9 @@ export class CategoryListComponent implements OnInit {
     unActive: boolean = false;
     shopDetail: any;
     vendorDetail: any;
-    salonId = localStorage.getItem('salonId')
+    salonId = localStorage.getItem('salonId');
     categoryRequestList: any;
     mainCategoryId: any;
-
-
     form: any;
     constructor(private toaster: ToastrService,
       private spinner: NgxSpinnerService,
