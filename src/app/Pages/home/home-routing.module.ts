@@ -25,7 +25,7 @@ import { SubSubCategoryListComponent } from './SuperAdmin/Category/sub-sub-categ
 import { CategoryListComponent } from './SuperAdmin/Category/category-list/category-list.component';
 import { VendorProfileComponent } from './Vendor/vendor-profile/vendor-profile.component';
 import { ShopBannerListComponent } from './Vendor/shop-banner-list/shop-banner-list.component';
-
+import { AddEditShopBannerComponent } from './Vendor/shop-banner-list/add-edit-shop-banner/add-edit-shop-banner.component';
 
 
 const routes: Routes = [
@@ -65,7 +65,8 @@ const routes: Routes = [
 
      //vendor//
      { path: 'vendor-profile',component: VendorProfileComponent},
-     { path: 'Shop-banner-list',component: ShopBannerListComponent}
+     { path: 'Shop-banner-list',component: ShopBannerListComponent},
+     { path: 'Shop-banner-list/add-edit', component: AddEditShopBannerComponent}
     
      
 
