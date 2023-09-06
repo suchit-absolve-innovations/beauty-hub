@@ -27,7 +27,8 @@ export class ShopBannerListComponent implements OnInit {
  SubSubcategoryList: any;
  subCategoryList: any;
  categoryList: any;
- shopBannerId: any;
+ salonBannerId: any;
+  
 
  constructor(private toaster: ToastrService,
    private spinner: NgxSpinnerService,
@@ -83,6 +84,8 @@ export class ShopBannerListComponent implements OnInit {
    this.content.getShopBanner(payload).subscribe(response => {
      if (response.isSuccess) {
        this.shopBannerList = response.data;
+
+ 
        this.spinner.hide();
      }
    });
@@ -92,14 +95,15 @@ export class ShopBannerListComponent implements OnInit {
 
  delet(data:any){
    
-this.shopBannerId = data.shopBannerId;
+this.salonBannerId = data.salonBannerId;
 
 
  }
 
  deleteShopBanners() {
    this.spinner.show();
-   this.content.deleteShopBanner(this.shopBannerId).subscribe(response => {
+   debugger
+   this.content.deleteShopBanner(this.salonBannerId).subscribe(response => {
      if (response.isSuccess) {
        this.spinner.hide();
        window.location.reload();
@@ -176,20 +180,20 @@ this.shopBannerId = data.shopBannerId;
   }
  
   getFilterSubCategoryList(data:any){
-   // this.spinner.show();
+   this.spinner.show();
    let payload = {
   
-     shopId:localStorage.getItem('shopId'),
-     subProductCategoryId: data
+     salonId:localStorage.getItem('salonId'),
+     subCategoryId: data
    
    }
  
   this.content.getfilerShopSub(payload).subscribe(response => {
     if (response.isSuccess) {
      this.shopBannerList = response.data;
-   //  this.spinner.hide();
+    this.spinner.hide();
    } else {
-     // this.spinner.hide();
+     this.spinner.hide();
      // this.data = response.isSuccess == 'false'
  
      // this.toaster.error(response.messages);

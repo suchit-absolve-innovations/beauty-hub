@@ -56,13 +56,13 @@ export enum ApiEndPoint {
     base64 = "api/Upload/GetProductImageInBase64",
     salonImage = "api/Upload/UploadaSlonImage",
    
-    deleteShopBanners = "api/Vendor/DeleteShopBanner",
+    
     postStatus = "api/Product/SetProductStatus",
     productList = "api/Product/GetProductList",
     productStock = "api/Product/updateBasicProductInfo",
     deleteProduct = "api/Product/DeleteProduct",
     addShopBanner = "api/Vendor/AddShopBanner",
-    getShopBannerDetail = "api/Vendor/GetShopBannerDetail",
+
     getCollectionList = "api/Product/GetCollectionList",
     getCollectionNameList = "api/Product/GetCollectionNameList",
     productDetail = "api/Product/GetProductDetail",
@@ -105,5 +105,7 @@ export enum ApiEndPoint {
   getcategoryVendor = "api/Vendor/GetVendorCategoryList",
   getcategoryListSuper = "api/Vendor/GetVendorCategoryList",
   getSalonBannerList = "api/Vendor/GetSalonBannerList",
+  getSalonBannerDetail = "api/Vendor/GetSalonBannerDetail",
+  deleteShopBanners = "api/Vendor/DeleteSalonBanner",
 
 }

@@ -29,8 +29,8 @@ import { AddEditSubCategoryComponent } from './SuperAdmin/Category/sub-category-
 import { SubSubCategoryListComponent } from './SuperAdmin/Category/sub-sub-category-list/sub-sub-category-list.component';
 import { AddEditSubSubCategoryComponent } from './SuperAdmin/Category/sub-sub-category-list/add-edit-sub-sub-category/add-edit-sub-sub-category.component';
 import { VendorProfileComponent } from './Vendor/vendor-profile/vendor-profile.component';
-import { ShopBannerListComponent } from './Vendor/shop-banner-list/shop-banner-list.component';
-import { AddEditShopBannerComponent } from './Vendor/shop-banner-list/add-edit-shop-banner/add-edit-shop-banner.component';
+import { ShopBannerListComponent } from './Vendor/Salon Banners/shop-banner-list/shop-banner-list.component';
+import { SalonBannerDetailComponent } from './Vendor/Salon Banners/salon-banner-detail/salon-banner-detail.component';
 
 
 
@@ -64,7 +64,7 @@ import { AddEditShopBannerComponent } from './Vendor/shop-banner-list/add-edit-s
    AddEditSubSubCategoryComponent,
    VendorProfileComponent,
    ShopBannerListComponent,
-   AddEditShopBannerComponent,
+   SalonBannerDetailComponent,
 
   ],
   imports: [

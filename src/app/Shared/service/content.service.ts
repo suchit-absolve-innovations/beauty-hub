@@ -292,8 +292,8 @@ export class ContentService {
     return this.http.delete<any>(environment.apiUrl + ApiEndPoint.deleteHomeBanners + '?bannerId=' + bannerId)
   }
 
-  deleteShopBanner(shopBannerId: any) {
-    return this.http.delete<any>(environment.apiUrl + ApiEndPoint.deleteShopBanners + '?shopBannerId=' + shopBannerId)
+  deleteShopBanner(salonBannerId: any) {
+    return this.http.delete<any>(environment.apiUrl + ApiEndPoint.deleteShopBanners + '?salonBannerId=' + salonBannerId)
 
   }
 
@@ -304,10 +304,7 @@ export class ContentService {
 
 
 
-  shopBannerDetail(shopBannerId: any) {
-    return this.http.get<any>(environment.apiUrl + ApiEndPoint.getShopBannerDetail + '?shopBannerId=' + shopBannerId + [])
 
-  }
 
   // Add shop Banner
 
@@ -709,11 +706,11 @@ planUpdate(data: any) {
   }
 
   getFilterShopMain(data: any) {
-    return this.http.get<any>(environment.apiUrl + ApiEndPoint.getSalonBannerList + '?salonId=' + data.salonId + '&mainCategoryId=' + data.mainProductCategoryId)
+    return this.http.get<any>(environment.apiUrl + ApiEndPoint.getSalonBannerList + '?salonId=' + data.salonId + '&mainCategoryId=' + data.mainCategoryId)
   }
 
   getfilerShopSub(data: any) {
-    return this.http.get<any>(environment.apiUrl + ApiEndPoint.getSalonBannerList + '?shopId=' + data.shopId + '&subPCategoryId=' + data.subProductCategoryId)
+    return this.http.get<any>(environment.apiUrl + ApiEndPoint.getSalonBannerList + '?salonId=' + data.salonId + '&subCategoryId=' + data.subCategoryId)
   }
 
     // Sub Category List 
@@ -728,6 +725,10 @@ planUpdate(data: any) {
   //   return this.http.get<any>(environment.apiUrl + ApiEndPoint.getSalonBannerList + '?shopId=' + data.shopId + '&subSubProductCategoryId=' + data.subSubProductCategoryId)
   // }
 
+  salonBannerDetail(salonBannerId: any) {
+    return this.http.get<any>(environment.apiUrl + ApiEndPoint.getSalonBannerDetail + '?salonBannerId=' + salonBannerId + [])
+
+  }
   
 
 }
