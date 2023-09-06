@@ -4,6 +4,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ContentService } from 'src/app/Shared/service/content.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-salon-list',
@@ -18,6 +19,7 @@ export class SalonListComponent implements OnInit {
   itemsPerPage!: number;
   totalItems!: number;
   form!: FormGroup;
+  rootUrl: any;
   // Get value to set list accept reject condition 
 
   
@@ -34,6 +36,7 @@ export class SalonListComponent implements OnInit {
     private formBuilder: FormBuilder,) { }
 
   ngOnInit(): void {
+    this.rootUrl = environment.rootPathUrl;
     this.route.queryParams.subscribe(params => {
       this.page = +params['page'] || 0; // Use the 'page' query parameter value, or default to 1
     });
