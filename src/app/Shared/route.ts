@@ -5,9 +5,9 @@ export const RoleRoutes = {
         {
           name: "Product", value: "MANAGE_ReI", isEnabled: false, routerLink: "vendor-product-list", acl: '', subRoutes: []
         },
-        {
-          name: "Banners", value: "MANAGE_ReI",  isEnabled: false, routerLink: "shop-banner-list", acl: 'dashboard', subRoutes: []
-        },
+        // {
+        //   name: "Banners", value: "MANAGE_ReI",  isEnabled: false, routerLink: "shop-banner-list", acl: 'dashboard', subRoutes: []
+        // },
         {
           name: "Categories", value: "MANAGE_ReI",  isEnabled: false, routerLink: "category-list", acl: '', subRoutes: []
         },

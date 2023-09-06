@@ -292,38 +292,19 @@ export class ContentService {
     return this.http.delete<any>(environment.apiUrl + ApiEndPoint.deleteHomeBanners + '?bannerId=' + bannerId)
   }
 
-  deleteShopBanner(shopBannerId: any) {
-    return this.http.delete<any>(environment.apiUrl + ApiEndPoint.deleteShopBanners + '?shopBannerId=' + shopBannerId)
+  deleteShopBanner(salonBannerId: any) {
+    return this.http.delete<any>(environment.apiUrl + ApiEndPoint.deleteShopBanners + '?salonBannerId=' + salonBannerId)
 
   }
 
 
-  // Shop Banner
-  getShopBanner(data: any) {
-    return this.http.get<any>(environment.apiUrl + ApiEndPoint.getShopBannerList + '?shopId=' + data.shopId + '&shopBannerType=' + data.shopBannerType)
-  }
-
-
-  getFilterShopMain(data: any) {
-    return this.http.get<any>(environment.apiUrl + ApiEndPoint.getShopBannerList + '?shopId=' + data.shopId + '&mainProductCategoryId=' + data.mainProductCategoryId)
-  }
-
-  getfilerShopSub(data: any) {
-    return this.http.get<any>(environment.apiUrl + ApiEndPoint.getShopBannerList + '?shopId=' + data.shopId + '&subProductCategoryId=' + data.subProductCategoryId)
-  }
-
-
-  getfilerShopSubSub(data: any) {
-    return this.http.get<any>(environment.apiUrl + ApiEndPoint.getShopBannerList + '?shopId=' + data.shopId + '&subSubProductCategoryId=' + data.subSubProductCategoryId)
-  }
 
 
 
 
-  shopBannerDetail(shopBannerId: any) {
-    return this.http.get<any>(environment.apiUrl + ApiEndPoint.getShopBannerDetail + '?shopBannerId=' + shopBannerId + [])
 
-  }
+
+
 
   // Add shop Banner
 
@@ -717,13 +698,37 @@ planUpdate(data: any) {
     return this.http.get<any>(environment.apiUrl + ApiEndPoint.getcategoryVendor + '?SalonId=' + SalonId)
 
   }
+  
+  
+      // Shop Banner
+      getShopBanner(data: any) {
+    return this.http.get<any>(environment.apiUrl + ApiEndPoint.getSalonBannerList + '?salonId=' + data.salonId + '&salonBannerType=' + data.salonBannerType)
+  }
+
+  getFilterShopMain(data: any) {
+    return this.http.get<any>(environment.apiUrl + ApiEndPoint.getSalonBannerList + '?salonId=' + data.salonId + '&mainCategoryId=' + data.mainCategoryId)
+  }
+
+  getfilerShopSub(data: any) {
+    return this.http.get<any>(environment.apiUrl + ApiEndPoint.getSalonBannerList + '?salonId=' + data.salonId + '&subCategoryId=' + data.subCategoryId)
+  }
+
     // Sub Category List 
 
-    SubCategory(data: any) {
-      return this.http.get<any>(environment.apiUrl + ApiEndPoint.getcategoryListSuper + '?MainProductCategoryId=' + data.MainProductCategoryId + '&SalonId=' + data.SalonId)
+    SubCategory(MainCategoryId: any) {
+      debugger
+      return this.http.get<any>(environment.apiUrl + ApiEndPoint.getcategoryListSuper + '?MainCategoryId=' + MainCategoryId )
     }
   
-  
+
+  // getfilerShopSubSub(data: any) {
+  //   return this.http.get<any>(environment.apiUrl + ApiEndPoint.getSalonBannerList + '?shopId=' + data.shopId + '&subSubProductCategoryId=' + data.subSubProductCategoryId)
+  // }
+
+  salonBannerDetail(salonBannerId: any) {
+    return this.http.get<any>(environment.apiUrl + ApiEndPoint.getSalonBannerDetail + '?salonBannerId=' + salonBannerId + [])
+
+  }
   
 
 }
