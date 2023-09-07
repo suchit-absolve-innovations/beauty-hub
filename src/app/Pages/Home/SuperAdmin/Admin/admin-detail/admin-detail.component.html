@@ -1,0 +1,73 @@
+<div class="app-main__outer">
+ 
+    <div class="admin_a form_dashbord">	
+
+        <div class="top-head">
+            <img (click)="backClicked()" src="assets\img\backimage.svg" class="backimage-butn">
+            <h2>Admin User Detail</h2>
+          </div>
+
+<div class="vendor-form image-back mt-40 bg-white" >
+
+<img class="image" [src]="rootUrl + adminDetail?.profilePic">
+
+</div>
+
+<div class="vendor-form mt-40 bg-white" >
+
+<div class="this_row">
+
+    <div class="row">
+
+        <div class="col-lg-6 col-md-12">
+            <dl class="d-flex inform_text">
+                <dt>First Name:</dt>
+                <dd>{{adminDetail?.firstName}}</dd>
+            </dl>
+
+
+            <dl class="d-flex inform_text">
+                <dt>Email:</dt>
+                <dd>{{adminDetail?.email}}</dd>
+            </dl>
+
+
+            <dl class="d-flex inform_text">
+                <dt>Country:</dt>
+                <dd>{{adminDetail?.countryName}}</dd>
+            </dl>
+
+            <dl class="d-flex inform_text">
+                <dt>Phone Number:</dt>
+                <dd>{{adminDetail?.dialCode}}{{adminDetail?.phoneNumber}}</dd>
+            </dl>
+        </div>
+
+        <div class="col-lg-6 col-md-12">
+
+            <dl class="d-flex inform_text">
+                <dt>Last Name:</dt>
+                <dd>{{adminDetail?.lastName}}</dd>
+            </dl>
+
+            <dl class="d-flex inform_text">
+                <dt>Gender:</dt>
+                <dd>{{adminDetail?.gender}}</dd>
+            </dl>
+
+
+            <dl class="d-flex inform_text">
+                <dt>State:</dt>
+                <dd>{{adminDetail?.stateName}}</dd>
+            </dl>
+        
+
+        </div>
+
+    </div>
+</div>
+</div>
+</div>
+
+
+</div>

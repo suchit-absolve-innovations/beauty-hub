@@ -748,5 +748,6 @@ planUpdate(data: any) {
     deleteAdminUser(Id: any) {
       return this.http.delete<any>(environment.apiUrl + ApiEndPoint.deleteAdminUser + '?Id=' + Id)
     }
+  
 
 }
