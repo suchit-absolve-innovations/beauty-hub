@@ -22,7 +22,7 @@ export enum ApiEndPoint {
     vendorList = "api/Admin/GetVendorList",
  
     vendorStatus = "api/Admin/SetVendorStatus",
-    AdminUserList = "api/Admin/GetAdminUserList",
+   
     AdminUserDetail = "api/Admin/GetAdminUserDetail",
     AddAdminUser = "api/Admin/AddAdminUser",
     UpdateAdminUser = "api/Admin/UpdateAdminUser",
@@ -108,6 +108,8 @@ export enum ApiEndPoint {
   getSalonBannerDetail = "api/Vendor/GetSalonBannerDetail",
   deleteSalonBanners = "api/Vendor/DeleteSalonBanner",
   addSalonBanner = "api/Vendor/AddSalonBanner",
-  updateSalonBanner = "api/Vendor/UpdateSalonBanner"
+  updateSalonBanner = "api/Vendor/UpdateSalonBanner",
 
+  deleteShopBanners = "api/Vendor/DeleteSalonBanner",
+  AdminUserList = "api/Admin/GetAdminUserList" ,
 }

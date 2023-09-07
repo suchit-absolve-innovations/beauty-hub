@@ -73,11 +73,6 @@ export class ContentService {
 
 
 
-  // Admin User List 
-
-  getAdminUserList(data: any) {
-    return this.http.get<any>(environment.apiUrl + ApiEndPoint.AdminUserList + '?pageNumber=' + data.pageNumber + '&pageSize=' + data.pageSize)
-  }
 
 
   // Admin User Detail
@@ -739,5 +734,10 @@ planUpdate(data: any) {
   }
 
   
+  // Admin User List 
+
+  getAdminUserList(data: any) {
+    return this.http.get<any>(environment.apiUrl + ApiEndPoint.AdminUserList + '?pageNumber=' + data.pageNumber + '&pageSize=' + data.pageSize)
+  }
 
 }

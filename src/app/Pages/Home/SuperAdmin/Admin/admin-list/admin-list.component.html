@@ -1,5 +1,4 @@
 
-
 <div class="app-main__outer">
     <div class="app-main__inner">
         
@@ -19,13 +18,92 @@
             <table class="table admin_table">
                 
                 <tr>
-                    <th>Image</th>
                     <th>Name</th>
-                    <th>Date</th>
-                    <th>Phone No.</th>
+                    <th>Profile Pic</th>
+                    <th>Gender</th>
+                    <th>Email</th>
+                    <th>Status</th>
+                    <th>Created By</th>
                     <th>Action</th>
                 </tr>
-                
+
+                <tr
+                *ngFor="let item of adminList | filter:searchText | paginate: {itemsPerPage: 5, currentPage: page, totalItems: totalItems,id: '1' }  ">
+
+              
+                <td >
+                    {{item?.firstName}} {{item?.lastName}}
+                </td>
+                <!-- <td></td> -->
+                <td class="profile">
+                    <!-- <img src="assets/img/product_items.png" class="img-responsive">		 -->
+                    <img [src]="rootUrl + item?.profilepic" class="img-responsive">
+                </td>
+                <td>{{item?.gender}}</td>
+                <td> {{item?.email}}</td>
+                <td></td>
+                <td></td>
+
+                <td>
+                    <a><i style="background:#e6629f; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;" class="fa fa-eye"></i></a>
+                    <a ><i style="background:#9f2d61; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;" class="fa fa-pencil"></i></a>
+                    <a>
+                        <i style="background:#9f0a2a; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;" class="fa fa-times"></i>
+                    </a>
+                </td>
+                <!-- <td>
+                    <a [routerLink]="['/salon-list/salon-detail/',  item?.vendorId , item.salonId]"><i style="background:#e6629f; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;" class="fa fa-eye"></i></a>
+                    <a (click)="editPlan(item)"><i style="background:#9f2d61; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;" class="fa fa-pencil"></i></a>
+                    <a data-toggle="modal" data-target="#list-cross-mess" (click)="delet(item)">
+                        <i style="background:#9f0a2a; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;" class="fa fa-times"></i>
+                    </a>
+                </td> -->
+                <!-- <td >{{item.statusDisplay}}</td> -->
+                <!-- <td>
+                    <div *ngIf="value == 'SuperAdmin'">
+                        <a class="border-btn greenbutton" *ngIf="item?.statusDisplay == 'Pending'"
+                            (click)="vendorStatusAccept(item)">Accept</a>
+                        <a class="btn_blue redbutton" *ngIf="item?.statusDisplay == 'Pending'"
+                            (click)="vendorStatusReject(item)">Reject</a>
+                        <label *ngIf="item?.statusDisplay == 'Approved'">Accepted</label>
+                        <label *ngIf="item?.statusDisplay == 'Rejected'">Rejected</label>
+                    </div>
+                    <label *ngIf="value == 'Admin'">{{item?.statusDisplay}}</label>
+                 
+                </td> -->
+                <!-- <td>
+                    <a [routerLink]="['/salon-list/salon-detail/',  item?.vendorId , item.salonId]"><i style="background:#e6629f; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;" class="fa fa-eye"></i></a>
+                    <a (click)="editPlan(item)"><i style="background:#9f2d61; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;" class="fa fa-pencil"></i></a>
+                    <a data-toggle="modal" data-target="#list-cross-mess" (click)="delet(item)">
+                        <i style="background:#9f0a2a; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;" class="fa fa-times"></i>
+                    </a>
+                </td> -->
+                <!-- Modal Delete Vendor-->
+                <!-- <div class="modal fade" id="list-cross-mess" tabindex="-1" role="dialog"
+                    aria-labelledby="cancel-messLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content warning-content">
+
+                            <div class="modal-body text-center warning-mess-sec">
+                                <button type="button" class="close float-right" data-dismiss="modal"
+                                    aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <img src="assets\img\warning.png">
+                                <h2>Alert</h2>
+                                <p>Are You Sure, You want to Delete it?</p>
+                            </div>
+                            <div class="modal-footer"> -->
+                                <!-- <button type="button" class=" border-btn" data-dismiss="modal">Cancel</button> -->
+                                <!-- <button type="button" class=" btn_blue" (click)="deleteVendor()">Yes, Delete
+                                    It</button> -->
+                            <!-- </div> -->
+                        <!-- </div>
+                    </div>
+                </div> -->
+            </tr>
+
+<!--                 
                 <tr>
                     <td class="profile">
                         <img src="assets/img/product_items.png" class="img-responsive">		
@@ -79,7 +157,7 @@
                     <a href="#"><i style="background:#9f0a2a; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;" class="fa fa-times"></i></a>
                     </td>
                 </tr> 
-                
+                 -->
             </table>
             <hr>
         </div>

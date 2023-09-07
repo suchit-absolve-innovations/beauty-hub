@@ -5,6 +5,7 @@
       <h3>Dashboard</h3>
     </div>
 
+    
     <div class="row total_admin mt-20 mb-30" style="height: auto;">
       <div class="col-lg-6 col-md-12">
         <a [routerLink]="['/admin-list']" class="dash-taba">
@@ -20,23 +21,51 @@
       </div>
     </div>
 
+    
     <div class="d-flex align-items-center mt-20 mb-20" style="height: auto;">
       <h4>Total Admin</h4>
-      <a [routerLink]="['/admin-list']" class=" btn_blue small ml-auto ">View All</a>
+     
+      <a [routerLink]="['/admin-list/add-edit-admin']" class="btn_blue ml-auto">Add Admin </a>
     </div>
-
+    
     <div class="table-responsive">
-      <table class="table admin_table">
-
-        <tr>
-          <th>Image</th>
-          <th>Name</th>
-          <th>Date</th>
-          <th>Phone No.</th>
-          <th>Action</th>
+        <table class="table admin_table">
+            
+          <tr>
+            <th>Name</th>
+            <th>Profile Pic</th>
+            <th>Gender</th>
+            <th>Email</th>
+            <th>Action</th>
         </tr>
 
-        <tr>
+        <tr
+        *ngFor="let item of adminList | filter:searchText | paginate: {itemsPerPage: 5, currentPage: page, totalItems: totalItems,id: '1' }  ">
+
+      
+        <td >
+            {{item?.firstName}} {{item?.lastName}}
+        </td>
+        <!-- <td></td> -->
+        <td class="profile">
+            <!-- <img src="assets/img/product_items.png" class="img-responsive">		 -->
+            <img [src]="rootUrl + item?.profilepic" class="img-responsive">
+        </td>
+        <td>{{item?.gender}}</td>
+        <td> {{item?.email}}</td>
+       
+
+            <td>
+                 <a><i style="background:#e6629f; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;" class="fa fa-eye"></i></a> 
+                <!-- <a ><i style="background:#9f2d61; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;" class="fa fa-pencil"></i></a>
+                <a>
+                    <i style="background:#9f0a2a; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;" class="fa fa-times"></i>
+                </a> -->
+            </td>
+
+        
+
+        <!-- <tr>
           <td class="profile">
             <img src="assets/img/product_items.png" class="img-responsive">
           </td>
@@ -101,12 +130,14 @@
             <a href="#"><i style="background:#9f0a2a; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;"
                 class="fa fa-times"></i></a>
           </td>
-        </tr>
+        </tr> -->
 
 
       </table>
       <hr>
     </div>
+
+
     <!-- total salon -->
 
     <div class="d-flex align-items-center mt-20 mb-20" style="height: auto;">
@@ -126,12 +157,12 @@
           <th>Action</th>
         </tr>
 
-        <tr
+      <tr
           *ngFor="let item of vendorList | filter:searchText | paginate: {itemsPerPage: 5, currentPage: page, totalItems: totalItems,id: '1' }  ">
 
           <td> {{item?.vendorName}}</td>
-          <td class="profile">
-            <!-- <img src="assets/img/product_items.png" class="img-responsive">		 -->
+         <td class="profile">
+             <!-- <img src="assets/img/product_items.png" class="img-responsive"> -->
             <img [src]="rootUrl + item?.profilePic" class="img-responsive">
           </td>
 
@@ -156,7 +187,7 @@
                 class="fa fa-eye"></i></a>
           </td>
 
-        </tr>
+        </tr> 
 
       </table>
     </div>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray, FormControl, AbstractControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
@@ -25,6 +25,13 @@ export class SuperAdminProfileComponent implements OnInit {
   imageFile!: { link: any, file: any, name: any, type: any };
   isActive!: boolean;
   superAdminId: any;
+  submitted: boolean = false; 
+ 
+  
+  isFieldInvalid(field: AbstractControl): boolean {
+    return field.errors !== null && field.touched;
+  }
+
 
   constructor(private router: Router,
     private formBuilder: FormBuilder,
@@ -48,11 +55,11 @@ export class SuperAdminProfileComponent implements OnInit {
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
       gender: ['', [Validators.required]],
-      phoneNumber: ['', [Validators.required]],
+      phoneNumber: ['', [Validators.required,Validators.pattern(/^\d{10}$/)]],
       dialCode: ['', [Validators.required]],
       countryId: [101],
       stateId: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required, Validators.email,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
 
       bankDetail: this.formBuilder.array([
         this.bankDetails(),
@@ -75,7 +82,8 @@ export class SuperAdminProfileComponent implements OnInit {
     },
       {
         validator: this.MustMatch('bankAccountNumber', 'confirmbankAccountNumber')
-      });
+      }
+      );
   }
 
 
@@ -90,6 +98,23 @@ export class SuperAdminProfileComponent implements OnInit {
     });
   }
 
+/////Phone Number validation////
+  onPhoneNumberInput(event: any) {
+    const inputValue = event.target.value;
+    if (inputValue.length === 10) {
+      this.form.controls['phoneNumber'].setErrors(null);
+    } else {
+      this.form.controls['phoneNumber'].setErrors({ pattern: true });
+    }
+  }
+
+
+    phoneNumberHasError(errorName: string) {
+      return (
+        this.form.controls['phoneNumber'].hasError(errorName) &&
+        (this.form.controls['phoneNumber'].dirty || this.submitted)
+      );
+    }
 
    // password match validation
    MustMatch(controlName: string, matchingControlName: string) {
@@ -313,10 +338,10 @@ export class SuperAdminProfileComponent implements OnInit {
   }
 
   postSuperAdmimProfile() {
-    // this.submitted = false;
-    // if (this.form.invalid) {
-    //   return;
-    // }
+    this.submitted = true;
+    if (this.form.invalid) {
+      return;
+    }
   
     let checkStatus: any;
     if (this.isActive == true) {
