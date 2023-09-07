@@ -64,7 +64,7 @@ export class CategoryListComponent implements OnInit {
         }
      
       // this.getvendorDetail();
-      // this.getProductCategoryRequestList();
+      this.getCategoryRequestList();
       this.getList();
       // this.getsuperlist();
       this.filterListForm();
@@ -172,7 +172,7 @@ export class CategoryListComponent implements OnInit {
     postActiveStatus(data: any) {
   
       let payload = {
-        mainProductCategoryId: data,
+        mainCategoryId: data,
         salonId:this.salonId,
         status: true
       }
@@ -184,7 +184,7 @@ export class CategoryListComponent implements OnInit {
   
     postUnActiveStatus(data: any) {  
       let payload = {
-        mainProductCategoryId: data,
+        mainCategoryId: data,
         salonId:this.salonId,
         status: false
       }
@@ -248,58 +248,56 @@ export class CategoryListComponent implements OnInit {
     }
   
     // Product Category Requests List
-    // getProductCategoryRequestList(){
+    getCategoryRequestList(){
       
-    //   this.content.productCategoryRequestList().subscribe(response => {
-    //     if (response.isSuccess) {
-    //       this.categoryRequestList = response.data;
+      this.content.getRequestList().subscribe(response => {
+        if (response.isSuccess) {
+          this.categoryRequestList = response.data;
         
-    //      this.spinner.hide();
-    //     }
-    //   });
-    // }
+         this.spinner.hide();
+        }
+      });
+    }
   
-    // acceptCategory(data:any){
-      
-    //   let payload = {
-    //     mainProductCategoryId: data.mainProductCategoryId,
-    //     subProductCategoryId: data.subProductCategoryId,
-    //     subSubProductCategoryId: data.subSubProductCategoryId,
-    //     status: 1
-    //   }
-    //   // this.spinner.show();
-    //   this.content.acceptRejectCategorys(payload).subscribe(response => {
-    //     if (response.isSuccess) {
-    //       this.spinner.hide();
-    //       this.ngZone.run(() => { this.getProductCategoryRequestList() });
-    //       this.toaster.success(response.messages);
-    //     } else {
-    //       this.spinner.hide();
-    //       this.toaster.error(response.messages)
-    //     }
-    //   });
-    // }
+    acceptCategory(data:any){
+      debugger
+      let payload = {
+        mainCategoryId: data.mainCategoryId,
+        subCategoryId: data.subCategoryId,
+        status: 1
+      }
+      // this.spinner.show();
+      this.content.acceptRejectCategorys(payload).subscribe(response => {
+        if (response.isSuccess) {
+          this.spinner.hide();
+          this.ngZone.run(() => { this.getCategoryRequestList() });
+          this.toaster.success(response.messages);
+        } else {
+          this.spinner.hide();
+          this.toaster.error(response.messages)
+        }
+      });
+    }
   
-  //  rejectCategory(data:any){
+   rejectCategory(data:any){
       
-  //     let payload = {
-  //       mainProductCategoryId: data.mainProductCategoryId,
-  //       subProductCategoryId: data.subProductCategoryId,
-  //       subSubProductCategoryId: data.subSubProductCategoryId,
-  //       status: 2
-  //     }
-  //     // this.spinner.show();
-  //     this.content.acceptRejectCategorys(payload).subscribe(response => {
-  //       if (response.isSuccess) {
-  //         this.spinner.hide();
-  //         this.ngZone.run(() => { this.getProductCategoryRequestList() });
-  //         this.toaster.success(response.messages);
-  //       } else {
-  //         this.spinner.hide();
-  //         this.toaster.error(response.messages)
-  //       }
-  //     });
-  //   }
+      let payload = {
+        mainCategoryId: data.mainProductCategoryId,
+        subCategoryId: data.subProductCategoryId,
+        status: 2
+      }
+      // this.spinner.show();
+      this.content.acceptRejectCategorys(payload).subscribe(response => {
+        if (response.isSuccess) {
+          this.spinner.hide();
+          this.ngZone.run(() => { this.getCategoryRequestList() });
+          this.toaster.success(response.messages);
+        } else {
+          this.spinner.hide();
+          this.toaster.error(response.messages)
+        }
+      });
+    }
    
     delet(data:any){
       

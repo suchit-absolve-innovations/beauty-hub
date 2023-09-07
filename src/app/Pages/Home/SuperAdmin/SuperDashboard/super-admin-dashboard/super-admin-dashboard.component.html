@@ -46,9 +46,7 @@
         <td >
             {{item?.firstName}} {{item?.lastName}}
         </td>
-        <!-- <td></td> -->
         <td class="profile">
-            <!-- <img src="assets/img/product_items.png" class="img-responsive">		 -->
             <img [src]="rootUrl + item?.profilepic" class="img-responsive">
         </td>
         <td>{{item?.gender}}</td>
@@ -62,75 +60,6 @@
                     <i style="background:#9f0a2a; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;" class="fa fa-times"></i>
                 </a> -->
             </td>
-
-        
-
-        <!-- <tr>
-          <td class="profile">
-            <img src="assets/img/product_items.png" class="img-responsive">
-          </td>
-          <td>Test 1</td>
-          <td>26-06-2023</td>
-          <td>9888000111</td>
-          <td class="action">
-            <a href="#"><i style="background:#e6629f; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;"
-                class="fa fa-eye"></i></a>
-            <a href="#"><i style="background:#9f2d61; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;"
-                class="fa fa-pencil"></i></a>
-            <a href="#"><i style="background:#9f0a2a; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;"
-                class="fa fa-times"></i></a>
-          </td>
-        </tr>
-
-        <tr>
-          <td class="profile">
-            <img src="assets/img/product_items.png" class="img-responsive">
-          </td>
-          <td>Test 1</td>
-          <td>26-06-2023</td>
-          <td>9888000111</td>
-          <td class="action">
-            <a href="#"><i style="background:#e6629f; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;"
-                class="fa fa-eye"></i></a>
-            <a href="#"><i style="background:#9f2d61; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;"
-                class="fa fa-pencil"></i></a>
-            <a href="#"><i style="background:#9f0a2a; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;"
-                class="fa fa-times"></i></a>
-          </td>
-        </tr>
-        <tr>
-          <td class="profile">
-            <img src="assets/img/product_items.png" class="img-responsive">
-          </td>
-          <td>Test 1</td>
-          <td>26-06-2023</td>
-          <td>9888000111</td>
-          <td class="action">
-            <a href="#"><i style="background:#e6629f; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;"
-                class="fa fa-eye"></i></a>
-            <a href="#"><i style="background:#9f2d61; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;"
-                class="fa fa-pencil"></i></a>
-            <a href="#"><i style="background:#9f0a2a; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;"
-                class="fa fa-times"></i></a>
-          </td>
-        </tr>
-
-        <tr>
-          <td class="profile">
-            <img src="assets/img/product_items.png" class="img-responsive">
-          </td>
-          <td>Test 1</td>
-          <td>26-06-2023</td>
-          <td>9888000111</td>
-          <td class="action">
-            <a href="#"><i style="background:#e6629f; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;"
-                class="fa fa-eye"></i></a>
-            <a href="#"><i style="background:#9f2d61; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;"
-                class="fa fa-pencil"></i></a>
-            <a href="#"><i style="background:#9f0a2a; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;"
-                class="fa fa-times"></i></a>
-          </td>
-        </tr> -->
 
 
       </table>
@@ -153,7 +82,7 @@
           <th>Salon Image</th>
           <th>Salon Name</th>
           <th>Created By</th>
-          <th>Status</th>
+          <!-- <th>Status</th> -->
           <th>Action</th>
         </tr>
 
@@ -169,7 +98,7 @@
           <td>{{item?.salonName}}</td>
 
           <td>{{item?.createdBy}}</td>
-          <td>
+          <!-- <td>
             <div *ngIf="value == 'SuperAdmin'">
               <a class="border-btn greenbutton" *ngIf="item?.statusDisplay == 'Pending'"
                 (click)="vendorStatusAccept(item)">Accept</a>
@@ -179,8 +108,8 @@
               <label *ngIf="item?.statusDisplay == 'Rejected'">Rejected</label>
             </div>
             <label *ngIf="value == 'Admin'">{{item?.statusDisplay}}</label>
-            <!-- <p>{{item?.statusDisplay}}</p> -->
-          </td>
+            <p>{{item?.statusDisplay}}</p>
+          </td> -->
           <td>
             <a [routerLink]="['/salon-list/salon-detail/',  item?.vendorId , item.salonId]"><i
                 style="background:#e6629f; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;"

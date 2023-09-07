@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -27,6 +27,7 @@ export class AdminListComponent implements OnInit {
    value = localStorage.getItem('user');
   vendorId: any;
   membershipRecordId: any;
+  adminId: any;
 
   constructor(
     private toaster: ToastrService,
@@ -34,7 +35,7 @@ export class AdminListComponent implements OnInit {
     private content: ContentService,
     private router: Router,
     private route: ActivatedRoute,
-    // private ngZone: NgZone,
+    private ngZone: NgZone,
     private formBuilder: FormBuilder,
   ) { 
     
@@ -52,6 +53,16 @@ export class AdminListComponent implements OnInit {
     });
   }
 
+    // edit user 
+    editPlan(data: any) {
+      this.router.navigate(['/admin-list/add-edit-admin'],
+        {
+          queryParams: {
+            id: data.id
+          }
+        });
+    }
+
   getAdminUserLists(){
     let payload = {
       pageNumber : 1,
@@ -64,5 +75,27 @@ export class AdminListComponent implements OnInit {
   }
 });
 }
+
+delet(data:any){
+    
+  this.adminId = data.id;
+  
+    }
+  
+    deleteUser() {
+      this.spinner.show();
+      debugger
+      this.content.deleteAdminUser(this.adminId).subscribe(response => {
+        if (response.isSuccess) {
+          this.spinner.hide();
+          this.ngZone.run(() => { this.getAdminUserLists(); })
+          this.toaster.success(response.messages);
+            window.location.reload();
+        } else {
+          this.spinner.hide();
+          this.toaster.error(response.messages)
+        }
+      });
+    }
 
 }

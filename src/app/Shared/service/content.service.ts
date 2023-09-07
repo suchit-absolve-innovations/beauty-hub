@@ -75,35 +75,10 @@ export class ContentService {
 
 
 
-  // Admin User Detail
 
-  UserAdminDetail(Id: any) {
-    return this.http.get<any>(environment.apiUrl + ApiEndPoint.AdminUserDetail + '?Id=' + Id)
-  }
 
-  // Add Admin User
+ 
 
-  postAdminUser(data: any) {
-    return this.http.post<any>(environment.apiUrl + ApiEndPoint.AddAdminUser, data)
-  }
-
-  // Update Admin User
-
-  updateAdminUser(data: any) {
-    return this.http.post<any>(environment.apiUrl + ApiEndPoint.UpdateAdminUser, data)
-  }
-
-  // delete vendor 
-
-  deleteVendor(VendorId: any) {
-    return this.http.delete<any>(environment.apiUrl + ApiEndPoint.deleteVendor + '?VendorId=' + VendorId)
-  }
-
-  // delete Admin User
-
-  deleteAdminUser(Id: any) {
-    return this.http.delete<any>(environment.apiUrl + ApiEndPoint.deleteAdminUser + '?Id=' + Id)
-  }
 
   // Category List 
 
@@ -115,20 +90,9 @@ export class ContentService {
 
 
 
-  productCategoryRequestList(){
-    return this.http.get<any>(environment.apiUrl + ApiEndPoint. getProductCategoryRequestList)
-  }
+ 
+ 
 
-  acceptRejectCategorys(data:any){
-    return this.http.post<any>(environment.apiUrl + ApiEndPoint.acceptRejectCategory, data)
-  }
-
-  // category status 
-
-  statusPostCategory(data: any) {
-    return this.http.post<any>(environment.apiUrl + ApiEndPoint.categoryStatus, data)
-
-  }
 
   getFilterMaincategory(id: any) {
     return this.http.get<any>(environment.apiUrl + ApiEndPoint.productList + '?pageNumber=' + id.pageNumber + '&pageSize=' + id.pageSize + '&mainProductCategoryId=' + id.mainProductCategoryId)
@@ -626,6 +590,22 @@ planUpdate(data: any) {
   
     }
 
+    getRequestList(){
+      return this.http.get<any>(environment.apiUrl + ApiEndPoint. getCategoryRequestList)
+    }
+    acceptRejectCategorys(data:any){
+      return this.http.post<any>(environment.apiUrl + ApiEndPoint.acceptRejectCategory, data)
+    }
+
+      // category status 
+
+  statusPostCategory(data: any) {
+    return this.http.post<any>(environment.apiUrl + ApiEndPoint.categoryStatus, data)
+
+  }
+  
+  
+
       // Sub  Category Detail
 
   SubcategoryDetail(data: any) {
@@ -739,5 +719,34 @@ planUpdate(data: any) {
   getAdminUserList(data: any) {
     return this.http.get<any>(environment.apiUrl + ApiEndPoint.AdminUserList + '?pageNumber=' + data.pageNumber + '&pageSize=' + data.pageSize)
   }
+
+    // Admin User Detail
+
+    UserAdminDetail(Id: any) {
+      return this.http.get<any>(environment.apiUrl + ApiEndPoint.AdminUserDetail + '?Id=' + Id)
+    }
+     // Add Admin User
+
+  postAdminUser(data: any) {
+    return this.http.post<any>(environment.apiUrl + ApiEndPoint.AddAdminUser, data)
+  }
+
+  // Update Admin User
+
+  updateAdminUser(data: any) {
+    return this.http.post<any>(environment.apiUrl + ApiEndPoint.UpdateAdminUser, data)
+  }
+
+    // delete vendor 
+
+    deleteVendor(VendorId: any) {
+      return this.http.delete<any>(environment.apiUrl + ApiEndPoint.deleteVendor + '?VendorId=' + VendorId)
+    }
+  
+    // delete Admin User
+  
+    deleteAdminUser(Id: any) {
+      return this.http.delete<any>(environment.apiUrl + ApiEndPoint.deleteAdminUser + '?Id=' + Id)
+    }
 
 }

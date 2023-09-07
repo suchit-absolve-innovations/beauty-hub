@@ -42,12 +42,12 @@
                             <span>Pending</span>
                         </label> -->
                             <label class="switch" *ngIf="item?.status == true">
-                                <input type="checkbox" checked (click)="checkActiveStatus(item?.mainProductCategoryId)">
+                                <input type="checkbox" checked (click)="checkActiveStatus(item?.mainCategoryId)">
                                 <span class="slider round"></span>
                                 <!-- <p>Active</p> -->
                             </label>
                             <label class="switch" *ngIf="item.status == false">
-                                <input type="checkbox" (click)="checkInactiveStatus(item.mainProductCategoryId)">
+                                <input type="checkbox" (click)="checkInactiveStatus(item.mainCategoryId)">
                                 <span class="slider round"></span>
                                 <!-- <p>UnActive</p> -->
                             </label>
@@ -310,31 +310,28 @@
                                 <!-- <th>Serial No.</th> -->
                                 <th>Main Category</th>
                                 <th>Sub Category</th>
-                                <th>Sub Sub Category</th>
+                               
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
                             <tr
                                 *ngFor="let item of categoryRequestList | filter:searchText | paginate: {itemsPerPage: 10, currentPage: page2, totalItems: totalItems,id: '2' }  ">
                                 <td>
-                                    {{item?.mainProductCategoryName}}
+                                    {{item?.mainCategoryName}}
                                 </td>
                                 <td>
-                                    <span *ngIf="item?.subProductCategoryName == null" class="td-span">N/A</span>
-                                    {{item?.subProductCategoryName}}
+                                    <span *ngIf="item?.subCategoryName == null" class="td-span">N/A</span>
+                                    {{item?.subCategoryName}}
                                 </td>
 
-                                <td>
-                                    <span *ngIf="item?.subSubProductCategoryName == null" class="td-span">N/A</span>
-                                    {{item?.subSubProductCategoryName}}
-                                </td>
+                             
                                 <!-- <td class="profile"><img [src]="rootUrl + item?.categoryImage" class="img-responsive"></td> -->
 
                                 <td>
                                     <span *ngIf="item?.categoryStatus == 2" class="td-span">Rejected</span>
                                     <div *ngIf="item?.categoryStatus == 0">
-                                        <!-- <a (click)="acceptCategory(item)" class="border-btn greenbutton">Accept</a>
-                                        <a (click)="rejectCategory(item)" class="btn_blue redbutton">Reject</a> -->
+                                        <a (click)="acceptCategory(item)" class="border-btn greenbutton">Accept</a>
+                                        <a (click)="rejectCategory(item)" class="btn_blue redbutton">Reject</a>
                                     </div>
                                 </td>
                                 <td>

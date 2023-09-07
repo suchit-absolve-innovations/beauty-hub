@@ -22,18 +22,17 @@ export enum ApiEndPoint {
     vendorList = "api/Admin/GetVendorList",
  
     vendorStatus = "api/Admin/SetVendorStatus",
+
    
-    AdminUserDetail = "api/Admin/GetAdminUserDetail",
-    AddAdminUser = "api/Admin/AddAdminUser",
-    UpdateAdminUser = "api/Admin/UpdateAdminUser",
+    
     deleteVendor = "api/Admin/DeleteVendor",
     deleteAdminUser = "api/Admin/DeleteAdminUser",
    
     
     
-    getProductCategoryRequestList = "api/Category/GetProductCategoryRequests",
-    acceptRejectCategory = "/api/Category/SetCategoryStatus",
-    categoryStatus = "api/Vendor/SetVendorCategoryStatus",
+    
+    
+   
    
   
    
@@ -95,6 +94,9 @@ export enum ApiEndPoint {
   buyMemberShipPlan = "api/Vendor/buyMembershipPlan",
   vendorDetail = "api/Admin/GetVendorDetail",
   getcategoryList = "api/Category/GetCategoryList",
+  getCategoryRequestList = "api/Category/GetCategoryRequests",
+  acceptRejectCategory = "api/Category/SetCategoryStatus",
+  categoryStatus = "api/Vendor/SetVendorCategoryStatus",
   addCategory = "api/Category/AddCategory",
   categoryDetail = "api/Category/GetCategoryDetail",
   updateCategory = "api/Category/UpdateCategory",
@@ -112,4 +114,7 @@ export enum ApiEndPoint {
 
   deleteShopBanners = "api/Vendor/DeleteSalonBanner",
   AdminUserList = "api/Admin/GetAdminUserList" ,
+  AddAdminUser = "api/Admin/AddAdminUser",    
+  AdminUserDetail = "api/Admin/GetAdminUserDetail",
+  UpdateAdminUser = "api/Admin/UpdateAdminUser",
 }
