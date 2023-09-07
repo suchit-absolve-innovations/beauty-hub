@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -34,7 +34,7 @@ export class AdminListComponent implements OnInit {
     private content: ContentService,
     private router: Router,
     private route: ActivatedRoute,
-    // private ngZone: NgZone,
+    private ngZone: NgZone,
     private formBuilder: FormBuilder,
   ) { 
     
@@ -64,5 +64,6 @@ export class AdminListComponent implements OnInit {
   }
 });
 }
+
 
 }
