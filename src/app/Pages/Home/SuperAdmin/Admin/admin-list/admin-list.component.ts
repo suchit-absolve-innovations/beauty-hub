@@ -65,5 +65,4 @@ export class AdminListComponent implements OnInit {
 });
 }
 
-
 }

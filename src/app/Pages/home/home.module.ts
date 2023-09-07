@@ -33,7 +33,8 @@ import { ShopBannerListComponent } from './Vendor/Salon Banners/shop-banner-list
 import { SalonBannerDetailComponent } from './Vendor/Salon Banners/salon-banner-detail/salon-banner-detail.component';
 import { AddEditSalonBannerComponent } from './Vendor/Salon Banners/add-edit-salon-banner/add-edit-salon-banner.component';
 import { EditSalonBannerComponent } from './Vendor/Salon Banners/edit-salon-banner/edit-salon-banner.component';
-import { AddAdminDetailComponent } from './SuperAdmin/Admin/add-admin-detail/add-admin-detail.component';
+import { AdminDetailComponent } from './SuperAdmin/Admin/admin-detail/admin-detail.component';
+
 
 
 
@@ -70,7 +71,7 @@ import { AddAdminDetailComponent } from './SuperAdmin/Admin/add-admin-detail/add
    SalonBannerDetailComponent,
    AddEditSalonBannerComponent,
    EditSalonBannerComponent,
-   AddAdminDetailComponent,
+   AdminDetailComponent
 
   ],
   imports: [

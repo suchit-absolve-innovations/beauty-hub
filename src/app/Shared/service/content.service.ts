@@ -75,11 +75,6 @@ export class ContentService {
 
 
 
-  // Admin User Detail
-
-  UserAdminDetail(Id: any) {
-    return this.http.get<any>(environment.apiUrl + ApiEndPoint.AdminUserDetail + '?Id=' + Id)
-  }
 
   // Add Admin User
 
@@ -739,5 +734,12 @@ planUpdate(data: any) {
   getAdminUserList(data: any) {
     return this.http.get<any>(environment.apiUrl + ApiEndPoint.AdminUserList + '?pageNumber=' + data.pageNumber + '&pageSize=' + data.pageSize)
   }
+
+    // Admin User Detail
+
+    UserAdminDetail(Id: any) {
+      return this.http.get<any>(environment.apiUrl + ApiEndPoint.AdminUserDetail + '?Id=' + Id)
+    }
+  
 
 }

@@ -28,6 +28,7 @@ import { ShopBannerListComponent } from './Vendor/Salon Banners/shop-banner-list
 import { SalonBannerDetailComponent } from './Vendor/Salon Banners/salon-banner-detail/salon-banner-detail.component';
 import { AddEditSalonBannerComponent } from './Vendor/Salon Banners/add-edit-salon-banner/add-edit-salon-banner.component';
 import { EditSalonBannerComponent } from './Vendor/Salon Banners/edit-salon-banner/edit-salon-banner.component';
+import { AdminDetailComponent } from './SuperAdmin/Admin/admin-detail/admin-detail.component';
 
 
 
@@ -49,6 +50,7 @@ const routes: Routes = [
      { path: 'salon-list/salon-detail/:id/:id2',component:SalonDetailComponent},
      { path: 'admin-list', component: AdminListComponent},
      { path: 'admin-list/add-edit-admin',component: AddEditAdminComponent},
+     { path: 'admin-list/admin-detail/:id',component: AdminDetailComponent},
      { path: 'category-list', component: CategoryListComponent},
      { path: 'category-list/add-edit-category', component: AddEditCategoryComponent},
      { path: 'category-list/sub-category-list/:id',component:SubCategoryListComponent},
