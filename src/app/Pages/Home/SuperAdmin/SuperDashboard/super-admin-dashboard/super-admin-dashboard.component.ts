@@ -13,6 +13,7 @@ import { environment } from 'src/environments/environment';
 })
 export class SuperAdminDashboardComponent implements OnInit {
   vendorList: any;
+  adminList:any
   // serach
   public searchText: any = '';
   page: number = 0;
@@ -42,6 +43,7 @@ export class SuperAdminDashboardComponent implements OnInit {
       this.page = +params['page'] || 0; // Use the 'page' query parameter value, or default to 1
     });
     this.getVendorList();
+    this.getAdminUserLists();
 
     this.form = this.formBuilder.group({
       transactionId: [''],
@@ -65,6 +67,18 @@ export class SuperAdminDashboardComponent implements OnInit {
       queryParamsHandling: 'merge',
     });
   }
+  getAdminUserLists(){
+    let payload = {
+      pageNumber : 1,
+      pageSize : 1000,
+    }
+    this.content.getAdminUserList(payload).subscribe((response:any) => {
+      if (response.isSuccess) {
+        this.adminList = response.data.dataList;
+        this.spinner.hide();
+  }
+});
+}
 
   getVendorList() {
     let payload = {
@@ -80,6 +94,7 @@ export class SuperAdminDashboardComponent implements OnInit {
     });
   }
 
+
   vendorStatusAccept(data: any) {
     debugger;
     let payload = {
@@ -93,6 +108,7 @@ export class SuperAdminDashboardComponent implements OnInit {
         this.spinner.hide();
         this.ngZone.run(() => {
           this.getVendorList();
+          this.getAdminUserLists();
         });
         this.toaster.success(response.messages);
       } else {
@@ -101,6 +117,7 @@ export class SuperAdminDashboardComponent implements OnInit {
       }
     });
   }
+
 
   vendorStatusReject(data: any) {
     let payload = {

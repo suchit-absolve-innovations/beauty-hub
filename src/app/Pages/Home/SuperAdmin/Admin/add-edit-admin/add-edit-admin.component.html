@@ -57,12 +57,10 @@
               <input
                 type="text"
                 class="control-form"
-                formControlName="firstName"
-              />
+                formControlName="firstName"/>
               <div
                 *ngIf="submitted && f['firstName'].errors"
-                class="help-block"
-              >
+                class="help-block">
                 <div *ngIf="f['firstName'].errors" style="color: #fd0000">
                   First Name is Invalid
                 </div>
