@@ -292,10 +292,6 @@ export class ContentService {
     return this.http.delete<any>(environment.apiUrl + ApiEndPoint.deleteHomeBanners + '?bannerId=' + bannerId)
   }
 
-  deleteShopBanner(salonBannerId: any) {
-    return this.http.delete<any>(environment.apiUrl + ApiEndPoint.deleteShopBanners + '?salonBannerId=' + salonBannerId)
-
-  }
 
 
 
@@ -305,13 +301,7 @@ export class ContentService {
 
 
 
-
-  // Add shop Banner
-
-  postShopBanner(data: any) {
-    return this.http.post<any>(environment.apiUrl + ApiEndPoint.addShopBanner, data)
-  }
-
+  
 
   // Container Type List 
 
@@ -385,20 +375,7 @@ export class ContentService {
     return this.http.get<any>(environment.apiUrl + ApiEndPoint.productList + '?pageNumber=' + data.pageNumber + '&pageSize=' + data.pageSize + '&vendorId=' + data.vendorId);
   }
 
-  // Shop Banner Upload 
-
-  uploadShopBanner(data: any) {
-    const headers = new HttpHeaders();
-    headers.append('Content-Type', 'multipart/form-data');
-    const options = {
-      headers: headers
-    };
-    return this.http.post<any>(environment.apiUrl + ApiEndPoint.addShopBanner, data, options).pipe(map((data: any) => {
-      localStorage.setItem('File', data);
-      return data;
-    }));
-
-  }
+ 
 
   // Collections
 
@@ -729,6 +706,38 @@ planUpdate(data: any) {
     return this.http.get<any>(environment.apiUrl + ApiEndPoint.getSalonBannerDetail + '?salonBannerId=' + salonBannerId + [])
 
   }
+   // Shop Banner Upload 
+
+   addSalonBanners(data: any) {
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'multipart/form-data');
+    const options = {
+      headers: headers
+    };
+    return this.http.post<any>(environment.apiUrl + ApiEndPoint.addSalonBanner, data, options).pipe(map((data: any) => {
+      localStorage.setItem('File', data);
+      return data;
+    }));
+
+  }
+  updateSalonBanner(data:any){
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'multipart/form-data');
+    const options = {
+      headers: headers
+    };
+    return this.http.post<any>(environment.apiUrl + ApiEndPoint.updateSalonBanner, data, options).pipe(map((data: any) => {
+      localStorage.setItem('File', data);
+      return data;
+    }));
+  }
+
+  
+  deleteSalonBanner(salonBannerId: any) {
+    return this.http.delete<any>(environment.apiUrl + ApiEndPoint.deleteSalonBanners + '?salonBannerId=' + salonBannerId)
+
+  }
+
   
 
 }

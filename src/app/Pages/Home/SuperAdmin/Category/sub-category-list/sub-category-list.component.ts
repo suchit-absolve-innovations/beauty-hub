@@ -196,13 +196,14 @@ export class SubCategoryListComponent implements OnInit {
   // Vendor
 
   getSubcategoryList() {
-
-    this.spinner.show();
-    let payload = {
-      MainProductCategoryId : parseInt(this.Id),
-      salonId :  this.salonId
-    }
-    this.content.SubCategory(payload).subscribe(response => {
+debugger
+    // this.spinner.show();
+    // let payload = {
+    //   MainCategoryId : parseInt(this.Id),
+    //   salonId :  this.salonId
+    // }
+   this.MainCategoryId = parseInt(this.Id)
+    this.content.SubCategory(this.MainCategoryId).subscribe(response => {
       if (response.isSuccess) {
         
         this.categoryList = response.data;

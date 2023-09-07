@@ -8,7 +8,7 @@
 
         <div class="d-flex if_xs_btn mt-30">
             <input type="text" placeholder="Search Banners" class="btn_border search_here" [(ngModel)]="searchText">
-            <a [routerLink]="['/shop-banner-list/add-edit-banner']" class="btn_blue ml-auto">Add New Banner</a>
+            <a [routerLink]="['/salon-banner-list/add-salon-banner']" class="btn_blue ml-auto">Add New Banner</a>
             <!-- [routerLink]="['/banner-list/banner-detail/'] + item?.bannerId " -->
         </div>
 
@@ -69,14 +69,10 @@
                     <!-- <td>{{item.createDate}}</td> -->
                     <td>
                  
-                        <a [routerLink]="['/shop-banner-list/Salon-detail/'] + item?.salonBannerId "><i
+                        <a [routerLink]="['/salon-banner-list/Salon-detail/'] + item?.salonBannerId "><i style="background:#e6629f; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;" class="fa fa-eye"></i></a>
                                 
-                                class="fa fa-eye"></i></a>
-                                
-                        <a [routerLink]="['/shop-banner-list/edit-banner/',item.salonBannerId, item.shopId]" >
-                            <i
-                               
-                                class="fa fa-pencil"></i></a>
+                        <a [routerLink]="['/salon-banner-list/edit-salon-banner/',item.salonBannerId, item.salonId]" >
+                            <i class="fa fa-pencil"></i></a>
 
                                 <a data-toggle="modal" data-target="#confirm-mess" (click)="delet(item)">
                                     <i class="fa fa-times"></i>
@@ -101,7 +97,7 @@
                              <div class="modal-footer">
                                  <button type="button" class=" border-btn" data-dismiss="modal">Close</button>
                                  <button type="button" class=" btn_blue"
-                                     (click)="deleteShopBanners()">Yes, Delete It</button>
+                                     (click)="deleteSalonBanners()">Yes, Delete It</button>
                              </div>
                          </div>
                      </div>

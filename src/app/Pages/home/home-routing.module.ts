@@ -26,6 +26,8 @@ import { CategoryListComponent } from './SuperAdmin/Category/category-list/categ
 import { VendorProfileComponent } from './Vendor/vendor-profile/vendor-profile.component';
 import { ShopBannerListComponent } from './Vendor/Salon Banners/shop-banner-list/shop-banner-list.component';
 import { SalonBannerDetailComponent } from './Vendor/Salon Banners/salon-banner-detail/salon-banner-detail.component';
+import { AddEditSalonBannerComponent } from './Vendor/Salon Banners/add-edit-salon-banner/add-edit-salon-banner.component';
+import { EditSalonBannerComponent } from './Vendor/Salon Banners/edit-salon-banner/edit-salon-banner.component';
 
 
 
@@ -66,8 +68,10 @@ const routes: Routes = [
 
      //vendor//
      { path: 'vendor-profile',component: VendorProfileComponent},
-     { path: 'shop-banner-list',component: ShopBannerListComponent},
-     { path: 'shop-banner-list/Salon-detail/:id',component:SalonBannerDetailComponent}
+     { path: 'salon-banner-list',component: ShopBannerListComponent},
+     { path: 'salon-banner-list/Salon-detail/:id',component:SalonBannerDetailComponent},
+     { path: 'salon-banner-list/add-salon-banner',component: AddEditSalonBannerComponent},
+     { path: 'salon-banner-list/edit-salon-banner/:id/:id2',component:EditSalonBannerComponent}
     
      
 

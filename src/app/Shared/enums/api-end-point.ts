@@ -61,7 +61,7 @@ export enum ApiEndPoint {
     productList = "api/Product/GetProductList",
     productStock = "api/Product/updateBasicProductInfo",
     deleteProduct = "api/Product/DeleteProduct",
-    addShopBanner = "api/Vendor/AddShopBanner",
+   
 
     getCollectionList = "api/Product/GetCollectionList",
     getCollectionNameList = "api/Product/GetCollectionNameList",
@@ -106,6 +106,8 @@ export enum ApiEndPoint {
   getcategoryListSuper = "api/Vendor/GetVendorCategoryList",
   getSalonBannerList = "api/Vendor/GetSalonBannerList",
   getSalonBannerDetail = "api/Vendor/GetSalonBannerDetail",
-  deleteShopBanners = "api/Vendor/DeleteSalonBanner",
+  deleteSalonBanners = "api/Vendor/DeleteSalonBanner",
+  addSalonBanner = "api/Vendor/AddSalonBanner",
+  updateSalonBanner = "api/Vendor/UpdateSalonBanner"
 
 }

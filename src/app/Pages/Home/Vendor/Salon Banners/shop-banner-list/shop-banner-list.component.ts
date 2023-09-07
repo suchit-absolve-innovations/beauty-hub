@@ -100,10 +100,10 @@ this.salonBannerId = data.salonBannerId;
 
  }
 
- deleteShopBanners() {
+ deleteSalonBanners() {
    this.spinner.show();
    debugger
-   this.content.deleteShopBanner(this.salonBannerId).subscribe(response => {
+   this.content.deleteSalonBanner(this.salonBannerId).subscribe(response => {
      if (response.isSuccess) {
        this.spinner.hide();
        window.location.reload();
@@ -117,13 +117,7 @@ this.salonBannerId = data.salonBannerId;
  }
 
 
-
-
-
-
    getcategoryList(){
-     
-   
      // this.spinner.show();
        this.content.getcategory().subscribe(response => {
          if (response.isSuccess) {
