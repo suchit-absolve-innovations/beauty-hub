@@ -22,8 +22,10 @@
                 <tr>
                     <th>Category Name</th>
                     <th>Sub Category Image</th>
+                    <th >Category Type</th>
                     <th>Date</th>
                     <th *ngIf="login == 'Vendor'">Status</th>
+                    <th *ngIf="login == 'SuperAdmin' && 'Admin'">Action</th>
                     
                 </tr>
 
@@ -36,26 +38,21 @@
                     <td *ngIf="item?.categoryType == 3">Male & Female</td>
                     <td>{{item?.createDate}}</td>
 
-                    <!-- <td *ngIf="login == 'Vendor'">
+                    <td *ngIf="login == 'Vendor'">
                        
                         <label class="switch" *ngIf="item?.status == true">
-                            <input type="checkbox" checked (click)="checkActiveStatus(item?.subProductCategoryId)">
+                            <input type="checkbox" checked (click)="checkActiveStatus(item?.subCategoryId)">
                             <span class="slider round"></span>
                         
                         </label>
                         <label class="switch" *ngIf="item?.status == false">
-                            <input type="checkbox" (click)="checkInactiveStatus(item?.subProductCategoryId)">
+                            <input type="checkbox" (click)="checkInactiveStatus(item?.subCategoryId)">
                             <span class="slider round"></span>
                        
                         </label>
-                    </td> -->
-                    <td>
-                        <!-- <a *ngIf="item.isNext == true"
-                            [routerLink]="['/category-list/sub-category-list/subSub-category-list'] "><i
-                            style="background:#e6629f; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;"   class="fa fa-eye"></i></a>
-                        <a *ngIf="item.isNext == false"
-                            [routerLink]="['/category-list/sub-category-list/subSub-category-list/AddEdit-subSub-Category'] "><i
-                                class="fa fa-plus"></i></a> -->
+                    </td>
+                    <td *ngIf="login == 'SuperAdmin'  && 'Admin' ">
+                   
                         <a *ngIf="login == 'SuperAdmin'  && 'Admin' "
                             [routerLink]="['/category-list/sub-category-list/addEdit-sub-category/',   item.mainCategoryId ,item?.subCategoryId]">
                             <i class="fa fa-pencil"></i>

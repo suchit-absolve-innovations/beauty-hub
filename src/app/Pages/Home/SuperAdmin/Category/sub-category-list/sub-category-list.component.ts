@@ -86,7 +86,7 @@ export class SubCategoryListComponent implements OnInit {
   postActiveStatus(data: any) {
 
     let payload = {
-      subProductCategoryId: data,
+      subCategoryId: data,
       SalonId:this.salonId,
       status: true
     }
@@ -98,7 +98,7 @@ export class SubCategoryListComponent implements OnInit {
   postUnActiveStatus(data: any) {
     
     let payload = {
-      subProductCategoryId: data,
+      subCategoryId: data,
       salonId:this.salonId,
       status: false
     }
