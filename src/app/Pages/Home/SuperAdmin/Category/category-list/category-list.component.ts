@@ -216,7 +216,6 @@ export class CategoryListComponent implements OnInit {
       });
     }
     getCategoryListFilter() {
-      debugger
       this.spinner.show();
    
       this.content.getFilterCategoryList(this.form.value.CategoryType).subscribe(response => {
@@ -241,7 +240,6 @@ export class CategoryListComponent implements OnInit {
 
   
     getVendorcategoryList(){
-      debugger
     // this.spinner.show();
       this.content.getcategoryVendor(this.salonId).subscribe(response => {
         if (response.isSuccess) {
@@ -265,7 +263,6 @@ export class CategoryListComponent implements OnInit {
     }
   
     acceptCategory(data:any){
-      debugger
       let payload = {
         mainCategoryId: data.mainCategoryId,
         subCategoryId: data.subCategoryId,
