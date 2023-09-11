@@ -10,7 +10,6 @@
 <div class="login_page">
 <div class="container ">
     <div class="row align-items-center justify-content-around">
-
         <div
             class="col-lg-6 col-md-6 col-sm-11 col-11 text-center d-flex flex-wrap align-items-center justify-content-center">
 
@@ -19,16 +18,13 @@
                     <img src="img/ecommerce.png" class="img-responsive mb-30">
                     <h2 style="color:#fff;">Welcome to our<br> website</h2>
                 </div> -->
-
         </div>
-
         <div class="col-lg-5 col-md-6 xs-mt-40 d-flex align-items-center justify-content-center">
 
             <div class="form-landing" style="background: #fff;  padding:40px; border-radius: 50px 0px 50px 0px;
                  width: 100%; ">
                 <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
                     <h3>Beauty Hub</h3>
-
                     <label>Email Address</label>
                     <input type="text" placeholder="" class="form-control" formControlName="emailOrPhone"
                         [ngClass]="{ 'is-invalid': submitted && f['emailOrPhone'].errors }">
@@ -37,25 +33,21 @@
                         <div *ngIf="f['emailOrPhone'].errors['required']" style="color: #fd0000;">Email or Phone
                             is
                             required</div>
-
                     </div>
-
                     <label>Password</label>
-                    <input type="text" class="form-control login-inputpass" formControlName="password"
+                    <div class="input-group">
+                    <input type= "{{show ? 'text' : 'password' }}"
+                     class="form-control login-inputpass" formControlName="password"
                         [ngClass]="{ 'is-invalid': submitted && f['password'].errors }">
-
-
-                    <div class="input-group-append login-eye-icon" (click)="onClick()">
-                        <!-- <i class="fa fa-eye-slash eye-icon eye-icon-align " aria-hidden="true"
-                                        *ngIf="!show"></i> -->
-                        <!-- <i class="fa fa-eye " aria-hidden="true" *ngIf="show"></i> -->
-                    </div>
+                    <div class="input-group-append eye-icon" (click)="onClick()"> 
+                        <i class="fa" [ngClass]="show ? 'fa-eye' : 'fa-eye-slash'" aria-hidden="true"></i>
+                     </div>
                     <div *ngIf="submitted && f['password'].errors" class="help-block"
                                 [ngClass]="{ 'is-invalid': submitted && f['password'].errors }">
                                 <div *ngIf="f['password'].errors['required']" style="color: #fd0000; margin-top: 3px;">
                                     Password is
                                     required</div>
-
+                                </div>
                             </div>
                     <input type="submit" value="Submit" />
 

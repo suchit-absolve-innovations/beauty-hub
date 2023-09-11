@@ -31,13 +31,15 @@ export class AdminDetailComponent implements OnInit {
   }
 
   getAdminDetail(){
-    this.content.UserAdminDetail(this.adminId).subscribe((response:any) => {
+
+    this.spinner.show();
+  this.content.UserAdminDetail(this.adminId).subscribe((response:any) => {
       if (response.isSuccess) {
         this.adminDetail = response.data;
-  
+        this.spinner.hide();
   }
 
-  this.spinner.hide();
+  
 
   console.log('Admin Detail:', this.adminDetail);
 });

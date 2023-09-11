@@ -88,7 +88,7 @@ export const RoleRoutes = {
       name: "Profile", isEnabled: false, value: "MANAGE_APPOINTMENT_TAB", routerLink: "/vendor-profile", acl: '', subRoutes: []
     },
     {
-      name: "Subscription", isEnabled: true, value: "MANAGE_APPOINTMENT_TAB", routerLink: "/membership-plan-list", acl: '', subRoutes: []
+      name: "Subscription", isEnabled: true, value: "MANAGE_APPOINTMENT_TAB", routerLink: "/subscription", acl: '', subRoutes: []
 
     },
     // {

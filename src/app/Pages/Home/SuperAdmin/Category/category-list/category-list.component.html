@@ -25,6 +25,7 @@
                         <!-- <th>Serial No.</th> -->
                         <th>Category Name</th>
                         <th>Category Image</th>
+                        <th>Category Type</th>
                         <th>Date</th>
                         <th>Status</th>
                         <th>Action</th>
@@ -35,6 +36,9 @@
                             {{item?.categoryName}}
                         </td>
                         <td class="profile"><img [src]="rootUrl + item?.categoryImage" class="img-responsive"></td>
+                        <td *ngIf="item?.categoryType == 1">Male</td>
+                        <td *ngIf="item?.categoryType == 2">Female</td>
+                        <td *ngIf="item?.categoryType == 3">Male & Female</td>  
                         <td>{{item?.createDate}}</td>
                         <!-- <td *ngIf="login == 'Vendor'"> -->
                         <td>
@@ -63,12 +67,12 @@
                         <td>
 
                             <a *ngIf="item.isNext == true"
-                            [routerLink]="['/category-list/sub-category-list/'] + item.mainCategoryId "><i
-                                style="background:#e6629f; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;"
-                                class="fa fa-eye"></i></a>
-                        <a *ngIf="item.isNext == false"
-                            [routerLink]="['/category-list/sub-category-list/addEdit-sub-category/'] + item.mainCategoryId"><i
-                                class="fa fa-plus"></i></a>
+                                [routerLink]="['/category-list/sub-category-list/'] + item.mainCategoryId "><i
+                                    style="background:#e6629f; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;"
+                                    class="fa fa-eye"></i></a>
+                            <a *ngIf="item.isNext == false"
+                                [routerLink]="['/category-list/sub-category-list/addEdit-sub-category/'] + item.mainCategoryId"><i
+                                    class="fa fa-plus"></i></a>
 
                             <!-- <a (click)="edit(item)"><i
                                         style="background:#002C6F; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;"
@@ -310,7 +314,7 @@
                                 <!-- <th>Serial No.</th> -->
                                 <th>Main Category</th>
                                 <th>Sub Category</th>
-                               
+
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
@@ -324,7 +328,7 @@
                                     {{item?.subCategoryName}}
                                 </td>
 
-                             
+
                                 <!-- <td class="profile"><img [src]="rootUrl + item?.categoryImage" class="img-responsive"></td> -->
 
                                 <td>

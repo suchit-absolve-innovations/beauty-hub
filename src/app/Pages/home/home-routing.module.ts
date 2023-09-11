@@ -73,8 +73,8 @@ const routes: Routes = [
      { path: 'salon-banner-list',component: ShopBannerListComponent},
      { path: 'salon-banner-list/Salon-detail/:id',component:SalonBannerDetailComponent},
      { path: 'salon-banner-list/add-salon-banner',component: AddEditSalonBannerComponent},
-     { path: 'salon-banner-list/edit-salon-banner/:id/:id2',component:EditSalonBannerComponent}
-    
+     { path: 'salon-banner-list/edit-salon-banner/:id/:id2',component:EditSalonBannerComponent},
+     { path: 'subscription',component: BuyMebershipPlanListComponent},
      
 
     ]

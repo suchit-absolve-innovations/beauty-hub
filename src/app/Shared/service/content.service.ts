@@ -493,6 +493,11 @@ planUpdate(data: any) {
   getBuyMemberShipPlanList(){
     return this.http.get<any>(environment.apiUrl + ApiEndPoint.getBuyMemberShipPlan)
   }
+
+  
+  getBuyMemberShipPlanListvendor(vendorId:any){
+    return this.http.get<any>(environment.apiUrl + ApiEndPoint.getBuyMemberShipPlan + '?vendorId=' + vendorId)
+  }
     // Upload Receipt
     uploadReceiptImage(data: any) {
       const headers = new HttpHeaders();

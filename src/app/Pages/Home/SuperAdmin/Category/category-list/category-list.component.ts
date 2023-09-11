@@ -24,6 +24,7 @@ export class CategoryListComponent implements OnInit {
     itemsPerPage!: number;
     totalItems!: number;
     categoryList: any;
+    
     rootUrl: any;
     login = localStorage.getItem('role');
   
@@ -221,8 +222,12 @@ export class CategoryListComponent implements OnInit {
       this.content.getFilterCategoryList(this.form.value.CategoryType).subscribe(response => {
         if (response.isSuccess) {
           this.categoryList = response.data;
-          
           this.spinner.hide();
+        }
+        else{
+          this.toaster.error(response.messages)
+          this.spinner.hide();
+
         }
       });
     }
