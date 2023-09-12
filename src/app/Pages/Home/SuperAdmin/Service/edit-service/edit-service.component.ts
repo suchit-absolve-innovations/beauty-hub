@@ -38,20 +38,20 @@ export class EditServiceComponent implements OnInit {
   serviceForm() {
     this.submitted = true;
     this.form = this.formBuilder.group({
-      serviceName: ['', [Validators.required]],
-      basePrice: ['', [Validators.required]],
-      discount: ['', [Validators.required]],
-      listingPrice: ['', [Validators.required]],
-      mainCategoryId: ['', [Validators.required]],
-      subcategoryId: ['', [Validators.required]],
-      ageRestrictions: ['', [Validators.required]],
-      genderPreferences: ['', [Validators.required]],
-      duration: ['', [Validators.required]],
+      serviceName          : ['', [Validators.required]],
+      basePrice            : ['', [Validators.required]],
+      discount             : ['', [Validators.required]],
+      listingPrice         : ['', [Validators.required]],
+      mainCategoryId       : ['', [Validators.required]],
+      subcategoryId        : ['', [Validators.required]],
+      ageRestrictions      : ['', [Validators.required]],
+      genderPreferences    : ['', [Validators.required]],
+      duration             : ['', [Validators.required]],
       totalCountPerDuration: ['', [Validators.required]],
-      durationInMinutes: ['', [Validators.required]],
-      lockTimeStart: ['', [Validators.required]],
-      lockTimeEnd:  ['', [Validators.required]],
-      serviceDescription: ['', [Validators.required]],
+      durationInMinutes    : ['', [Validators.required]],
+      lockTimeStart        : ['', [Validators.required]],
+      lockTimeEnd          : ['', [Validators.required]],
+      serviceDescription   : ['', [Validators.required]],
 
     })
 }
