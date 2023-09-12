@@ -4,7 +4,7 @@
         <img src="assets\img\backimage.svg" class="backimage-butn" />
         <h2>Service form</h2>
       </div>
-      <form >
+      <form [formGroup]="form" >
         <div class="vendor-form mt-40 bg-white">
           <div class="this_row">
             <div class="row">
@@ -41,6 +41,7 @@
                 </div>
   
             </div>
+      
         </div>
         </div>
         <!-- end first form -->
@@ -48,162 +49,169 @@
         <div class="vendor-form pt-0 bg-white">
           <div class="this_row">
             <div class="row">
+              
               <div class="col-lg-6 col-md-12">
                 <label>Service Name</label>
                 <input type="text" class="control-form" formControlName="serviceName" />
-                <!-- <div *ngIf="submitted && f['firstName'].errors" class="help-block">
-                  <div *ngIf="f['firstName'].errors" style="color: #fd0000">
-                    First Name is required.
-                  </div>
-                </div> -->
+                <div
+                *ngIf="submitted && f['serviceName'].errors"
+                class="help-block" >
+                <div *ngIf="f['serviceName'].errors" style="color: #fd0000">
+                  Service name is required.
+                </div>
               </div>
+            </div>
   
               <div class="col-lg-6 col-md-12">
                 <label>Base Price </label>
                 <input  type="text" class="form-control" formControlName="basePrice"
                  />
-                <!-- <div *ngIf="submitted && f['countryId'].errors" class="help-block"></div> -->
+                 <div *ngIf="submitted && f['basePrice'].errors" class="help-block">
+                <div *ngIf="f['basePrice'].errors" style="color: #fd0000">
+                  Base Price is required.</div>
               </div>
+            </div>
+
               <div class="col-lg-6 col-md-12">
                 <label>Discount</label>
                 <input type="tel" class="control-form" formControlName="discount" numbersOnly />
-                <!-- <div *ngIf="submitted && f['dialCode'].errors" class="help-block">
-                  <div *ngIf="f['dialCode'].errors" style="color: #fd0000">
-                   Dial is required.
+                <div *ngIf="submitted && f['discount'].errors" class="help-block">
+                  <div *ngIf="f['discount'].errors" style="color: #fd0000">
+                   Discount is required.
                   </div>
-                </div> -->
+                </div>
               </div>
   
               <div class="col-lg-6 col-md-12">
-                <label for="phoneNumber">Listing Price</label>
-                <input formControlName="phoneNumber" id="phoneNumber" type="text" class="form-control"
-                 />
+                <label >Listing Price</label>
+                <input formControlName="listingPrice"  type="text" class="form-control"/>
   
-                <!-- <div *ngIf="phoneNumberHasError('pattern')" style="color: #fd0000">
-                  Phone number must be 10 digits.
+                <div *ngIf="submitted && f['listingPrice'].errors" class="help-block">
+                  <div *ngIf="f['listingPrice'].errors" style="color: #fd0000">
+                    Listing Price is required.
+                  </div>
                 </div>
-                <div *ngIf="submitted && f['phoneNumber'].errors?.['required']" style="color: #fd0000">
-                  Mobile Number is required.
-                </div> -->
               </div>
   
               <div class="col-lg-6 col-md-12">
                 <label>Main Category</label>
-                <select type="text" class="control-form" formControlName="gender">
+                <!-- <select type="text" class="control-form" formControlName="MainCategoryId">
                   <option value="" selected>Select</option>
-                  <option>Male</option>
-                  <option>Female</option>
-                </select>
-                <!-- <div *ngIf="submitted && f['gender'].errors" class="help-block">
-                  <div *ngIf="f['gender'].errors" style="color: #fd0000">
-                   Gender is required.
+                  <option   *ngFor="let item of categoryList"   [ngValue]="item?.mainCategoryId"
+                  >{{item?.categoryName}}</option>
+                </select> -->
+                <!-- <select type="text" class="control-form mr-20 btn_border" formControlName="MainCategoryId" (change)="getFilterMainCategoryList(f['MainCategoryId'].value)" (change)="getSubcategoryList(f['MainCategoryId'].value)"> -->
+                  <option value="">Select </option>
+                  <option   *ngFor="let item of categoryList"   [ngValue]="item?.mainCategoryId"
+                 >{{item?.categoryName}}</option>
+  
+              <!-- </select>	 -->
+                <div *ngIf="submitted && f['mainCategory'].errors" class="help-block">
+                  <div *ngIf="f['mainCategory'].errors" style="color: #fd0000">
+                    Main Category is required.
                   </div>
-                </div> -->
+                </div>
               </div>
               <div class="col-lg-6 col-md-12">
                 <label>Sub Category</label>
-                <select type="text" class="control-form" formControlName="gender">
+                <!-- <select type="text" class="control-form" formControlName="subCategory">
                   <option value="" selected>Select</option>
-                  <option>Male</option>
-                  <option>Female</option>
-                </select>
-                <!-- <div *ngIf="submitted && f['gender'].errors" class="help-block">
-                  <div *ngIf="f['gender'].errors" style="color: #fd0000">
-                   Gender is required.
+                  <option *ngFor="let item of subCategoryList"  >{{item?.categoryName}}</option>
+                </select> -->
+                <select type="text" class="control-form mr-20 btn_border" formControlName="subCategoryId">
+                  <option value="">Select </option>
+                  <option *ngFor="let item of subCategoryList"  >{{item?.categoryName}}</option>
+              </select>
+                <div *ngIf="submitted && f['subCategory'].errors" class="help-block">
+                  <div *ngIf="f['subCategory'].errors" style="color: #fd0000">
+                    Sub Category is required.
                   </div>
-                </div> -->
+                </div>
               </div>
           
   
-           
-
-
+      
               <div class="col-lg-6 col-md-12">
                 <label>Age</label>
-                <select type="text" class="control-form" formControlName="gender">
+                <select type="text" class="control-form" formControlName="age">
                     <option value="" selected>Select</option>
                     <option>Kids</option>
                     <option>Adult</option>
                   </select>
                 
-                <!-- <div *ngIf="submitted && f['lastName'].errors" class="help-block">
-                  <div *ngIf="f['lastName'].errors" style="color: #fd0000">
-                    Last Name is required.
+                <div *ngIf="submitted && f['age'].errors" class="help-block">
+                  <div *ngIf="f['age'].errors" style="color: #fd0000">
+                    Age is required.
                   </div>
-                </div> -->
+                </div>
               </div>
+
               <div class="col-lg-6 col-md-12">
                 <label>Gender </label>
-                <select type="text" class="control-form" formControlName="stateId">
-                  <option value="" selected>Choose State</option>
-                  <option>
-                  1
-                  </option>
+                <select type="text" class="control-form" formControlName="gender">
+                  <option value="" selected>Choose Gender</option>
+                  <option>Male</option>
+                    <option>Female</option>
                 </select>
-                <!-- <div *ngIf="submitted && f['stateId'].errors" class="help-block">
-                  <div *ngIf="f['stateId'].errors" style="color: #fd0000">
+                <div *ngIf="submitted && f['gender'].errors" class="help-block">
+                  <div *ngIf="f['gender'].errors" style="color: #fd0000">
                     State is required.
                   </div>
-                </div> -->
+                </div>
               </div>
 
               <div class="col-lg-6 col-md-12">
                 <label>Duration In Minutes</label>
-                <input type="tel" class="control-form" formControlName="dialCode" numbersOnly />
-                <!-- <div *ngIf="submitted && f['dialCode'].errors" class="help-block">
-                  <div *ngIf="f['dialCode'].errors" style="color: #fd0000">
+                <input type="tel" class="control-form" formControlName="duration" numbersOnly />
+                <div *ngIf="submitted && f['duration'].errors" class="help-block">
+                  <div *ngIf="f['duration'].errors" style="color: #fd0000">
                    Dial is required.
                   </div>
-                </div> -->
+                </div>
               </div>
   
               <div class="col-lg-6 col-md-12">
-                <label for="phoneNumber">Total Count Per Duration</label>
-                <input formControlName="phoneNumber" id="phoneNumber" type="text" class="form-control"
-                 />
+                <label >Total Count Per Duration</label>
+                <input formControlName="countDuration" type="text" class="form-control"/>
   
-                <!-- <div *ngIf="phoneNumberHasError('pattern')" style="color: #fd0000">
-                  Phone number must be 10 digits.
+                <div *ngIf="submitted && f['countDuration'].errors" class="help-block">
+                <div *ngIf="f['countDuration'].errors?.['required']" style="color: #fd0000">
+                  Total Count is required.
                 </div>
-                <div *ngIf="submitted && f['phoneNumber'].errors?.['required']" style="color: #fd0000">
-                  Mobile Number is required.
-                </div> -->
               </div>
-
+            </div>
 
               <div class="col-lg-6 col-md-12">
                 <label>Lock Time Start</label>
-                <input type="tel" class="control-form" formControlName="dialCode" numbersOnly />
-                <!-- <div *ngIf="submitted && f['dialCode'].errors" class="help-block">
-                  <div *ngIf="f['dialCode'].errors" style="color: #fd0000">
-                   Dial is required.
+                <input type="tel" class="control-form" formControlName="timeStart" numbersOnly />
+                <div *ngIf="submitted && f['timeStart'].errors" class="help-block">
+                  <div *ngIf="f['timeStart'].errors" style="color: #fd0000">
+                    Lock Time Start is required.
                   </div>
-                </div> -->
+                </div>
               </div>
   
               <div class="col-lg-6 col-md-12">
-                <label for="phoneNumber">Lock Time End</label>
-                <input formControlName="phoneNumber" id="phoneNumber" type="text" class="form-control"
+                <label >Lock Time End</label>
+                <input formControlName="timeEnd"  type="text" class="form-control"
                  />
-  
-                <!-- <div *ngIf="phoneNumberHasError('pattern')" style="color: #fd0000">
-                  Phone number must be 10 digits.
+                 <div *ngIf="submitted && f['timeEnd'].errors" class="help-block">
+                  <div *ngIf="f['timeEnd'].errors" style="color: #fd0000">
+                    Lock Time End is required.
+                  </div>
                 </div>
-                <div *ngIf="submitted && f['phoneNumber'].errors?.['required']" style="color: #fd0000">
-                  Mobile Number is required.
-                </div> -->
               </div>
 
               <div class=" col-md-12">
                 <label>Discription</label>
-                <textarea type="text" class="control-form" formControlName="lastName" > 
+                <textarea type="text" class="control-form" formControlName="discription" > 
                     </textarea>
                 
-                <!-- <div *ngIf="submitted && f['lastName'].errors" class="help-block">
-                  <div *ngIf="f['lastName'].errors" style="color: #fd0000">
-                    Last Name is required.
+                <div *ngIf="submitted && f['discription'].errors" class="help-block">
+                  <div *ngIf="f['discription'].errors" style="color: #fd0000">
+                    Discription is required.
                   </div>
-                </div> -->
+                </div>
               </div>
   
               <div class="col-lg-12 col-md-12 mt-40 text-center btn_margin">
@@ -218,6 +226,7 @@
       </form>
     </div>
   </div>
+ 
   
   <!-- Modal -->
   <div class="modal fade" id="cancel-mess" tabindex="-1" role="dialog" aria-labelledby="cancel-messLabel"
