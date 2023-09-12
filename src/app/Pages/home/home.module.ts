@@ -37,6 +37,9 @@ import { AdminDetailComponent } from './SuperAdmin/Admin/admin-detail/admin-deta
 import { ServiceListComponent } from './SuperAdmin/Service/service-list/service-list.component';
 import { AdminProfileComponent } from './Admin/admin-profile/admin-profile.component';
 import { AddServiceComponent } from './SuperAdmin/Service/add-service/add-service.component';
+import { ServiceDetailComponent } from './SuperAdmin/Service/service-detail/service-detail.component';
+import { AddEditScheduleComponent } from './Vendor/Scheduled/add-edit-schedule/add-edit-schedule.component';
+import { EditServiceComponent } from './SuperAdmin/Service/edit-service/edit-service.component';
 
 
 
@@ -77,7 +80,10 @@ import { AddServiceComponent } from './SuperAdmin/Service/add-service/add-servic
    AdminDetailComponent,
    ServiceListComponent,
    AdminProfileComponent,
-   AddServiceComponent
+   AddServiceComponent,
+   ServiceDetailComponent,
+   AddEditScheduleComponent,
+   EditServiceComponent
 
   ],
   imports: [

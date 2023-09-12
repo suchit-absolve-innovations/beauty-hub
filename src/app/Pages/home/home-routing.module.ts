@@ -32,6 +32,9 @@ import { AdminDetailComponent } from './SuperAdmin/Admin/admin-detail/admin-deta
 import { ServiceListComponent } from './SuperAdmin/Service/service-list/service-list.component';
 import { AddServiceComponent } from './SuperAdmin/Service/add-service/add-service.component';
 import { AdminProfileComponent } from './Admin/admin-profile/admin-profile.component';
+import { ServiceDetailComponent } from './SuperAdmin/Service/service-detail/service-detail.component';
+import { AddEditScheduleComponent } from './Vendor/Scheduled/add-edit-schedule/add-edit-schedule.component';
+import { EditServiceComponent } from './SuperAdmin/Service/edit-service/edit-service.component';
 
 
 const routes: Routes = [
@@ -91,7 +94,10 @@ const routes: Routes = [
      { path: 'salon-banner-list/edit-salon-banner/:id/:id2',component:EditSalonBannerComponent},
      { path: 'subscription',component: BuyMebershipPlanListComponent},
      { path: 'service-list', component : ServiceListComponent},
-     { path: 'add-service', component : AddServiceComponent}
+     { path: 'service-list/add-service', component : AddServiceComponent},
+     { path: 'service-list/service-detail/:id',component : ServiceDetailComponent},
+     { path: 'add-edit-schedule',component : AddEditScheduleComponent},
+     { path: 'service-list/edit-service/:id', component: EditServiceComponent}
     
      
 

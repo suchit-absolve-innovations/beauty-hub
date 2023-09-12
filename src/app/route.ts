@@ -116,6 +116,12 @@ export const RoleRoutes = {
       name: "Subscription", isEnabled: true, value: "MANAGE_APPOINTMENT_TAB", routerLink: "/subscription", acl: '', subRoutes: []
 
     },
+    {
+      name: "Schedule", isEnabled: true, value: "MANAGE_APPOINTMENT_TAB", routerLink: "/add-edit-schedule", acl: '', subRoutes: []
+
+    },
+
+
     // {
     //   name: "Notification", value: "MANAGE_ReI", isEnabled: false, routerLink: "vendor-notification-list", acl: 'dashboard', subRoutes: []
     // },

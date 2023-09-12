@@ -314,9 +314,7 @@ export class ContentService {
   }
 
 
-  getProductDetail(productId:any){
-    return this.http.get<any>(environment.apiUrl + ApiEndPoint.productDetail + '?productId=' + productId);
-  }
+
   deleteProduts(productId: any) {
     return this.http.delete<any>(environment.apiUrl + ApiEndPoint.deleteProduct + '?productId=' + productId)
   }
@@ -374,9 +372,6 @@ export class ContentService {
 
   // Product Detail
 
-  detailProduct(productId:any){
-    return this.http.get<any>(environment.apiUrl + ApiEndPoint.productDetail + '?productId=' + productId )
-  }
   collectionDetail(collectionId:any){
     return this.http.get<any>(environment.apiUrl + ApiEndPoint.getCollectionDetail + '?collectionId=' + collectionId + [])
 
@@ -758,6 +753,9 @@ planUpdate(data: any) {
 
     getservice(data:any){
       return this.http.get<any>(environment.apiUrl + ApiEndPoint.serviceList  + '?pageNumber=' + data.pageNumber + '&pageSize=' + data.pageSize)
+    }
+    getServiceDetail(serviceId:any){
+      return this.http.get<any>(environment.apiUrl + ApiEndPoint.serviceDetail + '?serviceId=' + serviceId);
     }
   
 

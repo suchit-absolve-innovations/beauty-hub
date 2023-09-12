@@ -66,7 +66,7 @@ export enum ApiEndPoint {
 
     getCollectionList = "api/Product/GetCollectionList",
     getCollectionNameList = "api/Product/GetCollectionNameList",
-    productDetail = "api/Product/GetProductDetail",
+    
     getCollectionDetail = "api/Product/GetCollectionDetail",
     addCollection = "api/Product/AddCollection",
     collectionImage = "api/Upload/UploadCollectionImage",
@@ -121,5 +121,6 @@ export enum ApiEndPoint {
   UpdateAdminUser = "api/Admin/UpdateAdminUser",
   AdminUserDetail = "api/Admin/GetAdminUserDetail",
   getBuyMemberShipPlan= "/api/Admin/getMembershipPlanList",
-  serviceList = "api/Service/GetSalonServiceList"
+  serviceList = "api/Service/GetSalonServiceList",
+  serviceDetail = "api/Service/GetSalonServiceDetail",
 }
