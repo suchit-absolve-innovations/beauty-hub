@@ -1,1 +1,243 @@
-<p>add-service works!</p>
+<div class="app-main__outer">
+    <div class="admin_a">
+      <div class="top-head">
+        <img src="assets\img\backimage.svg" class="backimage-butn" />
+        <h2>Service form</h2>
+      </div>
+      <form >
+        <div class="vendor-form mt-40 bg-white">
+          <div class="this_row">
+            <div class="row">
+  
+                <div class="col-lg-12 col-md-12 mb-30 text-center">
+                    <h2>Add Service Picture</h2>
+                </div>
+  
+                <div class="col-lg-12 col-md-12">
+                    <!-- <div class="upload_file text-center">
+                    <input type="file" class="control-form">
+                    <label for="file">Upload</label>									
+                </div> -->
+                    <div class="imges-upload mb-0">
+                        <div class="imgUp m-auto">
+                            <!-- <div class="imagePreview" formControlName="imagePath"></div> -->
+                            <div class="imagePreview"></div>
+  
+                            <!-- {{imageFile}}/ -->
+                            <label class="upload button btn btn-primary">
+                                <!-- <input value="rootUrl + homeServicesData.imagePath" name="bannerHidden" type="hidden"> -->
+                                Upload<input type="file" class="uploadFile img" name="bannerimage"
+                                    style="width: 0px;height: 0px;overflow: file; border-style: none;"
+                                    id="bannerimage" >
+                            </label>
+                            <div>
+                            </div>
+  
+  
+                        </div>
+                        <br>
+                        <br>
+                    </div>
+                </div>
+  
+            </div>
+        </div>
+        </div>
+        <!-- end first form -->
+  
+        <div class="vendor-form pt-0 bg-white">
+          <div class="this_row">
+            <div class="row">
+              <div class="col-lg-6 col-md-12">
+                <label>Service Name</label>
+                <input type="text" class="control-form" formControlName="firstName" />
+                <!-- <div *ngIf="submitted && f['firstName'].errors" class="help-block">
+                  <div *ngIf="f['firstName'].errors" style="color: #fd0000">
+                    First Name is required.
+                  </div>
+                </div> -->
+              </div>
+  
+              <div class="col-lg-6 col-md-12">
+                <label>Base Price </label>
+                <input  type="text" class="form-control"
+                 />
+                <!-- <div *ngIf="submitted && f['countryId'].errors" class="help-block"></div> -->
+              </div>
+              <div class="col-lg-6 col-md-12">
+                <label>Discount</label>
+                <input type="tel" class="control-form" formControlName="dialCode" numbersOnly />
+                <!-- <div *ngIf="submitted && f['dialCode'].errors" class="help-block">
+                  <div *ngIf="f['dialCode'].errors" style="color: #fd0000">
+                   Dial is required.
+                  </div>
+                </div> -->
+              </div>
+  
+              <div class="col-lg-6 col-md-12">
+                <label for="phoneNumber">Listing Price</label>
+                <input formControlName="phoneNumber" id="phoneNumber" type="text" class="form-control"
+                 />
+  
+                <!-- <div *ngIf="phoneNumberHasError('pattern')" style="color: #fd0000">
+                  Phone number must be 10 digits.
+                </div>
+                <div *ngIf="submitted && f['phoneNumber'].errors?.['required']" style="color: #fd0000">
+                  Mobile Number is required.
+                </div> -->
+              </div>
+  
+              <div class="col-lg-6 col-md-12">
+                <label>Main Category</label>
+                <select type="text" class="control-form" formControlName="gender">
+                  <option value="" selected>Select</option>
+                  <option>Male</option>
+                  <option>Female</option>
+                </select>
+                <!-- <div *ngIf="submitted && f['gender'].errors" class="help-block">
+                  <div *ngIf="f['gender'].errors" style="color: #fd0000">
+                   Gender is required.
+                  </div>
+                </div> -->
+              </div>
+              <div class="col-lg-6 col-md-12">
+                <label>Sub Category</label>
+                <select type="text" class="control-form" formControlName="gender">
+                  <option value="" selected>Select</option>
+                  <option>Male</option>
+                  <option>Female</option>
+                </select>
+                <!-- <div *ngIf="submitted && f['gender'].errors" class="help-block">
+                  <div *ngIf="f['gender'].errors" style="color: #fd0000">
+                   Gender is required.
+                  </div>
+                </div> -->
+              </div>
+          
+  
+           
+
+
+              <div class="col-lg-6 col-md-12">
+                <label>Age</label>
+                <select type="text" class="control-form" formControlName="gender">
+                    <option value="" selected>Select</option>
+                    <option>Kids</option>
+                    <option>Adult</option>
+                  </select>
+                
+                <!-- <div *ngIf="submitted && f['lastName'].errors" class="help-block">
+                  <div *ngIf="f['lastName'].errors" style="color: #fd0000">
+                    Last Name is required.
+                  </div>
+                </div> -->
+              </div>
+              <div class="col-lg-6 col-md-12">
+                <label>Gender </label>
+                <select type="text" class="control-form" formControlName="stateId">
+                  <option value="" selected>Choose State</option>
+                  <option>
+                  1
+                  </option>
+                </select>
+                <!-- <div *ngIf="submitted && f['stateId'].errors" class="help-block">
+                  <div *ngIf="f['stateId'].errors" style="color: #fd0000">
+                    State is required.
+                  </div>
+                </div> -->
+              </div>
+
+              <div class="col-lg-6 col-md-12">
+                <label>Duration In Minutes</label>
+                <input type="tel" class="control-form" formControlName="dialCode" numbersOnly />
+                <!-- <div *ngIf="submitted && f['dialCode'].errors" class="help-block">
+                  <div *ngIf="f['dialCode'].errors" style="color: #fd0000">
+                   Dial is required.
+                  </div>
+                </div> -->
+              </div>
+  
+              <div class="col-lg-6 col-md-12">
+                <label for="phoneNumber">Total Count Per Duration</label>
+                <input formControlName="phoneNumber" id="phoneNumber" type="text" class="form-control"
+                 />
+  
+                <!-- <div *ngIf="phoneNumberHasError('pattern')" style="color: #fd0000">
+                  Phone number must be 10 digits.
+                </div>
+                <div *ngIf="submitted && f['phoneNumber'].errors?.['required']" style="color: #fd0000">
+                  Mobile Number is required.
+                </div> -->
+              </div>
+
+
+              <div class="col-lg-6 col-md-12">
+                <label>Lock Time Start</label>
+                <input type="tel" class="control-form" formControlName="dialCode" numbersOnly />
+                <!-- <div *ngIf="submitted && f['dialCode'].errors" class="help-block">
+                  <div *ngIf="f['dialCode'].errors" style="color: #fd0000">
+                   Dial is required.
+                  </div>
+                </div> -->
+              </div>
+  
+              <div class="col-lg-6 col-md-12">
+                <label for="phoneNumber">Lock Time End</label>
+                <input formControlName="phoneNumber" id="phoneNumber" type="text" class="form-control"
+                 />
+  
+                <!-- <div *ngIf="phoneNumberHasError('pattern')" style="color: #fd0000">
+                  Phone number must be 10 digits.
+                </div>
+                <div *ngIf="submitted && f['phoneNumber'].errors?.['required']" style="color: #fd0000">
+                  Mobile Number is required.
+                </div> -->
+              </div>
+
+              <div class=" col-md-12">
+                <label>Discription</label>
+                <textarea type="text" class="control-form" formControlName="lastName" > 
+                    </textarea>
+                
+                <!-- <div *ngIf="submitted && f['lastName'].errors" class="help-block">
+                  <div *ngIf="f['lastName'].errors" style="color: #fd0000">
+                    Last Name is required.
+                  </div>
+                </div> -->
+              </div>
+  
+              <div class="col-lg-12 col-md-12 mt-40 text-center btn_margin">
+                <button class="border-btn" type="submit" value="" data-toggle="modal" data-target="#cancel-mess">
+                  Cancel
+                </button>
+                <button class="btn_blue" type="submit" >Save</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="cancel-mess" tabindex="-1" role="dialog" aria-labelledby="cancel-messLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content warning-content">
+        <div class="modal-body text-center warning-mess-sec">
+          <button type="button" class="close float-right" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <img src="assets\img\warning.png" />
+          <h2>Alert</h2>
+          <p>Are You Sure, You want to Cancel it?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="border-btn" data-dismiss="modal">
+            Close
+          </button>
+          <button type="button" class="btn_blue" >Yes, Cancel It</button>
+        </div>
+      </div>
+    </div>
+  </div>
