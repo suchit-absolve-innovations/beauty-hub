@@ -13,13 +13,17 @@ import { environment } from 'src/environments/environment';
 })
 export class AddServiceComponent implements OnInit {
   form!: FormGroup;
-  submitted!: true;  
-
+  submitted!: true;
+  rootUrl: any;
   id: any;
-  SubSubcategoryList: any;
+
   subCategoryList: any;
   categoryList: any;
   salonBannerId: any;
+  shopBannerList: any;
+  totalItems!: number;
+  shopId: any;
+
 
 
   // isFieldInvalid(field: AbstractControl): boolean {
@@ -29,16 +33,17 @@ export class AddServiceComponent implements OnInit {
   constructor(private router: Router,
     private formBuilder: FormBuilder,
     private contentService: ContentService,
-    private toasterService: ToastrService,
     private toaster: ToastrService,
-   private spinner: NgxSpinnerService,
-   private route: ActivatedRoute,
-   private ngZone: NgZone,
+    private spinner: NgxSpinnerService,
   
+
   ) { }
 
   ngOnInit(): void {
-   this.serviceForm()
+    this.rootUrl = environment.rootPathUrl;
+    this.serviceForm();
+    this.getcategoryList();
+
   }
 
   serviceForm() {
@@ -48,15 +53,16 @@ export class AddServiceComponent implements OnInit {
       basePrice: ['', [Validators.required]],
       discount: ['', [Validators.required]],
       listingPrice: ['', [Validators.required]],
-      mainCategory: ['', [Validators.required]],
-      subCategory: ['', [Validators.required]],
-      age: ['', [Validators.required]],
-      gender: ['', [Validators.required]],
+      mainCategoryId: ['', [Validators.required]],
+      subcategoryId: ['', [Validators.required]],
+      ageRestrictions: ['', [Validators.required]],
+      genderPreferences: ['', [Validators.required]],
       duration: ['', [Validators.required]],
-      countDuration: ['', [Validators.required]],
-      timeStart: ['', [Validators.required]],
-      timeEnd: ['', [Validators.required]],
-      discription: ['', [Validators.required]],
+      totalCountPerDuration: ['', [Validators.required]],
+      durationInMinutes: ['', [Validators.required]],
+      lockTimeStart: ['', [Validators.required]],
+      lockTimeEnd:  ['', [Validators.required]],
+      serviceDescription: ['', [Validators.required]],
 
     })
 }
@@ -67,82 +73,46 @@ export class AddServiceComponent implements OnInit {
     return this.form.controls;
   }
 
-  // getcategoryList(){
-  //   // this.spinner.show();
-  //     this.content.getcategory().subscribe(response => {
-  //       if (response.isSuccess) {
-  //         this.categoryList = response.data;
+  getcategoryList(){
+    debugger
+    // this.spinner.show();
+      this.contentService.getcategory().subscribe(response => {
+        if (response.isSuccess) {
+          this.categoryList = response.data;
         
-  //       //  this.spinner.hide();
-  //       } else {
-  //         // this.spinner.hide();
-  //         this.toaster.error(response.messages);
-  //       }
-  //     });
-  //   }
-
-  //   getFilterMainCategoryList(data:any){
-
-  //     // this.spinner.show();
-
-  //     let payload = {
-  //       salonId:localStorage.getItem('salonId'),
-  //       mainCategoryId: data
-      
-  //     }
-  //       this.content.getFilterShopMain(payload).subscribe(response => {
-  //         if (response.isSuccess) {
-          
-  //            this.shopBannerList = response.data;
-            
-       
-  //         } else {
-      
-  //        this.shopBannerList = [];
-    
-  //         }
-  //       });
-  //     }
+        //  this.spinner.hide();
+        } else {
+          // this.spinner.hide();
+          this.toaster.error(response.messages);
+        }
+      });
+    }
 
 
+   getSubcategoryList(mainCategoryId:any){
+  debugger
 
-//    getSubcategoryList(MainCategoryId:any){
-//   debugger
-
-//    this.content.SubCategory(MainCategoryId).subscribe(response => {
-//      if (response.isSuccess) {
-//        this.subCategoryList = response.data;
-//        console.log( this.subCategoryList)
+   this.contentService.SuperSubCategory(mainCategoryId).subscribe(response => {
+     if (response.isSuccess) {
+       this.subCategoryList = response.data;
+       console.log( this.subCategoryList)
      
-//        // this.SubSubcategoryList = []
-//        this.spinner.hide();
-//      } else {
-//        this.subCategoryList = [];
-//        this.toaster.error(response.messages);
-//      }
-//    });
-//  }
+       // this.SubSubcategoryList = []
+       this.spinner.hide();
+     } else {
+       this.subCategoryList = [];
+       this.toaster.error(response.messages);
+     }
+   });
+ }
 
-//  getFilterSubCategoryList(data:any){
-//   this.spinner.show();
-//   let payload = {
- 
-//     salonId:localStorage.getItem('salonId'),
-//     subCategoryId: data
+ addService() {
+debugger
+this.submitted = true;
+if (this.form.invalid){
   
-//   }
+}
+ }
 
-//  this.content.getfilerShopSub(payload).subscribe(response => {
-//    if (response.isSuccess) {
-//     this.shopBannerList = response.data;
-//    this.spinner.hide();
-//   } else {
-//     this.spinner.hide();
-//     // this.data = response.isSuccess == 'false'
-
-//     // this.toaster.error(response.messages);
-//   }
-//  });
-// }
 
 }
