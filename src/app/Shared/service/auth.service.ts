@@ -34,6 +34,7 @@ export class AuthService {
           localStorage.setItem('salonId', user.data.salonId);
           localStorage.setItem('vendorId', user.data.vendorId);
           localStorage.setItem('vendorId', user.data.vendorId );
+          localStorage.setItem('Id', user.data.id)
           // localStorage.setItem('shopImage', user.data.shopImage );
           // localStorage.setItem('firstName', user.data.firstName );
           localStorage.setItem('user', user.data.role);

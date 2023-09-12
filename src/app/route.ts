@@ -1,5 +1,7 @@
 
 export const RoleRoutes = {
+//////////////superadmin panel///////
+
   SuperAdmin: [
     {
       name: "Dashboard", value: "MANAGE_DASHBOARD", isEnabled: false, routerLink: "/super-Admin-Dashboard", acl: 'dashboard', subRoutes: []
@@ -44,30 +46,53 @@ export const RoleRoutes = {
     // },
 
   ],
+
+///////Admin panel////////////////
+
   Admin: [
+
     {
-      name: "Dashboard", isEnabled: false, value: "MANAGE_APPOINTMENT_TAB", inactive_icon: "assets/images/appointment.png", icon: "assets/images/appointment1.png", routerLink: "/admin-user-dashboard", acl: '', subRoutes: []
-    },
-    {
-      name: "Vendor", isEnabled: false, value: "MANAGE_APPOINTMENT_TAB", routerLink: "/super-vendor-list", acl: '', subRoutes: []
-    },
-    {
-      name: "Product", value: "MANAGE_ReI", isEnabled: false, routerLink: "/vendor-product-list", acl: '', subRoutes: []
+      name: "Banners", value: "MANAGE_ReI", isEnabled: true, routerLink: "/admin-profile", acl: 'dashboard', subRoutes: []
     },
     {
       name: "Categories", value: "MANAGE_ReI", isEnabled: false, routerLink: "category-list", acl: '', subRoutes: []
     },
+
+    // {
+    //   name: "Orders", value: "MANAGE_ReI", isEnabled: false, routerLink: "orders-list", acl: '', subRoutes: []
+    // },
+
     {
-      name: "Brand", value: "MANAGE_ReI", isEnabled: false, routerLink: "brand-list", acl: 'dashboard', subRoutes: []
+      name: "Profile", isEnabled: false, value: "MANAGE_APPOINTMENT_TAB", routerLink: "admin-profile", acl: '', subRoutes: []
     },
     {
-      name: "Profile", value: "MANAGE_ReI", isEnabled: false, routerLink: "update-profile", acl: 'dashboard', subRoutes: []
+      name: "Subscription", isEnabled: true, value: "MANAGE_APPOINTMENT_TAB", routerLink: "/subscription", acl: '', subRoutes: []
+
     },
-    {
-      name: "Generate Link", isEnabled: false, value: "MANAGE_APPOINTMENT_TAB", routerLink: "/generate-link", acl: '', subRoutes: []
-    },
+    // {
+    //   name: "Dashboard", isEnabled: false, value: "MANAGE_APPOINTMENT_TAB", inactive_icon: "assets/images/appointment.png", icon: "assets/images/appointment1.png", routerLink: "/admin-user-dashboard", acl: '', subRoutes: []
+    // },
+    // {
+    //   name: "Vendor", isEnabled: false, value: "MANAGE_APPOINTMENT_TAB", routerLink: "/super-vendor-list", acl: '', subRoutes: []
+    // },
+    // {
+    //   name: "Product", value: "MANAGE_ReI", isEnabled: false, routerLink: "/vendor-product-list", acl: '', subRoutes: []
+    // },
+    // {
+    //   name: "Categories", value: "MANAGE_ReI", isEnabled: false, routerLink: "category-list", acl: '', subRoutes: []
+    // },
+    // {
+    //   name: "Brand", value: "MANAGE_ReI", isEnabled: false, routerLink: "brand-list", acl: 'dashboard', subRoutes: []
+    // },
+    // {
+    //   name: "Profile", value: "MANAGE_ReI", isEnabled: false, routerLink: "update-profile", acl: 'dashboard', subRoutes: []
+    // },
+    // {
+    //   name: "Generate Link", isEnabled: false, value: "MANAGE_APPOINTMENT_TAB", routerLink: "/generate-link", acl: '', subRoutes: []
+    // },
 
   ],
+  /////////vendor Panel////////
   Vendor: [
 
     // {
