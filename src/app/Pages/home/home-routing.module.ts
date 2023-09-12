@@ -30,6 +30,7 @@ import { AddEditSalonBannerComponent } from './Vendor/Salon Banners/add-edit-sal
 import { EditSalonBannerComponent } from './Vendor/Salon Banners/edit-salon-banner/edit-salon-banner.component';
 import { AdminDetailComponent } from './SuperAdmin/Admin/admin-detail/admin-detail.component';
 import { ServiceListComponent } from './SuperAdmin/Service/service-list/service-list.component';
+import { AddServiceComponent } from './SuperAdmin/Service/add-service/add-service.component';
 
 
 const routes: Routes = [
@@ -75,7 +76,8 @@ const routes: Routes = [
      { path: 'salon-banner-list/add-salon-banner',component: AddEditSalonBannerComponent},
      { path: 'salon-banner-list/edit-salon-banner/:id/:id2',component:EditSalonBannerComponent},
      { path: 'subscription',component: BuyMebershipPlanListComponent},
-     { path: 'service-list', component : ServiceListComponent}
+     { path: 'service-list', component : ServiceListComponent},
+     { path: 'add-service', component : AddServiceComponent}
     
      
 
