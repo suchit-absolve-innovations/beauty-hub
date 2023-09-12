@@ -21,9 +21,7 @@
                         <th>Name</th>
                         <th>Profile Pic</th>
                         <th>Gender</th>
-                        <th>Email</th>
-                        <th>Status</th>
-                        <th>Created By</th>
+                        <th>Email</th>         
                         <th>Action</th>
                     </tr>
 
@@ -40,8 +38,7 @@
                         </td>
                         <td>{{item?.gender}}</td>
                         <td> {{item?.email}}</td>
-                        <td></td>
-                        <td></td>
+                        
 
                         <td>
                            <a  [routerLink]="['/admin-list/admin-detail/',  item?.id]"><i style="background:#e6629f; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;" class="fa fa-eye"></i></a> 

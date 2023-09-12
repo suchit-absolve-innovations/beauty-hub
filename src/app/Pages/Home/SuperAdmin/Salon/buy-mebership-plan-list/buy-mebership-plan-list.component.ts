@@ -29,6 +29,7 @@ export class BuyMebershipPlanListComponent implements OnInit {
   paymentReceiptIds: any;
   private isRefreshed: boolean = false;
   x!: any;
+  userRole= localStorage.getItem('user')
 
   merchantId!: void;
   transactionId!: any;
@@ -48,7 +49,7 @@ export class BuyMebershipPlanListComponent implements OnInit {
 
   ngOnInit(): void {
     debugger
-    this.getBuyMemberShipPlan();
+    this.getMembershipPlan();
     this.rootUrl = environment.rootPathUrl;
    
     // this.route.queryParams.subscribe((params: any) => {
@@ -142,6 +143,17 @@ export class BuyMebershipPlanListComponent implements OnInit {
 
   // }
 
+  getMembershipPlan() {
+    debugger
+    if (this.userRole == 'SuperAdmin') {
+      this.getBuyMemberShipPlan();
+    }
+    if (this.userRole == 'Vendor') {
+      this.getMembershipPlanList();
+    }
+  }
+
+
   getBuyMemberShipPlan() {
 debugger
     // window.location.reload();
@@ -162,6 +174,41 @@ debugger
       });
     });
   }
+
+//for vendor//
+getMembershipPlanList() {
+  debugger
+      // window.location.reload();
+      this.ngZone.run(() => {
+        this.spinner.show();
+        let vendorId= localStorage.getItem('vendorId')
+        
+       
+        this.content.getBuyMemberShipPlanListvendor(vendorId).subscribe(response => {
+          if (response.isSuccess) {
+            this.planList = response.data;
+            // this.membershipPlanIds = response.data.membershipPlanId
+         
+            this.spinner.hide();
+          } else {
+            this.spinner.hide();
+          }
+        });
+      });
+    }
+
+
+  // getMembershipPlanListp() {
+  //   this.spinner.show();
+  //  let vendorId= localStorage.getItem('vendorId')
+  //   this.content.getBuyMemberShipPlanListvendor(vendorId).subscribe(response => {
+  //     if (response.isSuccess) {
+  //       this.membershipPlanList = response.data;
+  //       // this.planType = response.data.planType
+  //       this.spinner.hide();
+  //     }
+  //   });
+  // }
 
 
 //   getPlanListVendor() {

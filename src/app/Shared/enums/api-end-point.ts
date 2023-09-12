@@ -84,7 +84,7 @@ export enum ApiEndPoint {
    updateBanner = "api/Admin/UpdateBanner",
    deleteHomeBanners = "api/Admin/DeleteBanner",
    getPlanList = "api/Admin/getMembershipPlanList",
-   getBuyMemberShipPlan= "api/Admin/getMembershipPlanList",
+  
    uploadReceipt = "api/Upload/UploadPaymentReceipt",
    addUpdatePlan = "/api/Admin/addUpdateMembershipPlan",
    getPlanDetail = "api/Admin/getMembershipPlanDetail",
@@ -120,4 +120,6 @@ export enum ApiEndPoint {
  
   UpdateAdminUser = "api/Admin/UpdateAdminUser",
   AdminUserDetail = "api/Admin/GetAdminUserDetail",
+  getBuyMemberShipPlan= "/api/Admin/getMembershipPlanList",
+  serviceList = "api/Service/GetSalonServiceList"
 }

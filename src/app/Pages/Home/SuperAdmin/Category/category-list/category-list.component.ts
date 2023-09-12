@@ -24,6 +24,7 @@ export class CategoryListComponent implements OnInit {
     itemsPerPage!: number;
     totalItems!: number;
     categoryList: any;
+    
     rootUrl: any;
     login = localStorage.getItem('role');
   
@@ -216,14 +217,17 @@ export class CategoryListComponent implements OnInit {
     }
     
     getCategoryListFilter() {
-      debugger
       this.spinner.show();
    
       this.content.getFilterCategoryList(this.form.value.CategoryType).subscribe(response => {
         if (response.isSuccess) {
           this.categoryList = response.data;
-          
           this.spinner.hide();
+        }
+        else{
+          this.toaster.error(response.messages)
+          this.spinner.hide();
+
         }
       });
     }
@@ -237,7 +241,6 @@ export class CategoryListComponent implements OnInit {
 
   
     getVendorcategoryList(){
-      debugger
     // this.spinner.show();
       this.content.getcategoryVendor(this.salonId).subscribe(response => {
         if (response.isSuccess) {
@@ -261,7 +264,6 @@ export class CategoryListComponent implements OnInit {
     }
   
     acceptCategory(data:any){
-      debugger
       let payload = {
         mainCategoryId: data.mainCategoryId,
         subCategoryId: data.subCategoryId,

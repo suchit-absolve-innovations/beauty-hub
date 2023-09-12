@@ -18,7 +18,8 @@ export class LoginComponent implements OnInit {
   formPayload: any = {};
   userRole: any;
   password!: any;
-  show = false;
+  show: boolean = false;
+  showPassword: boolean = false;
   constructor(private router: Router,
     private formBuilder: FormBuilder,
     private spinner: NgxSpinnerService,
@@ -38,6 +39,9 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  togglePasswordVisibility() {
+    this.show = !this.show;
+  }
 
   
   /*** for validation ***/

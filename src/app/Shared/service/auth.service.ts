@@ -32,10 +32,11 @@ export class AuthService {
         if (user.data) {
           localStorage.setItem('currentUser', JSON.stringify(user));
           localStorage.setItem('salonId', user.data.salonId);
+          localStorage.setItem('vendorId', user.data.vendorId);
           localStorage.setItem('vendorId', user.data.vendorId );
           // localStorage.setItem('shopImage', user.data.shopImage );
           // localStorage.setItem('firstName', user.data.firstName );
-          // localStorage.setItem('user', user.data.role);
+          localStorage.setItem('user', user.data.role);
           // localStorage.setItem('shopName', user.data.ShopName );
           this.currentUserSubject.next(user);
         } else {
