@@ -84,10 +84,10 @@ export class SubCategoryListComponent implements OnInit {
 
 
   postActiveStatus(data: any) {
-
+debugger
     let payload = {
       subCategoryId: data,
-      SalonId:this.salonId,
+      salonId:this.salonId,
       status: true
     }
     // this.spinner.show();
@@ -96,7 +96,7 @@ export class SubCategoryListComponent implements OnInit {
     });
   }
   postUnActiveStatus(data: any) {
-    
+    debugger
     let payload = {
       subCategoryId: data,
       salonId:this.salonId,
