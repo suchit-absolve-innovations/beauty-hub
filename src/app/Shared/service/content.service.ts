@@ -149,9 +149,9 @@ export class ContentService {
 
 
 
-  SubSubCategorys(data: any) {
-    return this.http.get<any>(environment.apiUrl + ApiEndPoint.getcategoryListSuper + '?SubProductCategoryId=' + data.SubProductCategoryId + '&ShopId=' + data.ShopId)
-  }
+  // SubSubCategorys(data: any) {
+  //   return this.http.get<any>(environment.apiUrl + ApiEndPoint.getcategoryListSuper + '?SubProductCategoryId=' + data.SubProductCategoryId + '&ShopId=' + data.ShopId)
+  // }
 
   subsubCategoryDelete(SubSubProductCategoryId: any) {
     return this.http.delete<any>(environment.apiUrl + ApiEndPoint.deleteSubCategory + '?SubSubProductCategoryId=' + SubSubProductCategoryId)
@@ -669,9 +669,13 @@ planUpdate(data: any) {
 
     SubCategory(MainCategoryId: any) {
       debugger
-      return this.http.get<any>(environment.apiUrl + ApiEndPoint.getcategoryListSuper + '?MainCategoryId=' + MainCategoryId )
+      return this.http.get<any>(environment.apiUrl + ApiEndPoint.getcategoryListVendor + '?MainCategoryId=' + MainCategoryId )
     }
   
+    SuperSubCategory(mainCategoryId: any) {
+      debugger
+      return this.http.get<any>(environment.apiUrl + ApiEndPoint.getcategoryList + '?mainCategoryId=' + mainCategoryId )
+    }
 
   // getfilerShopSubSub(data: any) {
   //   return this.http.get<any>(environment.apiUrl + ApiEndPoint.getSalonBannerList + '?shopId=' + data.shopId + '&subSubProductCategoryId=' + data.subSubProductCategoryId)

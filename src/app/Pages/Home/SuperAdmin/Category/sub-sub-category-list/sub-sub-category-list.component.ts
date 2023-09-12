@@ -134,7 +134,7 @@ export class SubSubCategoryListComponent implements OnInit {
             } else if (this.login == 'Admin'){
               this.getSubcategory();
             } else {
-              this. getSubcategoryList();
+              
             }
           }
   
@@ -160,21 +160,21 @@ export class SubSubCategoryListComponent implements OnInit {
   
     // Vendor
   
-    getSubcategoryList() {
+    // getSubcategoryList() {
   
-      this.spinner.show();
-      let payload = {
-        SubProductCategoryId : parseInt(this.Id),
-        ShopId :  this.shopId
-      }
-      this.content.SubSubCategorys(payload).subscribe(response => {
-        if (response.isSuccess) {
-          this.categoryList = response.data;
+    //   this.spinner.show();
+    //   let payload = {
+    //     SubProductCategoryId : parseInt(this.Id),
+    //     ShopId :  this.shopId
+    //   }
+    //   this.content.SubSubCategorys(payload).subscribe(response => {
+    //     if (response.isSuccess) {
+    //       this.categoryList = response.data;
   
-          this.spinner.hide();
-        }
-      });
-    }
+    //       this.spinner.hide();
+    //     }
+    //   });
+    // }
 
     delet(data:any){
       

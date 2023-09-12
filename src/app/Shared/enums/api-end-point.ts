@@ -107,7 +107,8 @@ export enum ApiEndPoint {
   categoryImageUpload = "/api/Upload/UploadCategoryImage",
   UpdateVendor = "api/Admin/UpdateVendor",
   getcategoryVendor = "api/Vendor/GetVendorCategoryList",
-  getcategoryListSuper = "api/Vendor/GetVendorCategoryList",
+  getcategoryListVendor = "api/Vendor/GetVendorCategoryList",
+
   getSalonBannerList = "api/Vendor/GetSalonBannerList",
   getSalonBannerDetail = "api/Vendor/GetSalonBannerDetail",
   deleteSalonBanners = "api/Vendor/DeleteSalonBanner",
