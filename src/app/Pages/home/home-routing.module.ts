@@ -30,11 +30,8 @@ import { AddEditSalonBannerComponent } from './Vendor/Salon Banners/add-edit-sal
 import { EditSalonBannerComponent } from './Vendor/Salon Banners/edit-salon-banner/edit-salon-banner.component';
 import { AdminDetailComponent } from './SuperAdmin/Admin/admin-detail/admin-detail.component';
 import { ServiceListComponent } from './SuperAdmin/Service/service-list/service-list.component';
-<<<<<<< Updated upstream
 import { AddServiceComponent } from './SuperAdmin/Service/add-service/add-service.component';
-=======
 import { AdminProfileComponent } from './Admin/admin-profile/admin-profile.component';
->>>>>>> Stashed changes
 
 
 const routes: Routes = [
@@ -83,10 +80,9 @@ const routes: Routes = [
       { path: 'salon-banner-list/add-salon-banner', component: AddEditSalonBannerComponent },
       { path: 'salon-banner-list/edit-salon-banner/:id/:id2', component: EditSalonBannerComponent },
       { path: 'subscription', component: BuyMebershipPlanListComponent },
-      { path: 'service-list', component: ServiceListComponent }
+      { path: 'service-list', component: ServiceListComponent },
 
 
-<<<<<<< Updated upstream
      //vendor//
      { path: 'vendor-profile',component: VendorProfileComponent},
      { path: 'salon-banner-list',component: ShopBannerListComponent},
@@ -98,8 +94,6 @@ const routes: Routes = [
      { path: 'add-service', component : AddServiceComponent}
     
      
-=======
->>>>>>> Stashed changes
 
     ]
 

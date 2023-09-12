@@ -15,7 +15,7 @@ export class AddServiceComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-this.serviceForm()
+this.serviceForm();
   }
 
   serviceForm() {
