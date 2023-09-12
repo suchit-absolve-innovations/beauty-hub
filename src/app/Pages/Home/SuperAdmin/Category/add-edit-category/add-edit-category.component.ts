@@ -24,6 +24,7 @@ export class AddEditCategoryComponent implements OnInit {
   id: any;
   mainId: any;
   categoryType : any;
+   login:any
   constructor(
     private formBuilder: FormBuilder,
     private contentService: ContentService,
@@ -98,24 +99,37 @@ debugger
   }
 
   
-  afterResponse(response: any) {
+  afterResponse(response: any ) {
     if (response && response.statusCode == 200) {
       if (response.isSuccess) {
-        this.showModal();
+        if (this.login = localStorage.getItem('role')) {
+          this.showModal();
+        } else {
+          // Redirect to a route for non-vendors
+          this.router.navigate(['/category-list']);
+        }
+        // this.showModal();
         this.form.reset();
       
       }
       else {
-        this.toasterService.error(response.messages);
+        this.toasterService.error(response.messages );
       }
     }
   }
+  
 
 
   afterResponses(response: any) {
     if (response && response.statusCode == 200) {
       if (response.isSuccess) {
-        this.showModal();
+        if (this.login = localStorage.getItem('role')) {
+          this.showModal();
+        } else {
+          // Redirect to a route for non-vendors
+          this.router.navigate(['/category-list'])
+        }
+        // this.showModal();
         this.form.reset();
         // this.toasterService.success('Thanks for placing category request. Your request will be processed in 24hrs');
         // this.router.navigate(['/category-list']);

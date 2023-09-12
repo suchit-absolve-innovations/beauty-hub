@@ -27,6 +27,7 @@
                     <th *ngIf="login == 'Vendor'">Status</th>
                     <th *ngIf="login == 'SuperAdmin' && 'Admin'">Action</th>
                     
+                    
                 </tr>
 
                 <tr
@@ -51,7 +52,7 @@
                        
                         </label>
                     </td>
-                    <td *ngIf="login == 'SuperAdmin'  && 'Admin' ">
+                    <td>
                    
                         <a *ngIf="login == 'SuperAdmin'  && 'Admin' "
                             [routerLink]="['/category-list/sub-category-list/addEdit-sub-category/',   item.mainCategoryId ,item?.subCategoryId]">

@@ -53,7 +53,7 @@ export class CategoryListComponent implements OnInit {
         
        }
   
-    ngOnInit(): void {
+  ngOnInit(): void {
  
       this.rootUrl = environment.rootPathUrl;
         // Check if the active tab is not set in the query parameters
@@ -215,6 +215,7 @@ export class CategoryListComponent implements OnInit {
         CategoryType: [''],
       });
     }
+    
     getCategoryListFilter() {
       this.spinner.show();
    
@@ -231,7 +232,7 @@ export class CategoryListComponent implements OnInit {
       });
     }
   
-    backClickedreload() {
+   backClickedreload() {
       this.router.navigateByUrl('/category-list')
         .then(() => {
           window.location.reload();
@@ -284,8 +285,8 @@ export class CategoryListComponent implements OnInit {
    rejectCategory(data:any){
       
       let payload = {
-        mainCategoryId: data.mainProductCategoryId,
-        subCategoryId: data.subProductCategoryId,
+        mainCategoryId: data.mainCategoryId,
+        subCategoryId: data.subCategoryId,
         status: 2
       }
       // this.spinner.show();
