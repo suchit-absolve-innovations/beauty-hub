@@ -753,6 +753,12 @@ planUpdate(data: any) {
     deleteAdminUser(Id: any) {
       return this.http.delete<any>(environment.apiUrl + ApiEndPoint.deleteAdminUser + '?Id=' + Id)
     }
+
+    // Service List 
+
+    getservice(data:any){
+      return this.http.get<any>(environment.apiUrl + ApiEndPoint.serviceList  + '?pageNumber=' + data.pageNumber + '&pageSize=' + data.pageSize)
+    }
   
 
 }

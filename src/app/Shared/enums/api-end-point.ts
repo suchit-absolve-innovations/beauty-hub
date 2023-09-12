@@ -121,4 +121,5 @@ export enum ApiEndPoint {
   UpdateAdminUser = "api/Admin/UpdateAdminUser",
   AdminUserDetail = "api/Admin/GetAdminUserDetail",
   getBuyMemberShipPlan= "/api/Admin/getMembershipPlanList",
+  serviceList = "api/Service/GetSalonServiceList"
 }
