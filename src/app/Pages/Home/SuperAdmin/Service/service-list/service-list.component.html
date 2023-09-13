@@ -14,7 +14,7 @@
             <input type="text" placeholder="Search Service" class="btn_border search_here"   [(ngModel)]="searchText" style="width:25%!important;">
             <!-- <a class="btn_blue ml-auto" data-toggle="modal" data-target="#myModalpurchase-membership">Add Salon</a> -->
 
-            <a [routerLink]="['/service-list/add-service']" class="btn_blue ml-auto">Add Service </a>
+            <a (click)="passId()" class="btn_blue ml-auto">Add Service </a>
         </div>
 
         <div class="table-responsive">
@@ -47,7 +47,7 @@
               
                     <td>
                         <a [routerLink]="['/service-list/service-detail/', item.serviceId]"><i style="background:#e6629f; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;" class="fa fa-eye"></i></a>
-                        <a [routerLink]="['/service-list/edit-service/', item.serviceId]"><i style="background:#9f2d61; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;" class="fa fa-pencil"></i></a>
+                        <a (click)="edit(item)"><i style="background:#9f2d61; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;" class="fa fa-pencil"></i></a>
                         <a data-toggle="modal" data-target="#list-cross-mess" (click)="delet(item)">
                             <i style="background:#9f0a2a; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;" class="fa fa-times"></i>
                         </a>

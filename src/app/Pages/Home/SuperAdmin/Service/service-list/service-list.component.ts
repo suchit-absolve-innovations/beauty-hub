@@ -20,6 +20,7 @@ list: any;
  itemsPerPage!: number;
  totalItems!: number; 
  rootUrl: any;
+ salonId : any
   constructor(private toaster: ToastrService,
     private spinner: NgxSpinnerService,
     private content: ContentService,
@@ -33,6 +34,8 @@ list: any;
     this.route.queryParams.subscribe(params => {
       this.page = +params['page'] || 0; // Use the 'page' query parameter value, or default to 1
     });
+    debugger
+    this.salonId = this.route.snapshot.queryParams
     this.getServiceList();
   }
 
@@ -61,7 +64,8 @@ list: any;
   getServiceList(){
     let payload = {
       pageNumber : 1,
-      pageSize : 1000
+      pageSize : 1000,
+      salonId : this.salonId.id
     }
     this.content.getservice(payload).subscribe(response => {
       if (response.isSuccess) {
@@ -75,6 +79,30 @@ list: any;
   // delete
   delet(data:any){
 
+  }
+
+  passId(){
+    this.router.navigate(['/salon-list/service-list/add-service'],
+    {
+      queryParams: {
+        id: this.salonId.id
+       
+      }
+    });
+
+   
+  }
+
+  edit(data:any){
+  debugger
+    this.router.navigate(['/service-list/edit-service'],
+    {
+      queryParams: {
+        id2 : data.serviceId,
+        id: data.salonId
+       
+      }
+    });
   }
 
 

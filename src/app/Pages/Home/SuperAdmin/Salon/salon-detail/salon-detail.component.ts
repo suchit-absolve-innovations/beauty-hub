@@ -225,7 +225,17 @@ const imageUrl1 = imageUrl; // Replace with your image URL
   }
 
 
- 
+ passId(data:any){
+  debugger
+  this.router.navigate(['/salon-list/service-list'],
+  {
+    queryParams: {
+      id: data.salonResponses[0]?.salonId,
+      
+    }
+  });
+
+ }
 
 }
 

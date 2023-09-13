@@ -27,6 +27,7 @@ export class AddServiceComponent implements OnInit {
   selectedTime: any;
   time!: string;
   time2!: string;
+  salonId: any;
 
 
 
@@ -35,7 +36,8 @@ export class AddServiceComponent implements OnInit {
     private contentService: ContentService,
     private toaster: ToastrService,
     private spinner: NgxSpinnerService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private route: ActivatedRoute,
 
   ) { }
 
@@ -45,7 +47,7 @@ export class AddServiceComponent implements OnInit {
     this.rootUrl = environment.rootPathUrl;
     this.serviceForm();
     this.getcategoryList();
-     
+    this.salonId = this.route.snapshot.queryParams
 
   }
 
@@ -120,7 +122,7 @@ export class AddServiceComponent implements OnInit {
 debugger
   let payload = {
     serviceId: 0,
-    salonId:11,
+    salonId:parseInt(this.salonId.id),
     serviceName: this.form.value.serviceName,
     basePrice:  parseInt(this.form.value.basePrice),
     discount:  parseInt(this.form.value.discount),

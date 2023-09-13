@@ -16,9 +16,9 @@ export const RoleRoutes = {
       name: "Salon", isEnabled: false, value: "MANAGE_APPOINTMENT_TAB", routerLink: "/salon-list", acl: '', subRoutes: []
     },
 
-    {
-      name: "Service", value: "MANAGE_ReI", isEnabled: false, routerLink: "/service-list", acl: '', subRoutes: []
-    },
+    // {
+    //   name: "Service", value: "MANAGE_ReI", isEnabled: false, routerLink: "/service-list", acl: '', subRoutes: []
+    // },
     {
       name: "Categories", value: "MANAGE_ReI", isEnabled: false, routerLink: "category-list", acl: '', subRoutes: []
     },
