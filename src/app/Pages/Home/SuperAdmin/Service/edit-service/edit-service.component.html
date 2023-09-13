@@ -21,8 +21,9 @@
                             <div class="imges-upload mb-0">
                                 <div class="imgUp m-auto">
                                     <!-- <div class="imagePreview" formControlName="imagePath"></div> -->
-                                    <div class="imagePreview"></div>
-
+                                    <!-- <div class="imagePreview"></div> -->
+                                    <div class="imagePreview" [style.background-image]="'url(' + editImages + ')'">
+                                    </div>
                                     <!-- {{imageFile}}/ -->
                                     <label class="upload button btn btn-primary">
                                         <!-- <input value="rootUrl + homeServicesData.imagePath" name="bannerHidden" type="hidden"> -->
@@ -204,7 +205,7 @@
 
                             <div *ngIf="submitted && f['serviceDescription'].errors" class="help-block">
                                 <div *ngIf="f['serviceDescription'].errors" style="color: #fd0000">
-                                    Discription is required.
+                                    Description is required.
                                 </div>
                             </div>
                         </div>
