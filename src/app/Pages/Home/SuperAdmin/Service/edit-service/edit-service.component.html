@@ -115,9 +115,10 @@
                         <div class="col-lg-6 col-md-12">
                             <label>Sub Category</label>
 
-                            <select type="text" class="control-form mr-20 btn_border" formControlName="subcategoryId">
+                            <select type="text" class="control-form mr-20 btn_border" formControlName="subCategoryId">
                                 <option value="">Select </option>
-                                <option *ngFor="let item of subCategoryList">{{item?.categoryName}}</option>
+                                <option *ngFor="let item of subCategoryList"
+                                [ngValue]="item?.subCategoryId">{{item?.categoryName}}</option>
                             </select>
                             <!-- <div *ngIf="submitted && f['subcategoryId'].errors" class="help-block">
                                 <div *ngIf="f['subcategoryId'].errors" style="color: #fd0000">
