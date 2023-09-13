@@ -278,10 +278,6 @@ export class ContentService {
 
   // Add Product
 
-  postProduct(data: any) {
-    return this.http.post<any>(environment.apiUrl + ApiEndPoint.addProduct, data)
-  }
-
   updateProduct(data:any){
     return this.http.post<any>(environment.apiUrl + ApiEndPoint.updateProduct, data)
   }
@@ -761,6 +757,11 @@ planUpdate(data: any) {
     getServiceDetail(serviceId:any){
       return this.http.get<any>(environment.apiUrl + ApiEndPoint.serviceDetail + '?serviceId=' + serviceId);
     }
+    
+  addNewService(data: any) {
+    return this.http.post<any>(environment.apiUrl + ApiEndPoint.addService, data)
+  }
+
   
 
 }
