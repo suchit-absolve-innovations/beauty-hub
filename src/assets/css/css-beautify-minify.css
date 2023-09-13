@@ -3515,6 +3515,9 @@ input[type="button"].btn-block {
 }
 .input-group-append {
   margin-left: -1px;
+  position: absolute;
+  right: 15px;
+  top: 12px;
 }
 .input-group-text {
   display: flex;

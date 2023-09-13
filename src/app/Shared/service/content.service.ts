@@ -761,6 +761,14 @@ planUpdate(data: any) {
     getServiceDetail(serviceId:any){
       return this.http.get<any>(environment.apiUrl + ApiEndPoint.serviceDetail + '?serviceId=' + serviceId);
     }
+
+    getScheduleDayTimes(salonId:any){
+      return this.http.get<any>(environment.apiUrl + ApiEndPoint. getScheduleDayTimes + '?salonId=' + salonId);
+    }
+
+    addSchedule(data:any){
+      return this.http.post<any>(environment.apiUrl + ApiEndPoint.addSchedule, data)
+    }
   
 
 }

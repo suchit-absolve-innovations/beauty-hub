@@ -31,7 +31,7 @@
                 </tr>
 
                 <tr
-                    *ngFor="let item of vendorList | filter:searchText | paginate: {itemsPerPage: 5, currentPage: page, totalItems: totalItems,id: '1' }  ">
+                    *ngFor="let item of vendorList | filter:searchText | paginate: {itemsPerPage: 10, currentPage: page, totalItems: totalItems,id: '1' }  ">
 
                     <td class="profile">
                         <!-- <img src="img/product_items.png" class="img-responsive"> -->
@@ -42,7 +42,7 @@
                         <img [src]="rootUrl + item?.profilePic" class="img-responsive">
                     </td>
                     <td>{{item?.salonName}}</td>
-                    <td>{{item?.createdBy}}</td>
+                    <td>{{item?.createdByRole}}</td>
                     <!-- <td >{{item.statusDisplay}}</td> -->
                     <td>
                         <div *ngIf="value == 'SuperAdmin'">

@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="heading">
-                        <h3> Schedule</h3>
+                        <h2> Schedule</h2>
                         <p>Schedule your work timings</p>
                     </div>
                 </div>
@@ -57,26 +57,14 @@
                 </div>
 
                 <div class="work-timing">
-                    <h5>Select Shift Time:</h5>
+                    <h5>Working Time:</h5>
                     <!-- <p> <span><b>8:30</b> AM</span> - <span><b>6:30</b> PM</span></p> -->
                     <p><span>
-                            <!-- <mat-form-field>
-                                <input placeholder="From" formControlName="fromTime" matInput aria-label="default time"
-                                    [ngxTimepicker]="defaultValue" />
-                                <ngx-material-timepicker #defaultValue>
-                                </ngx-material-timepicker>
-                            </mat-form-field> -->
+                        <input formControlName="fromTime" type="time" class="form-control" />
                         </span>
                         -
                         <span>
-                            <!-- <input placeholder="To" [ngxTimepicker]="picker">
-                        <ngx-material-timepicker #picker></ngx-material-timepicker> -->
-                            <!-- <mat-form-field>
-                                <input placeholder="To" formControlName="toTime" matInput aria-label="default time"
-                                    [ngxTimepicker]="Value" />
-                                <ngx-material-timepicker #Value>
-                                </ngx-material-timepicker>
-                            </mat-form-field> -->
+                            <input formControlName="toTime" type="time" class="form-control" />
                         </span>
                     </p>
 
@@ -84,10 +72,10 @@
                 </div>
 
                 <div class="col-lg-12 col-md-12 mt-40 text-center btn_margin">
-                    <button class="border-btn" type="submit" value="" data-toggle="modal" data-target="#cancel-mess">
+                    <button class="border-btn btn-round" type="submit" value="" data-toggle="modal" data-target="#cancel-mess">
                       Cancel
                     </button>
-                    <button class="btn_blue" type="submit" >Save</button>
+                    <button class="btn_blue btn-round" type="submit" (click)="addUpdateSchedule()">Submit</button>
                   </div>
             </form>
         </div>

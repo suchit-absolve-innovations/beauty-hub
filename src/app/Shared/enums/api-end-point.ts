@@ -124,4 +124,6 @@ export enum ApiEndPoint {
   getBuyMemberShipPlan= "/api/Admin/getMembershipPlanList",
   serviceList = "api/Service/GetSalonServiceList",
   serviceDetail = "api/Service/GetSalonServiceDetail",
+  getScheduleDayTimes = "api/Service/getScheduledDaysTime",
+  addSchedule = "api/Service/addUpdateSalonSchedule"
 }

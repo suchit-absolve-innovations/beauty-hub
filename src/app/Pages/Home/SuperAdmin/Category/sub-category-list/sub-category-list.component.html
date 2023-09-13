@@ -52,7 +52,7 @@
                        
                         </label>
                     </td>
-                    <td>
+                    <td *ngIf="login == 'SuperAdmin'  && 'Admin' ">
                    
                         <a *ngIf="login == 'SuperAdmin'  && 'Admin' "
                             [routerLink]="['/category-list/sub-category-list/addEdit-sub-category/',   item.mainCategoryId ,item?.subCategoryId]">

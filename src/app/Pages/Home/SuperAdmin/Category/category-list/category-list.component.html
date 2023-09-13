@@ -318,11 +318,11 @@
                             <tr
                                 *ngFor="let item of categoryRequestList | filter:searchText | paginate: {itemsPerPage: 10, currentPage: page2, totalItems: totalItems,id: '2' }  ">
                                 <td>
-                                    {{item?.mainCategoryName}}
+                                    {{item?.maincategoryName}}
                                 </td>
                                 <td>
-                                    <span *ngIf="item?.subCategoryName == null" class="td-span">N/A</span>
-                                    {{item?.subCategoryName}}
+                                    <span *ngIf="item?.subcategoryName == null" class="td-span">N/A</span>
+                                    {{item?.subcategoryName}}
                                 </td>
 
 
