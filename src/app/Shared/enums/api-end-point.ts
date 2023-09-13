@@ -51,7 +51,7 @@ export enum ApiEndPoint {
    
     productContainerType = "api/Content/GetProductContainerTypeList",
     productQunatity = "api/Content/GetProductQuantityTypeList",
-    addProduct = "api/Product/AddProduct",
+   
     updateProduct = "api/Product/UpdateProduct",
     productImage = "api/Upload/UploadProductImage",
     base64 = "api/Upload/GetProductImageInBase64",
@@ -125,5 +125,6 @@ export enum ApiEndPoint {
   serviceList = "api/Service/GetSalonServiceList",
   serviceDetail = "api/Service/GetSalonServiceDetail",
   getScheduleDayTimes = "api/Service/getScheduledDaysTime",
-  addSchedule = "api/Service/addUpdateSalonSchedule"
+  addSchedule = "api/Service/addUpdateSalonSchedule",
+  addService = "/api/Service/AddUpdateSalonService",
 }

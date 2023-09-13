@@ -114,15 +114,16 @@
                       <div class="col-lg-6 col-md-12">
                           <label>Sub Category</label>
 
-                          <select type="text" class="control-form mr-20 btn_border" formControlName="subcategoryId">
+                          <select type="text" class="control-form mr-20 btn_border" formControlName="subCategoryId">
                               <option value="">Select </option>
-                              <option *ngFor="let item of subCategoryList">{{item?.categoryName}}</option>
+                              <option *ngFor="let item of subCategoryList" [ngValue]="item?.subCategoryId"
+                              >{{item?.categoryName}}</option>
                           </select>
-                          <!-- <div *ngIf="submitted && f['subcategoryId'].errors" class="help-block">
-                              <div *ngIf="f['subcategoryId'].errors" style="color: #fd0000">
+                          <div *ngIf="submitted && f['subCategoryId'].errors" class="help-block">
+                              <div *ngIf="f['subCategoryId'].errors" style="color: #fd0000">
                                   Sub Category is required.
                               </div>
-                          </div> -->
+                          </div>
                       </div>
 
 
@@ -177,19 +178,21 @@
                           </div>
                       </div>
 
+        
                       <div class="col-lg-6 col-md-12">
-                          <label>Lock Time Start</label>
-                          <input type="tel" class="control-form" formControlName="lockTimeStart" numbersOnly />
-                          <div *ngIf="submitted && f['lockTimeStart'].errors" class="help-block">
-                              <div *ngIf="f['lockTimeStart'].errors" style="color: #fd0000">
-                                  Lock Time Start is required.
-                              </div>
-                          </div>
-                      </div>
+                        <label>Lock Time Start</label>
+                        <input type="time" id="time" class="form-control" formControlName="lockTimeStart" (input)="onTimeInputChange($event)"/>
+                        <div *ngIf="submitted && f['lockTimeStart'].errors" class="help-block">
+                            <div *ngIf="f['lockTimeStart'].errors" style="color: #fd0000">
+                                Lock Time Start is required.
+                            </div>
+                        </div>
+                    </div>
+                   
 
                       <div class="col-lg-6 col-md-12">
                           <label>Lock Time End</label>
-                          <input formControlName="lockTimeEnd" type="text" class="form-control" />
+                          <input  type="time" class="form-control" formControlName="lockTimeEnd" (input)="onTimeInputChange2($event)"/>
                           <div *ngIf="submitted && f['lockTimeEnd'].errors" class="help-block">
                               <div *ngIf="f['lockTimeEnd'].errors" style="color: #fd0000">
                                   Lock Time End is required.
@@ -214,7 +217,7 @@
                               data-target="#cancel-mess">
                               Cancel
                           </button>
-                          <button class="btn_blue" type="submit" (click)="addService()">Save</button>
+                          <button class="btn_blue" type="submit" (click)="submit()">Save</button>
                       </div>
                   </div>
               </div>
