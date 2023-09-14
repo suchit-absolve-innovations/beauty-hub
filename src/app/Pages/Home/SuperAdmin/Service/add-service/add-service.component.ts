@@ -62,7 +62,7 @@ export class AddServiceComponent implements OnInit {
       subCategoryId        : ['', [Validators.required]],
       ageRestrictions      : ['', [Validators.required]],
       genderPreferences    : ['', [Validators.required]],
-      duration             : ['', [Validators.required]],
+    //  duration             : ['', [Validators.required]],
       totalCountPerDuration: ['', [Validators.required]],
       durationInMinutes    : ['', [Validators.required]],
       lockTimeStart        : ['', [Validators.required]],
@@ -120,6 +120,11 @@ export class AddServiceComponent implements OnInit {
 
 
 debugger
+this.submitted = true;
+if (this.form.invalid) {
+ 
+  return;
+}
   let payload = {
     serviceId: 0,
     salonId:parseInt(this.salonId.id),

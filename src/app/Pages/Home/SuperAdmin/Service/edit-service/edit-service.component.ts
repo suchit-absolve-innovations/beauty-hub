@@ -138,8 +138,6 @@ debugger
           lockTimeStart: this.time1,
           lockTimeEnd: this.time2,
           serviceDescription: this.serviceDetailPatch.serviceDescription,
-          
-
         });
         this.getSubcategoryList(this.serviceDetailPatch?.mainCategoryId);
         this.patchTimeValue(this.serviceDetailPatch.lockTimeStart);
