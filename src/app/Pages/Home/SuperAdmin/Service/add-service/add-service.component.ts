@@ -163,40 +163,12 @@ if (this.form.invalid) {
   });
 }
 
-// onTimeInputChange(event: Event) {
-//   const timeInput = event.target as HTMLInputElement;
-//   const selectedTime = timeInput.value; // Get the selected time in "hh:mm" format
-//   // Determine whether it's AM or PM based on a certain condition (e.g., hours)
-//   const [hours] = selectedTime.split(':');
-//   let parsedHours = parseInt(hours, 10);
-//   // Calculate the period (AM or PM)
-//   let period = 'AM';
-//   if (parsedHours >= 12) {
-//     period = 'PM';
-//     if (parsedHours > 12) {
-//       parsedHours -= 12;
-//     }
-//   }
-//   if (parsedHours === 0) {
-//     parsedHours = 12;
-//   }
-  
-//   // Format the time as "hh:mm tt"
-//   const formattedTime = `${parsedHours.toString().padStart(2, '0')}:${selectedTime.slice(3)} ${period}`;
-// this.time = formattedTime
-//   console.log('Formatted Time:', formattedTime);
-//   // Now 'formattedTime' contains the time in "hh:mm tt" format with 12-hour time
-// }
-
- onTimeInputChange(event: Event) {
+onTimeInputChange(event: Event) {
   const timeInput = event.target as HTMLInputElement;
   const selectedTime = timeInput.value; // Get the selected time in "hh:mm" format
-  const id = timeInput.id;
-
   // Determine whether it's AM or PM based on a certain condition (e.g., hours)
   const [hours] = selectedTime.split(':');
   let parsedHours = parseInt(hours, 10);
-
   // Calculate the period (AM or PM)
   let period = 'AM';
   if (parsedHours >= 12) {
@@ -208,37 +180,13 @@ if (this.form.invalid) {
   if (parsedHours === 0) {
     parsedHours = 12;
   }
-
+  
   // Format the time as "hh:mm tt"
   const formattedTime = `${parsedHours.toString().padStart(2, '0')}:${selectedTime.slice(3)} ${period}`;
-
-  // Set the time in the appropriate field
-  if (id === 'startTime') {
-    // Handle the start time
-    this.startTime = formattedTime;
-  } else if (id === 'endTime') {
-    // Handle the end time
-    this.endTime = formattedTime;
-
-    // Perform validation: End time must be greater than start time
-    const startTimeValue = new Date(`2000-01-01T${this.startTime}`);
-    const endTimeValue = new Date(`2000-01-01T${this.endTime}`);
-
-    if (endTimeValue <= startTimeValue) {
-      alert('End time must be greater than start time');
-      // You can reset the end time here if you want
-      // this.endTime = '';
-    }
-  }
-
+this.time = formattedTime
   console.log('Formatted Time:', formattedTime);
+  // Now 'formattedTime' contains the time in "hh:mm tt" format with 12-hour time
 }
-
-
-
-
-
-
 
 
 onTimeInputChange2(event: Event) {
