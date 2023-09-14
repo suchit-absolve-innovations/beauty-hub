@@ -95,7 +95,7 @@ list: any;
 
   edit(data:any){
   debugger
-    this.router.navigate(['/service-list/edit-service'],
+    this.router.navigate(['/salon-list/service-list/edit-service'],
     {
       queryParams: {
         id2 : data.serviceId,

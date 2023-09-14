@@ -72,18 +72,16 @@ const routes: Routes = [
       { path: 'plan-list/add-edit-plan', component: MembershipAddEditComponent },
       { path: 'super-admin-profile', component: SuperAdminProfileComponent },
       { path: 'salon-list/buy-membership-plan', component: BuyMebershipPlanListComponent },
+      { path: 'salon-list/service-list', component : ServiceListComponent},
+      { path: 'salon-list/service-list/add-service', component : AddServiceComponent},
+      { path: 'salon-list/service-list/service-detail/:id',component : ServiceDetailComponent},
+      { path: 'add-edit-schedule',component : AddEditScheduleComponent},
+      { path: 'salon-list/service-list/edit-service', component: EditServiceComponent},
 
       //////Admin///////
       { path: 'admin-profile', component: AdminProfileComponent },
 
-      //vendor//
-      { path: 'vendor-profile', component: VendorProfileComponent },
-      { path: 'salon-banner-list', component: ShopBannerListComponent },
-      { path: 'salon-banner-list/Salon-detail/:id', component: SalonBannerDetailComponent },
-      { path: 'salon-banner-list/add-salon-banner', component: AddEditSalonBannerComponent },
-      { path: 'salon-banner-list/edit-salon-banner/:id/:id2', component: EditSalonBannerComponent },
-      { path: 'subscription', component: BuyMebershipPlanListComponent },
-      { path: 'service-list', component: ServiceListComponent },
+    
 
 
      //vendor//

@@ -6,6 +6,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { ContentService } from 'src/app/Shared/service/content.service';
 import { environment } from 'src/environments/environment';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-add-service',
@@ -44,7 +45,7 @@ export class AddServiceComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private datePipe: DatePipe,
     private toasterService: ToastrService,
-
+    private _location: Location,
     private route: ActivatedRoute,
 
   ) { }
@@ -95,6 +96,9 @@ timeValidator(control: AbstractControl): ValidationErrors | null {
   get f() {
     return this.form.controls;
   }
+  backClicked() {
+    this._location.back();
+  }
 
   getcategoryList(){
     // this.spinner.show();
@@ -128,19 +132,19 @@ timeValidator(control: AbstractControl): ValidationErrors | null {
 
 
  submit() {
-  // this.submitted = true;
-  // if (this.form.invalid) {
-  //   this.toasterService.error("Form Incomplete: Please fill in all the required fields correctly");
-  //   return;
-  // }
+  this.submitted = true;
+  if (this.form.invalid) {
+    this.toasterService.error("Form Incomplete: Please fill in all the required fields correctly");
+    return;
+  }
 
 
 debugger
-this.submitted = true;
-if (this.form.invalid) {
+// this.submitted = true;
+// if (this.form.invalid) {
  
-  return;
-}
+//   return;
+// }
   let payload = {
     serviceId: 0,
     salonId:parseInt(this.salonId.id),

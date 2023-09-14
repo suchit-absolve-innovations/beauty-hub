@@ -29,8 +29,9 @@ export class ContentService {
   }
 
    // Image convertor to update 
-   imageConvert(productId:any){
-    return this.http.get<any>(environment.apiUrl + ApiEndPoint.base64 + '?productId=' + productId)
+   imageConvert(serviceId:any){
+    debugger
+    return this.http.get<any>(environment.apiUrl + ApiEndPoint.base64 + '?serviceId=' + serviceId)
   }
 
 
@@ -576,7 +577,7 @@ planUpdate(data: any) {
     }
 
       subCategorySuper(MainCategoryId: any) {
-    debugger
+    
     return this.http.get<any>(environment.apiUrl + ApiEndPoint.getcategoryList + '?MainCategoryId=' + MainCategoryId )
   }
 
@@ -664,12 +665,12 @@ planUpdate(data: any) {
     // Sub Category List 
 
     SubCategory(MainCategoryId: any) {
-      debugger
+      
       return this.http.get<any>(environment.apiUrl + ApiEndPoint.getcategoryListVendor + '?MainCategoryId=' + MainCategoryId )
     }
   
     SuperSubCategory(mainCategoryId: any) {
-      debugger
+      
       return this.http.get<any>(environment.apiUrl + ApiEndPoint.getcategoryList + '?mainCategoryId=' + mainCategoryId )
     }
 

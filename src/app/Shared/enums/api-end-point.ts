@@ -54,7 +54,7 @@ export enum ApiEndPoint {
    
     updateProduct = "api/Product/UpdateProduct",
     productImage = "api/Upload/UploadProductImage",
-    base64 = "api/Upload/GetProductImageInBase64",
+    
     salonImage = "api/Upload/UploadaSlonImage",
    
     
@@ -127,5 +127,6 @@ export enum ApiEndPoint {
   getScheduleDayTimes = "api/Service/getScheduledDaysTime",
   addSchedule = "api/Service/addUpdateSalonSchedule",
   addService = "api/Service/AddUpdateSalonService",
-  serviceImage ="api/Upload/UploadServiceImage"
+  serviceImage ="api/Upload/UploadServiceImage",
+  base64 = "api/Service/getServiceImageInBase64",
 }
