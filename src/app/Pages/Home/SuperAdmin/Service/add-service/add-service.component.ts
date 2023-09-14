@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, NgZone, OnInit,Input, Output, EventEmitter  } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
@@ -76,7 +76,19 @@ export class AddServiceComponent implements OnInit {
       lockTimeEnd          : ['', [Validators.required]],
       serviceDescription   : ['', [Validators.required]],
 
-    })
+    },{ validator: this.timeValidator });
+}
+timeValidator(control: AbstractControl): ValidationErrors | null {
+  const startTime = control.get('lockTimeStart')?.value;
+  const endTime = control.get('lockTimeEnd')?.value;
+
+  if (startTime && endTime) {
+    if (startTime >= endTime) {
+      return { timeOrder: true };
+    }
+  }
+
+  return null;
 }
 
   
