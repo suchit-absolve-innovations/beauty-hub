@@ -126,5 +126,6 @@ export enum ApiEndPoint {
   serviceDetail = "api/Service/GetSalonServiceDetail",
   getScheduleDayTimes = "api/Service/getScheduledDaysTime",
   addSchedule = "api/Service/addUpdateSalonSchedule",
-  addService = "/api/Service/AddUpdateSalonService",
+  addService = "api/Service/AddUpdateSalonService",
+  serviceImage ="api/Upload/UploadServiceImage"
 }

@@ -770,6 +770,18 @@ planUpdate(data: any) {
     return this.http.post<any>(environment.apiUrl + ApiEndPoint.addService, data)
   }
 
+  uploadServiceImage(data: any) {
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'multipart/form-data');
+    const options = {
+      headers: headers
+    };
+    return this.http.post<any>(environment.apiUrl + ApiEndPoint.serviceImage, data, options).pipe(map((data: any) => {
+      localStorage.setItem('File', data);
+      return data;
+    }));
+  }
+
   
 
 }

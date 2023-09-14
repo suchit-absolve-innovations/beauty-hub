@@ -13,33 +13,35 @@
                           <h2>Add Service Picture</h2>
                       </div>
 
-                      <div class="col-lg-12 col-md-12">
-                          <!-- <div class="upload_file text-center">
-                  <input type="file" class="control-form">
-                  <label for="file">Upload</label>									
-              </div> -->
+                      <div class="col-lg-12 col-md-12 mb-20">
+                        <div class="upload_file text-center">
                           <div class="imges-upload mb-0">
-                              <div class="imgUp m-auto">
-                                  <!-- <div class="imagePreview" formControlName="imagePath"></div> -->
-                                  <div class="imagePreview"></div>
-
-                                  <!-- {{imageFile}}/ -->
-                                  <label class="upload button btn btn-primary">
-                                      <!-- <input value="rootUrl + homeServicesData.imagePath" name="bannerHidden" type="hidden"> -->
-                                      Upload<input type="file" class="uploadFile img" name="bannerimage"
-                                          style="width: 0px;height: 0px;overflow: file; border-style: none;"
-                                          id="bannerimage">
-                                  </label>
-                                  <div>
-                                  </div>
-
-
+                            <div class="imgUp m-auto">
+                              <div class="imagePreview" style="background-image: url(&quot;undefined&quot;);">
                               </div>
-                              <br>
-                              <br>
+                                  <label class="upload button btn btn-primary">
+                                    Upload<input type="file" class="uploadFile img" name="bannerimage"
+                                      style="width: 0px;height: 0px;overflow: file; border-style: none;" id="bannerimage"
+                                      (change)="onselect($event)" multiple />
+                                  </label>
+                              <div></div>
+                            </div>
                           </div>
+                        </div>
                       </div>
-
+                     
+                            <div class="col-lg-6 mx-auto mb-30">
+                            <div class="multi-img-box">
+                              <div  *ngFor="let url of urls; let i = index">
+                                <div class="multiple-images multiple-img-sec ">
+                                  <img class="img-responsive" [src]="url" />
+                                  <button class="remove" (click)="removeImage(i)">X</button>
+                                </div>
+                              </div>
+              
+                             
+                            </div>
+                            </div>
                   </div>
 
               </div>
@@ -181,7 +183,7 @@
         
                       <div class="col-lg-6 col-md-12">
                         <label>Lock Time Start</label>
-                        <input type="time" id="time" class="form-control" formControlName="lockTimeStart" (input)="onTimeInputChange($event)"/>
+                        <input type="time" id="startTime" class="form-control" formControlName="lockTimeStart" (input)="onTimeInputChange($event)"/>
                         <div *ngIf="submitted && f['lockTimeStart'].errors" class="help-block">
                             <div *ngIf="f['lockTimeStart'].errors" style="color: #fd0000">
                                 Lock Time Start is required.
@@ -192,7 +194,7 @@
 
                       <div class="col-lg-6 col-md-12">
                           <label>Lock Time End</label>
-                          <input  type="time" class="form-control" formControlName="lockTimeEnd" (input)="onTimeInputChange2($event)"/>
+                          <input  type="time" id="endTime" class="form-control" formControlName="lockTimeEnd" (input)="onTimeInputChange2($event)"/>
                           <div *ngIf="submitted && f['lockTimeEnd'].errors" class="help-block">
                               <div *ngIf="f['lockTimeEnd'].errors" style="color: #fd0000">
                                   Lock Time End is required.
