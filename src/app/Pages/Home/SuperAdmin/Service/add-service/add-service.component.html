@@ -179,9 +179,34 @@
                               </div>
                           </div>
                       </div>
+<div class="col-lg-6 col-md-12">
+  <label>Lock Time Start</label>
+  <input type="time" id="time" class="form-control" formControlName="lockTimeStart" (input)="onTimeInputChange($event)" />
+  <div *ngIf="submitted && f['lockTimeStart'].errors" class="help-block">
+    <div *ngIf="f['lockTimeStart'].errors?.['required']" style="color: #fd0000">
+      Lock Time Start is required.
+    </div>
+  </div>
+</div>
+
+<div class="col-lg-6 col-md-12">
+  <label>Lock Time End</label>
+  <input type="time" class="form-control" formControlName="lockTimeEnd" (input)="onTimeInputChange2($event)" />
+  <div *ngIf="submitted && f['lockTimeEnd'].errors" class="help-block">
+    <div *ngIf="f['lockTimeEnd'].errors?.['required']" style="color: #fd0000">
+      Lock Time End is required.
+    </div>
+  </div>
+</div>
+
+<div *ngIf="submitted && form.hasError('timeOrder')" class="help-block">
+  <div *ngIf="form.hasError('timeOrder')" style="color: #fd0000">
+    Start time must be less than End time.
+  </div>
+</div>
 
         
-                      <div class="col-lg-6 col-md-12">
+                      <!-- <div class="col-lg-6 col-md-12">
                         <label>Lock Time Start</label>
                         <input type="time" id="startTime" class="form-control" formControlName="lockTimeStart" (input)="onTimeInputChange($event)"/>
                         <div *ngIf="submitted && f['lockTimeStart'].errors" class="help-block">
@@ -200,7 +225,7 @@
                                   Lock Time End is required.
                               </div>
                           </div>
-                      </div>
+                      </div> -->
 
                       <div class=" col-md-12">
                           <label>Discription</label>
