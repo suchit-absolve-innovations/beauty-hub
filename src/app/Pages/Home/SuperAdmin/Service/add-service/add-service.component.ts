@@ -26,11 +26,15 @@ export class AddServiceComponent implements OnInit {
   salonIds: any;
   selectedTime: any;
   time!: string;
-  time2!: string; urls: any = [];
+  time2!: string;
+  urls: any = [];
   imageFile!: { link: any, file: any, name: any, type: any };
   serviceId: any;
   startTime: any;
   endTime: any  ;
+  // time2!: string;
+  salonId: any;
+
 
 
   constructor(private router: Router,
@@ -41,6 +45,7 @@ export class AddServiceComponent implements OnInit {
     private datePipe: DatePipe,
     private toasterService: ToastrService,
 
+    private route: ActivatedRoute,
 
   ) { }
 
@@ -50,7 +55,7 @@ export class AddServiceComponent implements OnInit {
     this.rootUrl = environment.rootPathUrl;
     this.serviceForm();
     this.getcategoryList();
-     
+    this.salonId = this.route.snapshot.queryParams
 
   }
 
@@ -119,7 +124,7 @@ export class AddServiceComponent implements OnInit {
 
   let payload = {
     serviceId: 0,
-    salonId:11,
+    salonId:parseInt(this.salonId.id),
     serviceName: this.form.value.serviceName,
     basePrice:  parseInt(this.form.value.basePrice),
     discount:  parseInt(this.form.value.discount),

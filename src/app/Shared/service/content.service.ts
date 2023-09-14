@@ -752,7 +752,7 @@ planUpdate(data: any) {
     // Service List 
 
     getservice(data:any){
-      return this.http.get<any>(environment.apiUrl + ApiEndPoint.serviceList  + '?pageNumber=' + data.pageNumber + '&pageSize=' + data.pageSize)
+      return this.http.get<any>(environment.apiUrl + ApiEndPoint.serviceList  + '?pageNumber=' + data.pageNumber + '&pageSize=' + data.pageSize + '&salonId=' + data.salonId)
     }
     getServiceDetail(serviceId:any){
       return this.http.get<any>(environment.apiUrl + ApiEndPoint.serviceDetail + '?serviceId=' + serviceId);
