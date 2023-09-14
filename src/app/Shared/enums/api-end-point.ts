@@ -28,7 +28,7 @@ export enum ApiEndPoint {
     // AddAdminUser = "api/Admin/AddAdminUser",
     // UpdateAdminUser = "api/Admin/UpdateAdminUser",
     deleteVendor = "api/Admin/DeleteVendor",
-    deleteAdminUser = "api/Admin/DeleteAdminUser",
+   
    
     
     
@@ -118,6 +118,7 @@ export enum ApiEndPoint {
   deleteShopBanners = "api/Vendor/DeleteSalonBanner",
   AdminUserList = "api/Admin/GetAdminUserList" ,
   AddAdminUser = "api/Admin/AddAdminUser",    
+  deleteAdminUser = "api/Admin/DeleteAdminUser",
  
   UpdateAdminUser = "api/Admin/UpdateAdminUser",
   AdminUserDetail = "api/Admin/GetAdminUserDetail",
@@ -129,4 +130,5 @@ export enum ApiEndPoint {
   addService = "api/Service/AddUpdateSalonService",
   serviceImage ="api/Upload/UploadServiceImage",
   base64 = "api/Service/getServiceImageInBase64",
+  serviceDelete = "api/Service/DeleteSalonService",
 }

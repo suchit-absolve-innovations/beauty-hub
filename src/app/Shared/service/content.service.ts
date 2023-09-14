@@ -782,6 +782,9 @@ planUpdate(data: any) {
       return data;
     }));
   }
+  deleteService(serviceId: any) {
+    return this.http.delete<any>(environment.apiUrl + ApiEndPoint.serviceDelete + '?serviceId=' + serviceId)
+  }
 
   
 

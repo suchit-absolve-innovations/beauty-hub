@@ -21,6 +21,7 @@ list: any;
  totalItems!: number; 
  rootUrl: any;
  salonId : any
+  serviceId: any;
   constructor(private toaster: ToastrService,
     private spinner: NgxSpinnerService,
     private content: ContentService,
@@ -76,10 +77,7 @@ list: any;
     });
   }
 
-  // delete
-  delet(data:any){
 
-  }
 
   passId(){
     this.router.navigate(['/salon-list/service-list/add-service'],
@@ -105,6 +103,28 @@ list: any;
     });
   }
 
+  delet(data:any){
+    debugger
+    this.serviceId = data.serviceId;
+    
+      }
+    
+      serviceDelete() {
+        debugger
+        this.spinner.show();
+        debugger
+        this.content.deleteService(this.serviceId).subscribe(response => {
+          if (response.isSuccess) {
+            this.spinner.hide();
+            this.ngZone.run(() => { this.getServiceList(); })
+            this.toaster.success(response.messages);
+              window.location.reload();
+          } else {
+            this.spinner.hide();
+            this.toaster.error(response.messages)
+          }
+        });
+      }
 
 
 
