@@ -195,7 +195,7 @@
 
                         <div class="col-lg-6 col-md-12">
                             <label>Lock Time Start</label>
-                            <input formControlName="lockTimeStart" type="time" class="form-control"  (input)="onTimeInputChange($event)"/>
+                            <input formControlName="lockTimeStart" type="time" class="form-control"  />
                             <div *ngIf="submitted && f['lockTimeStart'].errors" class="help-block">
                                 <div *ngIf="f['lockTimeStart'].errors" style="color: #fd0000">
                                     Lock Time Start is required.
@@ -205,7 +205,7 @@
 
                         <div class="col-lg-6 col-md-12">
                             <label>Lock Time End</label>
-                            <input formControlName="lockTimeEnd" type="time" class="form-control"  (input)="onTimeInputChange2($event)"/>
+                            <input formControlName="lockTimeEnd" type="time" class="form-control" />
                             <div *ngIf="submitted && f['lockTimeEnd'].errors" class="help-block">
                                 <div *ngIf="f['lockTimeEnd'].errors" style="color: #fd0000">
                                     Lock Time End is required.

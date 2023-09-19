@@ -26,6 +26,7 @@ export class AddEditScheduleComponent implements OnInit {
   salonId: any;
   time!: string;
   time1!: string;
+  time2!:string;
   constructor(
     private formBuilder: FormBuilder,
     private contentService: ContentService,
@@ -183,8 +184,7 @@ debugger
         this.schedule = response.data;
         console.log( this.schedule)
         
-        this.patchTimeValue(this.schedule.fromTime);
-        this.patchTimeValue1(this.schedule.toTime);
+      
         this.Form.patchValue({
           monday: response.data.monday,
           tuesday: response.data.tuesday,
@@ -193,9 +193,10 @@ debugger
           friday: response.data.friday,
           saturday: response.data.saturday,
           sunday: response.data.sunday,
-          fromTime: this.time,
-          toTime: this.time1,
-        })
+          fromTime: response.data.fromTime,
+          toTime: response.data.toTime,
+        });
+  
       }
         else {
           this.spinner.hide();
@@ -203,65 +204,10 @@ debugger
     });
     
   }
-  patchTimeValue(data:any) {
-    // Convert "10:00 AM" to "10:00"
-    debugger
-    const formattedTime = this.convertTo24HourFormat(data);
-    
-    // Patch the formatted time into the form control
-    this.Form.get('fromTime')?.patchValue(formattedTime);
-  }
-
-  // Function to convert AM/PM time to 24-hour format
-  private convertTo24HourFormat(time: string): string {
-    const [timePart, ampmPart] = time.split(' ');
-    const [hours, minutes] = timePart.split(':');
-    
-    let formattedHours = parseInt(hours, 10);
-    
-    if (ampmPart.toLowerCase() === 'pm' && formattedHours !== 12) {
-      formattedHours += 12;
-    }
-    
-    if (ampmPart.toLowerCase() === 'am' && formattedHours === 12) {
-      formattedHours = 0;
-    }
-    
-    const formattedTime = `${formattedHours.toString().padStart(2, '0')}:${minutes}`;
-    this.time = formattedTime
-    return formattedTime;
-  }
 
 
 
-  patchTimeValue1(data:any) {
-    // Convert "10:00 AM" to "10:00"
-    debugger
-    const formattedTime = this.convertTo24HourFormat1(data);
-    
-    // Patch the formatted time into the form control
-    this.Form.get('fromTime')?.patchValue(formattedTime);
-  }
 
-  // Function to convert AM/PM time to 24-hour format
-  private convertTo24HourFormat1(time: string): string {
-    const [timePart, ampmPart] = time.split(' ');
-    const [hours, minutes] = timePart.split(':');
-    
-    let formattedHours = parseInt(hours, 10);
-    
-    if (ampmPart.toLowerCase() === 'pm' && formattedHours !== 12) {
-      formattedHours += 12;
-    }
-    
-    if (ampmPart.toLowerCase() === 'am' && formattedHours === 12) {
-      formattedHours = 0;
-    }
-    
-    const formattedTime = `${formattedHours.toString().padStart(2, '0')}:${minutes}`;
-    this.time1 = formattedTime
-    return formattedTime;
-  }
 
 
 
@@ -298,4 +244,6 @@ debugger
   cancel() {
     this.router.navigateByUrl('/home')
   }
+
+
 }

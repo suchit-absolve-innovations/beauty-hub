@@ -203,7 +203,7 @@
                             </div>
                             <div *ngIf="submitted && form.hasError('timeOrder')" class="help-block">
                                 <div *ngIf="form.hasError('timeOrder')" style="color: #fd0000">
-                                    Start time must be less than End time.
+                                   End time must be greater than start time.
                                 </div>
                             </div>
                             
@@ -250,7 +250,7 @@
                                 data-target="#cancel-mess">
                                 Cancel
                             </button>
-                            <button class="btn_blue" type="submit" (click)="submit()">Save</button>
+                            <button class="btn_blue" type="submit" (click)="postSubmit()">Save</button>
                         </div>
                     </div>
                 </div>

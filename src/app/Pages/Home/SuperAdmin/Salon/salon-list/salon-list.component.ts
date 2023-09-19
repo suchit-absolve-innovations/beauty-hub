@@ -48,7 +48,7 @@ export class SalonListComponent implements OnInit {
   }
 
   performSearch() {
-
+ 
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: { page: null },

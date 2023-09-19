@@ -41,16 +41,6 @@ import { ServiceDetailComponent } from './SuperAdmin/Service/service-detail/serv
 import { AddEditScheduleComponent } from './Vendor/Scheduled/add-edit-schedule/add-edit-schedule.component';
 import { EditServiceComponent } from './SuperAdmin/Service/edit-service/edit-service.component';
 
-
-
-
-
-
-
-
-
-
-
 @NgModule({
   declarations: [  
    SuperAdminDashboardComponent,

@@ -12,10 +12,17 @@ import { DatePipe } from '@angular/common';
 import { JwtInterceptor } from './Shared/helper/jwt.interceptor';
 
 import { ToastrModule } from 'ngx-toastr';
-import { AuthModule } from './Pages/Auth/auth.module';
+import { AuthModule } from './Pages/auth/auth.module';
 import { HomeModule } from './Pages/Home/home.module';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { AgmCoreModule } from '@agm/core';
+import { MessagingService } from './Shared/service/messaging-service';
+import { AngularFireAuthModule } from "@angular/fire/compat/auth";
+import { AngularFireMessagingModule } from '@angular/fire/compat/messaging';
+import { AngularFireModule } from '@angular/fire/compat';
+import { environment } from '../environments/environment';
+
+
 
 
 
@@ -42,9 +49,14 @@ import { AgmCoreModule } from '@agm/core';
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAqVkAIpWw38LEG9LghW1s0ZzSW-PUsjt0',
       libraries: ['places']
-    })
+    }),
+    AngularFireAuthModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireMessagingModule,  
+    
+
   ],
-  providers: [ DatePipe,
+  providers: [MessagingService, DatePipe,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },],
   bootstrap: [AppComponent]
 })

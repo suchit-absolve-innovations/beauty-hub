@@ -22,6 +22,9 @@ list: any;
  rootUrl: any;
  salonId : any
   serviceId: any;
+  id: any;
+  role: any;
+  payload : any;
   constructor(private toaster: ToastrService,
     private spinner: NgxSpinnerService,
     private content: ContentService,
@@ -32,12 +35,14 @@ list: any;
 
   ngOnInit(): void {
     this.rootUrl = environment.rootPathUrl;
+    this.id = localStorage.getItem('salonId');
+    this.role = localStorage.getItem('user')
     this.route.queryParams.subscribe(params => {
       this.page = +params['page'] || 0; // Use the 'page' query parameter value, or default to 1
     });
     debugger
     this.salonId = this.route.snapshot.queryParams
-    this.getServiceList();
+    this.getList();
   }
 
   
@@ -62,12 +67,22 @@ list: any;
 
   // Service List 
 
-  getServiceList(){
-    let payload = {
-      pageNumber : 1,
-      pageSize : 1000,
-      salonId : this.salonId.id
+  getList(){
+    debugger
+    if(this.role == 'SuperAdmin') {
+this.getServiceList();
+    } else if (this.role == 'Vendor') {
+this.getServiceListVendor();
     }
+  }
+
+  getServiceList(){
+    debugger
+      let payload = {
+        pageNumber : 1,
+        pageSize : 1000,
+        salonId : this.salonId.id
+      }
     this.content.getservice(payload).subscribe(response => {
       if (response.isSuccess) {
         this.list = response.data.dataList
@@ -76,6 +91,22 @@ list: any;
       }
     });
   }
+
+
+  getServiceListVendor(){
+    let payload = {
+      pageNumber : 1,
+      pageSize : 1000,
+      salonId : this.id
+    }
+  this.content.getservice(payload).subscribe(response => {
+    if (response.isSuccess) {
+      this.list = response.data.dataList
+    
+     this.spinner.hide();
+    }
+  });
+}
 
 
 
