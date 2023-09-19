@@ -16,11 +16,11 @@ import { AuthModule } from './Pages/auth/auth.module';
 import { HomeModule } from './Pages/Home/home.module';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { AgmCoreModule } from '@agm/core';
-import { MessagingService } from './Shared/service/messaging-service';
 import { AngularFireAuthModule } from "@angular/fire/compat/auth";
-import { AngularFireModule } from '@angular/fire/compat'; // Import AngularFire from @angular/fire/compat
-import { AngularFireMessagingModule } from '@angular/fire/compat/messaging'; // Import AngularFireMessaging from @angular/fire/compat/messaging
-import { environment } from '../environments/environment';
+import { AngularFireMessagingModule } from '@angular/fire/compat/messaging';
+import { AngularFireModule } from '@angular/fire/compat';
+import { MessagingService } from './Shared/service/messaging-service';
+import { environment } from 'src/environments/environment';
 
 
 
