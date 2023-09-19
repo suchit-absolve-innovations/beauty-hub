@@ -18,9 +18,13 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { AgmCoreModule } from '@agm/core';
 import { MessagingService } from './Shared/service/messaging-service';
 import { AngularFireAuthModule } from "@angular/fire/compat/auth";
-import { AngularFireMessagingModule } from '@angular/fire/compat/messaging';
-import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireModule } from '@angular/fire/compat'; // Import AngularFire from @angular/fire/compat
+import { AngularFireMessagingModule } from '@angular/fire/compat/messaging'; // Import AngularFireMessaging from @angular/fire/compat/messaging
 import { environment } from '../environments/environment';
+
+
+
+
 
 
 
@@ -51,7 +55,7 @@ import { environment } from '../environments/environment';
       libraries: ['places']
     }),
     AngularFireAuthModule,
-    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireMessagingModule,  
     
 
