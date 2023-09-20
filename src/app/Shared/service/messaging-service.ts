@@ -11,7 +11,6 @@ export class MessagingService {
     requestPermission() {
         debugger
         this.angularfireMessaging.requestToken.subscribe((token: any) => {
-            debugger
              localStorage.setItem('token', token);
             console.log(token)
         }, (err) => {

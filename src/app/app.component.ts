@@ -1,6 +1,9 @@
-import { Component } from '@angular/core';
-import { Router, NavigationStart } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { MessagingService } from './Shared/service/messaging-service';
+import { Router, NavigationStart } from '@angular/router';
+
+
+// import { initializeApp } from 'firebase/compat/app';
 
 @Component({
   selector: 'app-root',
@@ -10,12 +13,10 @@ import { MessagingService } from './Shared/service/messaging-service';
 export class AppComponent {
   title = 'beauty-hub';
   message: any;
-  constructor(private router: Router,
-    private messagingService: MessagingService) { }
+  constructor(private router: Router,private messagingService: MessagingService) { }
 
   // tslint:disable-next-line: use-lifecycle-interface
   ngOnInit() {
-    debugger
     this.router.events.subscribe((defaultpage) => {
       if (defaultpage instanceof NavigationStart) {
         // tslint:disable-next-line: max-line-length
@@ -24,10 +25,10 @@ export class AppComponent {
         }
       }
     });
-    debugger
-    this.messagingService.requestPermission();
     this.messagingService.receiveMessaging();
-    debugger
+    this.messagingService.requestPermission();
     this.message = this.messagingService.currentMessage
   }
+ 
+  
 }
