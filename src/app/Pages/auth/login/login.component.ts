@@ -82,19 +82,19 @@ onLogin(){
       this.userRole = response.data;
       localStorage.setItem('role', this.userRole?.role);
       if (this.userRole?.role == 'SuperAdmin') {
-        // this.updateToken();
+         this.updateToken();
         this.toasterService.success(response.messages);
         this.router.navigateByUrl('/super-Admin-Dashboard');
         this.spinner.hide();
       }
       if (this.userRole?.role == 'Admin') {
-        // this.updateToken();
+         this.updateToken();
         this.toasterService.success(response.messages);
         this.router.navigateByUrl('/vendor-profile');
         this.spinner.hide();
       }
       if (this.userRole?.role == 'Vendor') {
-        // this.updateToken();
+         this.updateToken();
         debugger
         // this.vendorId = localStorage.getItem('vendorId')
         // this.getvendorDetail();
@@ -115,4 +115,19 @@ onLogin(){
     }
   });
 }
-}
+
+
+updateToken(){
+  //  this.test = this.fcm?.value;
+  
+  let payload = {
+    fcmToken : localStorage.getItem('token' )
+  }
+  // this.fcmToken = { 'fcmToken' : localStorage.getItem('token' )};
+    this.auth.fcmToken(payload).subscribe((response:any) => {  
+      if (response.status){
+        
+      }
+    }); 
+  }
+} 

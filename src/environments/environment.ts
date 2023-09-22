@@ -5,7 +5,19 @@
 export const environment = {
   production: false,
   apiUrl: "https://0b8ih6rjy7.execute-api.ap-south-1.amazonaws.com/",
-   rootPathUrl: "https://beautyhubtest-file.s3.ap-south-1.amazonaws.com/FileToSave/",
+  rootPathUrl: "https://beautyhubtest-file.s3.ap-south-1.amazonaws.com/FileToSave/",
+
+
+  firebase: {
+    apiKey: "AIzaSyBtlN7iOdtANEkPIIWI4tVj4iELAy5Axt8",
+    authDomain: "beautyhub-76894.firebaseapp.com",
+    projectId: "beautyhub-76894",
+    storageBucket: "beautyhub-76894.appspot.com",
+    messagingSenderId: "645722580916",
+    appId: "1:645722580916:web:fbc8bf19b3d224e57b74e1",
+    measurementId: "G-FJ3NE22S1L",
+   
+  }
 };
 
 /*

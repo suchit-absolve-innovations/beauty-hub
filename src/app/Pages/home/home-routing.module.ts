@@ -92,6 +92,7 @@ const routes: Routes = [
      { path: 'salon-banner-list/edit-salon-banner/:id/:id2',component:EditSalonBannerComponent},
      { path: 'subscription',component: BuyMebershipPlanListComponent},
      { path: 'salon-list/service-list', component : ServiceListComponent},
+     { path: 'service-list', component : ServiceListComponent},
      { path: 'salon-list/service-list/add-service', component : AddServiceComponent},
      { path: 'service-list/service-detail/:id',component : ServiceDetailComponent},
      { path: 'add-edit-schedule',component : AddEditScheduleComponent},

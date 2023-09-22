@@ -5,7 +5,7 @@ import { environment } from 'src/environments/environment';
 
 
 
-const AuthModule = () => import('./Pages/Auth/auth.module').then(x => x.AuthModule);
+const AuthModule = () => import('./Pages/auth/auth.module').then(x => x.AuthModule);
 const HomeModule = () => import('./Pages/Home/home.module').then(x => x.HomeModule);
 
 

@@ -42,16 +42,6 @@ import { AddEditScheduleComponent } from './Vendor/Scheduled/add-edit-schedule/a
 import { EditServiceComponent } from './SuperAdmin/Service/edit-service/edit-service.component';
 import { NumberDirective } from 'src/app/number.directive';
 
-
-
-
-
-
-
-
-
-
-
 @NgModule({
   declarations: [  
    SuperAdminDashboardComponent,

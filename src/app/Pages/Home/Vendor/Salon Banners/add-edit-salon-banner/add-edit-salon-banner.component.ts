@@ -24,6 +24,7 @@ export class AddEditSalonBannerComponent implements OnInit {
   shopDetail: any;
   vendorId: any;
   visible!: boolean;
+  bannerTypeControl: FormControl = new FormControl('');
   constructor(private toaster: ToastrService,
     private spinner: NgxSpinnerService,
     private content: ContentService,
@@ -40,12 +41,10 @@ export class AddEditSalonBannerComponent implements OnInit {
 
 
     this.form = this.formBuilder.group({
-      bannerType: [''],
+      bannerType: this.bannerTypeControl,
       ShopCategoryBanner: [''],
       mainCategoryId: [''],
-      subCategoryId: [''],
-    
-
+      subCategoryId: [''],    
     });
   }
 
@@ -165,9 +164,11 @@ debugger
   }
 
 
-  //onclick toggling both
-  onclick(data: any) {
-    this.visible = !this.visible
+  // Function to handle banner type change
+  onBannerTypeChange() {
+    const selectedBannerType = this.bannerTypeControl.value;
+    // Determine if the subcategory dropdown should be visible
+    this.visible = selectedBannerType === 'SalonCategoryBanner';
   }
 
 

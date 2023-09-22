@@ -35,6 +35,7 @@ export class AddServiceComponent implements OnInit {
   endTime: any  ;
   // time2!: string;
   salonId: any;
+  role!: string | null;
 
 
 
@@ -51,6 +52,7 @@ export class AddServiceComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.role = localStorage.getItem('user')
     this.salonIds = localStorage.getItem('salonId');
     console.log(this.salonIds)
     this.rootUrl = environment.rootPathUrl;
@@ -130,6 +132,16 @@ timeValidator(control: AbstractControl): ValidationErrors | null {
    });
  }
 
+ // submit 
+
+ postSubmit(){
+ debugger
+  if(this.role == 'SuperAdmin') {
+this.submit();
+  } else if (this.role == 'Vendor') {
+this.submitVendor();
+  }
+}
 
  submit() {
   this.submitted = true;
@@ -138,13 +150,6 @@ timeValidator(control: AbstractControl): ValidationErrors | null {
     return;
   }
 
-
-debugger
-// this.submitted = true;
-// if (this.form.invalid) {
- 
-//   return;
-// }
   let payload = {
     serviceId: 0,
     salonId:parseInt(this.salonId.id),
@@ -172,7 +177,51 @@ debugger
     this.spinner.hide()
     if (response.isSuccess) {
       this.toaster.success(response.messages);
-      // this._location.back();
+       this._location.back();
+    } else {
+      this.toaster.error(response.messages)
+    }
+  });
+}
+
+
+
+submitVendor() {
+  this.submitted = true;
+  if (this.form.invalid) {
+    this.toasterService.error("Form Incomplete: Please fill in all the required fields correctly");
+    return;
+  }
+
+  let payload = {
+    serviceId: 0,
+    salonId: localStorage.getItem('salonId'),
+    serviceName: this.form.value.serviceName,
+    basePrice:  parseInt(this.form.value.basePrice),
+    discount:  parseInt(this.form.value.discount),
+    listingPrice:  parseInt(this.form.value.listingPrice),
+    mainCategoryId: this.form.value.mainCategoryId,
+    subCategoryId: this.form.value.subCategoryId,
+    ageRestrictions: this.form.value.ageRestrictions,
+    genderPreferences: this.form.value.genderPreferences,
+    totalCountPerDuration: this.form.value.totalCountPerDuration,
+    durationInMinutes: this.form.value.durationInMinutes,
+    lockTimeStart: this.form.value.lockTimeStart,
+    lockTimeEnd: this.form.value.lockTimeEnd,
+    serviceDescription: this.form.value.serviceDescription,
+    status : 1
+  
+
+  }
+  this.spinner.show()
+  this.contentService.addNewService(payload).subscribe(response => {
+
+    this.serviceId = response.data?.serviceId
+    this.fileChangeEvent();
+    this.spinner.hide()
+    if (response.isSuccess) {
+      this.toaster.success(response.messages);
+       this._location.back();
     } else {
       this.toaster.error(response.messages)
     }

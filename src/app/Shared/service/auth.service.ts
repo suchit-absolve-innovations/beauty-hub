@@ -99,13 +99,13 @@ export class AuthService {
   //   return this.http.delete<any>(environment.apiUrl + ApiEndPoint.deleteAllNotification + '?notificationSentId=' + notificationSentId)
   // }
 
-  // fcmToken(data: any) {
-  //   debugger
-  //   return this.http.post<any>(environment.apiUrl + ApiEndPoint.tockenFcm, data).pipe(map((data: any) => {
+  fcmToken(data: any) {
+    debugger
+    return this.http.post<any>(environment.apiUrl + ApiEndPoint.tockenFcm, data).pipe(map((data: any) => {
       
-  //     return data;
-  //   }));
+      return data;
+    }));
 
-  // }
+  }
 
 }
