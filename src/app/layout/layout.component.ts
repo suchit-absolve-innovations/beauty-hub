@@ -15,6 +15,8 @@ export class LayoutComponent implements OnInit {
   @Output() collapseSideNav = new EventEmitter();
 
   showToggle: boolean = false;
+  notification: any;
+  unreadNotificationCount: any;
  constructor(private auth: AuthService,
   private ngZone: NgZone,
   private toaster: ToastrService,
@@ -144,8 +146,16 @@ this.auth.getAllNotifactonList(payload).subscribe(response => {
 if (response.isSuccess) {
   
   debugger
-  this.notificationList = response.data.dataList;
+  this.notification = response.data;
+  // this.unreadNotificationCount = this.notification.unreadnotificationCount
+  const newCount = this.notification.unreadnotificationCount
+  this.notificationList = this.notification.notificationList.dataList
+  console.log(this.unreadNotificationCount)
   console.log(this.notificationList)
+  if (newCount !== this.count) {
+    // Update the count and take any additional actions as needed
+    this.count = newCount;
+  }
   // this.count = response.totalCount
 }
 });
@@ -157,24 +167,25 @@ debugger
 // this.spinner.show();
 this.auth.getReadNotictions().subscribe(response => {
 if (response.isSuccess) {
+  this.getNotificationList();
 }
 
 });
 }
 
-getNotifictionCount() {
-// this.spinner.show();
-this.auth.getNotifictionsCount().subscribe(response => {
-if (response.isSuccess) {
-  this.getNotifictionCount();
-  this.count = response.data.notificationCount
-  console.log(this.count)
+// getNotifictionCount() {
+// // this.spinner.show();
+// this.auth.getNotifictionsCount().subscribe(response => {
+// if (response.isSuccess) {
+//   this.getNotifictionCount();
+//   this.count = response.data.notificationCount
+//   console.log(this.count)
  
 
-}
+// }
 
-});
-}
+// });
+// }
 
 
 
