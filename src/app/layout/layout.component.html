@@ -98,7 +98,7 @@
                     <a class="notification mr-10 dropdown-toggle" type="button" id="dropdownMenuButton"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span><i  (click)="getReadNotiction()" class="fa fa-bell-o" aria-hidden="true"></i></span>
-                        <span *ngIf="count != '0'" class="badge">{{count}}</span>
+                        <span *ngIf="count !== 0" class="badge">{{count }}</span>
                     </a>
                     <div class="notify-subbox dropdown-menu" id="myDIV5" aria-labelledby="dropdownMenuButton">
                         <div class="notify-header">
