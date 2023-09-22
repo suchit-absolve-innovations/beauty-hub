@@ -1,5 +1,5 @@
 import { Component, OnInit, HostListener, NgZone, ElementRef, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray, FormControl, AbstractControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
@@ -23,11 +23,13 @@ export class AddSalonsComponent implements OnInit {
   editImages: any;
   selectedCountryId: any = 'india';
   toggleValue: boolean = true;
+ 
 
   // Image Upload
 
   imageFile!: { link: any, file: any, name: any, type: any };
-
+  category:any;
+  Item:any;
   isValidFormSubmitted: boolean | null = null;
   vendorId: any;
   vendorDetailPatch: any;
@@ -39,6 +41,7 @@ export class AddSalonsComponent implements OnInit {
   // Banner Image
   fileToUpload: any;
   imageUrl: any;
+  item:any;
   name: any;
   SalonId: any;
   imageFiles!: { link: any; file: any; name: any; type: any; };
@@ -66,16 +69,22 @@ export class AddSalonsComponent implements OnInit {
   @ViewChild('search')
   public searchElementRef!: ElementRef;
   inputAddress: string | undefined;
+
+  // Inside your component class
+  uploadedImages: { file: File; previewUrl: string }[] = [];
+
   constructor(private router: Router,
     private ngZone: NgZone,
     private formBuilder: FormBuilder,
     private spinner: NgxSpinnerService,
     private contentService: ContentService,
-    private toasterService: ToastrService,
+    private toaster: ToastrService,
     private route: ActivatedRoute,
     private _location: Location,
     private mapsAPILoader: MapsAPILoader,
-    ) { }
+    ) { 
+      
+    }
 
     ngOnInit(): void {
       debugger
@@ -100,8 +109,14 @@ export class AddSalonsComponent implements OnInit {
           
             this.zoom = 12;
           });
+
+  
         });
+        
       });
+      
+
+      
    
       this.vendorForm();
       this.getCountry();
@@ -117,7 +132,6 @@ export class AddSalonsComponent implements OnInit {
       this._location.back();
     }
   
-    // for map
     mapReady(map: any) {
   
       map.setOptions({
@@ -171,20 +185,23 @@ export class AddSalonsComponent implements OnInit {
       });
     }
   
-    /** Vendor Form **/
+
     vendorForm() {
       this.form = this.formBuilder.group({
         firstName: ['', [Validators.required]],
         lastName: ['', [Validators.required]],
         gender: ['', [Validators.required]],
-        phoneNumber: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
-        dialCode: ['91', [Validators.required]],
+        phoneNumber: ['', [Validators.required,Validators.pattern("^[0-9]{10}$")]],
+        dialCode: ['+91', [Validators.required]],
         deviceType:['laptop'],
         countryId: [101],
         stateId: ['', [Validators.required]],
         email: ['', [Validators.required, Validators.email]],
         membershipRecordId: [this.recordId],
   
+
+
+        
         salonDetail: this.formBuilder.array([
           this.businessDetail(),
         ]),
@@ -194,33 +211,54 @@ export class AddSalonsComponent implements OnInit {
         ]),
   
         upiDetail: this.formBuilder.array([
-          this.upiDetails(),
+         this.upiDetails(),
         ])
   
       });
     }
   
-    List1(): FormArray {
-      return (<FormArray>this.form.get("upiDetail"));
-    }
+    // List1(): FormArray {
+    //   return (<FormArray>this.form.get("upiDetail"));
+    // }
+
+    // Function to get the upiDetail form array
+List1(): FormArray {
+  return this.form.get('upiDetail') as FormArray;
+}
   
-    add() {
-      this.List1().push(this.upiDetails());
-    }
+add() {
+  const newItem = this.formBuilder.group({
+    accountHolderName: [''], // Add any validations or default values
+    upiid: [''],
+    isActive: [false],
+    imageFile: [''], // This control will store the uploaded image file
+  });
+  this.List1().push(newItem);
+}
+
   
-    deleteHomeData(data: any, id: any) {
+    deleteHomeData(data: any, id: any )   {
       this.List1().removeAt(id)
+      this.uploadedImages.splice(1);
+
     }
-  
-  
+
+    deleteUploadedImage(index: number) {
+      this.List1().at(index).get('imageFile')?.setValue(null);
+      this.List1().at(index).get('imagePreviewUrl')?.setValue(null);
+      this.uploadedImages.splice(index, 1);
+    }
+
+   
+
   
     businessDetail() {
       return this.formBuilder.group({
         salonName: ['', [Validators.required]],
         salonType: ['',[Validators.required]],
         salonDescription: ['', [Validators.required]],
-        gstnumber: ['', [Validators.required]],
-        businessPAN: ['', [Validators.required]],
+        gstnumber: ['', [Validators.required,Validators.pattern("^[a-zA-Z0-9]{15}$")]],
+        businessPAN: ['', [Validators.required,Validators.pattern("^[a-zA-Z0-9]{10}$")]],
         city: ['', [Validators.required]],
         zip: ['', [Validators.required]],
         landmark: ['', [Validators.required]],
@@ -234,7 +272,7 @@ export class AddSalonsComponent implements OnInit {
         bankAccountHolderName: ['', [Validators.required]],
         bankAccountNumber: ['', [Validators.required]],
         branchName: ['', [Validators.required]],
-        ifsc: ['', [Validators.required]],
+        ifsc: ['', [Validators.required,Validators.pattern(/^[A-Z]{4}0[A-Z0-9]{6}$/)]],
         confirmbankAccountNumber: ['', [Validators.required]],
       },
         {
@@ -247,10 +285,12 @@ export class AddSalonsComponent implements OnInit {
         upiid: ['', [Validators.required]],
         accountHolderName: ['', [Validators.required]],
         isActive: [],
+        imageFile: [null],
+        imagePreviewUrl: [''] 
       });
     }
   
-    // password match validation
+  //  password match validation
     MustMatch(controlName: string, matchingControlName: string) {
       return (formGroup: FormGroup) => {
         const control = formGroup.controls[controlName];
@@ -270,8 +310,23 @@ export class AddSalonsComponent implements OnInit {
     }
   
   
-  
-    /*** Form Validation ***/
+    // myapp.directive('numbersOnly', function() {
+    //   return {
+    //     require: 'ngModel',
+    //     link: function(scope, element, attrs, modelCtrl) {
+    //       modelCtrl.$parsers.push(function(inputValue) {
+    //         if (inputValue == undefined) return ''
+    //         var onlyNumeric = inputValue.replace(/[^0-9]/g, '');
+    //         if (onlyNumeric != inputValue) {
+    //           modelCtrl.$setViewValue(onlyNumeric);
+    //           modelCtrl.$render();
+    //         }
+    //         return onlyNumeric;
+    //       });
+    //     }
+    //   };
+    // });
+
   
     get salonDetail(): FormArray {
       return this.form.get('salonDetail') as FormArray;
@@ -323,7 +378,7 @@ export class AddSalonsComponent implements OnInit {
       return this.form['controls'];
     }
   
-    /** get country list */
+
     getCountriesList() {
       this.contentService.getAllCountries().subscribe((response) => {
         if (response.statusCode) {
@@ -333,7 +388,7 @@ export class AddSalonsComponent implements OnInit {
     }
   
   
-    /** get state list */
+
     getCountry() {
       // this.countryIds = this.form.controls['countryId'].value;
       this.contentService.getAllStates(101).subscribe((response) => {
@@ -349,7 +404,7 @@ export class AddSalonsComponent implements OnInit {
   
   
   
-    /** Disable Input cut Copy Paste  **/
+
   
     DisableCut(event: any) {
       event.preventDefault();
@@ -368,7 +423,7 @@ export class AddSalonsComponent implements OnInit {
       debugger
       this.submitted = false;
     if (this.form.invalid) {
-      this.toasterService.error("Form Incomplete: Please fill in all the required fields correctly");
+      this.toaster.error("Form Incomplete: Please fill in all the required fields correctly");
       return;
     }
       debugger
@@ -399,7 +454,6 @@ export class AddSalonsComponent implements OnInit {
           stateId: this.form.value.stateId,
           vendorId: this.vendorDetailPatch.vendorId,
           upiDetail: this.form.value.upiDetail,
-  
           salonDetail: [{
             salonName: this.form.value.salonDetail[0]?.salonName,
             salonDescription: this.form.value.salonDetail[0]?.salonDescription,
@@ -421,14 +475,14 @@ export class AddSalonsComponent implements OnInit {
             ifsc: this.form.value.bankDetail[0]?.ifsc,
             bankId: this.bankDetailPatch[0]?.bankId,
           }],
-          // upiDetail: [{
-          //    upidetailId :this.form.value.upiDetail[0].upidetailId,
-          //   upiid: this.form.value.upiDetail.upiid,
-          //   bankName: this.form.value.upiDetail.bankName,
-          //   accountHolderName: this.form.value.upiDetail.accountHolderName,
-          //   isActive: data1.status
+          upiDetails: [{
+             upidetailId :this.form.value.upiDetail[0].upidetailId,
+            upiid: this.form.value.upiDetail.upiid,
+            bankName: this.form.value.upiDetail.bankName,
+            accountHolderName: this.form.value.upiDetail.accountHolderName,
+            isActive: data1.status
   
-          // }]
+          }]
   
         }
         this.contentService.editVendor(payload).subscribe(response => {
@@ -442,11 +496,11 @@ export class AddSalonsComponent implements OnInit {
             this.fileChangeEvent();
             this.fileChangeEvents();
             this.fileQrChangeEvents();
-            this.toasterService.success(response.messages);
-            this.router.navigateByUrl('/salon-list');
+            this.toaster.success(response.messages);
+            // this.router.navigateByUrl('/salon-list');
           } else {
             this.spinner.hide();
-            this.toasterService.error(response.messages);
+            this.toaster.error(response.messages);
           }
         });
       } else {
@@ -484,20 +538,22 @@ export class AddSalonsComponent implements OnInit {
             branchName: this.form.value.bankDetail[0]?.branchName,
             ifsc: this.form.value.bankDetail[0]?.ifsc,
           }],
-          // upiDetail: [{
-          //   // upidetailId :this.form.value.upiDetail[0].upidetailId,
-          //   upiid: this.form.value.upiDetail.upiid,
-          //   bankName: this.form.value.upiDetail.bankName,
-          //   accountHolderName: this.form.value.upiDetail.accountHolderName,
-          //   isActive: data1.status
+          upiDetails: [{
+            upidetailId :this.form.value.upiDetail[0].upidetailId,
+            upiid: this.form.value.upiDetail.upiid,
+            bankName: this.form.value.upiDetail.bankName,
+            accountHolderName: this.form.value.upiDetail.accountHolderName,
+            isActive: data1.status
   
-          // }]
+          }]
   
         }
         debugger
+        this.spinner.show();
         this.contentService.addVendor(payload1).subscribe(response => {
           if (response.isSuccess) {
             this.spinner.hide();
+            this.toaster.success(response.messages);
             this.imageId = response.data.vendorId;
             this.Salon = response.data.shopResponses;
             this.SalonId = this.Salon[0];
@@ -508,11 +564,11 @@ export class AddSalonsComponent implements OnInit {
             this.fileChangeEvent();
             this.fileChangeEvents();
             this.fileQrChangeEvents();
-            this.toasterService.success(response.messages);
-            this.router.navigateByUrl('/salon-list');
+            // this.toaster.success(response.messages);
+            // this.router.navigateByUrl('/salon-list');
           } else {
             this.spinner.hide();
-            this.toasterService.error(response.messages);
+            this.toaster.error(response.messages);
           }
         });
   
@@ -520,6 +576,7 @@ export class AddSalonsComponent implements OnInit {
     }
   
     // Shop Image 
+
     handleFileInput(event: any) {
       const files = event.target.files;
       for (let i = 0; i < files.length; i++) {
@@ -529,6 +586,7 @@ export class AddSalonsComponent implements OnInit {
         reader.readAsDataURL(file);
         reader.onload = () => {
           const imageDataUrl = reader.result as string;
+          this.imageUrl = imageDataUrl;
           this.urls.push(imageDataUrl);
         };
       }
@@ -543,7 +601,7 @@ export class AddSalonsComponent implements OnInit {
         const blob = this.dataURItoBlob1(imageDataUrl);
         formData.append('SalonImage', blob, `image_${i}.png`);
       }
-      // formData.append("SalonImage", this.imageFiles?.file);
+      formData.append("SalonImage", this.imageFiles?.file);
       formData.append("SalonId", this.SalonId.salonId);
       this.contentService.salonImage(formData).subscribe(response => {
       });
@@ -563,7 +621,7 @@ export class AddSalonsComponent implements OnInit {
   
   
   
-    /*** Image Upload ***/
+
     // image upload 
     imagesUpload(event: any) {
       if (event.target.files && event.target.files[0]) {
@@ -589,21 +647,70 @@ export class AddSalonsComponent implements OnInit {
       });
     }
   
-    // QR Image 
-    handleQrFileInput(event: any) {
+
+   
+
+    handleQrFileInput(event: any, index: number) {
       const files = event.target.files;
-      for (let i = 0; i < files.length; i++) {
-        const file = files[i];
-        this.image = file
+      if (files.length > 0) {
+        const file = files[0]; // Assuming you only allow uploading one image per item
         const reader = new FileReader();
-        reader.readAsDataURL(file);
+    
         reader.onload = () => {
           const imageDataUrl = reader.result as string;
-          this.urls.push(imageDataUrl);
+    
+          // Create an object for the uploaded image
+          const uploadedImage = { file, previewUrl: imageDataUrl };
+    
+          // If the index is greater than the array length, push the image, else update the image at the index
+          if (index >= this.uploadedImages.length) {
+            this.uploadedImages.push(uploadedImage);
+          } else {
+            this.uploadedImages[index] = uploadedImage;
+          }
+    
+          // Set the image file and preview URL in the form controls
+          const imageFileControl = this.List1().at(index).get('imageFile');
+          const imagePreviewUrlControl = this.List1().at(index).get('imagePreviewUrl');
+    
+          if (imageFileControl && imagePreviewUrlControl) {
+            imageFileControl.setValue(file);
+            imagePreviewUrlControl.setValue(imageDataUrl);
+          }
         };
+    
+        reader.readAsDataURL(file);
       }
     }
-  
+    
+    
+    
+    
+    
+    
+
+    // handleQrFileInput(event: any) {
+    //   const files = event.target.files;
+    //   for (let i = 0; i < files.length; i++) {
+    //     const file = files[i];
+    //     const reader = new FileReader();
+    //     reader.readAsDataURL(file);
+    //     reader.onload = () => {
+    //       const imageDataUrl = reader.result as string;
+    //       const newItem: Item = {
+    //         name: 'Item Name', // Provide the item name or obtain it dynamically
+    //         images: [{ file, previewUrl: imageDataUrl }]
+    //       };
+    //       this.addItemToCategory(newItem); // Add the new item to your category
+    //     };
+    //   }
+    // }
+    // addItemToCategory(newItem: Item) {
+    //   // Find the appropriate category and push the new item
+    //   // You can add your logic to find the category based on your use case
+    //   const categoryIndex = 0; // Replace with the actual category index
+    //   this.category.items.push(newItem);
+    // }
   
     fileQrChangeEvents() {
       const formData = new FormData();

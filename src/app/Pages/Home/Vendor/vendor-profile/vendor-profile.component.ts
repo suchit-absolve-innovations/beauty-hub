@@ -17,7 +17,7 @@ export class VendorProfileComponent implements OnInit {
   form!: FormGroup;
   countryIds: any;
   statesLists: any;
-  submitted: any;
+  submitted: boolean = true;
   editImages: any;
   selectedCountryId: any = 'india';
 
@@ -65,11 +65,13 @@ export class VendorProfileComponent implements OnInit {
  public searchElementRef!: ElementRef;
  inputAddress: string | undefined;
   QrimageUrl: any;
+  uploadedImages: { file: File; previewUrl: string }[] = [];
+
   constructor(private router: Router,
     private formBuilder: FormBuilder,
     private spinner: NgxSpinnerService,
     private contentService: ContentService,
-    private toasterService: ToastrService,
+    private toaster: ToastrService,
     private route: ActivatedRoute,
     private ngZone: NgZone,
     private _location: Location,
@@ -118,7 +120,7 @@ export class VendorProfileComponent implements OnInit {
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
       gender: ['', [Validators.required]],
-      phoneNumber: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
+      phoneNumber: ['', [Validators.required, Validators.pattern("^[0-9]{10}$")]],
       dialCode: ['', [Validators.required]],
       countryId: [101],
       stateId: ['', [Validators.required]],
@@ -140,11 +142,10 @@ export class VendorProfileComponent implements OnInit {
   upiDetails(){
     return this.formBuilder.group({
       upiid: ['', [Validators.required]],
-      qrcode: ['', [Validators.required]],
+      // qrcode: ['', [Validators.required]],
       isActive: [this.isActive],
-      bankName: ['', [Validators.required]],
+      // bankName: ['', [Validators.required]],
       accountHolderName: ['', [Validators.required]],
-     
     });
   }
 
@@ -154,12 +155,12 @@ export class VendorProfileComponent implements OnInit {
       salonName: ['', [Validators.required]],
       salonType: ['',[Validators.required]],
       salonDescription: ['', [Validators.required]],
-      gstnumber:  ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9]+$'), Validators.minLength(15), Validators.maxLength(15)]],
-      businessPAN: ['', [Validators.required]],
+      gstnumber:  ['', [Validators.required,Validators.pattern("^[a-zA-Z0-9]{15}$")]],
+      businessPAN: ['', [Validators.required,Validators.pattern("^[a-zA-Z0-9]{10}$")]],
       city: ['', [Validators.required]],
       zip: ['', [Validators.required]],
       landmark: ['', [Validators.required]],
-      shopAddress: ['', [Validators.required]]
+      // salonAddress: ['', [Validators.required]]
     });
   }
 
@@ -170,36 +171,36 @@ export class VendorProfileComponent implements OnInit {
       bankAccountNumber: ['', [Validators.required]],
       branchName: ['', [Validators.required]],
       ifsc: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9]+$')]],
-      isActive:[true],
-      confirmbankAccountNumber: ['', [Validators.required]],
-    },
-      {
-        validator: this.MustMatch('bankAccountNumber', 'confirmbankAccountNumber')
-      });
-  }
+      // isActive:[true],
+      // confirmbankAccountNumber: ['', [Validators.required]],
+    })
+      // {
+      //   validator: this.MustMatch('bankAccountNumber', 'confirmbankAccountNumber')
+      // });
+  };
 
 
 
 
   // password match validation
-  MustMatch(controlName: string, matchingControlName: string) {
-    return (formGroup: FormGroup) => {
-      const control = formGroup.controls[controlName];
-      const matchingControl = formGroup.controls[matchingControlName];
+  // MustMatch(controlName: string, matchingControlName: string) {
+  //   return (formGroup: FormGroup) => {
+  //     const control = formGroup.controls[controlName];
+  //     const matchingControl = formGroup.controls[matchingControlName];
 
-      if (matchingControl.errors && !matchingControl.errors['mustMatch']) {
-        // return if another validator has already found an error on the matchingControl
-        return;
-      }
+  //     if (matchingControl.errors && !matchingControl.errors['mustMatch']) {
+  //       // return if another validator has already found an error on the matchingControl
+  //       return;
+  //     }
 
-      // set error on matchingControl if validation fails
-      if (control.value !== matchingControl.value) {
-        matchingControl.setErrors({ mustMatch: true });
-      } else {
-        matchingControl.setErrors(null);
-      }
-    }
-  }
+  //     // set error on matchingControl if validation fails
+  //     if (control.value !== matchingControl.value) {
+  //       matchingControl.setErrors({ mustMatch: true });
+  //     } else {
+  //       matchingControl.setErrors(null);
+  //     }
+  //   }
+  // }
 
   List1(): FormArray {
     return (<FormArray>this.form.get("upiDetail"));
@@ -208,10 +209,17 @@ export class VendorProfileComponent implements OnInit {
   add() {
     this.List1().push(this.upiDetails());
   }
-  deleteHomeData(data: any, id: any) {   
-      this.List1().removeAt(id)
+  deleteHomeData(data: any, id: any )   {
+    this.List1().removeAt(id)
+    this.uploadedImages.splice(1);
+
   }
 
+  deleteUploadedImage(index: number) {
+    this.List1().at(index).get('imageFile')?.setValue(null);
+    this.List1().at(index).get('imagePreviewUrl')?.setValue(null);
+    this.uploadedImages.splice(index, 1);
+  }
 
 
 
@@ -258,9 +266,9 @@ export class VendorProfileComponent implements OnInit {
   get email() {
     return this.form.get('email');
   }
-  get f() {
-    return this.form['controls'];
-  }
+  // get f() {
+  //   return this.form['controls'];
+  // }
   // get gst() {
   //   return this.form.get('gstnumber');
   // }
@@ -442,7 +450,7 @@ getAddress(addressLat: number, addressLong: number) {
         branchName: this.bankDetailPatch[0]?.branchName,
         ifsc: this.bankDetailPatch[0]?.ifsc,
         bankId: this.bankDetailPatch[0]?.bankId,
-        confirmbankAccountNumber: this.bankDetailPatch[0]?.bankAccountNumber,
+        // confirmbankAccountNumber: this.bankDetailPatch[0]?.bankAccountNumber,
         // confirmbankAccountNumber = this.addBank.bankAccountNumber
 
       }]
@@ -477,14 +485,12 @@ getAddress(addressLat: number, addressLong: number) {
   }
 
 
-
-
     postVendor() {
       debugger
-      // this.submitted = false;
-      // if (this.form.invalid) {
-      //   return;
-      // }
+      this.submitted = false;
+      if (this.form.invalid) {
+        return;
+      }
     
       let checkStatus: any;
       if (this.isActive == true) {
@@ -501,6 +507,7 @@ getAddress(addressLat: number, addressLong: number) {
         status: checkStatus
       }
       if (this.vendorDetailPatch) {
+        debugger
         let payload = {
           email: this.form.value.email,
           firstName: this.form.value.firstName,
@@ -536,18 +543,19 @@ getAddress(addressLat: number, addressLong: number) {
             bankId: this.bankDetailPatch[0]?.bankId,
   
           }],
-          // upiDetail: [{
-          //   // upidetailId :this.form.value.upiDetail[0].upidetailId,
-          //   upiid: this.form.value.upiDetail[0]?.upiid,
-          //   bankName: this.form.value.upiDetail[0]?.bankName,
-          //   accountHolderName: this.form.value.upiDetail[0]?.accountHolderName,
-          //   isActive: data1.status
+          upiDetails: [{
+            upidetailId :this.form.value.upiDetail[0].upidetailId,
+            upiid: this.form.value.upiDetail[0]?.upiid,
+            bankName: this.form.value.upiDetail[0]?.bankName,
+            accountHolderName: this.form.value.upiDetail[0]?.accountHolderName,
+            isActive: data1.status
   
-          // }]
+          }]
   
         }
         // this.spinner.show()
         this.contentService.updateVendorProfile(payload).subscribe(response => {
+
          
           if (response.isSuccess) {
             this.imageId = this.vendorDetailPatch.vendorId;
@@ -560,11 +568,11 @@ getAddress(addressLat: number, addressLong: number) {
             this.fileChangeEvent();
             this.fileChangeEvents();
             
-            this.toasterService.success(response.messages);
+            this.toaster.success(response.messages);
             // this.router.navigateByUrl('/salon-list');
           } else {
             this.spinner.hide();
-            this.toasterService.error(response.messages);
+            this.toaster.error(response.messages);
           }
         });
       }
@@ -580,6 +588,7 @@ getAddress(addressLat: number, addressLong: number) {
       reader.readAsDataURL(file);
       reader.onload = () => {
         const imageDataUrl1 = reader.result as string;
+        this.imageUrl = imageDataUrl1;
         this.urls1.push(imageDataUrl1);
       };
     }
@@ -642,19 +651,52 @@ getAddress(addressLat: number, addressLong: number) {
     }
   
   
-    handleQrFileInput(event: any) {
+
+    handleQrFileInput(event: any, index: number) {
       const files = event.target.files;
-      for (let i = 0; i < files.length; i++) {
-        const file = files[i];
-        this.image = file
+      if (files.length > 0) {
+        const file = files[0]; // Assuming you only allow uploading one image per item
         const reader = new FileReader();
-        reader.readAsDataURL(file);
+    
         reader.onload = () => {
           const imageDataUrl = reader.result as string;
-          this.urls.push(imageDataUrl);
+    
+          // Create an object for the uploaded image
+          const uploadedImage = { file, previewUrl: imageDataUrl };
+    
+          // If the index is greater than the array length, push the image, else update the image at the index
+          if (index >= this.uploadedImages.length) {
+            this.uploadedImages.push(uploadedImage);
+          } else {
+            this.uploadedImages[index] = uploadedImage;
+          }
+    
+          // Set the image file and preview URL in the form controls
+          const imageFileControl = this.List1().at(index).get('imageFile');
+          const imagePreviewUrlControl = this.List1().at(index).get('imagePreviewUrl');
+    
+          if (imageFileControl && imagePreviewUrlControl) {
+            imageFileControl.setValue(file);
+            imagePreviewUrlControl.setValue(imageDataUrl);
+          }
         };
+    
+        reader.readAsDataURL(file);
       }
     }
+    // handleQrFileInput(event: any) {
+    //   const files = event.target.files;
+    //   for (let i = 0; i < files.length; i++) {
+    //     const file = files[i];
+    //     this.image = file
+    //     const reader = new FileReader();
+    //     reader.readAsDataURL(file);
+    //     reader.onload = () => {
+    //       const imageDataUrl = reader.result as string;
+    //       this.urls.push(imageDataUrl);
+    //     };
+    //   }
+    // }
   
   
     fileQrChangeEvents() {

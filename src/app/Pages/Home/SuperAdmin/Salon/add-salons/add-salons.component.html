@@ -8,7 +8,6 @@
        
         <form [formGroup]="form">
             <div class="vendor-form mt-40 bg-white">
-  
                 <div class="this_row">
                     <div class="row">
   
@@ -94,7 +93,7 @@
   
                         <div class="col-lg-6 col-md-12">
                             <label>Dial Code</label>
-                            <input type="text" class="control-form" formControlName="dialCode" numbersOnly >
+                            <input type="text" class="control-form" formControlName="dialCode" style="background-color: rgb(218, 231, 243);" [readonly]="true" numbersOnly >
                             <label *ngIf="dialCode?.invalid && submitted != null && !submitted"
                                 class="invalid-formdata">
                                 Dial Code is required.
@@ -104,10 +103,16 @@
                         <div class="col-lg-6 col-md-12">
                             <label>Phone Number</label>
                             <input type="text" class="control-form" formControlName="phoneNumber" numbersOnly >
-                            <label *ngIf="phoneNumber?.invalid && submitted != null && !submitted"
-                                class="invalid-formdata">
-                                Phone number must be 10 digits.
-                            </label>
+                            <label
+                            *ngIf="form.get('phoneNumber')?.errors?.['required'] && submitted != null && !submitted"
+                            class="invalid-formdata">
+                           Phone number is required.
+                        </label>
+                            <label
+                            *ngIf="form.get('phoneNumber')?.errors?.['pattern'] && submitted != null && !submitted"
+                            class="invalid-formdata">
+                            Please enter a 10 digit phone number.
+                        </label>
                         </div>
                         <div class="col-lg-6 col-md-12">
                             <label>Country</label>
@@ -150,7 +155,7 @@
                         <input class="uploadFile img" name="bannerimage"   #Image type="file" (change)="handleFileInput($event)" />
                        
                        <!-- <label>{{imageUrl}}</label> -->
-                        <label class="preview-butn" *ngIf="imageUrl"  data-toggle="modal" data-target="#myModal">preview</label>
+                        <label class="preview-butn"  data-toggle="modal" data-target="#myModal">preview</label>
                         </div>
                         <!-- <div class="col-lg-12 col-md-12">
                             <label>Salon name</label>
@@ -178,10 +183,16 @@
                         <div class="col-lg-6 col-md-12">
                             <label>Select Type</label>
                             <select type="text" class="control-form" formControlName="salonType">
+                                <option value="">Select</option>
                                 <option>Male</option>
                                 <option>Female</option>
                                 <option>Unisex</option>
                             </select>
+                            <label
+                            *ngIf="salonDetail.controls[i].get('salonType')?.errors?.['required'] && submitted != null && !submitted"
+                            class="invalid-formdata">
+                           Salon type is required.
+                        </label>
                         </div>
 
 
@@ -254,7 +265,11 @@
                             <input type="text" class="control-form" formControlName="gstnumber" >
                             <label *ngIf="salonDetail.controls[i].get('gstnumber')?.errors?.['required'] && submitted != null && !submitted"
                             class="invalid-formdata">
-                                Please enter your valid GST number.
+                                GST number is required.
+                            </label>
+                            <label *ngIf="salonDetail.controls[i].get('gstnumber')?.errors?.['pattern'] && submitted != null && !submitted"
+                            class="invalid-formdata">
+                                Please enter a 15 digit GST number.
                             </label>
                         </div>
   
@@ -264,8 +279,13 @@
                             <label
                                 *ngIf="salonDetail.controls[i].get('businessPAN')?.errors?.['required'] && submitted != null && !submitted"
                                 class="invalid-formdata">
-                                Pan no is required.
+                                Pan no. is required.
                             </label>
+                            <label
+                            *ngIf="salonDetail.controls[i].get('businessPAN')?.errors?.['pattern'] && submitted != null && !submitted"
+                            class="invalid-formdata">
+                            Please enter a 10 digit pan number.
+                        </label>
                         </div>
   
                     </div>
@@ -318,7 +338,7 @@
                             <label
                                 *ngIf="bankDetail.controls[i].get('bankAccountNumber')?.errors?.['required'] && submitted != null && !submitted"
                                 class="invalid-formdata">
-                                Account no is required.
+                                Account no. is required.
                             </label>
                         </div>
   
@@ -329,18 +349,18 @@
                             <label
                                 *ngIf="bankDetail.controls[i].get('confirmbankAccountNumber')?.errors?.['required'] && submitted != null && !submitted"
                                 class="invalid-formdata">
-                                Confirm bank account no.
+                                Confirm bank account number
                             </label>
-                            <div *ngIf="bankDetail.controls[i].get('confirmbankAccountNumber')?.errors?.['mustMatch'] && submitted != null && !submitted"
+                            <label *ngIf="bankDetail.controls[i].get('confirmbankAccountNumber')?.errors?.['mustMatch'] && submitted != null && !submitted"
                                 class="invalid-formdata">
-                                Account no must be match</div>
+                                Account number must be same</label>
                         </div>
   
                         <div class="col-lg-6 col-md-12">
                             <label>IFSC CODE</label>
                             <input type="text" class="control-form" formControlName="ifsc">
                             <label
-                                *ngIf="bankDetail.controls[i].get('ifsc')?.errors?.['required'] && submitted != null && !submitted"
+                                *ngIf="bankDetail.controls[i].get('ifsc')?.errors && submitted != null && !submitted"
                                 class="invalid-formdata">
                                 Ifsc code is required.
                             </label>
@@ -349,7 +369,7 @@
                 </div>
   
             </div>
-  
+        
             <div class="vendor-form bg-white">
                
                 <div class="this_row" formArrayName="upiDetail">
@@ -367,6 +387,11 @@
                         <div class="col-lg-10 col-md-12">
                             <label>Account Holder Name</label>
                             <input type="text"formControlName="accountHolderName" class="control-form">
+                            <label
+                                *ngIf="List1().controls[i].get('accountHolderName')?.errors?.['required'] && submitted != null && !submitted"
+                                class="invalid-formdata">
+                                Account holder name required.
+                            </label>
                         </div>
                         <div class="col-lg-2">
                             <a class="trash-butn" (click)="deleteHomeData(item,i)"><i class="fa fa-trash"></i></a>
@@ -375,24 +400,29 @@
                         <div class="col-lg-5 col-md-12">
                             <label>UPI Id </label>
                             <input type="text" formControlName="upiid" class="control-form" numberOnly>
+                            <label
+                            *ngIf="List1().controls[i].get('upiid')?.errors?.['required'] && submitted != null && !submitted"
+                            class="invalid-formdata">
+                            UPI id required.
+                        </label>
                         </div>
                         <div class="col-lg-5 col-md-12">
                             <label>QR Image</label><br>
-                           <label><img [src]="item.value.qrcode"></label> 
-                            <input class="uploadFile img" name="bannerimage"   #Image type="file" (change)="handleQrFileInput($event)" />
+                            <!-- <label><img [src]="item.value.qrcode"></label>   -->
+                             <input class="uploadFile img"name="bannerimage" #Image type="file" (change)="handleQrFileInput($event,i)"/>
                             <label data-toggle="modal" data-target="#myModal4"
                                 class="preview-butn" >preview</label>
+                                
+                                <!-- <img [src]="List1().at(i).get('imagePreviewUrl')?.value" alt="QR Image Preview" *ngIf="List1().at(i).get('imagePreviewUrl')?.value" /> -->
+
                         </div>
-  
-  
-                  
   
   
                         <div class="col-lg-6 col-md-12 mt-3">
                             <label class="mr-3">Status</label>
                             <label class="switch">
                                 <input type="checkbox"  formControlName="isActive"  (change)='checkStatus($event)'>
-                                    >
+                                 >
                                     
                                 <span class="slider round"></span>
                             </label>
@@ -400,14 +430,14 @@
                     </div>
                    
                 </div>
-            </div>
-  
+            </div> 
+
             <div class="vendor-form bg-white ">
                 <div class="col-lg-12 col-md-12  text-center">
                     <button class="border-btn" type="submit" value="" data-toggle="modal" data-target="#cancel-mess">Cancel</button>
                     <button class="btn_blue " type="submit" (click)="postVendor()" value="">Submit</button>
                 </div>
-            </div>
+            </div> 
   
         </form>
         <!-- end first form -->
@@ -456,25 +486,27 @@
     </div>
   </div>
   
-  
   <div class="modal fade vendor-popup" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitles"
   aria-hidden="true">
-  <div class="modal-dialog max_sf modal-dialog-centered modal-sm" role="document" style="border-radius:15px; overflow:hidden; border:none;">
+  <div class="modal-dialog max_sf modal-dialog-centered modal-sm" role="document"
+    style="border-radius: 15px; overflow: hidden; border: none;">
     <div class="modal-content popup_advance">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-        <div class="modal-body text-center">
-            <div class="imagePreview" *ngFor="let item of urls[0];  let i = index;" [formGroupName]="i">
-                <img [src]="item">
-            </div>
-  
-  
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <div class="modal-body text-center">
+        <div class="uploaded-images">
+          <div class="image-preview" *ngFor="let uploadedImage of uploadedImages; let i = index;">
+            <img [src]="uploadedImage.previewUrl" alt="Uploaded Image" *ngIf="uploadedImage.previewUrl">
+            <button (click)="deleteUploadedImage(i)">Remove</button>
+          </div>
         </div>
-  
+      </div>
+        </div>
+      </div>
     </div>
-  </div>
-  </div>
+  <!-- </div>
+</div> -->
   
   <!--Cancel Modal -->
   <div class="modal fade" id="cancel-mess" tabindex="-1" role="dialog" aria-labelledby="cancel-messLabel" aria-hidden="true">
@@ -496,3 +528,12 @@
       </div>
     </div>
   </div>
+
+
+
+
+
+
+
+
+

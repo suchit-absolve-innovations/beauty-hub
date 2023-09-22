@@ -40,6 +40,7 @@ import { AddServiceComponent } from './SuperAdmin/Service/add-service/add-servic
 import { ServiceDetailComponent } from './SuperAdmin/Service/service-detail/service-detail.component';
 import { AddEditScheduleComponent } from './Vendor/Scheduled/add-edit-schedule/add-edit-schedule.component';
 import { EditServiceComponent } from './SuperAdmin/Service/edit-service/edit-service.component';
+import { NumberDirective } from 'src/app/number.directive';
 
 
 
@@ -83,7 +84,8 @@ import { EditServiceComponent } from './SuperAdmin/Service/edit-service/edit-ser
    AddServiceComponent,
    ServiceDetailComponent,
    AddEditScheduleComponent,
-   EditServiceComponent
+   EditServiceComponent,
+   NumberDirective
 
   ],
   imports: [

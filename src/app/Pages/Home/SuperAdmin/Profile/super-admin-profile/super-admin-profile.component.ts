@@ -21,11 +21,14 @@ export class SuperAdminProfileComponent implements OnInit {
   upiDetailPatch: any;
   editImages: any;
   rootUrl: any;
-  // image upload
+  item:any; 
+  image: any;
+  urls: any = [];
+ 
   imageFile!: { link: any, file: any, name: any, type: any };
   isActive!: boolean;
   superAdminId: any;
-  submitted: boolean = false; 
+  submitted: boolean = false;
  
   
   isFieldInvalid(field: AbstractControl): boolean {
@@ -37,7 +40,7 @@ export class SuperAdminProfileComponent implements OnInit {
     private formBuilder: FormBuilder,
     private spinner: NgxSpinnerService,
     private contentService: ContentService,
-    private toasterService: ToastrService,
+    private toaster: ToastrService,
     private route: ActivatedRoute,) { }
 
   ngOnInit(): void {
@@ -49,14 +52,14 @@ export class SuperAdminProfileComponent implements OnInit {
   }
 
 
-   /** Vendor Form **/
+  
    superAdminProfileForm() {
     this.form = this.formBuilder.group({
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
       gender: ['', [Validators.required]],
-      phoneNumber: ['', [Validators.required,Validators.pattern(/^\d{10}$/)]],
-      dialCode: ['', [Validators.required]],
+      phoneNumber: ['', [Validators.required,Validators.pattern("^[0-9]{10}$")]],
+      dialCode: ['+91', [Validators.required]],
       countryId: [101],
       stateId: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
@@ -77,12 +80,12 @@ export class SuperAdminProfileComponent implements OnInit {
       bankAccountHolderName: ['', [Validators.required]],
       bankAccountNumber: ['', [Validators.required]],
       branchName: ['', [Validators.required]],
-      ifsc: ['', [Validators.required]],
-      confirmbankAccountNumber: ['', [Validators.required]],
+      ifsc: ['', [Validators.required,Validators.pattern(/^[A-Z]{4}0[A-Z0-9]{6}$/)]],
+      // confirmbankAccountNumber: ['', [Validators.required]],
     },
-      {
-        validator: this.MustMatch('bankAccountNumber', 'confirmbankAccountNumber')
-      }
+      // {
+      //   validator: this.MustMatch('bankAccountNumber', 'confirmbankAccountNumber')
+      // }
       );
   }
 
@@ -90,33 +93,33 @@ export class SuperAdminProfileComponent implements OnInit {
   upiDetails(){
     return this.formBuilder.group({
       upiid: ['', [Validators.required]],
-      qrcode: ['', [Validators.required]],
+      // qrcode: ['', [Validators.required]],
       isActive: ['', [Validators.required]],
-      bankName: ['', [Validators.required]],
+      // bankName: ['', [Validators.required]],
       accountHolderName: ['', [Validators.required]],
      
     });
   }
 
-/////Phone Number validation////
-  onPhoneNumberInput(event: any) {
-    const inputValue = event.target.value;
-    if (inputValue.length === 10) {
-      this.form.controls['phoneNumber'].setErrors(null);
-    } else {
-      this.form.controls['phoneNumber'].setErrors({ pattern: true });
-    }
-  }
+
+  // onPhoneNumberInput(event: any) {
+  //   const inputValue = event.target.value;
+  //   if (inputValue.length === 10) {
+  //     this.form.controls['phoneNumber'].setErrors(null);
+  //   } else {
+  //     this.form.controls['phoneNumber'].setErrors({ pattern: true });
+  //   }
+  // }
 
 
-    phoneNumberHasError(errorName: string) {
-      return (
-        this.form.controls['phoneNumber'].hasError(errorName) &&
-        (this.form.controls['phoneNumber'].dirty || this.submitted)
-      );
-    }
+  //   phoneNumberHasError(errorName: string) {
+  //     return (
+  //       this.form.controls['phoneNumber'].hasError(errorName) &&
+  //       (this.form.controls['phoneNumber'].dirty || this.submitted)
+  //     );
+  //   }
 
-   // password match validation
+ 
    MustMatch(controlName: string, matchingControlName: string) {
     return (formGroup: FormGroup) => {
       const control = formGroup.controls[controlName];
@@ -159,7 +162,7 @@ export class SuperAdminProfileComponent implements OnInit {
     }
   }
 
-   /*** Form Validation ***/
+
 
   get bankDetail(): FormArray {
     return this.form.get('bankDetail') as FormArray;
@@ -215,7 +218,7 @@ export class SuperAdminProfileComponent implements OnInit {
   }
 
 
-  /** get state list */
+
   getCountry() {
     // this.countryIds = this.form.controls['countryId'].value;
     this.contentService.getAllStates(101).subscribe((response) => {
@@ -230,7 +233,6 @@ export class SuperAdminProfileComponent implements OnInit {
   }
 
 
-    /** Disable Input cut Copy Paste  **/
 
     DisableCut(event: any) {
       event.preventDefault();
@@ -243,7 +245,7 @@ export class SuperAdminProfileComponent implements OnInit {
     }
 
     patchBankDetail() {
-      var data = {
+      let data = {
         bankDetail: [{
           bankName: this.bankDetailPatch[0]?.bankName,
           bankAccountHolderName: this.bankDetailPatch[0]?.bankAccountHolderName,
@@ -251,7 +253,7 @@ export class SuperAdminProfileComponent implements OnInit {
           branchName: this.bankDetailPatch[0]?.branchName,
           ifsc: this.bankDetailPatch[0]?.ifsc,
           bankId: this.bankDetailPatch[0]?.bankId,
-          confirmbankAccountNumber: this.bankDetailPatch[0]?.bankAccountNumber,
+          // confirmbankAccountNumber: this.bankDetailPatch[0]?.bankAccountNumber,
           // confirmbankAccountNumber = this.addBank.bankAccountNumber
   
         }]
@@ -259,7 +261,6 @@ export class SuperAdminProfileComponent implements OnInit {
       this.form.patchValue(data)
     }
 
-// Detail  
 
     detail(){
       this.spinner.show();
@@ -306,8 +307,7 @@ export class SuperAdminProfileComponent implements OnInit {
 
 
 
-  /*** Profile Pic Upload ***/
-  // image upload 
+  
   imagesUpload(event: any) {
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader();
@@ -337,12 +337,28 @@ export class SuperAdminProfileComponent implements OnInit {
     });
   }
 
+    // QR Image 
+    handleQrFileInput(event: any) {
+      const files = event.target.files;
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        this.image = file
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+          const imageDataUrl = reader.result as string;
+          this.item= imageDataUrl;
+          this.urls.push(imageDataUrl);
+        };
+      }
+    }
   postSuperAdmimProfile() {
+    debugger
     this.submitted = true;
     if (this.form.invalid) {
       return;
     }
-  
+   
     let checkStatus: any;
     if (this.isActive == true) {
       checkStatus = true;
@@ -357,6 +373,7 @@ export class SuperAdminProfileComponent implements OnInit {
     let data1 = {
       status: checkStatus
     }
+    debugger
     if (this.superAdminDetailPatch) {
       let payload = {
         id: this.superAdminId,
@@ -398,11 +415,11 @@ export class SuperAdminProfileComponent implements OnInit {
           this.fileChangeEvent();
           // this.fileChangeEvents();
           // this.fileQrChangeEvents();
-          this.toasterService.success(response.messages);
+          this.toaster.success(response.messages);
           // this.router.navigateByUrl('/vendor-product-list')
         } else {
           this.spinner.hide();
-          this.toasterService.error(response.messages);
+          this.toaster.error(response.messages);
         }
       });
     }

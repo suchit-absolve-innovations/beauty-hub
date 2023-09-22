@@ -1,13 +1,12 @@
 <div class="app-main__outer">
     <div class="admin_a">
         <form [formGroup]="form">
-            
-                <h2>Profile</h2>
-            
+
+            <h2>Profile</h2>
             <div class="vendor-form bg-white mt-40">
-                <div  class="text-center mb-30">
-                <h3>Update Profile Picture </h3>
-               </div>
+                <div class="text-center mb-30">
+                    <h3>Update Profile Picture </h3>
+                </div>
                 <div class="this_row">
                     <div class="row ">
 
@@ -15,8 +14,6 @@
                             <div class="upload_file text-center">
                                 <div class="imges-upload mb-0">
                                     <div class="imgUp m-auto">
-
-
 
                                         <div class="imagePreview" [style.background-image]="'url(' + editImages + ')'">
                                         </div>
@@ -34,20 +31,17 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="col-lg-12">
                             <h3>Personal Detail </h3>
                         </div>
                         <div class="col-lg-6 col-md-12">
                             <label>First Name</label>
                             <input type="text" formControlName="firstName" class="control-form ">
-                            <div
-                *ngIf="submitted && f['firstName'].errors"
-                class="help-block" >
-                <div *ngIf="f['firstName'].errors" style="color: #fd0000">
-                  First Name is Invalid
-                </div>
-              </div>
+                            <div *ngIf="submitted && f['firstName'].errors" class="help-block">
+                                <div *ngIf="f['firstName'].errors" style="color: #fd0000">
+                                    First name is required.
+                                </div>
+                            </div>
                         </div>
                         <div class="col-lg-6 col-md-12">
                             <label>Last Name
@@ -55,21 +49,21 @@
                             <input type="text" class="control-form " formControlName="lastName">
                             <div *ngIf="submitted && f['lastName'].errors" class="help-block">
                                 <div *ngIf="f['lastName'].errors" style="color: #fd0000">
-                                  Last Name is Invalid
+                                    Last name is required.
                                 </div>
-                              </div>
+                            </div>
                         </div>
                         <div class="col-lg-6 col-md-12">
                             <label>Email</label>
                             <input type="email" class="control-form " formControlName="email"
-                            [ngClass]="{ 'is-invalid': submitted && f['email'].errors }">
+                                [ngClass]="{ 'is-invalid': submitted && f['email'].errors }">
                             <div *ngIf="submitted && f['email'].errors" class="help-block">
                                 <div *ngIf="f['email'].errors" style="color: #fd0000">
-                                  Email is Invalid
+                                    Email is required.
                                 </div>
-                              </div>
                             </div>
-                     
+                        </div>
+
                         <div class="col-lg-6 col-md-12">
                             <label>Gender
                             </label>
@@ -80,17 +74,17 @@
                             </select>
                             <div *ngIf="submitted && f['gender'].errors" class="help-block">
                                 <div *ngIf="f['gender'].errors" style="color: #fd0000">
-                                  This field is required
+                                    Gender is required.
                                 </div>
-                              </div>
+                            </div>
                         </div>
                         <div class="col-lg-6 col-md-12">
                             <label>Country</label>
-                        
+
                             <select type="text" class="control-form" formControlName="countryId">
                                 <option [selected]="true">India </option>
                             </select>
-                            
+
                         </div>
                         <div class="col-lg-6 col-md-12">
                             <label>State</label>
@@ -101,78 +95,80 @@
                             </select>
                             <div *ngIf="submitted && f['stateId'].errors" class="help-block">
                                 <div *ngIf="f['stateId'].errors" style="color: #fd0000">
-                                  This Field is Required
+                                    State is required.
                                 </div>
-                              </div>
-                            
+                            </div>
+
                         </div>
                         <div class="col-lg-6 col-md-12">
                             <label>Dial Code</label>
-                            <input type="text" class="form-control " formControlName="dialCode" numbersOnly>
+                            <input type="text" class="form-control " formControlName="dialCode"
+                            style="background-color: rgb(218, 231, 243);" [readonly]="true" numbersOnly>
                             <div *ngIf="submitted && f['dialCode'].errors" class="help-block">
                                 <div *ngIf="f['dialCode'].errors" style="color: #fd0000">
-                                  Dial Code is Invalid
+                                    Dial code is required.
                                 </div>
-                              </div>
+                            </div>
                         </div>
                         <div class="col-lg-6 col-md-12">
                             <label>Phone Number </label>
-                            <input type="text" class="control-form " formControlName="phoneNumber"   (input)="onPhoneNumberInput($event)">
-                            <div
-                            *ngIf="phoneNumberHasError('pattern')"
-                            style="color: #fd0000">
-                            Enter 10 digit Mobile Number
-                          </div>
-                          <div
-                            *ngIf="submitted && f['phoneNumber'].errors?.['required']"
-                            style="color: #fd0000">
-                            Mobile Number is required.
-                          </div>
+                            <input type="text" class="control-form " formControlName="phoneNumber" numbersOnly>
+                            <div *ngIf="submitted && f['phoneNumber'].errors?.['required']" style="color: #fd0000">
+                                Mobile number is required.
+                            </div>
+                            <div *ngIf="submitted && f['phoneNumber'].errors?.['pattern']" style="color: #fd0000">
+                                Please enter a 10 digit phone number.
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-          
+
             <div class="vendor-form bg-white" formArrayName="bankDetail">
                 <h3> Bank Detail</h3>
                 <div class="this_row">
                     <div class="row" *ngFor="let item of bankDetail.controls;  let i = index;" [formGroupName]="i">
                         <div class="col-lg-6 col-md-12">
                             <label>Bank Name </label>
-                            <input type="text" class="control-form" formControlName="bankName" >
-                          <!-- <label *ngIf="bankDetail?.bankName.invalid  && submitted !== null && submitted" >
-                                Bank name is invalid .
-                            </label>  -->
+                            <input type="text" class="control-form" formControlName="bankName">
+                            <div *ngIf="item.get('bankName')?.errors && submitted" class="help-block"
+                                style="color: #fd0000">
+                                Bank name is required.
+                            </div>
                         </div>
                         <div class="col-lg-6 col-md-12">
                             <label>Account Holder Name</label>
                             <input type="text" class="control-form" formControlName="bankAccountHolderName">
-                            <label *ngIf="item?.get('bankAccountHolderName') && submitted !== null && submitted">
-                                  Account holder name is invalid .
-                              </label>
+                            <div *ngIf="item.get('bankAccountHolderName')?.errors && submitted" class="help-block"
+                                style="color: #fd0000">
+                                Account holder name is required.
+                            </div>
                         </div>
                         <div class="col-lg-4 col-md-12">
                             <label>Account Number</label>
-                            <input type="text" class="control-form" numberOnly formControlName="bankAccountNumber">
-                            <label *ngIf="item?.get('bankAccountNumber') && submitted !== null && submitted" >
-                                Account Number is Invalid
-                            </label>
+                            <input type="text" class="control-form" numberOnly formControlName="bankAccountNumber" numbersOnly>
+                            <div *ngIf="item.get('bankAccountNumber')?.errors && submitted" class="help-block"
+                                style="color: #fd0000">
+                                Account number is required.
+                            </div>
                         </div>
 
                         <div class="col-lg-4 col-md-12">
                             <label>IFSC Code</label>
                             <input type="text" class="control-form" formControlName="ifsc">
-                            <label *ngIf="item?.invalid && submitted !== null && submitted">
-                                IFSC Code is Invalid
-                              </label>
+                            <div *ngIf="item.get('ifsc')?.errors && submitted" class="help-block"
+                                style="color: #fd0000">
+                                IFSC code is required.
+                            </div>
                         </div>
-                          
+
                         <div class="col-lg-4 col-md-12">
                             <label>Branch Name</label>
                             <input type="text" class="control-form" formControlName="branchName">
-                            <label *ngIf="item?.invalid && submitted && submitted !== null && submitted">
-                                IFSC Code is Invalid
-                              </label>
+                            <div *ngIf="item.get('branchName')?.errors && submitted" class="help-block"
+                                style="color: #fd0000">
+                                Branch name is required.
+                            </div>
                             <!-- <label *ngIf="bankDetail?.invalid && submitted != null && submitted" >
                                 Branch name is invalid .
                             </label> -->
@@ -192,24 +188,32 @@
                         </div>
                     </div>
                     <div class="row" *ngFor="let item of List1().controls;  let i = index;" [formGroupName]="i">
-                        <div class="col-lg-5 col-md-12" >
+                        <div class="col-lg-5 col-md-12">
                             <label>UPI Id </label>
-                            <input type="text" class="control-form" numberOnly formControlName="upiid">
+                            <input type="text" class="control-form" formControlName="upiid">
+                            <div *ngIf="item.get('upiid')?.errors && submitted" class="help-block"
+                                style="color: #fd0000">
+                                UPI id is required.
+                            </div>
                         </div>
 
-                        <div class="col-lg-5 col-md-12" >
+                        <div class="col-lg-5 col-md-12">
                             <label>Account Holder Name</label>
                             <input type="text" class="control-form" formControlName="accountHolderName">
+                            <div *ngIf="item.get('accountHolderName')?.errors && submitted" class="help-block"
+                                style="color: #fd0000">
+                                Account holder name is required.
+                            </div>
                         </div>
-                        <div class="col-lg-2" >
+                        <div class="col-lg-2">
                             <a class="trash-butn" (click)="deleteHomeData(item,i)"><i class="fa fa-trash"></i></a>
                         </div>
 
-                       
+
                         <div class="col-lg-6 col-md-12">
                             <label>QR Image</label>
-                            <!-- <input name="bannerimage" type="file" class="uploadFile img" formControlName="qrcode" #Image
-                                (change)="handleQrFileInput($event)"> -->
+                            <input name="bannerimage" type="file" class="uploadFile img" formControlName="qrcode" #Image
+                                (change)="handleQrFileInput($event)">
                             <label data-toggle="modal" data-target="#vendorpreview" class="preview-butn">preview</label>
                         </div>
                         <div class="col-lg-6 col-md-12">
@@ -227,8 +231,9 @@
             </div>
             <div class="vendor-form bg-white ">
                 <div class="col-lg-12 col-md-12  text-center">
-                    <button class="border-btn" type="submit" value="" data-toggle="modal" data-target="#cancel-mess">Cancel</button>
-                    <button class="btn_blue " type="submit" value="" (click)="postSuperAdmimProfile()" >Submit</button>
+                    <button class="border-btn" type="submit" value="" data-toggle="modal"
+                        data-target="#cancel-mess">Cancel</button>
+                    <button class="btn_blue " type="submit" value="" (click)="postSuperAdmimProfile()">Submit</button>
                 </div>
             </div>
         </form>
@@ -271,7 +276,7 @@
             </button>
             <div class="modal-body text-center">
                 <div class="imagePreview vendor-preview">
-                    <img class="image">
+                    <img [src]="item">
                 </div>
 
 
@@ -283,24 +288,23 @@
 
 
 <!-- Modal For cancel Button-->
-<div class="modal fade" id="cancel-mess" tabindex="-1" role="dialog" aria-labelledby="cancel-messLabel" aria-hidden="true">
+<div class="modal fade" id="cancel-mess" tabindex="-1" role="dialog" aria-labelledby="cancel-messLabel"
+    aria-hidden="true">
     <div class="modal-dialog" role="document">
-      <div class="modal-content warning-content">
-        
-        <div class="modal-body text-center warning-mess-sec">
-            <button type="button" class="close float-right" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            <img src="assets\img\warning.png">
-            <h2>Alert</h2>
-          <p>Are You Sure, You want to Cancel it?</p>
+        <div class="modal-content warning-content">
+
+            <div class="modal-body text-center warning-mess-sec">
+                <button type="button" class="close float-right" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <img src="assets\img\warning.png">
+                <h2>Alert</h2>
+                <p>Are You Sure, You want to Cancel it?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class=" border-btn" data-dismiss="modal">Close</button>
+                <button type="button" class=" btn_blue" (click)="cancel()">Yes, Cancel It</button>
+            </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class=" border-btn" data-dismiss="modal">Close</button>
-          <!-- <button type="button" class=" btn_blue" (click)="cancel()">Yes, Cancel It</button> -->
-        </div>
-      </div>
     </div>
-  </div>
-
-
+</div>
