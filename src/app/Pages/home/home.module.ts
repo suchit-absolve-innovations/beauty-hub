@@ -41,6 +41,18 @@ import { ServiceDetailComponent } from './SuperAdmin/Service/service-detail/serv
 import { AddEditScheduleComponent } from './Vendor/Scheduled/add-edit-schedule/add-edit-schedule.component';
 import { EditServiceComponent } from './SuperAdmin/Service/edit-service/edit-service.component';
 import { NumberDirective } from 'src/app/number.directive';
+import { SuperNotificationListComponent } from './SuperAdmin/Notifications/super-notification-list/super-notification-list.component';
+import { SuperAddNotificationComponent } from './SuperAdmin/Notifications/super-add-notification/super-add-notification.component';
+import { VendorNotificationListComponent } from './Vendor/Notifications/vendor-notification-list/vendor-notification-list.component';
+import { VendorAddNotificationComponent } from './Vendor/Notifications/vendor-add-notification/vendor-add-notification.component';
+
+
+
+
+
+
+
+
 
 @NgModule({
   declarations: [  
@@ -75,7 +87,13 @@ import { NumberDirective } from 'src/app/number.directive';
    ServiceDetailComponent,
    AddEditScheduleComponent,
    EditServiceComponent,
-   NumberDirective
+   NumberDirective,
+   SuperNotificationListComponent,
+   SuperAddNotificationComponent,
+   VendorNotificationListComponent,
+   VendorAddNotificationComponent,
+
+
 
   ],
   imports: [

@@ -268,4 +268,11 @@ export class EditServiceComponent implements OnInit {
     this.base64Image.splice(index, 1);
   }
 
+    cancel(){
+      this.router.navigateByUrl('/salon-list')
+      .then(() => {
+        window.location.reload();
+      });
+    }
+    
 }

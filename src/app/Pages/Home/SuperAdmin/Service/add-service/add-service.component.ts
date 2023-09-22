@@ -72,7 +72,6 @@ export class AddServiceComponent implements OnInit {
       subCategoryId        : ['', [Validators.required]],
       ageRestrictions      : ['', [Validators.required]],
       genderPreferences    : ['', [Validators.required]],
-    //  duration             : ['', [Validators.required]],
       totalCountPerDuration: ['', [Validators.required]],
       durationInMinutes    : ['', [Validators.required]],
       lockTimeStart        : ['', [Validators.required]],
@@ -151,23 +150,21 @@ this.submitVendor();
   }
 
   let payload = {
-    serviceId: 0,
-    salonId:parseInt(this.salonId.id),
-    serviceName: this.form.value.serviceName,
-    basePrice:  parseInt(this.form.value.basePrice),
-    discount:  parseInt(this.form.value.discount),
-    listingPrice:  parseInt(this.form.value.listingPrice),
-    mainCategoryId: this.form.value.mainCategoryId,
-    subCategoryId: this.form.value.subCategoryId,
-    ageRestrictions: this.form.value.ageRestrictions,
-    genderPreferences: this.form.value.genderPreferences,
+    serviceId            : 0,
+    salonId              : parseInt(this.salonId.id),
+    serviceName          : this.form.value.serviceName,
+    basePrice            : parseInt(this.form.value.basePrice),
+    discount             : parseInt(this.form.value.discount),
+    listingPrice         : parseInt(this.form.value.listingPrice),
+    mainCategoryId       : this.form.value.mainCategoryId,
+    subCategoryId        : this.form.value.subCategoryId,
+    ageRestrictions      : this.form.value.ageRestrictions,
+    genderPreferences    : this.form.value.genderPreferences,
     totalCountPerDuration: this.form.value.totalCountPerDuration,
-    durationInMinutes: this.form.value.durationInMinutes,
-    lockTimeStart: this.time,
-    lockTimeEnd: this.time2,
-    serviceDescription: this.form.value.serviceDescription, 
-  
-
+    durationInMinutes    : this.form.value.durationInMinutes,
+    lockTimeStart        : this.time,
+    lockTimeEnd          : this.time2,
+    serviceDescription   : this.form.value.serviceDescription,
   }
   this.spinner.show()
   this.contentService.addNewService(payload).subscribe(response => {
@@ -321,6 +318,13 @@ private dataURItoBlob(dataURI: string): Blob {
 
 removeImage(index: any) {
   this.urls.splice(index, 1);
+}
+
+cancel(){
+  this.router.navigateByUrl('/salon-list')
+  .then(() => {
+    window.location.reload();
+  });
 }
 
 }

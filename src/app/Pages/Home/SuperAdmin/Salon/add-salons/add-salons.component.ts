@@ -15,6 +15,8 @@ import { Location } from '@angular/common';
 })
 export class AddSalonsComponent implements OnInit {
 
+
+  
   form!: FormGroup;
   countriesList: any;
   countryIds: any;
@@ -854,7 +856,7 @@ add() {
     }
   
     cancel() {
-      this.router.navigateByUrl('/super-vendor-list')
+      this.router.navigateByUrl('/salon-list')
         .then(() => {
           window.location.reload();
         });

@@ -90,7 +90,7 @@ onLogin(){
       if (this.userRole?.role == 'Admin') {
          this.updateToken();
         this.toasterService.success(response.messages);
-        this.router.navigateByUrl('/vendor-profile');
+        this.router.navigateByUrl('/admin-user-profile');
         this.spinner.hide();
       }
       if (this.userRole?.role == 'Vendor') {

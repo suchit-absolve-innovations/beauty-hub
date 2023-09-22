@@ -11,7 +11,7 @@
         </div> -->
 
         <div class="d-flex if_xs_btn mt-30">
-            <input type="text" placeholder="Search Service" class="btn_border search_here"   [(ngModel)]="searchText" style="width:25%!important;">
+            <input type="text" placeholder="Search Service" class="btn_border search_here"   [(ngModel)]="searchText"(click)="performSearch()" style="width:25%!important;">
             <!-- <a class="btn_blue ml-auto" data-toggle="modal" data-target="#myModalpurchase-membership">Add Salon</a> -->
 
             <a (click)="passId()" class="btn_blue ml-auto">Add Service </a>
@@ -38,7 +38,7 @@
                         {{item?.serviceName}}
                     </td>
                     <td class="profile">
-                        <!-- <img src="assets/img/product_items.png" class="img-responsive">		 -->
+                        <!-- <img src="assets/img/product_items.png" class="img-responsive">-->
                         <img [src]="rootUrl + item?.serviceImage" class="img-responsive">
                     </td>
                     <td>{{item?.salonName}}</td>

@@ -13,7 +13,7 @@ export const RoleRoutes = {
     //   name: "Distributor", isEnabled: false, value: "MANAGE_TELE_TAB", routerLink: "distributor-list", acl: '', subRoutes: []
     // },
     {
-      name: "Salon", isEnabled: false, value: "MANAGE_APPOINTMENT_TAB", routerLink: "/salon-list", acl: '', subRoutes: []
+      name: "Salon", isEnabled: false, value: "MANAGE_APPOINTMENT_TAB", routerLink: "salon-list", acl: '', subRoutes: []
     },
 
     // {
@@ -31,9 +31,9 @@ export const RoleRoutes = {
     {
       name: "Membership Plans", value: "MANAGE_ReI", isEnabled: false, routerLink: "plan-list", acl: 'dashboard', subRoutes: []
     },
-    // {
-    //   name: "Notification", value: "MANAGE_ReI", isEnabled: false, routerLink: "super-notification-list", acl: 'dashboard', subRoutes: []
-    // },
+    {
+      name: "Notification", value: "MANAGE_ReI", isEnabled: false, routerLink: "super-notification-list", acl: 'dashboard', subRoutes: []
+    },
     {
       name: "Profile", value: "MANAGE_ReI", isEnabled: false, routerLink: "super-admin-profile", acl: 'dashboard', subRoutes: []
     },
@@ -51,19 +51,21 @@ export const RoleRoutes = {
 
   Admin: [
 
-    {
-      name: "Banners", value: "MANAGE_ReI", isEnabled: true, routerLink: "/admin-profile", acl: 'dashboard', subRoutes: []
+       {
+      name: "Dashboard", isEnabled: false, value: "MANAGE_APPOINTMENT_TAB", inactive_icon: "assets/images/appointment.png", icon: "assets/images/appointment1.png", routerLink: "/admin-user-dashboard", acl: '', subRoutes: []
     },
+    {
+      name: "Salon", isEnabled: false, value: "MANAGE_APPOINTMENT_TAB", routerLink: "salon-list", acl: '', subRoutes: []
+    },
+
+   
     {
       name: "Categories", value: "MANAGE_ReI", isEnabled: false, routerLink: "category-list", acl: '', subRoutes: []
     },
 
-    // {
-    //   name: "Orders", value: "MANAGE_ReI", isEnabled: false, routerLink: "orders-list", acl: '', subRoutes: []
-    // },
 
     {
-      name: "Profile", isEnabled: false, value: "MANAGE_APPOINTMENT_TAB", routerLink: "admin-profile", acl: '', subRoutes: []
+      name: "Profile", isEnabled: false, value: "MANAGE_APPOINTMENT_TAB", routerLink: "admin-user-profile", acl: '', subRoutes: []
     },
     {
       name: "Subscription", isEnabled: true, value: "MANAGE_APPOINTMENT_TAB", routerLink: "/subscription", acl: '', subRoutes: []
@@ -125,9 +127,9 @@ export const RoleRoutes = {
     },
 
 
-    // {
-    //   name: "Notification", value: "MANAGE_ReI", isEnabled: false, routerLink: "vendor-notification-list", acl: 'dashboard', subRoutes: []
-    // },
+    {
+      name: "Notification", value: "MANAGE_ReI", isEnabled: false, routerLink: "vendor-notification-list", acl: 'dashboard', subRoutes: []
+    },
     // {
     //   name: "Generate Link", isEnabled: false, value: "MANAGE_APPOINTMENT_TAB", routerLink: "/generate-link", acl: '', subRoutes: []
     // },
