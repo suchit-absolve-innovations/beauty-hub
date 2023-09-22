@@ -23,7 +23,7 @@ export class AdminProfileComponent implements OnInit {
   userAdminId:any;
   imageFile!: { link: any; file: any; name: any; type: any; };
   id!: string
-  submitted:boolean= false;
+  submitted: boolean = true;
   
 
   constructor(
@@ -51,7 +51,7 @@ export class AdminProfileComponent implements OnInit {
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
       gender: ['', [Validators.required]],
-      phoneNumber: ['', [Validators.required]],
+      phoneNumber: ['', [Validators.required,Validators.pattern("^[0-9]{10}$")]],
       dialCode: ['', [Validators.required]],
       countryId: [101],
       stateId: ['', [Validators.required]],
@@ -141,10 +141,10 @@ export class AdminProfileComponent implements OnInit {
   }
 
     updateAdminProfile() {
-      // this.submitted = false;
-      // if (this.form.invalid) {
-      //   return;
-      // }
+      this.submitted = false;
+      if (this.form.invalid) {
+        return;
+      }
     
       if (this.adminDetailPatch) {
         let payload = {
