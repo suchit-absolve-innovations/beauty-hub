@@ -6,13 +6,7 @@ export enum ApiEndPoint {
 
     // for notification 
     tockenFcm = 'api/Notification/updateFCMToken',
-    getNotificationList = 'api/Notification/getNotificationList',
-    broadcastNotification ='api/Notification/getBroadcastNotificationList',
-    deleteBroadcastNotification ='api/Notification/deleteBroadcastNotification',
-    addbroadcastNotification = 'api/Notification/broadcastNotification',
-    getReadNotiction = 'api/Notification/readNotification',
-    getNotifictionCount = 'api/Notification/getNotificationCount',
-    deleteAllNotification ='api/Notification/deleteNotification',
+  
 
     // Add Vendor Form Api 
     getCountry = "api/Content/GetCountries",
@@ -56,7 +50,7 @@ export enum ApiEndPoint {
     productImage = "api/Upload/UploadProductImage",
     
     salonImage = "api/Upload/UploadaSlonImage",
-   
+  
     
     postStatus = "api/Product/SetProductStatus",
     productList = "api/Product/GetProductList",
@@ -131,4 +125,13 @@ export enum ApiEndPoint {
   serviceImage ="api/Upload/UploadServiceImage",
   base64 = "api/Service/getServiceImageInBase64",
   serviceDelete = "api/Service/DeleteSalonService",
+  broadcastNotification ='api/Notification/getBroadcastNotificationList',
+  getNotificationList = 'api/Notification/GetNotificationList',
+  deleteBroadcastNotification ='api/Notification/deleteBroadcastNotification',
+  addbroadcastNotification = 'api/Notification/broadcastNotification',
+  getReadNotiction = 'api/Notification/readNotification',
+  getNotifictionCount = 'api/Notification/getNotificationCount',
+  deleteAllNotification ='api/Notification/deleteNotification',
+  getAdminUserDetail ='api/Admin/GetAdminUserDetail',
+  updateUserAdmin = "api/Admin/UpdateAdminUser",
 }

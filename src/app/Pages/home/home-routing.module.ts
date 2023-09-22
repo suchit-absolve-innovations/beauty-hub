@@ -35,6 +35,10 @@ import { AdminProfileComponent } from './Admin/admin-profile/admin-profile.compo
 import { ServiceDetailComponent } from './SuperAdmin/Service/service-detail/service-detail.component';
 import { AddEditScheduleComponent } from './Vendor/Scheduled/add-edit-schedule/add-edit-schedule.component';
 import { EditServiceComponent } from './SuperAdmin/Service/edit-service/edit-service.component';
+import { SuperNotificationListComponent } from './SuperAdmin/Notifications/super-notification-list/super-notification-list.component';
+import { SuperAddNotificationComponent } from './SuperAdmin/Notifications/super-add-notification/super-add-notification.component';
+import { VendorNotificationListComponent } from './Vendor/Notifications/vendor-notification-list/vendor-notification-list.component';
+import { VendorAddNotificationComponent } from './Vendor/Notifications/vendor-add-notification/vendor-add-notification.component';
 
 
 const routes: Routes = [
@@ -77,9 +81,14 @@ const routes: Routes = [
       { path: 'salon-list/service-list/service-detail/:id',component : ServiceDetailComponent},
       { path: 'add-edit-schedule',component : AddEditScheduleComponent},
       { path: 'salon-list/service-list/edit-service', component: EditServiceComponent},
+      { path: 'super-notification-list',component: SuperNotificationListComponent},   
+      { path: 'super-notification-list/add-notification', component:SuperAddNotificationComponent},
+      { path: 'vendor-notification-list', component:VendorNotificationListComponent},
+      { path: 'vendor-notification-list/add-notification', component:VendorAddNotificationComponent},
+
 
       //////Admin///////
-      { path: 'admin-profile', component: AdminProfileComponent },
+      { path: 'admin-user-profile', component: AdminProfileComponent },
 
     
 

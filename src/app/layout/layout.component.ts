@@ -1,5 +1,7 @@
-import { Component, OnInit,ViewChild, Renderer2, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit,ViewChild, Renderer2, EventEmitter, Output, NgZone } from '@angular/core';
 import { AuthService } from '../Shared/service/auth.service';
+import { ToastrService } from 'ngx-toastr';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-layout',
@@ -7,14 +9,21 @@ import { AuthService } from '../Shared/service/auth.service';
   styleUrls: ['./layout.component.css']
 })
 export class LayoutComponent implements OnInit {
-
+  notificationList: any;
+  count: any;
   show: boolean = false;
   @Output() collapseSideNav = new EventEmitter();
 
   showToggle: boolean = false;
- constructor(private auth: AuthService,) { }
+ constructor(private auth: AuthService,
+  private ngZone: NgZone,
+  private toaster: ToastrService,
+  private spinner: NgxSpinnerService,) { }
 
  ngOnInit(): void {
+  this.getNotificationList();
+  
+
   
  }
   /********* Toggle side nav **********/
@@ -123,5 +132,92 @@ export class LayoutComponent implements OnInit {
     localStorage.clear();
     this.auth.logout();
  }
+ // notification list
+getNotificationList() {
+  debugger
+  let payload = {
+    pageNumber: 1,
+    pageSize: 1000
+  }
+// this.spinner.show();
+this.auth.getAllNotifactonList(payload).subscribe(response => {
+if (response.isSuccess) {
+  
+  debugger
+  this.notificationList = response.data.dataList;
+  console.log(this.notificationList)
+  // this.count = response.totalCount
+}
+});
+}
+
+
+getReadNotiction() {
+debugger
+// this.spinner.show();
+this.auth.getReadNotictions().subscribe(response => {
+if (response.isSuccess) {
+}
+
+});
+}
+
+getNotifictionCount() {
+// this.spinner.show();
+this.auth.getNotifictionsCount().subscribe(response => {
+if (response.isSuccess) {
+  this.getNotifictionCount();
+  this.count = response.data.notificationCount
+  console.log(this.count)
+ 
+
+}
+
+});
+}
+
+
+
+// deleteAllNotification() {
+// this.spinner.show();
+
+// this.auth.deleteNotification().subscribe(response => {
+// if (response.isSuccess) {
+// this.spinner.hide();
+// this.ngZone.run(() => { this.getNotificationList(); })
+// this.toaster.success(response.messages);
+// } else {
+// this.spinner.hide();
+// this.toaster.error(response.messages)
+// }
+// });
+// }
+
+
+deleteSingleNotification(notificationSentId:any) {
+
+debugger
+this.spinner.show();
+this.auth.deleteSingleNotifications(notificationSentId).subscribe(response => {
+if (response.isSuccess) {
+this.spinner.hide();
+this.ngZone.run(() => { this.getNotificationList(); })
+this.toaster.success(response.messages);
+} else {
+this.spinner.hide();
+this.toaster.error(response.messages)
+}
+});
+}
+
+// getCounterMessage(){
+// this.auth.getCounterMessage(this.vendorId).subscribe(response => {
+// if(response.isSuccess){
+// this.daysLeft = response.data.message
+
+// }
+// })
+// }
+
 
 }

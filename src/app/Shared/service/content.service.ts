@@ -420,16 +420,6 @@ export class ContentService {
     return this.http.post<any>(environment.apiUrl + ApiEndPoint.paymentStatus,data)
  }
 
- // broadcast notification
- getBroadNotification(data:any){
-  return  this.http.get<any>(environment.apiUrl + ApiEndPoint.broadcastNotification  + '?pageNumber=' + data.pageNumber + '&pageSize=' + data.pageSize)
-}
-postBroadNotification(data:any){
-  return this.http.post<any>(environment.apiUrl + ApiEndPoint.addbroadcastNotification,data)
-}
-deleteNotification(notificationId:any){
-  return this.http.delete<any>(environment.apiUrl + ApiEndPoint.deleteBroadcastNotification + '?notificationId=' + notificationId)
-}
 
 
 
@@ -785,6 +775,27 @@ planUpdate(data: any) {
   deleteService(serviceId: any) {
     return this.http.delete<any>(environment.apiUrl + ApiEndPoint.serviceDelete + '?serviceId=' + serviceId)
   }
+   // broadcast notification
+ getBroadNotification(data:any){
+  return  this.http.get<any>(environment.apiUrl + ApiEndPoint.broadcastNotification  + '?pageNumber=' + data.pageNumber + '&pageSize=' + data.pageSize)
+}
+getBroadNotificationFilter(data: any) {
+  return this.http.get<any>(environment.apiUrl + ApiEndPoint.broadcastNotification + '?pageNumber=' + data.pageNumber + '&pageSize=' + data.pageSize + '&searchByRole=' + data.searchByRole)
+}
+postBroadNotification(data:any){
+  return this.http.post<any>(environment.apiUrl + ApiEndPoint.addbroadcastNotification,data)
+}
+deleteNotification(notificationId:any){
+  return this.http.delete<any>(environment.apiUrl + ApiEndPoint.deleteBroadcastNotification + '?notificationId=' + notificationId)
+}
+
+getAdminDetail(id:any){
+  return this.http.get<any>(environment.apiUrl + ApiEndPoint.getAdminUserDetail + '?id=' + id)
+
+}
+updateUserAdminProfile(data: any) {
+  return this.http.post<any>(environment.apiUrl + ApiEndPoint.updateUserAdmin, data)
+}
 
   
 

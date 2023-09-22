@@ -151,6 +151,9 @@ export class BuyMebershipPlanListComponent implements OnInit {
     if (this.userRole == 'Vendor') {
       this.getMembershipPlanList();
     }
+    if (this.userRole == 'Admin') {
+      this.getMembershipPlanList();
+    }
   }
 
 
@@ -198,56 +201,7 @@ getMembershipPlanList() {
     }
 
 
-  // getMembershipPlanListp() {
-  //   this.spinner.show();
-  //  let vendorId= localStorage.getItem('vendorId')
-  //   this.content.getBuyMemberShipPlanListvendor(vendorId).subscribe(response => {
-  //     if (response.isSuccess) {
-  //       this.membershipPlanList = response.data;
-  //       // this.planType = response.data.planType
-  //       this.spinner.hide();
-  //     }
-  //   });
-  // }
-
-
-//   getPlanListVendor() {
-
-//     // window.location.reload();
-//     this.spinner.show();
-//     this.ngZone.run(() => {
-// let payload = {
-//   vendorId : this.vendorId,
-//   planType : this.data
-// }
-//       this.content.getPlansListVendor(payload).subscribe((response: any) => {
-
-//         if (response.isSuccess) {
-//           this.planList = response.data;
-//           this.toaster.success(response.messages);
-//           this.spinner.hide();
-//         } else {
-//           this.toaster.error(response.messages);
-//           this.spinner.hide();
-//         }
-//       });
-//     });
-//   }
-
-
-  // get payment data 
-  // detail(item: any) {
-
-  //   if (item.planName == 'Free') {
-  //     this.free();
-  //   } else {
-  //     // this.price = item.planPrice
-  //     this.membershipPlanIds = item.membershipPlanId
-  //     // this.totalAmount = item.totalAmount
-  //     // this.paymentOptionally();
-  //     this.showModal();
-  //   }
-  // }
+ 
 
 
   showModal() {

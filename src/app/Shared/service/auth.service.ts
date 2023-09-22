@@ -33,7 +33,7 @@ export class AuthService {
           localStorage.setItem('currentUser', JSON.stringify(user));
           localStorage.setItem('salonId', user.data.salonId);
           localStorage.setItem('vendorId', user.data.vendorId);
-          localStorage.setItem('vendorId', user.data.vendorId );
+          localStorage.setItem('userAdminId', user.data.id);
           localStorage.setItem('Id', user.data.id)
           // localStorage.setItem('shopImage', user.data.shopImage );
           // localStorage.setItem('firstName', user.data.firstName );
@@ -78,26 +78,24 @@ export class AuthService {
   }
 
   
-  // getAllNotifictionList(data: any) {
+  getAllNotifactonList(data: any) {
 
-  //   return this.http.get<any>(environment.apiUrl + ApiEndPoint.getNotificationList +  '?pageNumber=' + data.pageNumber + '&pageSize=' + data.pageSize).pipe(map((data: any) => {
-  //     return data;
-  //   }));
-  // }
-  // getReadNotictions(){
-  //   return  this.http.get<any>(environment.apiUrl + ApiEndPoint.getReadNotiction )
-  // }
+    return this.http.get<any>(environment.apiUrl + ApiEndPoint.getNotificationList +  '?pageNumber=' + data.pageNumber + '&pageSize=' + data.pageSize)
+  }
+  getReadNotictions(){
+    return  this.http.get<any>(environment.apiUrl + ApiEndPoint.getReadNotiction )
+  }
 
-  // getNotifictionsCount(){
-  //   return  this.http.get<any>(environment.apiUrl + ApiEndPoint.getNotifictionCount)
-  // }
+  getNotifictionsCount(){
+    return  this.http.get<any>(environment.apiUrl + ApiEndPoint.getNotifictionCount)
+  }
 
-  // deleteNotification(){
-  //   return this.http.delete<any>(environment.apiUrl + ApiEndPoint.deleteAllNotification)
-  // }
-  // deleteSingleNotifications(notificationSentId:any){
-  //   return this.http.delete<any>(environment.apiUrl + ApiEndPoint.deleteAllNotification + '?notificationSentId=' + notificationSentId)
-  // }
+  deleteNotification(){
+    return this.http.delete<any>(environment.apiUrl + ApiEndPoint.deleteAllNotification)
+  }
+  deleteSingleNotifications(notificationSentId:any){
+    return this.http.delete<any>(environment.apiUrl + ApiEndPoint.deleteAllNotification + '?notificationSentId=' + notificationSentId)
+  }
 
   fcmToken(data: any) {
     debugger
