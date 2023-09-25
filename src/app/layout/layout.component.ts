@@ -1,4 +1,4 @@
-import { Component, OnInit,ViewChild, Renderer2, EventEmitter, Output, NgZone } from '@angular/core';
+import { Component, OnInit, ViewChild, Renderer2, EventEmitter, Output, NgZone } from '@angular/core';
 import { AuthService } from '../Shared/service/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -17,17 +17,15 @@ export class LayoutComponent implements OnInit {
   showToggle: boolean = false;
   notification: any;
   unreadNotificationCount: any;
- constructor(private auth: AuthService,
-  private ngZone: NgZone,
-  private toaster: ToastrService,
-  private spinner: NgxSpinnerService,) { }
+  constructor(private auth: AuthService,
+    private ngZone: NgZone,
+    private toaster: ToastrService,
+    private spinner: NgxSpinnerService,) { }
 
- ngOnInit(): void {
-  this.getNotificationList();
-  
+  ngOnInit(): void {
+    this.getNotificationList();
 
-  
- }
+  }
   /********* Toggle side nav **********/
   sideNavDisplay(event: any) {
     /* Storing user's device details in a variable*/
@@ -96,139 +94,139 @@ export class LayoutComponent implements OnInit {
   }
 
 
- mainSidebarHeight(_height: any) {
-   // this.renderer.setStyle(
-   //   this.contentWrapper.nativeElement,
-   //   'min-height',
-   //   height - 114 + 'px'
-   // );
- }
+  mainSidebarHeight(_height: any) {
+    // this.renderer.setStyle(
+    //   this.contentWrapper.nativeElement,
+    //   'min-height',
+    //   height - 114 + 'px'
+    // );
+  }
 
-//  toggleMenuSidebar() {
-//    console.log('sidebarMenuCollapsed', this.sidebarMenuOpened);
-//    if (this.sidebarMenuOpened) {
-//      this.renderer.removeClass(
-//        document.querySelector('app-root'),
-//        'sidebar-open'
-//      );
-//      this.renderer.addClass(
-//        document.querySelector('app-root'),
-//        'sidebar-collapse'
-//      );
-//      this.sidebarMenuOpened = false;
-//    } else {
-//      this.renderer.removeClass(
-//        document.querySelector('app-root'),
-//        'sidebar-collapse'
-//      );
-//      this.renderer.addClass(
-//        document.querySelector('app-root'),
-//        'sidebar-open'
-//      );
-//      this.sidebarMenuOpened = true;
-//    }
-//  }
+  //  toggleMenuSidebar() {
+  //    console.log('sidebarMenuCollapsed', this.sidebarMenuOpened);
+  //    if (this.sidebarMenuOpened) {
+  //      this.renderer.removeClass(
+  //        document.querySelector('app-root'),
+  //        'sidebar-open'
+  //      );
+  //      this.renderer.addClass(
+  //        document.querySelector('app-root'),
+  //        'sidebar-collapse'
+  //      );
+  //      this.sidebarMenuOpened = false;
+  //    } else {
+  //      this.renderer.removeClass(
+  //        document.querySelector('app-root'),
+  //        'sidebar-collapse'
+  //      );
+  //      this.renderer.addClass(
+  //        document.querySelector('app-root'),
+  //        'sidebar-open'
+  //      );
+  //      this.sidebarMenuOpened = true;
+  //    }
+  //  }
 
-   /* log-out */
-   logouts() {
+  /* log-out */
+  logouts() {
     localStorage.clear();
     this.auth.logout();
- }
- // notification list
-getNotificationList() {
-  debugger
-  let payload = {
-    pageNumber: 1,
-    pageSize: 1000
   }
-// this.spinner.show();
-this.auth.getAllNotifactonList(payload).subscribe(response => {
-if (response.isSuccess) {
-  
-  debugger
-  this.notification = response.data;
-  // this.unreadNotificationCount = this.notification.unreadnotificationCount
-  const newCount = this.notification.unreadnotificationCount
-  this.notificationList = this.notification.notificationList.dataList
-  console.log(this.unreadNotificationCount)
-  console.log(this.notificationList)
-  if (newCount !== this.count) {
-    // Update the count and take any additional actions as needed
-    this.count = newCount;
+  // notification list
+  getNotificationList() {
+    debugger
+    let payload = {
+      pageNumber: 1,
+      pageSize: 1000
+    }
+    // this.spinner.show();
+    this.auth.getAllNotifactonList(payload).subscribe(response => {
+      if (response.isSuccess) {
+
+        debugger
+        this.notification = response.data;
+        // this.unreadNotificationCount = this.notification.unreadnotificationCount
+        const newCount = this.notification.unreadnotificationCount
+        this.notificationList = this.notification.notificationList.dataList
+        console.log(this.unreadNotificationCount)
+        console.log(this.notificationList)
+        if (newCount !== this.count) {
+          // Update the count and take any additional actions as needed
+          this.count = newCount;
+        }
+        // this.count = response.totalCount
+      }
+    });
   }
-  // this.count = response.totalCount
-}
-});
-}
 
 
-getReadNotiction() {
-debugger
-// this.spinner.show();
-this.auth.getReadNotictions().subscribe(response => {
-if (response.isSuccess) {
-  this.getNotificationList();
-}
+  getReadNotiction() {
+    debugger
+    // this.spinner.show();
+    this.auth.getReadNotictions().subscribe(response => {
+      if (response.isSuccess) {
+        this.getNotificationList();
+      }
 
-});
-}
+    });
+  }
 
-// getNotifictionCount() {
-// // this.spinner.show();
-// this.auth.getNotifictionsCount().subscribe(response => {
-// if (response.isSuccess) {
-//   this.getNotifictionCount();
-//   this.count = response.data.notificationCount
-//   console.log(this.count)
- 
+  // getNotifictionCount() {
+  // // this.spinner.show();
+  // this.auth.getNotifictionsCount().subscribe(response => {
+  // if (response.isSuccess) {
+  //   this.getNotifictionCount();
+  //   this.count = response.data.notificationCount
+  //   console.log(this.count)
 
-// }
 
-// });
-// }
+  // }
+
+  // });
+  // }
 
 
 
-// deleteAllNotification() {
-// this.spinner.show();
+  // deleteAllNotification() {
+  // this.spinner.show();
 
-// this.auth.deleteNotification().subscribe(response => {
-// if (response.isSuccess) {
-// this.spinner.hide();
-// this.ngZone.run(() => { this.getNotificationList(); })
-// this.toaster.success(response.messages);
-// } else {
-// this.spinner.hide();
-// this.toaster.error(response.messages)
-// }
-// });
-// }
+  // this.auth.deleteNotification().subscribe(response => {
+  // if (response.isSuccess) {
+  // this.spinner.hide();
+  // this.ngZone.run(() => { this.getNotificationList(); })
+  // this.toaster.success(response.messages);
+  // } else {
+  // this.spinner.hide();
+  // this.toaster.error(response.messages)
+  // }
+  // });
+  // }
 
 
-deleteSingleNotification(notificationSentId:any) {
+  deleteSingleNotification(notificationSentId: any) {
 
-debugger
-this.spinner.show();
-this.auth.deleteSingleNotifications(notificationSentId).subscribe(response => {
-if (response.isSuccess) {
-this.spinner.hide();
-this.ngZone.run(() => { this.getNotificationList(); })
-this.toaster.success(response.messages);
-} else {
-this.spinner.hide();
-this.toaster.error(response.messages)
-}
-});
-}
+    debugger
+    this.spinner.show();
+    this.auth.deleteSingleNotifications(notificationSentId).subscribe(response => {
+      if (response.isSuccess) {
+        this.spinner.hide();
+        this.ngZone.run(() => { this.getNotificationList(); })
+        this.toaster.success(response.messages);
+      } else {
+        this.spinner.hide();
+        this.toaster.error(response.messages)
+      }
+    });
+  }
 
-// getCounterMessage(){
-// this.auth.getCounterMessage(this.vendorId).subscribe(response => {
-// if(response.isSuccess){
-// this.daysLeft = response.data.message
+  // getCounterMessage(){
+  // this.auth.getCounterMessage(this.vendorId).subscribe(response => {
+  // if(response.isSuccess){
+  // this.daysLeft = response.data.message
 
-// }
-// })
-// }
+  // }
+  // })
+  // }
 
 
 }
