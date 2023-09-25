@@ -170,7 +170,7 @@ export class VendorProfileComponent implements OnInit {
       bankAccountHolderName: ['', [Validators.required]],
       bankAccountNumber: ['', [Validators.required]],
       branchName: ['', [Validators.required]],
-      ifsc: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9]+$')]],
+      ifsc: ['', [Validators.required, Validators.pattern("^[a-zA-Z0-9]{11}$")]],
       // isActive:[true],
       // confirmbankAccountNumber: ['', [Validators.required]],
     })
