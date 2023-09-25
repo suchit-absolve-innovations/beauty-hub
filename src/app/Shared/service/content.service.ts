@@ -745,6 +745,23 @@ planUpdate(data: any) {
     getservice(data:any){
       return this.http.get<any>(environment.apiUrl + ApiEndPoint.serviceList  + '?pageNumber=' + data.pageNumber + '&pageSize=' + data.pageSize + '&salonId=' + data.salonId)
     }
+
+    getserviceGender(data:any){
+      return this.http.get<any>(environment.apiUrl + ApiEndPoint.serviceList  + '?pageNumber=' + data.pageNumber + '&pageSize=' + data.pageSize + '&salonId=' + data.salonId + '&genderPreferences=' + data.genderPreferences)
+    }
+
+    getserviceMainCategory(data:any){
+      return this.http.get<any>(environment.apiUrl + ApiEndPoint.serviceList  + '?pageNumber=' + data.pageNumber + '&pageSize=' + data.pageSize + '&salonId=' + data.salonId + '&mainCategoryId=' + data.mainCategoryId)
+    }
+
+    getserviceSubCategory(data:any){
+      return this.http.get<any>(environment.apiUrl + ApiEndPoint.serviceList  + '?pageNumber=' + data.pageNumber + '&pageSize=' + data.pageSize + '&salonId=' + data.salonId + '&subCategoryId=' + data.subCategoryId)
+    }
+
+    getserviceAge(data:any){
+      return this.http.get<any>(environment.apiUrl + ApiEndPoint.serviceList  + '?pageNumber=' + data.pageNumber + '&pageSize=' + data.pageSize + '&salonId=' + data.salonId + '&ageRestrictions=' + data.ageRestrictions)
+    }
+
     getServiceDetail(serviceId:any){
       return this.http.get<any>(environment.apiUrl + ApiEndPoint.serviceDetail + '?serviceId=' + serviceId);
     }

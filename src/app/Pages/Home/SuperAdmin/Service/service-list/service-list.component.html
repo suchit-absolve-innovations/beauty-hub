@@ -15,7 +15,47 @@
             <!-- <a class="btn_blue ml-auto" data-toggle="modal" data-target="#myModalpurchase-membership">Add Salon</a> -->
 
             <a (click)="passId()" class="btn_blue ml-auto">Add Service </a>
+
         </div>
+
+
+        <form [formGroup]="form">
+            <div class="d-flex flex-wrap if_xs_btn mb-30" style="gap: 10px;">
+              
+        
+    
+                <div class="cate-align">
+                <label>Main Category</label>
+                <!-- (change)="getSubcategoryList(f['countryId'].value)" -->
+                <!-- (change)="getSubcategoryList(f['mainProductCategoryId'].value)" -->
+                <select type="text" class="control-form mr-20 btn_border" formControlName="MainCategoryId" (change)="getFilterMainCategoryList(f['MainCategoryId'].value)" (change)="getSubcategoryList(f['MainCategoryId'].value)">
+                    <option value="">Select </option>
+                    <option   *ngFor="let item of categoryList"   [ngValue]="item?.mainCategoryId"
+                   >{{item?.categoryName}}</option>
+    
+                </select>	
+            </div>
+    
+    
+            <div class="cate-align">
+                <label>Sub Category</label>
+                <select type="text" class="control-form mr-20 btn_border" formControlName="subCategoryId" (change)="getFilterSubCategoryList(s['subCategoryId'].value)">
+                    <option value="">Select </option>
+                    <option *ngFor="let item of subCategoryList"  [ngValue]="item?.subCategoryId" >{{item?.categoryName}}</option>
+                </select>	
+            </div>
+
+            <div class="cate-align">
+                <label>Age</label>
+                <select type="text" class="control-form mr-20 btn_border" formControlName="ageRestrictions"  (change)="getFilterServiceAge()">
+                    <option value="">Select </option>
+                    <option value="Kids">Kids</option>
+                    <option value="Adult">Adult</option>
+                </select>	
+            </div>
+    
+                </div>
+            </form>
 
         <div class="table-responsive">
             <table class="table admin_table">
@@ -84,12 +124,48 @@
             </div>
 
         </div>
-        <pagination-controls (pageChange)="((page = $event))" id="1" (pageIndex)="page" class="paginate-doctor-list"
-            queryParamsHandling="merge" (pageChange)="refresh()">
-        </pagination-controls>
+      
     </div>
 </div>
 
+<pagination-controls (pageChange)="((page = $event))" id="1" (pageIndex)="page" class="paginate-doctor-list"
+queryParamsHandling="merge" (pageChange)="refresh()">
+</pagination-controls>
 
+    <!-- modal -->
 
+    <div class="modal fade" id="myModalpurchase-membership" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog max_sf modal-dialog-centered" role="document"
+        style="border-radius:15px; overflow:hidden; border:none;">
+        <div class="modal-content for-payment popup_advance">
+            <div class="modal-header">
+                <h5 class="modal-title">Apply Filter</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form [formGroup]="form">
+                <div class="modal-body vendor-form pb-0 ">
+                    <div class="">
+                        <label>Select Filter</label>
+                        <select type="text" class="control-form mb-0 btn_border"
+                            formControlName="genderPreferences">
+                            <!-- <option value="">Select </option> -->
+                            <option value="0">All</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Unisex">Male & Female</option>
+                        </select>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <a type="button" class=" border-btn cancelinfilter" data-dismiss="modal"
+                    (click)="backClickedreload()">Reset</a>
+                <a type="button" class=" btn_blue" (click)="getListFilter()">Apply</a>
+            </div>
 
+        </div>
+    </div>
+</div>

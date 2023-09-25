@@ -1,5 +1,5 @@
 <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header"
-    [ngClass]="show ? 'closed-sidebar' : ''" id="sideBar">
+    [ngClass]="show ? 'closed-sidebar' : ''" id="sideBar" >
     <!-- Top-nav -->
     <!-- <app-header (collapseSideNav)="sideNavDisplay($event)"></app-header> -->
 
@@ -128,8 +128,8 @@
 
 
     <!-- Sidebar -->
-    <div class="app-main main-outer">
-        <app-menu [showSideNav]="show"></app-menu>
+    <div class="app-main main-outer" style="background: url(assets/images/abc1.svg)no-repeat  right 300px top 80px; background-attachment: fixed; background-size: 500px;" >
+    <app-menu  [showSideNav]="show"></app-menu>
 
         <!-- Layout -->
         <router-outlet></router-outlet>
