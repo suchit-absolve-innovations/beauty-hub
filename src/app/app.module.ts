@@ -22,6 +22,7 @@ import { AngularFireAuthModule } from "@angular/fire/compat/auth";
 import { AngularFireMessagingModule } from '@angular/fire/compat/messaging';
 import { AngularFireModule } from '@angular/fire/compat';
 import { MessagingService } from './Shared/service/messaging-service';
+import { BsDatepickerModule, BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 
 
 
@@ -74,6 +75,7 @@ import { MessagingService } from './Shared/service/messaging-service';
       measurementId: "G-FJ3NE22S1L",
     }),
     AngularFireMessagingModule, 
+    BsDatepickerModule.forRoot(),
     
 
   ],

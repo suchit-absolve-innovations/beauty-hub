@@ -813,6 +813,9 @@ getAdminDetail(id:any){
 updateUserAdminProfile(data: any) {
   return this.http.post<any>(environment.apiUrl + ApiEndPoint.updateUserAdmin, data)
 }
+getAppointmentList(data:any){
+  return this.http.get<any>(environment.apiUrl + ApiEndPoint.getAppointmentsList + '?pageNumber=' + data.pageNumber + '&pageSize=' + data.pageSize + '&salonId=' + data.salonId)
+}
 
   
 

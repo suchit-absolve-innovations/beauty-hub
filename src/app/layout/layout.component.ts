@@ -23,7 +23,10 @@ export class LayoutComponent implements OnInit {
     private spinner: NgxSpinnerService,) { }
 
   ngOnInit(): void {
-    this.getNotificationList();
+  
+    setInterval(() => {
+      this.getNotificationList();
+    }, 20000); 
 
   }
   /********* Toggle side nav **********/
@@ -149,11 +152,12 @@ export class LayoutComponent implements OnInit {
         const newCount = this.notification.unreadnotificationCount
         this.notificationList = this.notification.notificationList.dataList
         console.log(this.unreadNotificationCount)
-        console.log(this.notificationList)
-        if (newCount !== this.count) {
-          // Update the count and take any additional actions as needed
-          this.count = newCount;
-        }
+        this.getNotifictionCount();
+        // console.log(this.notificationList)
+        // if (newCount !== this.count) {
+        //   // Update the count and take any additional actions as needed
+        //   this.count = newCount;
+        // }
         // this.count = response.totalCount
       }
     });
@@ -171,19 +175,19 @@ export class LayoutComponent implements OnInit {
     });
   }
 
-  // getNotifictionCount() {
-  // // this.spinner.show();
-  // this.auth.getNotifictionsCount().subscribe(response => {
-  // if (response.isSuccess) {
-  //   this.getNotifictionCount();
-  //   this.count = response.data.notificationCount
-  //   console.log(this.count)
+  getNotifictionCount() {
+  // this.spinner.show();
+  this.auth.getNotifictionsCount().subscribe(response => {
+  if (response.isSuccess) {
+    // this.getNotifictionCount();
+    this.count = response.data.notificationCount
+    console.log(this.count)
 
 
-  // }
+  }
 
-  // });
-  // }
+  });
+  }
 
 
 

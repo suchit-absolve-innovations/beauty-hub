@@ -39,6 +39,7 @@ import { SuperNotificationListComponent } from './SuperAdmin/Notifications/super
 import { SuperAddNotificationComponent } from './SuperAdmin/Notifications/super-add-notification/super-add-notification.component';
 import { VendorNotificationListComponent } from './Vendor/Notifications/vendor-notification-list/vendor-notification-list.component';
 import { VendorAddNotificationComponent } from './Vendor/Notifications/vendor-add-notification/vendor-add-notification.component';
+import { AppointmentListComponent } from './Vendor/Appointments/appointment-list/appointment-list.component';
 
 
 const routes: Routes = [
@@ -105,7 +106,8 @@ const routes: Routes = [
      { path: 'salon-list/service-list/add-service', component : AddServiceComponent},
      { path: 'service-list/service-detail/:id',component : ServiceDetailComponent},
      { path: 'add-edit-schedule',component : AddEditScheduleComponent},
-     { path: 'service-list/edit-service', component: EditServiceComponent}
+     { path: 'service-list/edit-service', component: EditServiceComponent},
+     { path: 'appointment-list', component: AppointmentListComponent}
     
      
 

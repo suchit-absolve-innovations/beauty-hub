@@ -45,6 +45,8 @@ import { SuperNotificationListComponent } from './SuperAdmin/Notifications/super
 import { SuperAddNotificationComponent } from './SuperAdmin/Notifications/super-add-notification/super-add-notification.component';
 import { VendorNotificationListComponent } from './Vendor/Notifications/vendor-notification-list/vendor-notification-list.component';
 import { VendorAddNotificationComponent } from './Vendor/Notifications/vendor-add-notification/vendor-add-notification.component';
+import { AppointmentListComponent } from './Vendor/Appointments/appointment-list/appointment-list.component';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 
 
@@ -92,6 +94,7 @@ import { VendorAddNotificationComponent } from './Vendor/Notifications/vendor-ad
    SuperAddNotificationComponent,
    VendorNotificationListComponent,
    VendorAddNotificationComponent,
+   AppointmentListComponent,
 
 
 
@@ -104,6 +107,7 @@ import { VendorAddNotificationComponent } from './Vendor/Notifications/vendor-ad
     NgxPaginationModule,
     Ng2SearchPipeModule,
     QRCodeModule,    
+    BsDatepickerModule.forRoot(),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAqVkAIpWw38LEG9LghW1s0ZzSW-PUsjt0',
       libraries: ['places']

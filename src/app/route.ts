@@ -97,9 +97,9 @@ export const RoleRoutes = {
   /////////vendor Panel////////
   Vendor: [
 
-    // {
-    //   name: "Product", value: "MANAGE_ReI", isEnabled: false, routerLink: "vendor-products-list", acl: '', subRoutes: []
-    // },
+    {
+      name: "Appointments", value: "MANAGE_ReI", isEnabled: false, routerLink: "appointment-list", acl: '', subRoutes: []
+    },
     {
       name: "Banners", value: "MANAGE_ReI", isEnabled: false, routerLink: "salon-banner-list", acl: 'dashboard', subRoutes: []
     },
@@ -115,7 +115,7 @@ export const RoleRoutes = {
     },
 
     {
-      name: "Profile", isEnabled: false, value: "MANAGE_APPOINTMENT_TAB", routerLink: "/vendor-profile", acl: '', subRoutes: []
+      name: "Profile", isEnabled: false, value: "MANAGE_APPOINTMENT_TAB", routerLink: "vendor-profile", acl: '', subRoutes: []
     },
     {
       name: "Subscription", isEnabled: true, value: "MANAGE_APPOINTMENT_TAB", routerLink: "/subscription", acl: '', subRoutes: []
