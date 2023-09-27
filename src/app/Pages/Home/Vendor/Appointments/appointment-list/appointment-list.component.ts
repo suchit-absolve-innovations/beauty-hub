@@ -74,29 +74,7 @@ export class AppointmentListComponent implements OnInit {
       }
     });
   }
-  getFormDate2ToDate() {
-    
-    // let payload = {
-    //   pageNumber: 1,
-    //   pageSize: 1000,
-    //   vendorId: this.vendorId,
-    //   fromDate: this.datepipe.transform(this.form.value.fromDate, 'yyyy-MM-dd'),
-    //   toDate: this.datepipe.transform(this.form.value.toDate, 'yyyy-MM-dd'),
-    // }
-    // this.spinner.show();
-    // this.content.FormDate2ToDate(payload).subscribe(response => {
-    //   if (response.isSuccess) {
-    //     this.orderlist = response.data
-    //     this.spinner.hide();
-    //     this.toaster.success(response.messages)
-    //   } else {
-    //     this.spinner.hide();
-    //     this.toaster.error(response.messages)
-    //     this.orderlist = []
-    //   }
-    // });
-  }
-
+ 
 
 
 }
