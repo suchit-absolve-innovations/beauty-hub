@@ -152,7 +152,7 @@ export class EditServiceComponent implements OnInit {
 
 
   updateService() {
-    debugger
+    
     let payload = {
       serviceId: parseInt(this.serviceId.id2),
       salonId: parseInt(this.salonId.id),

@@ -97,7 +97,7 @@ export class AddEditBannerComponent implements OnInit {
   }
 
   fileChangeEvents() {
-debugger
+
     let formData = new FormData();
     formData.append("bannerId", this.bannerId);
     formData.append("bannerImage", this.editImages);
@@ -117,7 +117,7 @@ debugger
 
 
   fileChangeEvent() {
-    debugger
+    
     let formData = new FormData();
     formData.append("bannerImage", this.imageFile?.file);
     this.spinner.show();

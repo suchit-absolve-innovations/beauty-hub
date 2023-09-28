@@ -134,7 +134,7 @@ timeValidator(control: AbstractControl): ValidationErrors | null {
  // submit 
 
  postSubmit(){
- debugger
+ 
   if(this.role == 'SuperAdmin') {
 this.submit();
   } else if (this.role == 'Vendor') {
@@ -293,7 +293,7 @@ onselect(event: any) {
 
 
 fileChangeEvent() {
-  debugger
+  
   const formData = new FormData();
   for (let i = 0; i < this.urls.length; i++) {
     const imageDataUrl = this.urls[i];

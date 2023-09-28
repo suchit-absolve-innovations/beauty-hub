@@ -1,4 +1,6 @@
+import { DatePipe } from '@angular/common';
 import { Component, NgZone, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -17,13 +19,16 @@ export class AppointmentListComponent implements OnInit {
   itemsPerPage!: number;
   totalItems!: number;
   datePickerConfig: Partial<BsDatepickerConfig>;
+  form:any
 
   constructor(private toaster: ToastrService,
     private spinner: NgxSpinnerService,
     private content: ContentService,
     private router: Router,
     private route: ActivatedRoute,
-    private ngZone: NgZone,) {
+    private formBuilder: FormBuilder,
+    private ngZone: NgZone,
+    public datepipe: DatePipe) {
       this.datePickerConfig = Object.assign(
         {},
       );
@@ -31,6 +36,17 @@ export class AppointmentListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAppointmentsList();
+    this.form = this.formBuilder.group({
+      // deliveryType: [''],
+      paymentStatus    : [''],
+      fromDate         : [''],
+      toDate           : [''],
+      appointmentStatus: [''],
+      sortDateBy       : ['0']
+  
+      
+
+    });
   }
 
   refresh(): void {
@@ -58,13 +74,13 @@ export class AppointmentListComponent implements OnInit {
 
 
   getAppointmentsList() {
-   debugger
+   
     let payload = {
       pageNumber : 1,
       pageSize : 1000,
      salonId : localStorage.getItem('salonId'),
     }
-    // this.spinner.show();
+    this.spinner.show();
     this.content.getAppointmentList(payload).subscribe(response => {
       if (response.isSuccess) {
         this.appointmentsList = response.data;
@@ -74,7 +90,30 @@ export class AppointmentListComponent implements OnInit {
       }
     });
   }
- 
+  getFormDate2ToDate() {
+    debugger
+    let payload = {
+      pageNumber: 1,
+      pageSize: 1000,
+      salonId : localStorage.getItem('salonId'),
+      sortDateBy : (this.form.value.sortDateBy),
+      fromDate: this.datepipe.transform(this.form.value.fromDate, 'dd-MM-yyyy'),
+      toDate: this.datepipe.transform(this.form.value.toDate, 'dd-MM-yyyy'),
+    }
+    this.spinner.show();
+    this.content.FormDate2ToDate(payload).subscribe(response => {
+      if (response.isSuccess) {
+        this.appointmentsList = response.data
+        this.spinner.hide();
+        this.toaster.success(response.messages)
+      } else {
+        this.spinner.hide();
+        this.toaster.error(response.messages)
+        this.appointmentsList = []
+      }
+    });
+  }
+
 
 
 }

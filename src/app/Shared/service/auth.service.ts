@@ -26,7 +26,7 @@ export class AuthService {
   // Admin Login //
 
   login(user: Login) {
-    debugger
+    
     return this.http.post<any>(environment.apiUrl + ApiEndPoint.login, user)
       .pipe(map(user => {
         if (user.data) {
@@ -98,7 +98,7 @@ export class AuthService {
   }
 
   fcmToken(data: any) {
-    debugger
+    
     return this.http.post<any>(environment.apiUrl + ApiEndPoint.tockenFcm, data).pipe(map((data: any) => {
       
       return data;

@@ -486,7 +486,7 @@ getAddress(addressLat: number, addressLong: number) {
 
 
     postVendor() {
-      debugger
+      
       this.submitted = false;
       if (this.form.invalid) {
         return;
@@ -507,7 +507,7 @@ getAddress(addressLat: number, addressLong: number) {
         status: checkStatus
       }
       if (this.vendorDetailPatch) {
-        debugger
+        
         let payload = {
           email: this.form.value.email,
           firstName: this.form.value.firstName,
@@ -579,7 +579,7 @@ getAddress(addressLat: number, addressLong: number) {
     }
   // Shop Image 
   handleFileInput(event: any) {
-    debugger
+    
     const files = event.target.files;
     for (let e = 0; e < files.length; e++) {
       const file = files[e];
@@ -596,7 +596,7 @@ getAddress(addressLat: number, addressLong: number) {
 
 
   fileChangeEvents() {
-    debugger
+    
     const formData = new FormData();
     for (let e = 0; e < this.urls1.length; e++) {
       const imageDataUrl1 = this.urls1[e];
@@ -642,7 +642,7 @@ getAddress(addressLat: number, addressLong: number) {
     }
   
     fileChangeEvent() {
-      debugger
+      
       let formData = new FormData();
       formData.append("ProfilePic", this.imageFile?.file);
       formData.append("Id", this.imageId);
@@ -700,7 +700,7 @@ getAddress(addressLat: number, addressLong: number) {
   
   
     fileQrChangeEvents() {
-      debugger
+      
       const formData = new FormData();
       for (let i = 0; i < this.urls.length; i++) {
         const imageDataUrl = this.urls[i];

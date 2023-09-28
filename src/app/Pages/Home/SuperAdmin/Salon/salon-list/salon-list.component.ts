@@ -85,7 +85,7 @@ export class SalonListComponent implements OnInit {
 
 
   vendorStatusAccept(data: any) {
-  debugger
+  
     let payload = {
       vendorId: data.vendorId,
       salonId: data.salonId,
@@ -176,7 +176,7 @@ this.vendorId = data.vendorId;
   // check transiction id 
 
 //   checkTransactionId(){
-//     debugger
+//     
 // this.content.gettransictionID(this.form.value.transactionId).subscribe(response => {
 //   if(response.isSuccess) {
 //     this.membershipRecordId = response.data.membershipRecordId

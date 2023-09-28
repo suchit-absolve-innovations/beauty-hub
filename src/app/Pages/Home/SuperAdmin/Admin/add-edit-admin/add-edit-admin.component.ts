@@ -131,7 +131,7 @@ export class AddEditAdminComponent implements OnInit {
 
 
   fileChangeEvent() {
-    debugger
+    
     let formData = new FormData();
     formData.append("ProfilePic", this.imageFile?.file);
     formData.append("Id", this.id);
@@ -144,7 +144,7 @@ export class AddEditAdminComponent implements OnInit {
   /*** Post Admin User  ***/
 
   postAdmin() {
-    debugger
+    
     this.submitted = true;
     if (this.form.invalid) {
       this.toasterService.error("Form Incomplete: Please fill in all the required fields correctly");

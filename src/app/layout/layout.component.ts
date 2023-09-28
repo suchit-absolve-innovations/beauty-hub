@@ -137,7 +137,7 @@ export class LayoutComponent implements OnInit {
   }
   // notification list
   getNotificationList() {
-    debugger
+    
     let payload = {
       pageNumber: 1,
       pageSize: 1000
@@ -146,7 +146,7 @@ export class LayoutComponent implements OnInit {
     this.auth.getAllNotifactonList(payload).subscribe(response => {
       if (response.isSuccess) {
 
-        debugger
+        
         this.notification = response.data;
         // this.unreadNotificationCount = this.notification.unreadnotificationCount
         const newCount = this.notification.unreadnotificationCount
@@ -165,7 +165,7 @@ export class LayoutComponent implements OnInit {
 
 
   getReadNotiction() {
-    debugger
+    
     // this.spinner.show();
     this.auth.getReadNotictions().subscribe(response => {
       if (response.isSuccess) {
@@ -209,7 +209,7 @@ export class LayoutComponent implements OnInit {
 
   deleteSingleNotification(notificationSentId: any) {
 
-    debugger
+    
     this.spinner.show();
     this.auth.deleteSingleNotifications(notificationSentId).subscribe(response => {
       if (response.isSuccess) {

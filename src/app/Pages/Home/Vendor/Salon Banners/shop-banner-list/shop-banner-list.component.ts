@@ -102,7 +102,7 @@ this.salonBannerId = data.salonBannerId;
 
  deleteSalonBanners() {
    this.spinner.show();
-   debugger
+   
    this.content.deleteSalonBanner(this.salonBannerId).subscribe(response => {
      if (response.isSuccess) {
        this.spinner.hide();
@@ -157,7 +157,7 @@ this.salonBannerId = data.salonBannerId;
 
  
     getSubcategoryList(MainCategoryId:any){
-   debugger
+   
 
     this.content.SubCategory(MainCategoryId).subscribe(response => {
       if (response.isSuccess) {

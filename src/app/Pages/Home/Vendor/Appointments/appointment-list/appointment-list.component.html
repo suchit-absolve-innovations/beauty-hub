@@ -1,5 +1,5 @@
 <div class="app-main__outer">
-    <form >
+    <form [formGroup]="form" >
         <div class="admin_a">
             <!-- <div class="media mb-5" >
                 <img class="align-self-center mr-3 welcome-image" [src]="rootUrl + image" alt="user">
@@ -10,18 +10,31 @@
             <div class="row">
                 <div class="col-lg-12 col-md-12">
                     <div class="row">
-                        <div class="col-lg-8">
+                        <div class="col-lg-12">
                             <div class="row">
                                 <div class="col-lg-12"><label>Date</label></div>
-                                <div class="col-lg-5" style="position: relative; top:-8px;"><input type="text" formControlName="fromDate" placeholder="From Date" class="form-control"
+                                <div class="col-lg-3" style="position: relative; top:-8px;"><input type="text" formControlName="fromDate" placeholder="From Date" class="form-control"
                                     (click)="performSearch()" bsDatepicker [bsConfig]="datePickerConfig"></div>
-                                <div class="col-lg-5" style="position: relative; top:-8px;"> <input type="text" formControlName="toDate" placeholder="To Date" class="form-control"
+                                <div class="col-lg-3" style="position: relative; top:-8px;"> <input type="text" formControlName="toDate" placeholder="To Date" class="form-control"
                                     bsDatepicker [bsConfig]="datePickerConfig"></div>
-                                <div class="col-lg-2" style="position: relative; top:-8px;"><button type="submit" class="go_now" style="color: white;">
-                                    <i class="fa fa-search" ></i>
+                                    
+                                    <div class="col-lg-3" >
+                                        <div class="col-lg-12" ><label>Filter By</label></div>
+                                        <select type="text" formControlName="sortDateBy" (click)="performSearch()"
+                                           
+                                            class="control-form mr-20 btn_border">
+                                            <option value="" >Select </option>
+                                            <option value="0">Booking Date</option>
+                                            <option value="1">Appointment Date</option>
+            
+                                        </select>
+                                    </div>
+                                <div class="col-lg-3" style="position: relative; top:-8px;"><button type="submit" class="go_now" style="color: white;">
+                                    <i class="fa fa-search" (click)="getFormDate2ToDate()" ></i>
                                 </button></div>
                             </div>
                         </div>
+                    
 
                   
                     </div>
@@ -37,7 +50,7 @@
                     <div class="d-flex flex-wrap if_xs_btn mb-30 justify-content-between">
                         <div class="cate-align">
                             <label>Payment Method </label>
-                            <select type="text" formControlName="paymentMethod " (click)="performSearch()"
+                            <select type="text"  (click)="performSearch()"
                               
                                 class="control-form mr-20 btn_border">
                                 <option value="" selected>Select </option>
@@ -47,7 +60,7 @@
                         </div>
                         <div class="cate-align">
                             <label>Appointment Status</label>
-                            <select type="text" formControlName="orderStatus" (click)="performSearch()"
+                            <select type="text" formControlName="appointmentStatus" (click)="performSearch()"
                                
                                 class="control-form mr-20 btn_border">
                                 <option value="" selected>Select </option>
@@ -58,7 +71,7 @@
                         </div>
                         <div class="cate-align">
                             <label>Payment Status</label>
-                            <select type="text" formControlName="paymentStatus" (click)="performSearch()"
+                            <select type="text"  (click)="performSearch()"
                                
                                 class="control-form btn_border ">
                                 <option value="" selected>Select </option>
@@ -100,7 +113,7 @@
                                 <td>{{item.totalServices}}</td>
                                 <td>{{item.createDate}}</td>
                                 <td>
-                                    <a [routerLink]="['/orders-list/order-detail/'] + item.orderDetailId">
+                                    <a [routerLink]="['/appointment-list/appointment-detail/'] + item.appointmentId">
                                         <i class="fa fa-eye"></i>
                                     </a>
                                     <a href="#">

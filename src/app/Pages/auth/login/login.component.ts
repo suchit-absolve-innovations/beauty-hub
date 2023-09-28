@@ -64,7 +64,7 @@ export class LoginComponent implements OnInit {
 // post login 
 
 onLogin(){
-  debugger
+  
   this.submitted = true;
   this.spinner.show();
   if (this.loginForm.invalid) {
@@ -95,7 +95,7 @@ onLogin(){
       }
       if (this.userRole?.role == 'Vendor') {
          this.updateToken();
-        debugger
+        
         // this.vendorId = localStorage.getItem('vendorId')
         // this.getvendorDetail();
         this.toasterService.success(response.messages);

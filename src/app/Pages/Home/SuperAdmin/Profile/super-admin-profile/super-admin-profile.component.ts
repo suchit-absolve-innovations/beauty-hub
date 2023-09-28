@@ -353,7 +353,7 @@ export class SuperAdminProfileComponent implements OnInit {
       }
     }
   postSuperAdmimProfile() {
-    debugger
+    
     this.submitted = true;
     if (this.form.invalid) {
       return;
@@ -373,7 +373,7 @@ export class SuperAdminProfileComponent implements OnInit {
     let data1 = {
       status: checkStatus
     }
-    debugger
+    
     if (this.superAdminDetailPatch) {
       let payload = {
         id: this.superAdminId,

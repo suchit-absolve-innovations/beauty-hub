@@ -59,7 +59,7 @@ export class AddEditSubCategoryComponent implements OnInit {
     });
   }
   onGenderChange(event: any) {
-    debugger
+    
     const selectedGender = event.target.value;
     if (selectedGender === '1') {
     this.categoryType =  this.form.patchValue({ male: true, female: false });
@@ -71,7 +71,7 @@ export class AddEditSubCategoryComponent implements OnInit {
   }
 
   postCategory(){
-    debugger
+    
     this.submitted = true;
     if (this.form.invalid) {
       return;
@@ -142,7 +142,7 @@ showModal() {
 
 
   getCategoryDetail(){
-    debugger
+    
   let payload = { 
     mainCategoryId : this.Id,
     subCategoryId : this.Id2
@@ -184,7 +184,7 @@ imagesUpload(event: any) {
 }
 
 fileChangeEvent() {
-  debugger
+  
   let formData = new FormData();
   formData.append("CategoryImage", this.imageFile?.file);
   formData.append("SubCategoryId", this.subId);

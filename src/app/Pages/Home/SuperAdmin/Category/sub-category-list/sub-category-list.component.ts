@@ -84,7 +84,7 @@ export class SubCategoryListComponent implements OnInit {
 
 
   postActiveStatus(data: any) {
-debugger
+
     let payload = {
       subCategoryId: data,
       salonId:this.salonId,
@@ -96,7 +96,7 @@ debugger
     });
   }
   postUnActiveStatus(data: any) {
-    debugger
+    
     let payload = {
       subCategoryId: data,
       salonId:this.salonId,
@@ -171,7 +171,7 @@ debugger
         });
       }
       getSubCategoryListFilter() {
-        debugger
+        
         this.spinner.show();
      
         this.content.getFilterCategoryList(this.form.value.CategoryType).subscribe(response => {
@@ -196,7 +196,7 @@ debugger
   // Vendor
 
   getSubcategoryList() {
-debugger
+
     // this.spinner.show();
     // let payload = {
     //   MainCategoryId : parseInt(this.Id),

@@ -87,7 +87,7 @@ export class AdminProfileComponent implements OnInit {
    
 
     adminDetail(){
-      debugger
+      
       // this.spinner.show();
       this.contentService.getAdminDetail(this.userAdminId).subscribe(response => {
         if (response.isSuccess) {

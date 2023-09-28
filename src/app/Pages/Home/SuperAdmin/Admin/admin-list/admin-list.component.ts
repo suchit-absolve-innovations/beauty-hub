@@ -84,7 +84,7 @@ delet(data:any){
   
     deleteUser() {
       this.spinner.show();
-      debugger
+      
       this.content.deleteAdminUser(this.adminId).subscribe(response => {
         if (response.isSuccess) {
           this.spinner.hide();

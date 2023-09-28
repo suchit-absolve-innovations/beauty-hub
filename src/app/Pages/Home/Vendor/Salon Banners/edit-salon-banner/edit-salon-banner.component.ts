@@ -78,7 +78,7 @@ export class EditSalonBannerComponent implements OnInit {
         this.ShopBannerdetail = response.data;
         this.editImages = this.rootUrl + this.ShopBannerdetail?.bannerImage;      
         this.getSubcategoryList(this.ShopBannerdetail?.mainCategoryId);
-        debugger
+        
         this.form.patchValue({
           bannerType: this.ShopBannerdetail.bannerType,
           mainCategoryId: this.ShopBannerdetail.mainCategoryId,
@@ -106,7 +106,7 @@ export class EditSalonBannerComponent implements OnInit {
   getSubcategoryList(data: any) {
     this.content.SubCategory(data).subscribe(response => {
       if (response.isSuccess) {
-        debugger
+        
         this.subCategoryList = response.data;
 
         this.spinner.hide();
@@ -143,7 +143,7 @@ export class EditSalonBannerComponent implements OnInit {
 
 
   fileChangeEvent() {
-    debugger
+    
     this.spinner.show();
     let formData = new FormData();
     formData.append("salonBannerId", this.salonBannerId);

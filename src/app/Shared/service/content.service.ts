@@ -30,7 +30,7 @@ export class ContentService {
 
    // Image convertor to update 
    imageConvert(serviceId:any){
-    debugger
+    
     return this.http.get<any>(environment.apiUrl + ApiEndPoint.base64 + '?serviceId=' + serviceId)
   }
 
@@ -401,10 +401,7 @@ export class ContentService {
     return this.http.get<any>(environment.apiUrl + ApiEndPoint.orderList  + '?pageNumber=' + data.pageNumber + '&pageSize=' + data.pageSize + '&vendorId=' + data.vendorId + '&paymentStatus=' + data.paymentStatus)
 
   }
-  FormDate2ToDate(data:any){
-    return this.http.get<any>(environment.apiUrl + ApiEndPoint.orderList  + '?pageNumber=' + data.pageNumber + '&pageSize=' + data.pageSize + '&vendorId=' + data.vendorId + '&fromDate=' + data.fromDate + '&toDate=' + data.toDate)
-
-  }
+ 
 
   orderDetail(orderDetailId:any){
     return this.http.get<any>(environment.apiUrl + ApiEndPoint.orderdetail + '?orderDetailId=' + orderDetailId )
@@ -815,6 +812,10 @@ updateUserAdminProfile(data: any) {
 }
 getAppointmentList(data:any){
   return this.http.get<any>(environment.apiUrl + ApiEndPoint.getAppointmentsList + '?pageNumber=' + data.pageNumber + '&pageSize=' + data.pageSize + '&salonId=' + data.salonId)
+}
+FormDate2ToDate(data:any){
+  return this.http.get<any>(environment.apiUrl + ApiEndPoint.getAppointmentsList  + '?pageNumber=' + data.pageNumber + '&pageSize=' + data.pageSize + '&salobId=' + data.salonId + '&fromDate=' + data.fromDate + '&toDate=' + data.toDate + '&sortDateBy=' + data.sortDateBy)
+
 }
 
   

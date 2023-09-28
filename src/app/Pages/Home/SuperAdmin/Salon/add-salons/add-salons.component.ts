@@ -89,7 +89,7 @@ export class AddSalonsComponent implements OnInit {
     }
 
     ngOnInit(): void {
-      debugger
+      
       this.membershipRecordId = localStorage.getItem('membershipRecordId');
       this.recordId = parseInt(this.membershipRecordId)
       // maps
@@ -422,13 +422,13 @@ add() {
   
   
     postVendor() {
-      debugger
+      
       this.submitted = false;
     if (this.form.invalid) {
       this.toaster.error("Form Incomplete: Please fill in all the required fields correctly");
       return;
     }
-      debugger
+      
       let checkStatus: any;
       if (this.isActive == true) {
         checkStatus = true;
@@ -443,7 +443,7 @@ add() {
       let data1 = {
         status: checkStatus
       }
-      debugger
+      
       if (this.vendorDetailPatch) {
         let payload = {
           email: this.form.value.email,
@@ -506,7 +506,7 @@ add() {
           }
         });
       } else {
-        debugger
+        
         this.spinner.show();
         let payload1 = {
           email: this.form.value.email,
@@ -550,7 +550,7 @@ add() {
           }]
   
         }
-        debugger
+        
         this.spinner.show();
         this.contentService.addVendor(payload1).subscribe(response => {
           if (response.isSuccess) {
@@ -769,7 +769,7 @@ add() {
 
     getVendorDetail(id: string) {
       // this.spinner.show();
-      debugger
+      
       this.contentService.getVendorDetail(id).subscribe(response => {
         if (response.isSuccess) {
           this.spinner.hide();
@@ -787,7 +787,7 @@ add() {
           this.patchShopDetail();
           this.patchBankDetail();
           // this.patchUpiDetail();
-          debugger
+          
           this.form.patchValue({
             firstName: this.vendorDetailPatch.firstName,
             lastName: this.vendorDetailPatch.lastName,

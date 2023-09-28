@@ -48,7 +48,7 @@ export class BuyMebershipPlanListComponent implements OnInit {
     private http: HttpClient) { }
 
   ngOnInit(): void {
-    debugger
+    
     this.getMembershipPlan();
     this.rootUrl = environment.rootPathUrl;
    
@@ -144,7 +144,7 @@ export class BuyMebershipPlanListComponent implements OnInit {
   // }
 
   getMembershipPlan() {
-    debugger
+    
     if (this.userRole == 'SuperAdmin') {
       this.getBuyMemberShipPlan();
     }
@@ -158,7 +158,7 @@ export class BuyMebershipPlanListComponent implements OnInit {
 
 
   getBuyMemberShipPlan() {
-debugger
+
     // window.location.reload();
     this.ngZone.run(() => {
       this.spinner.show();
@@ -180,7 +180,7 @@ debugger
 
 //for vendor//
 getMembershipPlanList() {
-  debugger
+  
       // window.location.reload();
       this.ngZone.run(() => {
         this.spinner.show();
@@ -277,7 +277,7 @@ console.log(this.membershipPlanIds)
 
 
   buyMemberShip() {
-debugger
+
     let payload = {
    
       membershipPlanId: this.membershipPlanIds,

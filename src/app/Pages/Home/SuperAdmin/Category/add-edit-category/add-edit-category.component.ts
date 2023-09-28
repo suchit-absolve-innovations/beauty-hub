@@ -38,7 +38,7 @@ export class AddEditCategoryComponent implements OnInit {
   ngOnInit(): void {
     this.rootUrl = environment.rootPathUrl;
     this.categoryForm();
-debugger
+
     this.route.queryParams.subscribe((params: any) => {
       if (params.id) {
         this.getCategoryDetail(params.id);
@@ -65,7 +65,7 @@ debugger
   }
 
   postCategory() {
-    debugger
+    
     this.submitted = true;
     if (this.form.invalid) {
       return;
@@ -190,7 +190,7 @@ debugger
 
 
   fileChangeEvent() {
-    debugger
+    
     let formData = new FormData();
     formData.append("CategoryImage", this.imageFile?.file);
     formData.append("MainCategoryId", this.mainId);
@@ -202,7 +202,7 @@ debugger
 
    
     onGenderChange(event: any) {
-      debugger
+      
       const selectedGender = event.target.value;
       if (selectedGender === '1') {
       this.categoryType =  this.form.patchValue({ male: true, female: false });

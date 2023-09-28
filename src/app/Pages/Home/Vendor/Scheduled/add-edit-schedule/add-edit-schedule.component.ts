@@ -92,7 +92,7 @@ export class AddEditScheduleComponent implements OnInit {
 
   // monday value select true and false 
   planMonday(event: any) {
-debugger
+
     if (event.currentTarget?.checked) {
       this.monday == false;
     } else {
@@ -175,7 +175,7 @@ debugger
   // get schedule 
 
   getScheduleDayTime() {
-    debugger
+    
     this.spinner.show();
     this.contentService.getScheduleDayTimes(this.salonId).subscribe(response => {
       this.spinner.hide();
@@ -212,7 +212,7 @@ debugger
 
 
   addUpdateSchedule(){
-    debugger
+    
     let payload = {
       salonId : localStorage.getItem('salonId'),
       fromTime: this.Form.value.fromTime,

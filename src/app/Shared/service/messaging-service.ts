@@ -9,7 +9,7 @@ export class MessagingService {
 
     constructor(private angularfireMessaging: AngularFireMessaging) { }
     requestPermission() {
-        debugger
+        
         this.angularfireMessaging.requestToken.subscribe((token: any) => {
              localStorage.setItem('token', token);
             console.log(token)
@@ -19,7 +19,7 @@ export class MessagingService {
     }
 
     receiveMessaging() {
-        debugger
+        
         this.angularfireMessaging.messages.subscribe((payload) => {
 
             this.currentMessage.next(payload)

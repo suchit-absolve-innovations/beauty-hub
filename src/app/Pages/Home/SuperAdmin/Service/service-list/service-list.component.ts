@@ -44,7 +44,7 @@ export class ServiceListComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.page = +params['page'] || 0; // Use the 'page' query parameter value, or default to 1
     });
-    debugger
+    
     this.salonId = this.route.snapshot.queryParams
     // this.salonIds = localStorage.setItem('salonid',this.salonId.id)
     this.getList();
@@ -75,7 +75,7 @@ export class ServiceListComponent implements OnInit {
   // Service List 
 
   getList() {
-    debugger
+    
     if (this.role == 'SuperAdmin') {
       this.getServiceList();
     } else if (this.role == 'Vendor') {
@@ -84,7 +84,7 @@ export class ServiceListComponent implements OnInit {
   }
 
   getServiceList() {
-    debugger
+    
     let payload = {
       pageNumber: 1,
       pageSize: 1000,
@@ -130,7 +130,7 @@ export class ServiceListComponent implements OnInit {
   }
 
   edit(data: any) {
-    debugger
+    
     this.router.navigate(['/salon-list/service-list/edit-service'],
       {
         queryParams: {
@@ -142,15 +142,15 @@ export class ServiceListComponent implements OnInit {
   }
 
   delet(data: any) {
-    debugger
+    
     this.serviceId = data.serviceId;
 
   }
 
   serviceDelete() {
-    debugger
+    
     this.spinner.show();
-    debugger
+    
     this.content.deleteService(this.serviceId).subscribe(response => {
       if (response.isSuccess) {
         this.spinner.hide();
@@ -275,7 +275,7 @@ export class ServiceListComponent implements OnInit {
 
 
   getSubcategoryList(MainCategoryId: any) {
-    debugger
+    
 
     this.content.SubCategory(MainCategoryId).subscribe(response => {
       if (response.isSuccess) {
@@ -350,7 +350,7 @@ export class ServiceListComponent implements OnInit {
         ageRestrictions: this.form.value.ageRestrictions
       };
     }
-  debugger    
+      
     this.content.getserviceAge(payload).subscribe(response => {
       if (response.isSuccess) {
 

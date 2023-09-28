@@ -86,7 +86,7 @@ export class AddEditSalonBannerComponent implements OnInit {
   /*** Sub  Category List ***/
 
   getSubcategoryList(data: any) {
-debugger
+
     // this.spinner.show();
 
     this.content.SubCategory(data).subscribe(response => {
@@ -134,7 +134,7 @@ debugger
  
 
   fileChangeEvent() {
-    debugger
+    
     
     this.spinner.show();
     let formData = new FormData();
@@ -159,7 +159,7 @@ debugger
   // use to submit data
 
   Submit() {
-    debugger
+    
     this.fileChangeEvent();
   }
 

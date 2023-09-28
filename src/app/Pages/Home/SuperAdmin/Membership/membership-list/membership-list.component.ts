@@ -42,7 +42,7 @@ export class MembershipListComponent implements OnInit {
 
 
   getmembershipPlan() {
-    debugger
+    
     if (this.userRole == 'SuperAdmin') {
       this.getPlanList();
     }
@@ -95,7 +95,7 @@ export class MembershipListComponent implements OnInit {
 
   }
   deleteAddedPlan() {
-    debugger
+    
     this.spinner.show();
     return this.content.deletePlan(this.membershipPlanId).subscribe(response => {
       if (response.isSuccess) {
