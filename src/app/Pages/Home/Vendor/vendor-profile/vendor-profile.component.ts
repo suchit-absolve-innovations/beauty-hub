@@ -377,9 +377,10 @@ getAddress(addressLat: number, addressLong: number) {
     this.contentService.getVendorDetail(this.vendorIds).subscribe(response => {
       if (response.isSuccess) {
         this.spinner.hide();
-        this.clearFormArray(this.List1());
+     //   this.clearFormArray(this.List1());
         this.vendorDetailPatch = response.data
         this.imageId = response.data.vendorId
+        debugger
         this.shopDetailPatch = this.vendorDetailPatch.salonResponses
 
         this.bankDetailPatch = this.vendorDetailPatch.bankResponses
