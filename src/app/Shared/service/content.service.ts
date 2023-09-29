@@ -390,17 +390,8 @@ export class ContentService {
   }
 
 
-  orderListStatus(data:any){
+ 
 
-    return this.http.get<any>(environment.apiUrl + ApiEndPoint.orderList  + '?pageNumber=' + data.pageNumber + '&pageSize=' + data.pageSize + '&vendorId=' + data.vendorId + '&orderStatus=' + data.orderStatus)
-
-  }
-
-  orderListPayment(data:any){
-
-    return this.http.get<any>(environment.apiUrl + ApiEndPoint.orderList  + '?pageNumber=' + data.pageNumber + '&pageSize=' + data.pageSize + '&vendorId=' + data.vendorId + '&paymentStatus=' + data.paymentStatus)
-
-  }
  
 
   orderDetail(orderDetailId:any){
@@ -817,6 +808,15 @@ FormDate2ToDate(data:any){
   return this.http.get<any>(environment.apiUrl + ApiEndPoint.getAppointmentsList  + '?pageNumber=' + data.pageNumber + '&pageSize=' + data.pageSize + '&salobId=' + data.salonId + '&fromDate=' + data.fromDate + '&toDate=' + data.toDate + '&sortDateBy=' + data.sortDateBy)
 
 }
+appointmentStatusList(data:any){
+  return this.http.get<any>(environment.apiUrl + ApiEndPoint.getAppointmentsList  + '?pageNumber=' + data.pageNumber + '&pageSize=' + data.pageSize + '&salonId=' + data.salonId + '&appointmentStatus=' + data.appointmentStatus)
+
+}
+appointmentPaymentStatusList(data:any){
+  return this.http.get<any>(environment.apiUrl + ApiEndPoint.getAppointmentsList  + '?pageNumber=' + data.pageNumber + '&pageSize=' + data.pageSize + '&salonId=' + data.salonId + '&paymentStatus=' + data.paymentStatus)
+
+}
+
 
   
 

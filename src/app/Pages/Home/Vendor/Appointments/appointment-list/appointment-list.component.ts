@@ -114,6 +114,50 @@ export class AppointmentListComponent implements OnInit {
     });
   }
 
+  getAppointmentStatusList() {
+    
+    let payload = {
+      pageNumber: 1,
+      pageSize: 1000,
+      salonId : localStorage.getItem('salonId'),
+      appointmentStatus: this.form.value.appointmentStatus
+    }
+    this.spinner.show();
+    this.content.appointmentStatusList(payload).subscribe(response => {
+      if (response.isSuccess) {
+        this.appointmentsList = response.data
+        this.spinner.hide();
+        this.toaster.success(response.messages)
+      } else {
+        this.spinner.hide();
+        this.toaster.error(response.messages)
+        this.appointmentsList = []
+      }
+    });
+  }
+
+  getAppointmentPaymentStatusList() {
+    
+    let payload = {
+      pageNumber: 1,
+      pageSize: 1000,
+      salonId : localStorage.getItem('salonId'),
+      paymentStatus: this.form.value.paymentStatus
+    }
+    this.spinner.show();
+    this.content.appointmentPaymentStatusList(payload).subscribe(response => {
+      if (response.isSuccess) {
+        this.appointmentsList = response.data
+        this.spinner.hide();
+        this.toaster.success(response.messages)
+      } else {
+        this.spinner.hide();
+        this.toaster.error(response.messages)
+        this.appointmentsList = []
+      }
+    });
+  }
+
 
 
 }
