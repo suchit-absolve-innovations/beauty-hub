@@ -48,6 +48,8 @@ import { VendorAddNotificationComponent } from './Vendor/Notifications/vendor-ad
 import { AppointmentListComponent } from './Vendor/Appointments/appointment-list/appointment-list.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { AppointmentDetailComponent } from './Vendor/Appointments/appointment-detail/appointment-detail.component';
+import { BookedServiceListComponent } from './Vendor/Appointments/booked-service-list/booked-service-list.component';
+
 
 
 
@@ -97,6 +99,8 @@ import { AppointmentDetailComponent } from './Vendor/Appointments/appointment-de
    VendorAddNotificationComponent,
    AppointmentListComponent,
    AppointmentDetailComponent,
+   BookedServiceListComponent,
+  
 
 
 

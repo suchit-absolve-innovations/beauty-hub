@@ -134,5 +134,7 @@ export enum ApiEndPoint {
   deleteAllNotification ='api/Notification/deleteNotification',
   getAdminUserDetail ='api/Admin/GetAdminUserDetail',
   updateUserAdmin = "api/Admin/UpdateAdminUser",
-  getAppointmentsList = 'api/Vendor/GetVendorAppointmentList'
+  getAppointmentsList = 'api/Vendor/GetVendorAppointmentList',
+  getAppointmentDetail = 'api/Vendor/GetVendorAppointmentDetail',
+  postAppointmentStatus = 'api/Vendor/SetAppointmentStatus'
 }

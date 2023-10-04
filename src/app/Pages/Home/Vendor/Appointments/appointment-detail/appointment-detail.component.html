@@ -1,1 +1,219 @@
-<p>appointment-detail works!</p>
+<div class="app-main__outer">
+    <form [formGroup]="form">
+        <div class="admin_a">
+
+            <div class="top-head">
+                <!-- <img (click)="backClicked()" src="assets\img\backimage.png" class="backimage-butn"> -->
+                <h2>Appointment Detail</h2>
+            </div>
+
+            <div class="vendor-form mt-40 bg-white pb-60">
+                <div class="this_row">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-12">
+                            <dl class="d-flex inform_text">
+                                <dt>Appointment Id:</dt>
+                                <dd>{{appointmentDetail?.appointmentId}}</dd>
+                            </dl>
+                            <dl class="d-flex inform_text">
+                                <dt>Customer Name:</dt>
+                                <dd>{{appointmentDetail?.customerFirstName}} {{appointmentDetail?.customerLastName}}
+                                </dd>
+                            </dl>
+
+                            <dl class="d-flex inform_text">
+                                <dt>Address:</dt>
+                                <dd>{{appointmentDetail?.customerAddress}}</dd>
+                            </dl>
+                            <!-- <dl class="d-flex inform_text">
+                            <dt>Order Date:</dt>
+                            <dd>{{appointmentDetail?.salonName}}</dd>
+                        </dl> -->
+
+                            <!-- <dl class="d-flex inform_text">
+                            <dt>Payment Status:</dt>
+                            <dd>{{appointmentDetail?.paymentStatus}}</dd>
+                        </dl> -->
+
+
+                        </div>
+                        <div class="col-lg-6 col-md-12">
+                            <dl class="d-flex inform_text">
+                                <dt>Appointment Status:</dt>
+                                <dd>{{appointmentDetail?.appointmentStatus}}</dd>
+                            </dl>
+
+                            <dl class="d-flex inform_text">
+                                <dt>Create Date:</dt>
+                                <dd>{{appointmentDetail?.createDate}}</dd>
+                            </dl>
+                            <dl class="d-flex inform_text">
+                                <dt>Total Service:</dt>
+                                <dd>{{appointmentDetail?.totalServices}}</dd>
+                            </dl>
+
+                        </div>
+                        <!-- <div class="col-lg-12 col-md-12">
+                        <dl class="d-flex inform_text">
+                            <dt>Note:
+                            <dd>{{appointmentDetail?.customerNote}}</dd>
+                        </dl>
+                    </div> -->
+
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="mt-30">Payment Detail</h3>
+            <div class="vendor-form mt-40 bg-white pb-60">
+
+                <div class="this_row">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-12">
+
+                            <dl class="d-flex inform_text">
+                                <dt>Base Price:</dt>
+                                <dd>{{appointmentDetail?.basePrice}}</dd>
+                            </dl>
+                            <dl class="d-flex inform_text">
+                                <dt>Total Discount:</dt>
+                                <dd>{{appointmentDetail?.discount}}</dd>
+                            </dl>
+                            <dl class="d-flex inform_text">
+                                <dt>Final Price:</dt>
+                                <dd>{{appointmentDetail?.finalPrice}}</dd>
+                            </dl>
+                            <!-- <dl class="d-flex inform_text">
+                            <dt>CGST:</dt>
+                            <dd>{{appointmentDetail?.cgst}}</dd>
+                        </dl>
+                        <dl class="d-flex inform_text">
+                            <dt>SGST:</dt>
+                            <dd>{{appointmentDetail?.sgst}}</dd>
+                        </dl> -->
+                        </div>
+                        <div class="col-lg-6 col-md-12">
+                            <dl class="d-flex inform_text">
+                                <dt>Payment Method:</dt>
+                                <dd>{{appointmentDetail?.paymentMethod}}</dd>
+                            </dl>
+                            <dl class="d-flex inform_text">
+                                <dt>Payment Status:</dt>
+                                <dd>{{appointmentDetail?.paymentStatus}}</dd>
+                            </dl>
+                            <dl class="d-flex inform_text">
+                                <dt>Transaction Id:</dt>
+                                <dd>{{appointmentDetail?.transactionId}}</dd>
+                            </dl>
+
+
+
+                            <dl class="d-flex inform_text">
+                                <dt>Payment Receipt:</dt>
+                                <dd>{{appointmentDetail?.paymentReceipt}}</dd>
+                            </dl>
+                            <!-- <dl class="d-flex inform_text">
+                            <dt>Shipping Charges:</dt>
+                            <dd>{{appointmentDetail?.shippingCharges}}</dd>
+                        </dl> -->
+
+                            <!-- <dl class="d-flex inform_text">
+                            <dt>IGST:</dt>
+                            <dd>{{appointmentDetail?.igst}}</dd>
+                        </dl> -->
+                            <!-- <dl class="d-flex inform_text">
+                            <dt>Payment Receipt:</dt>
+                            <dd class="profile">
+                                <a data-toggle="modal" data-target="#myModalpaymentreciept">
+                                    <img [src]="rootUrl + orderDetails?.paymentReceipt" data-toggle="tooltip"
+                                        data-placement="right" title="Preview" alt="img">
+                                </a>
+                            </dd>
+                        </dl> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <h3 class="mt-30">Service Detail</h3>
+
+            <div class="table-responsive mt-40">
+                <table class="table admin_table  product-detail-table">
+                    <tr>
+                        <th>Service Name</th>
+                        <th>Service Image</th>
+                        <th>Base Price</th>
+                        <th>Final Price</th>
+                        <th>Appointment Date</th>
+                        <th>Appointment Time</th>
+                        <th>Appointment Status</th>
+                        <th>Service Count</th>
+                    </tr>
+                    <tr *ngFor="let item of services; let i =index">
+                        <td class="profile">
+                            <!-- <a [routerLink]="['/orders-list/product-detail/'+ item.orderedProductId ]">{{item.productName}}</a>  -->
+                            <!-- <a (click)="navigateToDetail(item)">{{item?.productName}}</a> -->
+                            {{item.serviceName}}
+                        </td>
+                        <td class="profile">
+                            <img class="img-responsive" [src]="rootUrl + item?.serviceImage">
+                        </td>
+                        <td>{{item.basePrice}}</td>
+                        <td>{{item.finalPrice}}</td>
+                        <td>{{item.appointmentDate}}</td>
+                        <td>{{item.fromTime}} - {{item.toTime}}</td>
+                        <td class="td-dropdown">
+                            <select type="text" class="control-form btn_border" formControlName="bookingStatus"
+                                (change)="setSelectedStatus()">
+                                <option value="" selected >{{item.bookingStatus}} </option>
+                                <option value="Scheduled">Scheduled </option>
+                                <option value="Cancelled">Cancelled </option>
+                                <option value="Completed">Completed </option>
+                            </select>
+                        </td>
+                        <td>{{item.serviceCountInCart}}</td>
+                    </tr>
+
+                </table>
+            </div>
+
+
+
+
+
+
+
+
+
+        </div>
+    </form>
+</div>
+
+
+
+
+<!-- modal -->
+
+<div class="modal fade" id="myModalpaymentreciept" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+    aria-hidden="true">
+    <div class="modal-dialog max_sf modal-dialog-centered" role="document"
+        style="border-radius:15px; overflow:hidden; border:none;">
+        <div class="modal-content popup_advance">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <div class="modal-body text-center">
+                <!-- <div class="imagePreview vendor-preview">
+                    <img class="image" [src]="rootUrl + orderDetails.paymentReceipt">
+                </div> -->
+
+
+            </div>
+
+        </div>
+    </div>
+
+</div>

@@ -20,7 +20,9 @@ export class AppointmentListComponent implements OnInit {
   totalItems!: number;
   datePickerConfig: Partial<BsDatepickerConfig>;
   form:any
-
+  selectedPaymentMethod: string = '';
+  selectedAppointmentStatus: string = '';
+  selectedPaymentStatus: string = '';
   constructor(private toaster: ToastrService,
     private spinner: NgxSpinnerService,
     private content: ContentService,
@@ -41,8 +43,9 @@ export class AppointmentListComponent implements OnInit {
       paymentStatus    : [''],
       fromDate         : [''],
       toDate           : [''],
+      paymentMethod    : [''],
       appointmentStatus: [''],
-      sortDateBy       : ['0']
+      sortDateBy       : ['0'],
   
       
 
@@ -71,6 +74,7 @@ export class AppointmentListComponent implements OnInit {
       queryParamsHandling: 'merge'
     });
   }
+
 
 
   getAppointmentsList() {
@@ -114,6 +118,27 @@ export class AppointmentListComponent implements OnInit {
     });
   }
 
+  getPaymentMethodList(){
+
+    let payload ={
+      pageNumber:1,
+      pageSize:1000,
+      salonId : localStorage.getItem('salonId'),
+      paymentMethod : this.form.value.paymentMethod
+    }
+    this.spinner.show();
+    this.content.paymentMethodList(payload).subscribe(response => {
+      if(response.isSuccess) {
+        this.appointmentsList = response.data
+        this.spinner.hide();
+        this.toaster.success(response.messages)
+      } else {
+        this.spinner.hide();
+        this.toaster.error(response.messages)
+        this.appointmentsList = []
+      }
+    })
+  }
   getAppointmentStatusList() {
     
     let payload = {
@@ -122,6 +147,7 @@ export class AppointmentListComponent implements OnInit {
       salonId : localStorage.getItem('salonId'),
       appointmentStatus: this.form.value.appointmentStatus
     }
+   
     this.spinner.show();
     this.content.appointmentStatusList(payload).subscribe(response => {
       if (response.isSuccess) {
@@ -144,6 +170,10 @@ export class AppointmentListComponent implements OnInit {
       salonId : localStorage.getItem('salonId'),
       paymentStatus: this.form.value.paymentStatus
     }
+
+     this.form.get('appointmentStatus').valueChanges.subscribe(() => {
+       this.form.get('paymentMethod').setValue('');
+     }); 
     this.spinner.show();
     this.content.appointmentPaymentStatusList(payload).subscribe(response => {
       if (response.isSuccess) {
@@ -161,3 +191,9 @@ export class AppointmentListComponent implements OnInit {
 
 
 }
+
+ // this.form.get('appointmentStatus').valueChanges.subscribe(() => {
+    //   this.form.get('paymentMethod').setValue('');
+    // }); 
+    // this.form.get('paymentMethod').setValue('');
+    // this.form.get('paymentStatus').setValue('');

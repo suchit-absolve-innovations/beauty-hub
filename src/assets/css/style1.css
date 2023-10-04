@@ -476,6 +476,16 @@ a.forget_link {
     text-decoration: none;
 }
 
+.btn_filter{
+    margin-top: -23px;
+    color: #525252;
+    padding: 0px 28px;
+    height: 38px;
+    border-radius: 4px;
+    font-size: 15px;
+    border: 1px solid #d3cfd0;
+    outline: none;
+}
 .border-btn {
     color: #000;
     padding: 0px 25px;
