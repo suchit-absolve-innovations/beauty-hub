@@ -24,11 +24,12 @@
             <td>{{item.basePrice}}</td>
             <td>{{item.finalPrice}}</td>
             <td>{{item.appointmentDate}}</td>
+            <!-- <td>{{item.bookingStatus}}</td> -->
             <td>{{item.fromTime}} - {{item.toTime}}</td>
             <td class="td-dropdown">
                 <select type="text" class="control-form btn_border" formControlName="bookingStatus"
                     (change)="setSelectedStatus()">
-                    <option value="" selected>{{item.bookingStatus}} </option>
+                    <option value="" selected>{{item?.bookingStatus}} </option>
                     <option value="Scheduled">Scheduled </option>
                     <option value="Cancelled">Cancelled </option>
                     <option value="Completed">Completed </option>

@@ -50,26 +50,27 @@ export class AppointmentDetailComponent implements OnInit {
         this.toaster.error(response.messages);
       }
     });
-
+    this.setSelectedStatus()
   
   }
-  // setSelectedStatus() {
-  //   let payload = {
-  //     appointmentId :this.appointmentDetail.appointmentId,
-  //     appointmentStatus : this.appointmentDetail.appointmentStatus,
-  //     setToAll : true
+  setSelectedStatus() {
+    let payload = {
+      appointmentId :this.appointmentDetail.appointmentId,
+      appointmentStatus : this.appointmentDetail.appointmentStatus,
+      setToAll : true
 
-  //   };
-  //   this.spinner.show();
-  //   this.content.postStatus(payload).subscribe(response => {
+    };
+    this.spinner.show();
+    this.content.postStatus(payload).subscribe(response => {
   
-  //     if (response.isSuccess) {
-  //       this.toaster.success(response.messages);
-  //     }
-  //     else {
-  //       this.toaster.error(response.messages)}
-  //   });  this.spinner.hide()
-  // }
+      if (response.isSuccess) {
+        this.toaster.success(response.messages);
+      }
+      else {
+        this.toaster.error(response.messages)}
+    });  this.spinner.hide()
+  }
 }
+
 
 
