@@ -823,7 +823,9 @@ appointmentPaymentStatusList(data:any){
 postStatus(data:any){
   return this.http.post<any>(environment.apiUrl + ApiEndPoint.postAppointmentsStatus,data)
 }
-
+postPaymentStatus(data:any){
+  return this.http.post<any>(environment.apiUrl + ApiEndPoint.postPaymentStatus,data)
+}
 
 
   

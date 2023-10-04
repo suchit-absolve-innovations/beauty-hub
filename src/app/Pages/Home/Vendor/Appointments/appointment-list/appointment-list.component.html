@@ -95,12 +95,13 @@
                                 <th>Customer Name</th>
                                 <th>Booking Date</th>
                                 <th>Appointment Date</th>
+                                <th>Total Services</th>
                                 <th>Appointment Status</th>
                                 <th>Phone No.</th>
                                 <th>Price</th>
                                 <th>Payment Method</th>
                                 <th>Payment Status</th>
-                                <th>Total Services</th>
+                                
                                
                                 <th>Action</th>
                             </tr>
@@ -110,6 +111,7 @@
                                 <td>{{item.customerFirstName}} {{item.customerLastName}}</td>
                                 <td>{{item.createDate}}</td>
                                 <td>{{item.appointmentDate}}</td>  
+                                <td>{{item.totalServices}}</td>
                                 <!-- <td>{{item.appointmentStatus}}</td>   -->
                                    <td class="td-dropdown">
                                     <select type="text" class="control-form btn_border" formControlName="appointmentStatus"
@@ -126,14 +128,14 @@
                                 <td>{{item.paymentMethod}}</td>
                                 <td class="td-dropdown">
                                     <select type="text" class="control-form btn_border" formControlName="paymentStatus"
-                                        >
+                                    (change)="paymentsStatus()"  (change)="postPaymentStatus(item)">
                                         <option value="" selected>{{item.paymentStatus}} </option>
                                         <option value="Paid">Paid </option>
                                         <option value="Unpaid">Unpaid </option>
                                         <option value="Refunded"> Refunded </option>
                                     </select>
                                 </td>
-                                <td>{{item.totalServices}}</td>
+                              
                                 <td>
                                     <a [routerLink]="['/appointment-list/appointment-detail/'] + item.appointmentId">
                                         <i class="fa fa-eye"></i>

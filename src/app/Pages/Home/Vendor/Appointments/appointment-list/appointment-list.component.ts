@@ -21,6 +21,8 @@ export class AppointmentListComponent implements OnInit {
   datePickerConfig: Partial<BsDatepickerConfig>;
   form:any
   postAppointmentStatus: any;
+  PaymentStatus:any;
+  postPaymentsStatus: any;
   
 
   constructor(private toaster: ToastrService,
@@ -230,9 +232,29 @@ export class AppointmentListComponent implements OnInit {
     });
   }
 
+  paymentsStatus(){
+    this.postPaymentsStatus = this.form.value.paymentStatus
+  }
+  postPaymentStatus(data:any) {
+    debugger
+    let payload = {
+      appointmentId : data.appointmentId,
+      paymentStatus : this.postPaymentsStatus,
 
-
+    };
+    this.spinner.show();
+    this.content.postPaymentStatus(payload).subscribe(response => {
+      if (response.isSuccess) {
+        
+        this.toaster.success(response.messages);
+      }
+      else {
+        this.toaster.error(response.messages)}
+    });  this.spinner.hide()
+  }
 }
+
+
 
  // this.form.get('appointmentStatus').valueChanges.subscribe(() => {
     //   this.form.get('paymentMethod').setValue('');
