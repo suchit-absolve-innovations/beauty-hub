@@ -5,6 +5,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { ContentService } from 'src/app/Shared/service/content.service';
 import { environment } from 'src/environments/environment';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-appointment-detail',
@@ -31,6 +32,7 @@ export class AppointmentDetailComponent implements OnInit {
     private toaster: ToastrService,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
+    private _location: Location,
     private renderer: Renderer2) { }
 
     ngAfterViewInit() {
@@ -42,6 +44,7 @@ export class AppointmentDetailComponent implements OnInit {
         this.scrollToElement.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     }
+
 
   ngOnInit(): void {
     this.rootUrl = environment.rootPathUrl;
@@ -60,6 +63,11 @@ export class AppointmentDetailComponent implements OnInit {
 
     });
   }
+  
+  backClicked() {
+    this._location.back();
+  }
+
   getApointmentDetail() {
     
     this.spinner.show();
