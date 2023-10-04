@@ -20,11 +20,8 @@ export class AppointmentListComponent implements OnInit {
   totalItems!: number;
   datePickerConfig: Partial<BsDatepickerConfig>;
   form:any
-  selectedPaymentMethod: string = '';
-  selectedAppointmentStatus: string = '';
-  selectedPaymentStatus: string = '';
   postAppointmentStatus: any;
-  newAppointmentStatus: any;
+  
 
   constructor(private toaster: ToastrService,
     private spinner: NgxSpinnerService,

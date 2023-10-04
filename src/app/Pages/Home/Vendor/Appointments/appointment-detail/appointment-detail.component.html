@@ -140,7 +140,7 @@
 
             <h3 class="mt-30">Service Detail</h3>
 
-            <div class="table-responsive mt-40">
+            <div #scrollToElement class="table-responsive mt-40">
                 <table class="table admin_table  product-detail-table">
                     <tr>
                         <th>Service Name</th>
@@ -165,9 +165,9 @@
                         <td>{{item.appointmentDate}}</td>
                         <td>{{item.fromTime}} - {{item.toTime}}</td>
                         <td class="td-dropdown">
-                            <select type="text" class="control-form btn_border" formControlName="bookingStatus"
-                                (change)="setSelectedStatus()">
-                                <option value="" selected >{{item.bookingStatus}} </option>
+                            <select type="text" class="control-form btn_border" formControlName="appointmentStatus"
+                            (change)="appointmentStatus()"  (change)="setSelectedStatus(item)">
+                                <option value="" selected>{{item?.appointmentStatus}} </option>
                                 <option value="Scheduled">Scheduled </option>
                                 <option value="Cancelled">Cancelled </option>
                                 <option value="Completed">Completed </option>
