@@ -404,9 +404,6 @@ export class ContentService {
   }
 
 
-  orderPaymentStatus(data:any){
-    return this.http.post<any>(environment.apiUrl + ApiEndPoint.paymentStatus,data)
- }
 
 
 
@@ -823,8 +820,12 @@ appointmentPaymentStatusList(data:any){
   return this.http.get<any>(environment.apiUrl + ApiEndPoint.getAppointmentsList  + '?pageNumber=' + data.pageNumber + '&pageSize=' + data.pageSize + '&salonId=' + data.salonId + '&paymentStatus=' + data.paymentStatus)
 
 }
-setAppointmentStatus(data:any){
-  return this.http.post<any>(environment.apiUrl + ApiEndPoint.postAppointmentStatus, data)
+postStatus(data:any){
+  return this.http.post<any>(environment.apiUrl + ApiEndPoint.postAppointmentsStatus,data)
 }
+
+
+
+  
 
 }

@@ -65,7 +65,7 @@ export class AppointmentDetailComponent implements OnInit {
 
     };
     this.spinner.show();
-    this.content.setAppointmentStatus(payload).subscribe(response => {
+    this.content.postStatus(payload).subscribe(response => {
   
       if (response.isSuccess) {
         this.toaster.success(response.messages);

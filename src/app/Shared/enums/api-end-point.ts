@@ -68,8 +68,7 @@ export enum ApiEndPoint {
     orderList = "api/Vendor/GetVendorOrderList",
     orderdetail = "api/Vendor/GetVendorOrderDetail",
     orderStatus = "api/Vendor/SetOrderStatus",
-    paymentStatus = "api/Vendor/SetPaymentStatus",
-
+ 
    // SALON API
 
    getBannerList = "api/Content/GetBannerList",
@@ -136,5 +135,7 @@ export enum ApiEndPoint {
   updateUserAdmin = "api/Admin/UpdateAdminUser",
   getAppointmentsList = 'api/Vendor/GetVendorAppointmentList',
   getAppointmentDetail = 'api/Vendor/GetVendorAppointmentDetail',
-  postAppointmentStatus = 'api/Vendor/SetAppointmentStatus'
+  postAppointmentsStatus = 'api/Vendor/SetAppointmentStatus'
+
+
 }

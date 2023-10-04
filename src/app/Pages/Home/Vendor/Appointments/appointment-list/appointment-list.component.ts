@@ -23,6 +23,9 @@ export class AppointmentListComponent implements OnInit {
   selectedPaymentMethod: string = '';
   selectedAppointmentStatus: string = '';
   selectedPaymentStatus: string = '';
+  postAppointmentStatus: any;
+  newAppointmentStatus: any;
+
   constructor(private toaster: ToastrService,
     private spinner: NgxSpinnerService,
     private content: ContentService,
@@ -158,6 +161,48 @@ export class AppointmentListComponent implements OnInit {
         this.spinner.hide();
         this.toaster.error(response.messages)
         this.appointmentsList = []
+      }
+    });
+  }
+
+  handleSelectChange(item: any) {
+    debugger;
+    if (item.totalServices == '1' ) {
+    // Handle when totalServices is 1 (e.g., post status)
+        this.postAppointmentsStatus(item);
+    }
+    else {
+      // Handle when totalServices is greater than 1 (e.g., navigate to detail page)
+      this.navigateToDetailPage(item);
+    }
+  }  
+  
+  navigateToDetailPage(item: any) {
+    // Navigation logic when totalServices is greater than 1
+    // You can use Angular Router to navigate to the detail page
+    // Example:
+    this.router.navigate(['/appointment-list/appointment-detail/', item.appointmentId]);
+  }
+  appointmentStatus(){
+    this.postAppointmentStatus = this.form.value.appointmentStatus
+  }
+
+  postAppointmentsStatus(data:any ){
+    debugger
+    let payload = {
+      appointmentId : data.appointmentId,
+      appointmentStatus : this.postAppointmentStatus,
+      setToAll : true
+    }
+    this.spinner.show();
+    this.content.postStatus(payload).subscribe(response => {
+      if(response.isSuccess) {
+        this.spinner.hide();
+        this.toaster.success(response.messages)
+
+      } else {
+        this.spinner.hide();
+        this.toaster.error(response.messages)
       }
     });
   }

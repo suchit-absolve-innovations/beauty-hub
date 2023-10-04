@@ -105,18 +105,20 @@
                                 <th>Action</th>
                             </tr>
 
-                            <tr *ngFor="let item of appointmentsList">
+                            <tr *ngFor="let item of appointmentsList | filter:searchText | paginate: {itemsPerPage: 5, currentPage: page, totalItems: totalItems,id: '1' }  ">
                                 <td>{{item.appointmentId}}</td>
                                 <td>{{item.customerFirstName}} {{item.customerLastName}}</td>
                                 <td>{{item.createDate}}</td>
                                 <td>{{item.appointmentDate}}</td>  
-                                <td class="td-dropdown">
+                                <!-- <td>{{item.appointmentStatus}}</td>   -->
+                                   <td class="td-dropdown">
                                     <select type="text" class="control-form btn_border" formControlName="appointmentStatus"
-                                        >
-                                        <option value="" selected>{{item.appointmentStatus}} </option>
-                                        <option value="Scheduled">Scheduled </option>
-                                        <option value="Cancelled">Cancelled </option>
-                                        <option value="Completed">Completed </option>
+                                     (change)="appointmentStatus()"   (change)="handleSelectChange(item)">
+                                        <option value="" selected>{{item?.appointmentStatus}} </option>
+                                        <option value="Scheduled">Scheduled</option>
+                                        <option value="Cancelled">Cancelled</option>
+                                        <option value="Completed">Completed</option>
+
                                     </select>
                                 </td>
                                 <td>{{item.phoneNumber}}</td>
