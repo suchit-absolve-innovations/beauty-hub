@@ -33,10 +33,6 @@ export class AppointmentDetailComponent implements OnInit {
     this.rootUrl = environment.rootPathUrl;
     this.appointmentId = this.route.snapshot.paramMap.get('id');
     this.getApointmentDetail();
-
-    this.form = this.formBuilder.group({
-      setAppointmentStatus : [''],
-    })
   }
   getApointmentDetail() {
     
@@ -54,42 +50,26 @@ export class AppointmentDetailComponent implements OnInit {
         this.toaster.error(response.messages);
       }
     });
-    this.setSelectedStatus()
-  
-  }
-  setSelectedStatus() {
-    let payload = {
-      appointmentId :this.appointmentDetail.appointmentId,
-      appointmentStatus : this.appointmentDetail.appointmentStatus,
-      setToAll : true
 
-    };
-    this.spinner.show();
-    this.content.postStatus(payload).subscribe(response => {
   
-      if (response.isSuccess) {
-        this.toaster.success(response.messages);
-      }
-      else {
-        this.toaster.error(response.messages)}
-    });  this.spinner.hide()
   }
+  // setSelectedStatus() {
+  //   let payload = {
+  //     appointmentId :this.appointmentDetail.appointmentId,
+  //     appointmentStatus : this.appointmentDetail.appointmentStatus,
+  //     setToAll : true
+
+  //   };
+  //   this.spinner.show();
+  //   this.content.postStatus(payload).subscribe(response => {
+  
+  //     if (response.isSuccess) {
+  //       this.toaster.success(response.messages);
+  //     }
+  //     else {
+  //       this.toaster.error(response.messages)}
+  //   });  this.spinner.hide()
+  // }
 }
 
-//   setAppointmentStatus() {
-//     let payload = {
-//    
-//       appointmentStatus: this.form.value.appointmentStatus
-//     }
-
-//     this.spinner.show();
-// this.content.setAppointmentStatus(payload).subscribe(response => {
-//   if (response.isSuccess) {
-//     this.appointmentStatus = response
-  
-//     this.toaster.success(response.messages);
-  
-//   }
-// })
-//   }
 
