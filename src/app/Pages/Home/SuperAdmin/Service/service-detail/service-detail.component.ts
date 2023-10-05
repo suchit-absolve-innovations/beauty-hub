@@ -15,11 +15,14 @@ import { environment } from 'src/environments/environment';
 export class ServiceDetailComponent implements OnInit {
 
   rootUrl: any;
+  imageUrl:any;
   serviceId: any;
   serviceDetail: any;
   show = false;
   isCollapsed: boolean = true;
   description: any;
+  serviceImage :any;
+  serviceIconImage :any;
   constructor(private content: ContentService,
     private toaster: ToastrService,
     private spinner: NgxSpinnerService,
@@ -41,15 +44,20 @@ export class ServiceDetailComponent implements OnInit {
     this._location.back();
   }
 
+  
   /** get product detail **/
 
   getServiceDetail() {
+    debugger
     this.spinner.show();
     this.content.getServiceDetail(this.serviceId).subscribe(response => {
       if (response.isSuccess) {
+      
+        this.serviceDetail = response.data
+        this.serviceImage = this.serviceDetail.serviceIconImage
+        console.log(this.serviceImage)
         this.spinner.hide();
         this.toaster.success(response.messages);
-        this.serviceDetail = response.data
         // this.description = response.data.productDescription
       } else {
         this.spinner.hide();

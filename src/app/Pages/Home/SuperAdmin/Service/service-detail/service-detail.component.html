@@ -84,6 +84,10 @@
                                 <dd>
                                     {{serviceDetail?.serviceDescription}}</dd>
                             </dl>
+                            <dl class=" inform_text">
+                                <dt>Service Image Icon:</dt>
+                                <dd><a href="" data-toggle="modal" data-target="#myModal">Preview</a></dd>
+                            </dl>
                         </div>
                     </div>
                 </div>
@@ -139,6 +143,22 @@
                 </div>
             </div>
 
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+    aria-hidden="true">
+    <div class="modal-dialog max_sf modal-dialog-centered" role="document"
+        style="border-radius:15px; overflow:hidden; border:none;">
+        <div class="modal-content popup_advance">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <div class="modal-body text-center">
+                <div class="imagePreview vendor-preview">
+                    <img class="image" [src]="rootUrl + serviceImage">
+                </div>
+            </div>
         </div>
     </div>
 </div>

@@ -90,8 +90,6 @@ export class AppointmentListComponent implements OnInit {
     this.content.getAppointmentList(payload).subscribe(response => {
       if (response.isSuccess) {
         this.appointmentsList = response.data;
- 
-  
         this.spinner.hide();
       }
     });
@@ -120,27 +118,7 @@ export class AppointmentListComponent implements OnInit {
     });
   }
 
-  getPaymentMethodList(){
 
-    let payload ={
-      pageNumber:1,
-      pageSize:1000,
-      salonId : localStorage.getItem('salonId'),
-      paymentMethod : this.form.value.paymentMethod
-    }
-    this.spinner.show();
-    this.content.paymentMethodList(payload).subscribe(response => {
-      if(response.isSuccess) {
-        this.appointmentsList = response.data
-        this.spinner.hide();
-        this.toaster.success(response.messages)
-      } else {
-        this.spinner.hide();
-        this.toaster.error(response.messages)
-        this.appointmentsList = []
-      }
-    })
-  }
   getAppointmentStatusList() {
     
     let payload = {
@@ -185,6 +163,27 @@ export class AppointmentListComponent implements OnInit {
   appointmentStatus(){
     this.postAppointmentStatus = this.form.value.appointmentStatus
   }
+  getPaymentMethodList(){
+
+    let payload ={
+      pageNumber:1,
+      pageSize:1000,
+      salonId : localStorage.getItem('salonId'),
+      paymentMethod : this.form.value.paymentMethod
+    }
+    this.spinner.show();
+    this.content.paymentMethodList(payload).subscribe(response => {
+      if(response.isSuccess) {
+        this.appointmentsList = response.data
+        this.spinner.hide();
+        this.toaster.success(response.messages)
+      } else {
+        this.spinner.hide();
+        this.toaster.error(response.messages)
+        this.appointmentsList = []
+      }
+    })
+  }
 
   postAppointmentsStatus(data:any ){
     debugger
@@ -215,9 +214,9 @@ export class AppointmentListComponent implements OnInit {
       paymentStatus: this.form.value.paymentStatus
     }
 
-     this.form.get('appointmentStatus').valueChanges.subscribe(() => {
-       this.form.get('paymentMethod').setValue('');
-     }); 
+    //  this.form.get('appointmentStatus').valueChanges.subscribe(() => {
+    //    this.form.get('paymentMethod').setValue('');
+    //  }); 
     this.spinner.show();
     this.content.appointmentPaymentStatusList(payload).subscribe(response => {
       if (response.isSuccess) {
