@@ -36,6 +36,9 @@ export class AddServiceComponent implements OnInit {
   // time2!: string;
   salonId: any;
   role!: string | null;
+  urls1: any = [];
+  image1: any;
+  imageUrl: any;
 
 
 
@@ -134,7 +137,7 @@ timeValidator(control: AbstractControl): ValidationErrors | null {
  // submit 
 
  postSubmit(){
- 
+ debugger
   if(this.role == 'SuperAdmin') {
 this.submit();
   } else if (this.role == 'Vendor') {
@@ -171,6 +174,7 @@ this.submitVendor();
 
     this.serviceId = response.data?.serviceId
     this.fileChangeEvent();
+    this.fileChangeEvents();
     this.spinner.hide()
     if (response.isSuccess) {
       this.toaster.success(response.messages);
@@ -184,6 +188,7 @@ this.submitVendor();
 
 
 submitVendor() {
+
   this.submitted = true;
   if (this.form.invalid) {
     this.toasterService.error("Form Incomplete: Please fill in all the required fields correctly");
@@ -215,6 +220,7 @@ submitVendor() {
 
     this.serviceId = response.data?.serviceId
     this.fileChangeEvent();
+    this.fileChangeEvents();
     this.spinner.hide()
     if (response.isSuccess) {
       this.toaster.success(response.messages);
@@ -278,22 +284,53 @@ onTimeInputChange2(event: Event) {
 
 
 
-onselect(event: any) {   
+
+handleFileInput(event: any) {
+    debugger
   const files = event.target.files;
-  for (let i = 0; i < files.length; i++) {
-    const file = files[i];
+  for (let e = 0; e < files.length; e++) {
+    const file = files[e];
+    this.image1 = file
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = () => {
-      const imageDataUrl = reader.result as string;
-      this.urls.push(imageDataUrl);
+      const imageDataUrl1 = reader.result as string;
+      this.imageUrl = imageDataUrl1;
+      this.urls1.push(imageDataUrl1);
     };
   }
 }
 
 
+
+
+fileChangeEvents() {
+  debugger
+  const formData = new FormData();
+  for (let i = 0; i < this.urls.length; i++) {
+    const imageDataUrl = this.urls[i];
+    const blob = this.dataURItoBlob(imageDataUrl);
+    formData.append('salonServiceIconImage', blob, `image_${i}.png`);
+  }
+  formData.append('serviceId', this.serviceId);
+  this.contentService.uploadServiceIconImage(formData).subscribe(response => {
+  });
+}
+
+  onselect(event: any) {   
+    const files = event.target.files;
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        const imageDataUrl = reader.result as string;
+        this.urls.push(imageDataUrl);
+      };
+    }
+  }
+
 fileChangeEvent() {
-  
   const formData = new FormData();
   for (let i = 0; i < this.urls.length; i++) {
     const imageDataUrl = this.urls[i];
@@ -304,6 +341,7 @@ fileChangeEvent() {
   this.contentService.uploadServiceImage(formData).subscribe(response => {
   });
 }
+
 
 private dataURItoBlob(dataURI: string): Blob {  
   const byteString = atob(dataURI.split(',')[1]);

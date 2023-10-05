@@ -774,6 +774,19 @@ planUpdate(data: any) {
       return data;
     }));
   }
+
+  uploadServiceIconImage(data: any) {
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'multipart/form-data');
+    const options = {
+      headers: headers
+    };
+    return this.http.post<any>(environment.apiUrl + ApiEndPoint.serviceIconImage, data, options).pipe(map((data: any) => {
+      localStorage.setItem('File', data);
+      return data;
+    }));
+  }
+
   deleteService(serviceId: any) {
     return this.http.delete<any>(environment.apiUrl + ApiEndPoint.serviceDelete + '?serviceId=' + serviceId)
   }
@@ -820,6 +833,7 @@ appointmentPaymentStatusList(data:any){
   return this.http.get<any>(environment.apiUrl + ApiEndPoint.getAppointmentsList  + '?pageNumber=' + data.pageNumber + '&pageSize=' + data.pageSize + '&salonId=' + data.salonId + '&paymentStatus=' + data.paymentStatus)
 
 }
+
 postStatus(data:any){
   return this.http.post<any>(environment.apiUrl + ApiEndPoint.postAppointmentsStatus,data)
 }

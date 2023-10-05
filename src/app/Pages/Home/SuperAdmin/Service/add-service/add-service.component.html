@@ -10,7 +10,7 @@
                     <div class="row">
 
                         <div class="col-lg-12 col-md-12 mb-30 text-center">
-                            <h2>Add Service Picture</h2>
+                            <h2>Add Service Banner</h2>
                         </div>
 
                         <div class="col-lg-12 col-md-12 mb-20">
@@ -234,15 +234,23 @@
                       </div> -->
 
                         <div class=" col-md-12">
-                            <label>Discription</label>
+                            <label>Description</label>
                             <textarea type="text" class="control-form" formControlName="serviceDescription">
                   </textarea>
 
                             <div *ngIf="submitted && f['serviceDescription'].errors" class="help-block">
                                 <div *ngIf="f['serviceDescription'].errors" style="color: #fd0000">
-                                    Discription is required.
+                                    Description is required.
                                 </div>
                             </div>
+                        </div>
+
+                        <div class="col-lg-12 col-md-12 mb-20">
+                            <label>Service Image</label>
+                            <br>
+                            <input name="bannerimage" type="file" class="uploadFile img" #image1
+                                (change)="handleFileInput($event)">
+                            <label data-toggle="modal" data-target="#myModal3" class="preview-butn">preview</label>
                         </div>
 
                         <div class="col-lg-12 col-md-12 mt-40 text-center btn_margin">
@@ -279,6 +287,28 @@
                 </button>
                 <button type="button" class="btn_blue" (click)="cancel()" >Yes, Cancel It</button>
             </div>
+        </div>
+    </div>
+</div>
+
+<!-- modal3 -->
+
+<div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+    aria-hidden="true">
+    <div class="modal-dialog max_sf modal-dialog-centered" role="document"
+        style="border-radius:15px; overflow:hidden; border:none;">
+        <div class="modal-content popup_advance">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <div class="modal-body text-center">
+                <div class="imagePreview vendor-preview">
+                    <img class="image" [src]="imageUrl">
+                </div>
+
+
+            </div>
+
         </div>
     </div>
 </div>

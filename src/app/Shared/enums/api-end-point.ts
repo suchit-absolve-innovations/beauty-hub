@@ -122,6 +122,7 @@ export enum ApiEndPoint {
   addSchedule = "api/Service/addUpdateSalonSchedule",
   addService = "api/Service/AddUpdateSalonService",
   serviceImage ="api/Upload/UploadServiceImage",
+  serviceIconImage ="api/Upload/UploadServiceIconImage",
   base64 = "api/Service/getServiceImageInBase64",
   serviceDelete = "api/Service/DeleteSalonService",
   broadcastNotification ='api/Notification/getBroadcastNotificationList',
