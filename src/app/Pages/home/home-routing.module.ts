@@ -41,6 +41,10 @@ import { VendorNotificationListComponent } from './Vendor/Notifications/vendor-n
 import { VendorAddNotificationComponent } from './Vendor/Notifications/vendor-add-notification/vendor-add-notification.component';
 import { AppointmentListComponent } from './Vendor/Appointments/appointment-list/appointment-list.component';
 import { AppointmentDetailComponent } from './Vendor/Appointments/appointment-detail/appointment-detail.component';
+import { PackageListComponent } from './Vendor/Packages/package-list/package-list.component';
+import { PackageDetailComponent } from './Vendor/Packages/package-detail/package-detail.component';
+import { AddEditPackageComponent } from './Vendor/Packages/add-edit-package/add-edit-package.component';
+import { EditPackageComponent } from './Vendor/Packages/edit-package/edit-package.component';
 
 
 const routes: Routes = [
@@ -109,7 +113,11 @@ const routes: Routes = [
      { path: 'add-edit-schedule',component : AddEditScheduleComponent},
      { path: 'service-list/edit-service', component: EditServiceComponent},
      { path: 'appointment-list', component: AppointmentListComponent},
-     { path: 'appointment-list/appointment-detail/:id', component: AppointmentDetailComponent}
+     { path: 'appointment-list/appointment-detail/:id', component: AppointmentDetailComponent},
+     { path: 'package-list', component: PackageListComponent},
+     { path: 'package-list/package-detail/:id', component: PackageDetailComponent},
+     { path: 'package-list/add-edit-package',component: AddEditPackageComponent},
+     { path: 'package-list/edit-package', component: EditPackageComponent}
     
      
 

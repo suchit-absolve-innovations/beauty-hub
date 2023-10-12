@@ -55,7 +55,7 @@ export class EditServiceComponent implements OnInit {
   }
 
   serviceForm() {
-    this.submitted = true;
+    // this.submitted = true;
     this.form = this.formBuilder.group({
       serviceName: ['', [Validators.required]],
       basePrice: ['', [Validators.required]],
@@ -192,6 +192,7 @@ export class EditServiceComponent implements OnInit {
 
 
   imageConvert64() {
+
     this.contentService.imageConvert(this.serviceId.id2).subscribe(response => {
       if (response.isSuccess) {
         this.base64Image = response.data

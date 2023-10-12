@@ -99,7 +99,7 @@ onLogin(){
         // this.vendorId = localStorage.getItem('vendorId')
         // this.getvendorDetail();
         this.toasterService.success(response.messages);
-        this.router.navigateByUrl('vendor-profile');
+        this.router.navigateByUrl('appointment-list');
         this.spinner.hide();
       }
       if (this.userRole?.role == 'Distributor') {

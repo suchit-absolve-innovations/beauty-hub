@@ -58,7 +58,7 @@ export enum ApiEndPoint {
     deleteProduct = "api/Product/DeleteProduct",
    
 
-    getCollectionList = "api/Product/GetCollectionList",
+   
     getCollectionNameList = "api/Product/GetCollectionNameList",
     
     getCollectionDetail = "api/Product/GetCollectionDetail",
@@ -137,6 +137,7 @@ export enum ApiEndPoint {
   getAppointmentsList = 'api/Vendor/GetVendorAppointmentList',
   getAppointmentDetail = 'api/Vendor/GetVendorAppointmentDetail',
   postAppointmentsStatus = 'api/Vendor/SetAppointmentStatus',
-  postPaymentStatus = 'api/Vendor/SetPaymentStatus'
+  postPaymentStatus = 'api/Vendor/SetPaymentStatus',
+  getPackagesList = "api/Service/GetSalonServiceList",
 
 }
