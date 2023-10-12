@@ -53,24 +53,83 @@
                     <div class="row">
 
                         <div class="col-lg-6 col-md-12">
-                            <label>Service Name</label>
+                            <label>Package Name</label>
                             <input type="text" class="control-form" formControlName="serviceName" />
                             <div *ngIf="submitted && f['serviceName'].errors" class="help-block">
                                 <div *ngIf="f['serviceName'].errors" style="color: #fd0000">
-                                    Service name is required.
+                                    Package name is required.
                                 </div>
                             </div>
                         </div>
-
-                        <div class="col-lg-6 col-md-12">
-                            <label>Base Price </label>
-                            <input type="text" class="form-control" formControlName="basePrice" />
-                            <div *ngIf="submitted && f['basePrice'].errors" class="help-block">
-                                <div *ngIf="f['basePrice'].errors" style="color: #fd0000">
-                                    Base Price is required.</div>
-                            </div>
+                        <div class="col-lg-6 col-md-12 mb-20">
+                            <label>Package Image</label>
+                            <br>
+                            <input name="bannerimage" type="file" class="uploadFile img" #image1
+                                (change)="handleFileInput($event)">
+                            <label data-toggle="modal" data-target="#myModal3" class="preview-butn">preview</label>
                         </div>
+                        <div class="col-md-12"><h3 style="font-size: 22px;">Select Service</h3></div>
+  <div class="Servicepackage">                
 
+        <div class="col-lg-6 col-md-12">
+            <label>Main Category</label>
+            <select type="text" class="control-form mr-20 btn_border" formControlName="mainCategoryId"
+                (change)="getSubcategoryList(f['mainCategoryId'].value)">
+                <option value="">Select </option>
+                <option *ngFor="let item of categoryList" [ngValue]="item?.mainCategoryId">
+                    {{item?.categoryName}}</option>
+
+            </select>
+            <!-- <select type="text" class="control-form mr-20 btn_border" formControlName="mainCategoryId"
+              (change)="getSubcategoryList(f['mainCategoryId'].value)">
+              <option value="">Select </option>
+              <option *ngFor="let item of categoryList" [ngValue]="item?.mainCategoryId">
+                  {{item?.categoryName}}</option>
+
+          </select>
+          <div *ngIf="submitted && f['mainCategoryId'].errors" class="help-block">
+              <div *ngIf="f['mainCategory'].errors" style="color: #fd0000">
+                  Main Category is required.
+              </div>
+          </div> -->
+        </div>
+        <div class="col-lg-6 col-md-12">
+            <label>Sub Category</label>
+
+            <select type="text" class="control-form mr-20 btn_border" formControlName="subCategoryId">
+                <option value="">Select </option>
+                <option *ngFor="let item of subCategoryList" [ngValue]="item?.subCategoryId">
+                    {{item?.categoryName}}</option>
+            </select>
+            <div *ngIf="submitted && f['subCategoryId'].errors" class="help-block">
+                <div *ngIf="f['subCategoryId'].errors" style="color: #fd0000">
+                    Sub Category is required.
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-12 col-md-12">
+            <div class="dropdown-scroll">
+                <label>Choose Services </label>
+                <!-- <select type="text" formcontrolname="discountType" class="control-form">
+                <option  selected>Select</option>
+                <option *ngFor="let item of productList">{{item.productName}}</option>
+            </select> -->
+            <ng-multiselect-dropdown   [(ngModel)]="selectedItems" [settings]="dropdownSettings" [data]="bindServiceList"
+            formControlName="serviceId" (onDeSelect)="onItemSelect($event)" 
+            (onSelectAll)="onSelectAll($event)">
+          </ng-multiselect-dropdown>
+        </div>
+      
+    
+        </div>
+
+
+</div>  
+
+
+
+                        
                         <div class="col-lg-6 col-md-12">
                             <label>Discount</label>
                             <input type="tel" class="control-form" formControlName="discount" numbersOnly />
@@ -175,67 +234,18 @@
                         </div>
 
 
-                        <div class="col-lg-6 col-md-12">
-                            <label>Main Category</label>
-                            <select type="text" class="control-form mr-20 btn_border" formControlName="mainCategoryId"
-                                (change)="getSubcategoryList(f['mainCategoryId'].value)">
-                                <option value="">Select </option>
-                                <option *ngFor="let item of categoryList" [ngValue]="item?.mainCategoryId">
-                                    {{item?.categoryName}}</option>
+                   
+                     
+                     
 
-                            </select>
-                            <!-- <select type="text" class="control-form mr-20 btn_border" formControlName="mainCategoryId"
-                              (change)="getSubcategoryList(f['mainCategoryId'].value)">
-                              <option value="">Select </option>
-                              <option *ngFor="let item of categoryList" [ngValue]="item?.mainCategoryId">
-                                  {{item?.categoryName}}</option>
-
-                          </select>
-                          <div *ngIf="submitted && f['mainCategoryId'].errors" class="help-block">
-                              <div *ngIf="f['mainCategory'].errors" style="color: #fd0000">
-                                  Main Category is required.
-                              </div>
-                          </div> -->
-                        </div>
-                        <div class="col-lg-6 col-md-12">
-                            <label>Sub Category</label>
-
-                            <select type="text" class="control-form mr-20 btn_border" formControlName="subCategoryId">
-                                <option value="">Select </option>
-                                <option *ngFor="let item of subCategoryList" [ngValue]="item?.subCategoryId">
-                                    {{item?.categoryName}}</option>
-                            </select>
-                            <div *ngIf="submitted && f['subCategoryId'].errors" class="help-block">
-                                <div *ngIf="f['subCategoryId'].errors" style="color: #fd0000">
-                                    Sub Category is required.
-                                </div>
+                        <div class="col-lg-6 col-md-12 mb-20 mt-20">
+                            <label>Base Price </label>
+                            <input type="text" class="form-control" formControlName="basePrice" />
+                            <div *ngIf="submitted && f['basePrice'].errors" class="help-block">
+                                <div *ngIf="f['basePrice'].errors" style="color: #fd0000">
+                                    Base Price is required.</div>
                             </div>
                         </div>
-
-                        <div class="col-lg-6 col-md-12">
-                            <div class="dropdown-scroll">
-                                <label>Choose Services </label>
-                                <!-- <select type="text" formcontrolname="discountType" class="control-form">
-                                <option  selected>Select</option>
-                                <option *ngFor="let item of productList">{{item.productName}}</option>
-                            </select> -->
-                            <ng-multiselect-dropdown   [(ngModel)]="selectedItems" [settings]="dropdownSettings" [data]="bindServiceList"
-                            formControlName="serviceId" (onDeSelect)="onItemSelect($event)" 
-                            (onSelectAll)="onSelectAll($event)">
-                          </ng-multiselect-dropdown>
-                        </div>
-                      
-    
-                        </div>
-                        <div class="col-lg-6 col-md-12 mb-20">
-                            <label>Service Image</label>
-                            <br>
-                            <input name="bannerimage" type="file" class="uploadFile img" #image1
-                                (change)="handleFileInput($event)">
-                            <label data-toggle="modal" data-target="#myModal3" class="preview-butn">preview</label>
-                        </div>
-
-
 
 
                         <!-- <div class="col-lg-6 col-md-12">

@@ -3082,3 +3082,16 @@ label.preview-butn {
     border-radius: 50px;
     padding: 0px 35px;
 }
+.Servicepackage {
+    background: #faf3f3;
+    padding: 30px 15px;
+    width: 100%;
+    margin: 0px 15px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.multiselect-dropdown span.dropdown-btn {
+    background: #fff;
+}
