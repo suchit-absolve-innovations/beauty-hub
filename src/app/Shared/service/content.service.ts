@@ -831,7 +831,8 @@ appointmentStatusList(data:any){
 
 }
 appointmentPaymentStatusList(data:any){
-  return this.http.get<any>(environment.apiUrl + ApiEndPoint.getAppointmentsList  + '?pageNumber=' + data.pageNumber + '&pageSize=' + data.pageSize + '&salonId=' + data.salonId + '&paymentStatus=' + data.paymentStatus)
+  return this.http.get<any>(environment.apiUrl + ApiEndPoint.getAppointmentsList  + '?pageNumber=' + data.pageNumber + '&pageSize=' + data.pageSize + '&salonId=' + data.salonId + '&paymentStatus=' + data.paymentStatus + '&appointmentStatus=' + data.appointmentStatus
+  + '&fromDate=' + data.fromDate + '&toDate=' + data.toDate + '&sortDateBy=' + data.sortDateBy)
 
 }
 
