@@ -727,6 +727,9 @@ planUpdate(data: any) {
     getservice(data:any){
       return this.http.get<any>(environment.apiUrl + ApiEndPoint.serviceList  + '?pageNumber=' + data.pageNumber + '&pageSize=' + data.pageSize + '&salonId=' + data.salonId)
     }
+    getfilteListBycategories(data:any){
+      return this.http.get<any>(environment.apiUrl + ApiEndPoint.serviceList  + '?pageNumber=' + data.pageNumber + '&pageSize=' + data.pageSize + '&salonId=' + data.salonId + '&mainCategoryId=' + data.mainCategoryId + '&subCategoryId=' + data.subCategoryId)
+    }
 
     getserviceGender(data:any){
       return this.http.get<any>(environment.apiUrl + ApiEndPoint.serviceList  + '?pageNumber=' + data.pageNumber + '&pageSize=' + data.pageSize + '&salonId=' + data.salonId + '&genderPreferences=' + data.genderPreferences)

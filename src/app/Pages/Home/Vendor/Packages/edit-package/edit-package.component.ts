@@ -55,6 +55,12 @@ export class EditPackageComponent implements OnInit {
   ServiceImage: any;
   serviceIconImage: any;
   imageUrl1: any;
+  imageFiles!: { link: any; file: any; name: any; type: any; };
+  errorMessage: string = '';
+  errorMessages: string = '';
+  isValid: boolean = false;
+  previewImage: string = '';
+  serviceIds: any;
 
 
 
@@ -105,8 +111,8 @@ export class EditPackageComponent implements OnInit {
       basePrice            : ['', [Validators.required]],
       discount             : ['', [Validators.required]],
       listingPrice         : ['', [Validators.required]],
-      mainCategoryId       : ['', [Validators.required]],
-      subCategoryId        : ['', [Validators.required]],
+      mainCategoryId       : [''],
+      subCategoryId        : [''],
       ageRestrictions      : ['', [Validators.required]],
       genderPreferences    : ['', [Validators.required]],
       totalCountPerDuration: ['', [Validators.required]],
@@ -198,6 +204,37 @@ debugger
   })
 }
 
+getServicesListByCategories() {
+  debugger
+    this.spinner.show();
+  
+    let payload = {
+      pageNumber: 1,
+      pageSize: 1000,
+      salonId: this.salonIds,
+      mainCategoryId: this.form.value.mainCategoryId ? this.form.value.mainCategoryId : '',
+      subCategoryId: this.form.value.subCategoryId ? this.form.value.subCategoryId : '',
+      
+    }
+    this.contentService.getfilteListBycategories(payload).subscribe(response => {
+      if (response.isSuccess) {
+        this.serviceList = response.data.dataList
+        this.bindServiceList = [];
+        this.serviceList.forEach((element: { serviceId: any; serviceName: any; }) => {
+          this.bindServiceList.push(
+            { item_id: element.serviceId, item_text: element.serviceName }
+          )
+        });
+        // this.shopId = response.data.dataList.shopId
+        // this.getFilterMainCategoryList(this.productList);
+        // this.total = response.data;
+  
+        this.spinner.hide();
+      }
+    })
+  }
+  
+
 convertSelectedItemsToString(): string {
   return this.selectedItems.map(item => item.item_id).join(',');
   
@@ -215,13 +252,13 @@ getServiceDetail() {
 
   this.spinner.show();
   this.contentService.getPackageDetail( payload).subscribe(response => {
-    this.spinner.hide();
+
     if (response.isSuccess) {
       this.spinner.hide();
       this.imageConvert64();
       this.packageDetailPatch = response.data
       this.ServiceImage = this.packageDetailPatch.serviceImage
-      this.imageUrl1 = this.rootUrl + this.packageDetailPatch.serviceIconImage
+      this.imageUrl = this.rootUrl + this.packageDetailPatch.serviceIconImage
       debugger
       this.options = this.packageDetailPatch.includeServiceId
       let serviceListData: { item_id: any; item_text: any; }[] = [];
@@ -239,7 +276,7 @@ getServiceDetail() {
         basePrice: this.packageDetailPatch.basePrice,
         discount: this.packageDetailPatch.discount,
         listingPrice: this.packageDetailPatch.listingPrice,
-        mainCategoryId: this.packageDetailPatch.mainCategoryId,
+        // mainCategoryId: this.packageDetailPatch.mainCategoryId,
         ageRestrictions: this.packageDetailPatch.ageRestrictions,
         genderPreferences: this.packageDetailPatch.genderPreferences,
         duration: this.packageDetailPatch.duration,
@@ -251,7 +288,7 @@ getServiceDetail() {
         includeServiceId: serviceListData,
        
       });
-      this.getSubcategoryList(this.packageDetailPatch?.mainCategoryId);
+      // this.getSubcategoryList(this.packageDetailPatch?.mainCategoryId);
    
 
     }
@@ -293,8 +330,8 @@ this.submitVendor();
     basePrice            : parseInt(this.form.value.basePrice),
     discount             : parseInt(this.form.value.discount),
     listingPrice         : parseInt(this.form.value.listingPrice),
-    mainCategoryId       : this.form.value.mainCategoryId,
-    subCategoryId        : this.form.value.subCategoryId,
+    // mainCategoryId       : this.form.value.mainCategoryId,
+    // subCategoryId        : this.form.value.subCategoryId,
     ageRestrictions      : this.form.value.ageRestrictions,
     genderPreferences    : this.form.value.genderPreferences,
     totalCountPerDuration: this.form.value.totalCountPerDuration,
@@ -308,7 +345,7 @@ this.submitVendor();
   this.spinner.show()
   this.contentService.addNewService(payload).subscribe(response => {
 
-    this.serviceId = response.data?.serviceId
+    this.serviceIds = response.data?.serviceId
     this.fileChangeEvent();
     this.fileChangeEvents();
     this.spinner.hide()
@@ -338,8 +375,8 @@ debugger
     basePrice            :  parseInt(this.form.value.basePrice),
     discount             :  parseInt(this.form.value.discount),
     listingPrice         :  parseInt(this.form.value.listingPrice),
-    mainCategoryId       : this.form.value.mainCategoryId,
-    subCategoryId        : this.form.value.subCategoryId,
+    // mainCategoryId       : this.form.value.mainCategoryId,
+    // subCategoryId        : this.form.value.subCategoryId,
     ageRestrictions      : this.form.value.ageRestrictions,
     genderPreferences    : this.form.value.genderPreferences,
     totalCountPerDuration: this.form.value.totalCountPerDuration,
@@ -356,8 +393,9 @@ debugger
   }
   this.spinner.show()
   this.contentService.addNewService(payload).subscribe(response => {
-
-    this.serviceId = response.data?.serviceId
+debugger
+    this.serviceIds = response.data?.serviceId
+    console.log(this.serviceIds)
     this.fileChangeEvent();
     this.fileChangeEvents();
     this.spinner.hide()
@@ -370,142 +408,251 @@ debugger
   });
 }
 
-onTimeInputChange(event: Event) {
-  const timeInput = event.target as HTMLInputElement;
-  const selectedTime = timeInput.value; // Get the selected time in "hh:mm" format
-  // Determine whether it's AM or PM based on a certain condition (e.g., hours)
-  const [hours] = selectedTime.split(':');
-  let parsedHours = parseInt(hours, 10);
-  // Calculate the period (AM or PM)
-  let period = 'AM';
-  if (parsedHours >= 12) {
-    period = 'PM';
-    if (parsedHours > 12) {
-      parsedHours -= 12;
-    }
-  }
-  if (parsedHours === 0) {
-    parsedHours = 12;
-  }
+// onTimeInputChange(event: Event) {
+//   const timeInput = event.target as HTMLInputElement;
+//   const selectedTime = timeInput.value; // Get the selected time in "hh:mm" format
+//   // Determine whether it's AM or PM based on a certain condition (e.g., hours)
+//   const [hours] = selectedTime.split(':');
+//   let parsedHours = parseInt(hours, 10);
+//   // Calculate the period (AM or PM)
+//   let period = 'AM';
+//   if (parsedHours >= 12) {
+//     period = 'PM';
+//     if (parsedHours > 12) {
+//       parsedHours -= 12;
+//     }
+//   }
+//   if (parsedHours === 0) {
+//     parsedHours = 12;
+//   }
   
-  // Format the time as "hh:mm tt"
-  const formattedTime = `${parsedHours.toString().padStart(2, '0')}:${selectedTime.slice(3)} ${period}`;
-this.time = formattedTime
-  console.log('Formatted Time:', formattedTime);
-  // Now 'formattedTime' contains the time in "hh:mm tt" format with 12-hour time
-}
+//   // Format the time as "hh:mm tt"
+//   const formattedTime = `${parsedHours.toString().padStart(2, '0')}:${selectedTime.slice(3)} ${period}`;
+// this.time = formattedTime
+//   console.log('Formatted Time:', formattedTime);
+//   // Now 'formattedTime' contains the time in "hh:mm tt" format with 12-hour time
+// }
 
 
-onTimeInputChange2(event: Event) {
-  const timeInput = event.target as HTMLInputElement;
-  const selectedTime = timeInput.value; // Get the selected time in "hh:mm" format
-  // Determine whether it's AM or PM based on a certain condition (e.g., hours)
-  const [hours] = selectedTime.split(':');
-  let parsedHours = parseInt(hours, 10);
-  // Calculate the period (AM or PM)
-  let period = 'AM';
-  if (parsedHours >= 12) {
-    period = 'PM';
-    if (parsedHours > 12) {
-      parsedHours -= 12;
-    }
-  }
-  if (parsedHours === 0) {
-    parsedHours = 12;
-  }
-  // Format the time as "hh:mm tt"
-  const formattedTime = `${parsedHours.toString().padStart(2, '0')}:${selectedTime.slice(3)} ${period}`;
-  this.time2 = formattedTime
-  console.log('Formatted Time:', formattedTime);
+// onTimeInputChange2(event: Event) {
+//   const timeInput = event.target as HTMLInputElement;
+//   const selectedTime = timeInput.value; // Get the selected time in "hh:mm" format
+//   // Determine whether it's AM or PM based on a certain condition (e.g., hours)
+//   const [hours] = selectedTime.split(':');
+//   let parsedHours = parseInt(hours, 10);
+//   // Calculate the period (AM or PM)
+//   let period = 'AM';
+//   if (parsedHours >= 12) {
+//     period = 'PM';
+//     if (parsedHours > 12) {
+//       parsedHours -= 12;
+//     }
+//   }
+//   if (parsedHours === 0) {
+//     parsedHours = 12;
+//   }
+//   // Format the time as "hh:mm tt"
+//   const formattedTime = `${parsedHours.toString().padStart(2, '0')}:${selectedTime.slice(3)} ${period}`;
+//   this.time2 = formattedTime
+//   console.log('Formatted Time:', formattedTime);
 
-  // Now 'formattedTime' contains the time in "hh:mm tt" format with 12-hour time
-}
-
-
+//   // Now 'formattedTime' contains the time in "hh:mm tt" format with 12-hour time
+// }
 
 
-handleFileInput(event: any) {
-    
-  const files = event.target.files;
-  for (let e = 0; e < files.length; e++) {
-    const file = files[e];
-    this.image1 = file
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => {
-      const imageDataUrl1 = reader.result as string;
-      this.imageUrl1 = imageDataUrl1;
-      this.urls1.push(imageDataUrl1);
-    };
-  }
-}
-
-
-fileChangeEvents() {
-    
+fileChangeEvent() {
+  debugger
   const formData = new FormData();
-  for (let e = 0; e < this.urls1.length; e++) {
-    const imageDataUrl1 = this.urls1[e];
-    const blob = this.dataURItoBlob1(imageDataUrl1);
-    formData.append('salonServiceIconImage', blob, `image_${e}.png`);
+  for (let i = 0; i < this.base64Image.length; i++) {
+    const imageDataUrl = this.base64Image[i];
+    const blob = this.dataURItoBlob(imageDataUrl);
+    formData.append('salonServiceImage', blob, `image_${i}.png`);
+    formData.append('salonServiceImage', imageDataUrl);
   }
-  // formData.append("SalonImage", this.imageFiles?.file);
-  formData.append('serviceId', this.serviceId);
-  this.contentService.uploadServiceIconImage(formData).subscribe(response => {
+  formData.append('serviceId', this.serviceIds);
+  this.contentService.uploadServiceImage(formData).subscribe(response => {
+    var a = response;
   });
 }
-private dataURItoBlob1(dataURI: string): Blob {
-
-  const byteString = atob(dataURI.split(',')[1]);
-  const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
-  const ab = new ArrayBuffer(byteString.length);
-  const ia = new Uint8Array(ab);
-  for (let e = 0; e < byteString.length; e++) {
-    ia[e] = byteString.charCodeAt(e);
-  }
-  return new Blob([ab], { type: mimeString });
-}
 
 
-
-onselect(event: any) {   
+// onselect(event: any) {
+//   const files = event.target.files;
+//   this.errorMessages = '';
+//   for (let i = 0; i < files.length; i++) {
+//     const file = files[i];
+//     const reader = new FileReader();
+//     reader.readAsDataURL(file);
+//     reader.onload = () => {
+      
+//       const imageDataUrl = reader.result as string;
+      
+//       this.base64Image.push(imageDataUrl);
+//     };
+//   }
+// }
+onselect(event: any) {
   const files = event.target.files;
+  this.errorMessages = ''; // Clear previous error messages
+
   for (let i = 0; i < files.length; i++) {
     const file = files[i];
     const reader = new FileReader();
     reader.readAsDataURL(file);
+
     reader.onload = () => {
-      const imageDataUrl = reader.result as string;
-      this.urls.push(imageDataUrl);
+      const image = new Image();
+      image.src = reader.result as string;
+
+      image.onload = () => {
+        if (image.width === 1280 && image.height === 720 && file.size / 1024 <= 1000) {
+          this.base64Image.push(image.src);
+        } else {
+          this.errorMessages ;
+        }
+      };
+    }
+  }
+}
+onBannerImageSelect(event: any) {
+  const file = event.target.files[0];
+
+  if (file) {
+    const imageSize = file.size / 1024; // in KB
+    const image = new Image();
+
+    image.src = URL.createObjectURL(file);
+
+    image.onload = () => {
+      if (image.width === 1280 && image.height === 720 && imageSize <= 1020) {
+        this.errorMessages = '';
+        this.isValid = true;
+        this.previewImage = image.src;
+      } else {
+        this.errorMessages = 'Please select 1280x720 pixels (width×height) image.';
+        this.isValid = false;
+        this.previewImage = '';
+      }
     };
   }
 }
 
-fileChangeEvent() {
-const formData = new FormData();
-for (let i = 0; i < this.urls.length; i++) {
-  const imageDataUrl = this.urls[i];
-  const blob = this.dataURItoBlob(imageDataUrl);
-  formData.append('salonServiceImage', blob, `image_${i}.png`);
+convertImageToBase64(url: string): Promise<string> {
+  return new Promise<string>((resolve, reject) => {
+    this.http.get(url, { responseType: 'blob' })
+      .subscribe(response => {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          if (reader.result !== null && reader.result !== undefined) {
+            const base64data = reader.result.toString().split(',')[1];
+            resolve(base64data);
+          } else {
+            reject(new Error('Error converting image to Base64.'));
+          }
+        };
+        reader.onerror = () => {
+          reject(new Error('Error converting image to Base64.'));
+        };
+        reader.readAsDataURL(response);
+      }, error => {
+        reject(error);
+      });
+  });
 }
-formData.append('serviceId', this.serviceId);
-this.contentService.uploadServiceImage(formData).subscribe(response => {
-});
+onImageSelect(event: any) {
+  const file = event.target.files[0];
+
+  if (file) {
+    const imageSize = file.size / 1024; // in KB
+    const image = new Image();
+
+    image.src = URL.createObjectURL(file);
+
+    image.onload = () => {
+      if (image.width === 512 && image.height === 512 && imageSize <= 512) {
+        this.errorMessage = '';
+        this.isValid = true;
+        this.previewImage = image.src;
+      } else {
+        this.errorMessage = 'Please select 512x512 pixels (width×height) image.';
+        this.isValid = false;
+        this.imageUrl = '';
+      }
+    };
+  }
 }
 
 
-private dataURItoBlob(dataURI: string): Blob {  
-const byteString = atob(dataURI.split(',')[1]);
-const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
-const ab = new ArrayBuffer(byteString.length);
-const ia = new Uint8Array(ab);
-for (let i = 0; i < byteString.length; i++) {
-  ia[i] = byteString.charCodeAt(i);
-}
-return new Blob([ab], { type: mimeString });
+// handleFileInput(event: any) {
+//   debugger
+//   if (event.target.files && event.target.files[0]) {
+
+//     //Show image preview
+//     let reader = new FileReader();
+//     reader.onload = (_event: any) => {
+//       this.imageUrl = _event.target.result;
+
+//       this.imageFiles = {
+//         link: _event.target.result,
+//         file: event.srcElement.files[0],
+//         name: event.srcElement.files[0].name,
+//         type: event.srcElement.files[0].type
+//       };
+//     }
+//     reader.readAsDataURL(event.target.files[0]);
+//   }
+// }
+handleFileInput(event: any) {
+  const files = event.target.files;
+  for (let e = 0; e < files.length; e++) {
+    const file = files[e];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    
+    reader.onload = () => {
+      const image = new Image();
+      image.src = reader.result as string;
+
+      image.onload = () => {
+        if (image.width === 512 && image.height === 512) {
+          // Only add the image to the array and update the preview if it meets the dimensions criteria.
+          const imageDataUrl = reader.result as string;
+          this.imageUrl = imageDataUrl;
+          this.imageFiles = {
+            link: imageDataUrl,
+            file: file,
+            name: file.name,
+            type: file.type
+          };
+        } else {
+          // Handle the case where the image doesn't meet the criteria (optional).
+          // You can add error messages or any other handling you prefer.
+        }
+      };
+    }
+  }
 }
 
+fileChangeEvents() {
+  debugger
+  let formData = new FormData();
+  formData.append("salonServiceIconImage", this.imageFiles?.file);
+  formData.append("serviceId", this.serviceIds);
+  this.contentService.uploadServiceIconImage(formData).subscribe(response => {
+  });
+}
 
+private dataURItoBlob(dataURI: string): Blob {
+  const byteString = atob(dataURI.split(',')[1]);
+  const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+  const ab = new ArrayBuffer(byteString.length);
+  const ia = new Uint8Array(ab)
+;
+  for (let i = 0; i < byteString.length; i++) {
+    ia[i] = byteString.charCodeAt(i);
+  }
+  return new Blob([ab], { type: mimeString });
+}
 removeImage(index: any) {
   this.selectedImageData.splice(index, 1);
   this.base64Image.splice(index, 1);

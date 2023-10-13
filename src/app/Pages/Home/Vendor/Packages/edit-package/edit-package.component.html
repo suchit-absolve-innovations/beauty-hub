@@ -17,13 +17,17 @@
                             <div class="upload_file text-center">
                                 <div class="imges-upload mb-0">
                                     <div class="imgUp m-auto">
-                                        <div class="imagePreview" style="background-image: url(&quot;undefined&quot;);">
+                                        <div class="imagePreview" style="background-image: url(&quot;undefined&quot;)
+                                        ;" *ngIf="previewImage" width="1280" height="720">
                                         </div>
                                         <label class="upload button btn btn-primary">
                                             Upload<input type="file" class="uploadFile img" name="bannerimage"
-                                              style="width: 0px;height: 0px;overflow: file; border-style: none;" id="bannerimage"
-                                              (change)="onselect($event)" multiple />
-                                          </label>
+                                                style="width: 0px;height: 0px;overflow: file; border-style: none;"
+                                                id="bannerimage" (change)="onBannerImageSelect($event)"
+                                                (change)="onselect($event)" multiple />
+                                        </label>
+                                        <div *ngIf="errorMessages" class="error-message" style="color: #fd0000">{{
+                                            errorMessages }}</div>
                                         <div></div>
                                     </div>
                                 </div>
@@ -53,16 +57,82 @@
                     <div class="row">
 
                         <div class="col-lg-6 col-md-12">
-                            <label>Service Name</label>
+                            <label>Package Name</label>
                             <input type="text" class="control-form" formControlName="serviceName" />
                             <div *ngIf="submitted && f['serviceName'].errors" class="help-block">
                                 <div *ngIf="f['serviceName'].errors" style="color: #fd0000">
-                                    Service name is required.
+                                    Package name is required.
                                 </div>
                             </div>
                         </div>
+                        <div class="col-lg-6 col-md-12 mb-20">
+                            <label>Package Image</label>
+                            <br>
+                            <input name="iconimage" type="file" class="uploadFile img" #image1
+                                (change)="handleFileInput($event)" (change)="onImageSelect($event)">
+                            <label *ngIf="imageUrl" width="512" height="512" data-toggle="modal" data-target="#myModal3"
+                                class="preview-butn">preview</label>
+                            <div *ngIf="errorMessage" class="help-block" style="color: #fd0000">{{ errorMessage }}</div>
+                        </div>
 
-                        <div class="col-lg-6 col-md-12">
+                        <div class="col-md-12">
+                            <h3 style="font-size: 22px;">Select Service</h3>
+                        </div>
+                        <div class="Servicepackage">
+
+                            <div class="col-lg-6 col-md-12">
+                                <label>Main Category</label>
+                                <select type="text" class="control-form mr-20 btn_border"
+                                    formControlName="mainCategoryId" (change)="getServicesListByCategories()"
+                                    (change)="getSubcategoryList(f['mainCategoryId'].value)">
+                                    <option value="">Select </option>
+                                    <option *ngFor="let item of categoryList" [ngValue]="item?.mainCategoryId">
+                                        {{item?.categoryName}}</option>
+
+                                </select>
+          
+                            </div>
+                            <div class="col-lg-6 col-md-12">
+                                <label>Sub Category</label>
+
+                                <select type="text" class="control-form mr-20 btn_border"
+                                    formControlName="subCategoryId" (change)="getServicesListByCategories()">
+                                    <option value="">Select </option>
+                                    <option *ngFor="let item of subCategoryList" [ngValue]="item?.subCategoryId">
+                                        {{item?.categoryName}}</option>
+                                </select>
+                                <div *ngIf="submitted && f['subCategoryId'].errors" class="help-block">
+                                    <div *ngIf="f['subCategoryId'].errors" style="color: #fd0000">
+                                        Sub Category is required.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12 col-md-12">
+                                <div class="dropdown-scroll">
+                                    <label>Choose Services </label>
+                                    <!-- <select type="text" formcontrolname="discountType" class="control-form">
+                                    <option  selected>Select</option>
+                                    <option *ngFor="let item of productList">{{item.productName}}</option>
+                                </select> -->
+                                    <ng-multiselect-dropdown [settings]="dropdownSettings" [data]="bindServiceList"
+                                        [(ngModel)]="selectedItems" formControlName="includeServiceId"
+                                        (onDeSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
+                                        <option *ngFor="let serviceId of serviceList" [value]="serviceId.serviceId">
+                                            {{serviceId.serviceName}}
+                                        </option>
+                                    </ng-multiselect-dropdown>
+                                </div>
+
+
+                            </div>
+
+
+                        </div>
+
+
+
+                        <div class="col-lg-4 col-md-12 mb-20 ">
                             <label>Base Price </label>
                             <input type="text" class="form-control" formControlName="basePrice" />
                             <div *ngIf="submitted && f['basePrice'].errors" class="help-block">
@@ -70,8 +140,7 @@
                                     Base Price is required.</div>
                             </div>
                         </div>
-
-                        <div class="col-lg-6 col-md-12">
+                        <div class="col-lg-4 col-md-12">
                             <label>Discount</label>
                             <input type="tel" class="control-form" formControlName="discount" numbersOnly />
                             <div *ngIf="submitted && f['discount'].errors" class="help-block">
@@ -81,7 +150,7 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-6 col-md-12">
+                        <div class="col-lg-4 col-md-12">
                             <label>Listing Price</label>
                             <input type="text" class="form-control" formControlName="listingPrice" />
 
@@ -92,7 +161,7 @@
                             </div>
                         </div>
 
-                     
+
 
 
 
@@ -148,7 +217,7 @@
                         <div class="col-lg-6 col-md-12">
                             <label>Lock Time Start</label>
                             <input type="time" id="time" class="form-control" formControlName="lockTimeStart"
-                                (input)="onTimeInputChange($event)" />
+                                />
                             <div *ngIf="submitted && f['lockTimeStart'].errors" class="help-block">
                                 <div *ngIf="f['lockTimeStart'].errors?.['required']" style="color: #fd0000">
                                     Start is required.
@@ -159,110 +228,22 @@
                         <div class="col-lg-6 col-md-12">
                             <label>Lock Time End</label>
                             <input type="time" class="form-control" formControlName="lockTimeEnd"
-                                (input)="onTimeInputChange2($event)" />
+                                />
                             <div *ngIf="submitted && f['lockTimeEnd'].errors" class="help-block">
                                 <div *ngIf="f['lockTimeEnd'].errors?.['required']" style="color: #fd0000">
                                     End is required.
                                 </div>
-                               
+
                             </div>
                             <div *ngIf="submitted && form.hasError('timeOrder')" class="help-block">
                                 <div *ngIf="form.hasError('timeOrder')" style="color: #fd0000">
-                                   End time must be greater than start time.
+                                    End time must be greater than start time.
                                 </div>
                             </div>
-                            
+
                         </div>
 
-
-                        <div class="col-lg-6 col-md-12">
-                            <label>Main Category</label>
-                            <select type="text" class="control-form mr-20 btn_border" formControlName="mainCategoryId"
-                                (change)="getSubcategoryList(f['mainCategoryId'].value)">
-                                <option value="">Select </option>
-                                <option *ngFor="let item of categoryList" [ngValue]="item?.mainCategoryId">
-                                    {{item?.categoryName}}</option>
-
-                            </select>
-                            <!-- <select type="text" class="control-form mr-20 btn_border" formControlName="mainCategoryId"
-                              (change)="getSubcategoryList(f['mainCategoryId'].value)">
-                              <option value="">Select </option>
-                              <option *ngFor="let item of categoryList" [ngValue]="item?.mainCategoryId">
-                                  {{item?.categoryName}}</option>
-
-                          </select>
-                          <div *ngIf="submitted && f['mainCategoryId'].errors" class="help-block">
-                              <div *ngIf="f['mainCategory'].errors" style="color: #fd0000">
-                                  Main Category is required.
-                              </div>
-                          </div> -->
-                        </div>
-                        <div class="col-lg-6 col-md-12">
-                            <label>Sub Category</label>
-
-                            <select type="text" class="control-form mr-20 btn_border" formControlName="subCategoryId">
-                                <option value="">Select </option>
-                                <option *ngFor="let item of subCategoryList" [ngValue]="item?.subCategoryId">
-                                    {{item?.categoryName}}</option>
-                            </select>
-                            <div *ngIf="submitted && f['subCategoryId'].errors" class="help-block">
-                                <div *ngIf="f['subCategoryId'].errors" style="color: #fd0000">
-                                    Sub Category is required.
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-6 col-md-12">
-                            <div class="dropdown-scroll">
-                                <label>Choose Services </label>
-                                <!-- <select type="text" formcontrolname="discountType" class="control-form">
-                                <option  selected>Select</option>
-                                <option *ngFor="let item of productList">{{item.productName}}</option>
-                            </select> -->
-                            <ng-multiselect-dropdown   [settings]="dropdownSettings" [data]="bindServiceList"  [(ngModel)]="selectedItems"
-                            formControlName="includeServiceId" (onDeSelect)="onItemSelect($event)" 
-                            (onSelectAll)="onSelectAll($event)">
-                            <option *ngFor="let serviceId of serviceList" [value]="serviceId.serviceId">
-                             {{serviceId.serviceName}}
-                            </option>
-                          </ng-multiselect-dropdown>
-                        </div>
-                      
-    
-                        </div>
-                        <div class="col-lg-6 col-md-12 mb-20">
-                            <label>Service Image</label>
-                            <br>
-                            <input name="bannerimage" type="file" class="uploadFile img" #image1
-                                (change)="handleFileInput($event)">
-                            <label data-toggle="modal" data-target="#myModal3" class="preview-butn">preview</label>
-                        </div>
-
-
-
-
-                        <!-- <div class="col-lg-6 col-md-12">
-                        <label>Lock Time Start</label>
-                        <input type="time" id="startTime" class="form-control" formControlName="lockTimeStart" (input)="onTimeInputChange($event)"/>
-                        <div *ngIf="submitted && f['lockTimeStart'].errors" class="help-block">
-                            <div *ngIf="f['lockTimeStart'].errors" style="color: #fd0000">
-                                Lock Time Start is required.
-                            </div>
-                        </div>
-                    </div>
-                   
-
-                      <div class="col-lg-6 col-md-12">
-                          <label>Lock Time End</label>
-                          <input  type="time" id="endTime" class="form-control" formControlName="lockTimeEnd" (input)="onTimeInputChange2($event)"/>
-                          <div *ngIf="submitted && f['lockTimeEnd'].errors" class="help-block">
-                              <div *ngIf="f['lockTimeEnd'].errors" style="color: #fd0000">
-                                  Lock Time End is required.
-                              </div>
-                          </div>
-                      </div> -->
-
-                        <div class=" col-md-12">
+                        <div class=" col-md-12 mt-20">
                             <label>Description</label>
                             <textarea type="text" class="control-form" formControlName="serviceDescription">
                   </textarea>
@@ -274,7 +255,7 @@
                             </div>
                         </div>
 
-                    
+
 
                         <div class="col-lg-12 col-md-12 mt-40 text-center btn_margin">
                             <button class="border-btn" type="submit" value="" data-toggle="modal"
@@ -308,7 +289,7 @@
                 <button type="button" class="border-btn" data-dismiss="modal">
                     Close
                 </button>
-                <button type="button" class="btn_blue" (click)="cancel()" >Yes, Cancel It</button>
+                <button type="button" class="btn_blue" (click)="cancel()">Yes, Cancel It</button>
             </div>
         </div>
     </div>
@@ -326,7 +307,7 @@
             </button>
             <div class="modal-body text-center">
                 <div class="imagePreview vendor-preview">
-                    <img class="image" [src]="imageUrl1">
+                    <img class="image" [src]="imageUrl">
                 </div>
 
 

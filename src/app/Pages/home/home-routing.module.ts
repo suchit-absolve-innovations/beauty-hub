@@ -115,7 +115,7 @@ const routes: Routes = [
      { path: 'appointment-list', component: AppointmentListComponent},
      { path: 'appointment-list/appointment-detail/:id', component: AppointmentDetailComponent},
      { path: 'package-list', component: PackageListComponent},
-     { path: 'package-list/package-detail/:id', component: PackageDetailComponent},
+     { path: 'package-list/package-detail/:id/:type', component: PackageDetailComponent},
      { path: 'package-list/add-edit-package',component: AddEditPackageComponent},
      { path: 'package-list/edit-package', component: EditPackageComponent}
     
