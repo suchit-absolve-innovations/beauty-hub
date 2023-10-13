@@ -294,10 +294,18 @@ console.log(this.membershipPlanIds)
         // this.router.navigateByUrl('/salon-list/buy-membership-plan/add-salon')
          this.membershipRecordId = response.data.membershipRecordId
          localStorage.setItem('membershipRecordId', this.membershipRecordId)
+         if (this.userRole == 'SuperAdmin') {
         this.router.navigateByUrl('/salon-list/buy-membership-plan/add-salon')
           .then(() => {
             window.location.reload();
           });
+        }
+        if (this.userRole == 'Vendor') {
+          this.router.navigateByUrl('/subscription/buy-membership-plan/add-salon')
+            .then(() => {
+              window.location.reload();
+            });
+          }
       } else {
         this.toaster.error(response.messages)
       }

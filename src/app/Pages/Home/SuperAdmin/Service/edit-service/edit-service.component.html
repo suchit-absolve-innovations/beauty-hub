@@ -1,7 +1,7 @@
 <div class="app-main__outer">
     <div class="admin_a">
         <div class="top-head">
-            <img (click)="backClicked()"src="assets\img\backimage.svg" class="backimage-butn" />
+            <img (click)="backClicked()" src="assets\img\backimage.svg" class="backimage-butn" />
             <h2>Service form</h2>
         </div>
         <form [formGroup]="form">
@@ -15,31 +15,34 @@
 
                         <div class="col-lg-12 col-md-12 mb-20">
                             <div class="upload_file text-center">
-                              <div class="imges-upload mb-0">
-                                <div class="imgUp m-auto">
-                                  <div class="imagePreview" style="background-image: url(&quot;undefined&quot;);">
-                                  </div>
-                                      <label class="upload button btn btn-primary">
-                                        Upload<input type="file" class="uploadFile img" name="bannerimage"
-                                          style="width: 0px;height: 0px;overflow: file; border-style: none;" id="bannerimage"
-                                          (change)="onselect($event)" multiple />
-                                      </label>
-                                  <div></div>
+                                <div class="imges-upload mb-0">
+                                    <div class="imgUp m-auto">
+                                        <div class="imagePreview" style="background-image: url(&quot;undefined&quot;);" *ngIf="previewImage"  width="1280" height="720">
+                                        </div>
+                                        <label class="upload button btn btn-primary" >
+                                            Upload<input type="file" class="uploadFile img" name="bannerimage"
+                                                style="width: 0px;height: 0px;overflow: file; border-style: none;"
+                                                id="bannerimage" (change)="onBannerImageSelect($event)"
+                                                 (change)="onselect($event)" multiple  />
+                                        </label>
+                                        <div *ngIf="errorMessages" class="error-message" style="color: #fd0000">{{ errorMessages }}</div>
+                                        <div></div>
+                                    </div>
                                 </div>
-                              </div>
                             </div>
-                          </div>
-                  
-                          <div class="col-lg-6 mx-auto ">
-                            <div class="multi-img-box">
-                              <div *ngFor="let url of base64Image; let i = index">
-                                <div class="multiple-images multiple-img-sec ">
-                                  <img class="img-responsive" [src]="url" />
-                                  <button class="remove" (click)="removeImage(i)">X</button>
-                                  <!-- <button class="remove"  data-toggle="modal" data-target="#cancel-cross-mess">X</button> -->
-                                </div>
-                                <!-- Modal for Remove Image -->
-                  <!-- <div class="modal fade" id="cancel-cross-mess" tabindex="-1" role="dialog" aria-labelledby="cancel-messLabel" aria-hidden="true">
+                        </div>
+
+                        <div class="col-lg-6 mx-auto ">
+                            <div class="multi-img-box" >
+                                <div *ngFor="let url of base64Image; let i = index">
+                                    <div class="multiple-images multiple-img-sec " >
+                                        <img class="img-responsive" [src]="url"  />
+                                        <button class="remove" (click)="removeImage(i)">X</button>
+                                        <!-- <button class="remove"  data-toggle="modal" data-target="#cancel-cross-mess">X</button> -->
+                                    </div>
+                                    <!-- <div *ngIf="errorMessages" class="error-message" style="color: #fd0000">{{ errorMessages }}</div> -->
+                                    <!-- Modal for Remove Image -->
+                                    <!-- <div class="modal fade" id="cancel-cross-mess" tabindex="-1" role="dialog" aria-labelledby="cancel-messLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                       <div class="modal-content warning-content">
                         
@@ -58,10 +61,10 @@
                       </div>
                     </div>
                   </div> -->
-                              </div>
+                                </div>
                             </div>
-                            
-                          </div>
+
+                        </div>
 
                     </div>
 
@@ -104,7 +107,7 @@
 
                         <div class="col-lg-6 col-md-12">
                             <label>Listing Price</label>
-                            <input  type="text" class="form-control" formControlName="listingPrice" />
+                            <input type="text" class="form-control" formControlName="listingPrice" />
 
                             <div *ngIf="submitted && f['listingPrice'].errors" class="help-block">
                                 <div *ngIf="f['listingPrice'].errors" style="color: #fd0000">
@@ -116,27 +119,26 @@
                         <div class="col-lg-6 col-md-12">
                             <label>Main Category <i class="fa fa-asterisk" aria-hidden="true"></i></label>
                             <select type="text" class="control-form" formControlName="mainCategoryId"
-                              (change)="getSubcategoryList(f['mainCategoryId'].value)">
-                              <option value="">Select Main Category</option>
-                              <option *ngFor="let item of categoryList" [ngValue]="item?.mainCategoryId">
-                                {{item?.categoryName}}
-                              </option>
+                                (change)="getSubcategoryList(f['mainCategoryId'].value)">
+                                <option value="">Select Main Category</option>
+                                <option *ngFor="let item of categoryList" [ngValue]="item?.mainCategoryId">
+                                    {{item?.categoryName}}
+                                </option>
                             </select>
                             <label *ngIf="submitted && f['mainCategoryId'].errors" class="invalid-formdata">
-                              Main Category is required
+                                Main Category is required
                             </label>
-                          </div>
-              
-                          <div class="col-lg-6 col-md-12">
+                        </div>
+
+                        <div class="col-lg-6 col-md-12">
                             <label>Sub Category</label>
-                            <select type="text" class="control-form" formControlName="subCategoryId"
-                             >
-                              <option value="">Select Sub Category</option>
-                              <option *ngFor="let item of subCategoryList" [ngValue]="item?.subCategoryId">
-                                {{item?.categoryName}}
-                              </option>
+                            <select type="text" class="control-form" formControlName="subCategoryId">
+                                <option value="">Select Sub Category</option>
+                                <option *ngFor="let item of subCategoryList" [ngValue]="item?.subCategoryId">
+                                    {{item?.categoryName}}
+                                </option>
                             </select>
-                          </div>
+                        </div>
 
 
 
@@ -190,12 +192,12 @@
                             </div>
                         </div>
 
-                    
+
 
 
                         <div class="col-lg-6 col-md-12">
                             <label>Lock Time Start</label>
-                            <input formControlName="lockTimeStart" type="time" class="form-control"  />
+                            <input formControlName="lockTimeStart" type="time" class="form-control" />
                             <div *ngIf="submitted && f['lockTimeStart'].errors" class="help-block">
                                 <div *ngIf="f['lockTimeStart'].errors" style="color: #fd0000">
                                     Lock Time Start is required.
@@ -225,6 +227,15 @@
                             </div>
                         </div>
 
+                        <div class="col-lg-12 col-md-12 mb-20">
+                            <label>Service Image</label>
+                            <br>
+                            <input name="bannerimage" type="file" class="uploadFile  img" #image1
+                                (change)="handleFileInput($event)" (change)="onImageSelect($event)">
+                                <div *ngIf="errorMessage" class="error-message" style="color: #fd0000">{{ errorMessage }}</div>
+                                <label *ngIf="imageUrl"  width="512" height="512" data-toggle="modal" data-target="#myModal" class="preview-butn">preview</label>
+                        </div>
+
                         <div class="col-lg-12 col-md-12 mt-40 text-center btn_margin">
                             <button class="border-btn" type="submit" value="" data-toggle="modal"
                                 data-target="#cancel-mess">
@@ -241,6 +252,30 @@
 
 
 <!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+    aria-hidden="true">
+    <div class="modal-dialog max_sf modal-dialog-centered" role="document"
+        style="border-radius:15px; overflow:hidden; border:none;">
+        <div class="modal-content popup_advance">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <div class="modal-body text-center">
+                <div class="imagePreview vendor-preview">
+                    <img class="image" [src]="imageUrl">
+
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
 <div class="modal fade" id="cancel-mess" tabindex="-1" role="dialog" aria-labelledby="cancel-messLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -257,7 +292,7 @@
                 <button type="button" class="border-btn" data-dismiss="modal">
                     Close
                 </button>
-                <button type="button" class="btn_blue" (click)="cancel()" >Yes, Cancel It</button>
+                <button type="button" class="btn_blue" (click)="cancel()">Yes, Cancel It</button>
             </div>
         </div>
     </div>

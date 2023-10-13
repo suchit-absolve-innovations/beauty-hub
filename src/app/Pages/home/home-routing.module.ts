@@ -80,13 +80,12 @@ const routes: Routes = [
       { path: 'salon-list/buy-membership-plan', component: BuyMebershipPlanListComponent },
       { path: 'salon-list/service-list', component : ServiceListComponent},
       { path: 'salon-list/service-list/add-service', component : AddServiceComponent},
-      { path: 'salon-list/service-list/service-detail/:id',component : ServiceDetailComponent},
+      { path: 'salon-list/service-list/service-detail',component : ServiceDetailComponent},
       { path: 'add-edit-schedule',component : AddEditScheduleComponent},
       { path: 'salon-list/service-list/edit-service', component: EditServiceComponent},
       { path: 'super-notification-list',component: SuperNotificationListComponent},   
       { path: 'super-notification-list/add-notification', component:SuperAddNotificationComponent},
-      { path: 'vendor-notification-list', component:VendorNotificationListComponent},
-      { path: 'vendor-notification-list/add-notification', component:VendorAddNotificationComponent},
+      
 
 
       //////Admin///////
@@ -96,20 +95,22 @@ const routes: Routes = [
 
 
      //vendor//
-     { path: 'vendor-profile',component: VendorProfileComponent},
-     { path: 'salon-banner-list',component: ShopBannerListComponent},
-     { path: 'salon-banner-list/Salon-detail/:id',component:SalonBannerDetailComponent},
-     { path: 'salon-banner-list/add-salon-banner',component: AddEditSalonBannerComponent},
-     { path: 'salon-banner-list/edit-salon-banner/:id/:id2',component:EditSalonBannerComponent},
-     { path: 'subscription',component: BuyMebershipPlanListComponent},
-     { path: 'salon-list/service-list', component : ServiceListComponent},
-     { path: 'service-list', component : ServiceListComponent},
-     { path: 'salon-list/service-list/add-service', component : AddServiceComponent},
-     { path: 'service-list/service-detail/:id',component : ServiceDetailComponent},
-     { path: 'add-edit-schedule',component : AddEditScheduleComponent},
-     { path: 'service-list/edit-service', component: EditServiceComponent},
-     { path: 'appointment-list', component: AppointmentListComponent},
-     { path: 'appointment-list/appointment-detail/:id', component: AppointmentDetailComponent}
+     { path: 'appointment-list', component: AppointmentListComponent },
+     { path: 'appointment-list/appointment-detail/:id', component: AppointmentDetailComponent },
+     { path: 'salon-banner-list', component: ShopBannerListComponent },
+     { path: 'salon-banner-list/Salon-detail/:id', component: SalonBannerDetailComponent },
+     { path: 'salon-banner-list/add-salon-banner', component: AddEditSalonBannerComponent },
+     { path: 'salon-banner-list/edit-salon-banner/:id/:id2', component: EditSalonBannerComponent },
+     { path: 'vendor-service-list', component: ServiceListComponent },
+     { path: 'vendor-service-list/add-service', component: AddServiceComponent },
+     { path: 'vendor-service-list/service-detail', component: ServiceDetailComponent },
+     { path: 'vendor-service-list/edit-service', component: EditServiceComponent },
+     { path: 'vendor-profile', component: VendorProfileComponent },
+     { path: 'subscription', component: BuyMebershipPlanListComponent },
+     { path: 'subscription/buy-membership-plan/add-salon', component: AddSalonsComponent },
+     { path: 'add-edit-schedule', component: AddEditScheduleComponent },
+     { path: 'vendor-notification-list', component: VendorNotificationListComponent },
+     { path: 'vendor-notification-list/add-notification', component: VendorAddNotificationComponent },
     
      
 

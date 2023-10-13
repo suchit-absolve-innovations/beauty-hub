@@ -18,7 +18,8 @@ export class AddServiceComponent implements OnInit {
   submitted!: boolean
   rootUrl: any;
   id: any;
-
+  sizeErrorMessage: string | null = null;
+  dimensionErrorMessage: string | null = null;
   subCategoryList: any;
   categoryList: any;
   salonBannerId: any;
@@ -39,7 +40,11 @@ export class AddServiceComponent implements OnInit {
   urls1: any = [];
   image1: any;
   imageUrl: any;
-
+  imageUrl1: any;
+  errorMessage: string = '';
+  errorMessages: string = '';
+  isValid: boolean = false;
+  previewImage: string = '';
 
 
   constructor(private router: Router,
@@ -186,6 +191,53 @@ this.submitVendor();
 }
 
 
+onImageSelect(event: any) {
+  const file = event.target.files[0];
+
+  if (file) {
+    const imageSize = file.size / 1024; // in KB
+    const image = new Image();
+
+    image.src = URL.createObjectURL(file);
+
+    image.onload = () => {
+      if (image.width === 512 && image.height === 512 && imageSize <= 512) {
+        this.errorMessage = '';
+        this.isValid = true;
+        this.previewImage = image.src;
+      } else {
+        this.errorMessage = 'Please select 512x512 pixels (width×height) image.';
+        this.isValid = false;
+        this.imageUrl = '';
+      }
+    };
+  }
+}
+
+onFileSelected(event: any) {
+  const file = event.target.files[0];
+
+  if (file) {
+    const imageSize = file.size / 1024; // in KB
+    const image = new Image();
+
+    image.src = URL.createObjectURL(file);
+
+    image.onload = () => {
+      if (image.width === 1280 && image.height === 720 && imageSize <= 1000) {
+        this.errorMessages = '';
+        // this.submitted = true;
+        this.previewImage = image.src;
+      } else {
+        this.errorMessages = 'Please select 1280x720 pixels (width×height) image.';
+        // this.submitted = false;
+        this.previewImage = '';
+      }
+      
+    };
+
+  }
+}
 
 submitVendor() {
 
@@ -282,40 +334,56 @@ onTimeInputChange2(event: Event) {
   // Now 'formattedTime' contains the time in "hh:mm tt" format with 12-hour time
 }
 
-
-
-
-handleFileInput(event: any) {
-    debugger
+handleFileInput(event: any) {   
   const files = event.target.files;
   for (let e = 0; e < files.length; e++) {
     const file = files[e];
-    this.image1 = file
     const reader = new FileReader();
     reader.readAsDataURL(file);
-    reader.onload = () => {
-      const imageDataUrl1 = reader.result as string;
-      this.imageUrl = imageDataUrl1;
-      this.urls1.push(imageDataUrl1);
+  reader.onload = () => {
+    const image = new Image();
+    image.src = reader.result as string;
+
+    image.onload = () => {
+      if (image.width === 512 && image.height === 512) {
+        // Only add the image to the array if it meets the dimensions criteria.
+        const imageDataUrl1 = reader.result as string;
+              this.imageUrl = imageDataUrl1;
+           this.urls1.push(imageDataUrl1);
+      } else {
+        
+      }
     };
   }
 }
-
-
+}
 
 
 fileChangeEvents() {
-  debugger
+  
   const formData = new FormData();
-  for (let i = 0; i < this.urls.length; i++) {
-    const imageDataUrl = this.urls[i];
-    const blob = this.dataURItoBlob(imageDataUrl);
-    formData.append('salonServiceIconImage', blob, `image_${i}.png`);
+  for (let e = 0; e < this.urls1.length; e++) {
+    const imageDataUrl1 = this.urls1[e];
+    const blob = this.dataURItoBlob1(imageDataUrl1);
+    formData.append('salonServiceIconImage', blob, `image_${e}.png`);
   }
+  // formData.append("SalonImage", this.imageFiles?.file);
   formData.append('serviceId', this.serviceId);
   this.contentService.uploadServiceIconImage(formData).subscribe(response => {
   });
 }
+private dataURItoBlob1(dataURI: string): Blob {
+
+  const byteString = atob(dataURI.split(',')[1]);
+  const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+  const ab = new ArrayBuffer(byteString.length);
+  const ia = new Uint8Array(ab);
+  for (let e = 0; e < byteString.length; e++) {
+    ia[e] = byteString.charCodeAt(e);
+  }
+  return new Blob([ab], { type: mimeString });
+}
+
 
   onselect(event: any) {   
     const files = event.target.files;
@@ -323,11 +391,22 @@ fileChangeEvents() {
       const file = files[i];
       const reader = new FileReader();
       reader.readAsDataURL(file);
-      reader.onload = () => {
-        const imageDataUrl = reader.result as string;
-        this.urls.push(imageDataUrl);
+    reader.onload = () => {
+      const image = new Image();
+      image.src = reader.result as string;
+
+      image.onload = () => {
+        if (image.width === 1280 && image.height === 720) {
+          // Only add the image to the array if it meets the dimensions criteria.
+          const imageDataUrl = reader.result as string;
+          this.imageUrl1 = imageDataUrl;
+          this.urls.push(imageDataUrl);
+        } else {
+          
+        }
       };
     }
+  }
   }
 
 fileChangeEvent() {

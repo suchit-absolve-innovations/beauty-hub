@@ -112,25 +112,54 @@ export class ServiceListComponent implements OnInit {
 
         this.spinner.hide();
       }
+      
     });
   }
 
 
 
   passId() {
+    if(this.role == 'SuperAdmin'){
     this.router.navigate(['/salon-list/service-list/add-service'],
       {
         queryParams: {
           id: this.salonId.id
 
         }
-      });
+      })
+      }
+      else if (this.role == 'Vendor'){
+        this.router.navigate(['/vendor-service-list/add-service'],
+      {
+        queryParams: {
+          id: this.salonId.id
 
+        }
+      })
+      }
 
-  }
-
-  edit(data: any) {
     
+  }
+  details(data: any){
+    if(this.role == 'SuperAdmin'){
+      this.router.navigate(['/salon-list/service-list/service-detail'],
+      {
+        queryParams: {
+          id: data.serviceId
+        }
+      })
+    }
+    else if (this.role == 'Vendor'){
+      this.router.navigate(['/vendor-service-list/service-detail'],
+      {
+        queryParams: {
+          id: data.serviceId
+        }
+      })
+    }
+  }
+  edit(data: any) {
+    if(this.role == 'SuperAdmin'){
     this.router.navigate(['/salon-list/service-list/edit-service'],
       {
         queryParams: {
@@ -138,8 +167,19 @@ export class ServiceListComponent implements OnInit {
           id: data.salonId
 
         }
-      });
+      })
+    }
+    else if (this.role == 'Vendor'){
+      this.router.navigate(['vendor-service-list/edit-service'],
+      {
+        queryParams: {
+          id2: data.serviceId,
+          id: data.salonId
+
+        }
+      })
   }
+}
 
   delet(data: any) {
     
