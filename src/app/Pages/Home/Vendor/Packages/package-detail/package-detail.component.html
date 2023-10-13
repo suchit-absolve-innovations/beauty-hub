@@ -144,6 +144,47 @@
                 </div>
             </div>
 
+            <h3 class="mt-30">Service Detail</h3>
+
+            <div #scrollToElement class="table-responsive mt-40">
+                <table class="table admin_table  product-detail-table">
+                    <tr>
+                        <th>Service Name</th>
+                        <th>Service Image</th>
+                        <th>Base Price</th>
+                        <th>Discount</th>
+                        <th>Final Price</th>
+                        
+                    </tr>
+                    <tr *ngFor="let item of packageservicesList; let i =index">
+                        <td class="profile">
+                         
+                            {{item.serviceName}}
+                        </td>
+                        <td class="profile">
+                            <img class="img-responsive" [src]="rootUrl + item?.serviceIconImage">
+                        </td>
+                        <td>{{item.basePrice}}</td>
+                        <td>{{item.discount}}</td>
+                        <td>{{item.listingPrice}}</td>
+                        
+                       
+                        <!-- <td class="td-dropdown">
+                            <select type="text" class="control-form btn_border" formControlName="appointmentStatus"
+                            >
+                                <option value="" selected>{{item?.appointmentStatus}} </option>
+                                <option value="Scheduled">Scheduled </option>
+                                <option value="Cancelled">Cancelled </option>
+                                <option value="Completed">Completed </option>
+                            </select>
+                        </td> -->
+                        <!-- <td>{{item.serviceCountInCart}}</td> -->
+                    </tr>
+
+                </table>
+            </div>
+
+
         </div>
     </div>
 </div>

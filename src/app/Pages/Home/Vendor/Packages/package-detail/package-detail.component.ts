@@ -23,6 +23,7 @@ export class PackageDetailComponent implements OnInit {
   serviceImage :any;
   serviceIconImage :any;
   packageType: any;
+  packageservicesList: any;
   constructor(private content: ContentService,
     private toaster: ToastrService,
     private spinner: NgxSpinnerService,
@@ -62,7 +63,8 @@ export class PackageDetailComponent implements OnInit {
       
         this.packageDetail = response.data
         this.serviceImage = this.packageDetail.serviceIconImage
-        console.log(this.serviceImage)
+        this.packageservicesList = this.packageDetail.includeService
+        console.log(this.packageservicesList)
         this.spinner.hide();
         this.toaster.success(response.messages);
         // this.description = response.data.productDescription
