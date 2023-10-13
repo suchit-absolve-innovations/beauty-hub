@@ -49,6 +49,11 @@ import { AppointmentListComponent } from './Vendor/Appointments/appointment-list
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { AppointmentDetailComponent } from './Vendor/Appointments/appointment-detail/appointment-detail.component';
 import { BookedServiceListComponent } from './Vendor/Appointments/booked-service-list/booked-service-list.component';
+import { PackageListComponent } from './Vendor/Packages/package-list/package-list.component';
+import { PackageDetailComponent } from './Vendor/Packages/package-detail/package-detail.component';
+import { AddEditPackageComponent } from './Vendor/Packages/add-edit-package/add-edit-package.component';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { EditPackageComponent } from './Vendor/Packages/edit-package/edit-package.component';
 
 
 
@@ -100,6 +105,10 @@ import { BookedServiceListComponent } from './Vendor/Appointments/booked-service
    AppointmentListComponent,
    AppointmentDetailComponent,
    BookedServiceListComponent,
+   PackageListComponent,
+   PackageDetailComponent,
+   AddEditPackageComponent,
+   EditPackageComponent,
   
 
 
@@ -113,6 +122,7 @@ import { BookedServiceListComponent } from './Vendor/Appointments/booked-service
     NgxPaginationModule,
     Ng2SearchPipeModule,
     QRCodeModule,    
+    NgMultiSelectDropDownModule.forRoot(),
     BsDatepickerModule.forRoot(),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAqVkAIpWw38LEG9LghW1s0ZzSW-PUsjt0',

@@ -130,9 +130,9 @@ export const RoleRoutes = {
     {
       name: "Notification", value: "MANAGE_ReI", isEnabled: false, routerLink: "vendor-notification-list", acl: 'dashboard', subRoutes: []
     },
-    // {
-    //   name: "Generate Link", isEnabled: false, value: "MANAGE_APPOINTMENT_TAB", routerLink: "/generate-link", acl: '', subRoutes: []
-    // },
+    {
+      name: "Packages", isEnabled: false, value: "MANAGE_APPOINTMENT_TAB", routerLink: "package-list", acl: '', subRoutes: []
+    },
     // {
     //   name: "Dairy Service", value: "MANAGE_ReI",  isEnabled: false, routerLink: "Vendor/setting/appinfo", acl: '', subRoutes: []
     // },

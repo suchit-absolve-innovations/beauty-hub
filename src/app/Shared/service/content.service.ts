@@ -333,10 +333,7 @@ export class ContentService {
 
   // Collections
 
-  getCollection(data: any) {
-    return this.http.get<any>(environment.apiUrl + ApiEndPoint.getCollectionList + '?pageNumber=' + data.pageNumber + '&pageSize=' + data.pageSize);
-
-  }
+  
   
   // get Collection Name List
   getCollectionList(){
@@ -749,7 +746,11 @@ planUpdate(data: any) {
 
     getServiceDetail(serviceId:any){
       return this.http.get<any>(environment.apiUrl + ApiEndPoint.serviceDetail + '?serviceId=' + serviceId);
+    } 
+    getPackageDetail(data:any){
+      return this.http.get<any>(environment.apiUrl + ApiEndPoint.serviceDetail + '?serviceId=' + data.serviceId + '&serviceType=' + data.serviceType);
     }
+
 
     getScheduleDayTimes(salonId:any){
       return this.http.get<any>(environment.apiUrl + ApiEndPoint. getScheduleDayTimes + '?salonId=' + salonId);
@@ -830,7 +831,8 @@ appointmentStatusList(data:any){
 
 }
 appointmentPaymentStatusList(data:any){
-  return this.http.get<any>(environment.apiUrl + ApiEndPoint.getAppointmentsList  + '?pageNumber=' + data.pageNumber + '&pageSize=' + data.pageSize + '&salonId=' + data.salonId + '&paymentStatus=' + data.paymentStatus)
+  return this.http.get<any>(environment.apiUrl + ApiEndPoint.getAppointmentsList  + '?pageNumber=' + data.pageNumber + '&pageSize=' + data.pageSize + '&salonId=' + data.salonId + '&paymentStatus=' + data.paymentStatus + '&appointmentStatus=' + data.appointmentStatus
+  + '&fromDate=' + data.fromDate + '&toDate=' + data.toDate + '&sortDateBy=' + data.sortDateBy)
 
 }
 
@@ -841,7 +843,10 @@ postPaymentStatus(data:any){
   return this.http.post<any>(environment.apiUrl + ApiEndPoint.postPaymentStatus,data)
 }
 
+getPackageList(data: any) {
+  return this.http.get<any>(environment.apiUrl + ApiEndPoint.getPackagesList + '?pageNumber=' + data.pageNumber + '&pageSize=' + data.pageSize + '&salonId=' + data.salonId + '&serviceType=' + data.serviceType);
 
+}
   
 
 }

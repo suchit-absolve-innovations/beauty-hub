@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
+import { Subscription, interval } from 'rxjs';
 import { ContentService } from 'src/app/Shared/service/content.service';
 
 @Component({
@@ -24,7 +25,7 @@ export class AppointmentListComponent implements OnInit {
   PaymentStatus:any;
   postPaymentsStatus: any;
   
-
+  private refreshSubscription!: Subscription;
   constructor(private toaster: ToastrService,
     private spinner: NgxSpinnerService,
     private content: ContentService,
@@ -94,53 +95,10 @@ export class AppointmentListComponent implements OnInit {
       }
     });
   }
-  getFormDate2ToDate() {
-    debugger
-    let payload = {
-      pageNumber: 1,
-      pageSize: 1000,
-      salonId : localStorage.getItem('salonId'),
-      sortDateBy : (this.form.value.sortDateBy),
-      fromDate: this.datepipe.transform(this.form.value.fromDate, 'dd-MM-yyyy'),
-      toDate: this.datepipe.transform(this.form.value.toDate, 'dd-MM-yyyy'),
-    }
-    this.spinner.show();
-    this.content.FormDate2ToDate(payload).subscribe(response => {
-      if (response.isSuccess) {
-        this.appointmentsList = response.data
-        this.spinner.hide();
-        this.toaster.success(response.messages)
-      } else {
-        this.spinner.hide();
-        this.toaster.error(response.messages)
-        this.appointmentsList = []
-      }
-    });
-  }
+  
 
 
-  getAppointmentStatusList() {
-    
-    let payload = {
-      pageNumber: 1,
-      pageSize: 1000,
-      salonId : localStorage.getItem('salonId'),
-      appointmentStatus: this.form.value.appointmentStatus
-    }
-   
-    this.spinner.show();
-    this.content.appointmentStatusList(payload).subscribe(response => {
-      if (response.isSuccess) {
-        this.appointmentsList = response.data
-        this.spinner.hide();
-        this.toaster.success(response.messages)
-      } else {
-        this.spinner.hide();
-        this.toaster.error(response.messages)
-        this.appointmentsList = []
-      }
-    });
-  }
+ 
 
   handleSelectChange(item: any) {
     debugger;
@@ -205,31 +163,7 @@ export class AppointmentListComponent implements OnInit {
     });
   }
 
-  getAppointmentPaymentStatusList() {
-    
-    let payload = {
-      pageNumber: 1,
-      pageSize: 1000,
-      salonId : localStorage.getItem('salonId'),
-      paymentStatus: this.form.value.paymentStatus
-    }
 
-    //  this.form.get('appointmentStatus').valueChanges.subscribe(() => {
-    //    this.form.get('paymentMethod').setValue('');
-    //  }); 
-    this.spinner.show();
-    this.content.appointmentPaymentStatusList(payload).subscribe(response => {
-      if (response.isSuccess) {
-        this.appointmentsList = response.data
-        this.spinner.hide();
-        this.toaster.success(response.messages)
-      } else {
-        this.spinner.hide();
-        this.toaster.error(response.messages)
-        this.appointmentsList = []
-      }
-    });
-  }
 
   paymentsStatus(){
     this.postPaymentsStatus = this.form.value.paymentStatus
@@ -250,6 +184,72 @@ export class AppointmentListComponent implements OnInit {
       else {
         this.toaster.error(response.messages)}
     });  this.spinner.hide()
+  }
+
+
+   // list all filter 
+
+   filterAllList() {
+    debugger
+    if (this.refreshSubscription) {
+      this.refreshSubscription.unsubscribe();
+    }
+  
+    var fromDate = this.form.value.fromDate
+    ? this.datepipe.transform(this.form.value.fromDate, 'dd-MM-yyyy')
+    : '';
+
+  let toDate = this.form.value.toDate
+    ? this.datepipe.transform(this.form.value.toDate, 'dd-MM-yyyy')
+    : '';
+
+  if (fromDate !== '' && toDate === '') {
+   
+    // If fromDate is provided but toDate is null, set toDate to fromDate
+    toDate = fromDate;
+  }
+
+  if (fromDate === '' && toDate !== '') {
+  
+    // If toDate is provided but fromDate is null, set fromDate to toDate
+    fromDate = toDate;
+  }
+
+    let payload = {
+      pageNumber: 1,
+      pageSize: 1000,
+      salonId : localStorage.getItem('salonId'),
+      fromDate: fromDate,
+      toDate: toDate,
+      sortDateBy: this.form.value.sortDateBy,
+      paymentMethod: this.form.value.paymentMethod ? this.form.value.paymentMethod : '',
+      appointmentStatus:this.form.value.appointmentStatus ? this.form.value.appointmentStatus : '',
+      paymentStatus: this.form.value.paymentStatus ? this.form.value.paymentStatus : '',
+    }
+   // this.spinner.show();
+   debugger
+    this.content.appointmentPaymentStatusList(payload).subscribe(response => {
+      if (response.isSuccess) {
+        this.appointmentsList = response.data
+        this.startRefreshIntervallist5();
+    //    this.spinner.hide();
+     //   this.toaster.success(response.messages)
+      } else {
+     //   this.spinner.hide();
+        this.toaster.error(response.messages)
+        this.appointmentsList = []
+      }
+    });
+  }
+
+
+  startRefreshIntervallist5() {
+    const refreshInterval = 60000; // 4 seconds
+ 
+    // Use interval to call getOrderListType every 4 seconds
+    this.refreshSubscription = interval(refreshInterval).subscribe(() => {
+    this.filterAllList();
+    });
   }
 }
 

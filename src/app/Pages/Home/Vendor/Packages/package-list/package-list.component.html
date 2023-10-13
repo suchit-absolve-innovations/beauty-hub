@@ -1,0 +1,67 @@
+<div class="app-main__outer">	
+    <div class="admin_a">
+
+
+        <div class="d-flex flex-wrap if_xs_btn mb-30">
+            <input type="text" placeholder="Search Here" href="#" class="btn_border search_here"  [(ngModel)]="searchText">
+          
+                <a  [routerLink]="['/package-list/add-edit-package']" class="btn_blue ml-auto" >Add New Package</a>
+              
+          
+        </div>
+
+        <div class="table-responsive">
+            <table class="table admin_table">
+
+                <tr>
+                    <th>Package Name </th>
+                    <th>Service Image</th>
+                    <th> Total Count</th>
+                    <th> Price</th>
+                    <th> Status</th>
+                    <th>Action</th>
+                </tr>
+
+                <tr  *ngFor="let item of packagesList | filter:searchText | paginate: {itemsPerPage: 10, currentPage: page, totalItems: totalItems,id: '1' }  ">
+                    <td class="profile">
+                        {{item?.serviceName}}
+                    </td>
+                    <td>  <img  [src]="rootUrl + item?.serviceImage" class="img-responsive xs-sm-logo" /></td>
+
+                    <td>{{item?.totalCountPerDuration}}</td>
+                    <td>{{item?.basePrice}}</td>
+                    <td>
+                        <!-- <label class="switch" *ngIf="item.status == 0">
+                        <span>Pending</span>
+                    </label> -->
+                        <label class="switch" >
+                            <input type="checkbox" checked >
+                            <span class="slider round"></span>
+                            <!-- <p>Active</p> -->
+                        </label>
+                        <label class="switch" >
+                            <input type="checkbox" >
+                            <span class="slider round"></span>
+                            <!-- <p>UnActive</p> -->
+                        </label>
+                    </td>
+                    <td>
+                        <a [routerLink]="['/package-list/package-detail/'] + item?.serviceId + item?.serviceType"><i style="background:#e6629f; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;" class="fa fa-eye"></i></a>
+                                
+                        <a (click)="editPackage(item)"><i style="background:#9f2d61; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;" class="fa fa-pencil"></i></a>
+                                <a (click)="deleteCollection(item.serviceId)">  <i style="background:#9f0a2a; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;" class="fa fa-times"></i></a>
+                    </td>
+                </tr>
+
+               
+            </table>
+            <div class="no-data text-center" *ngIf="packagesList?.length < 1">
+                <img src="assets/img/NO DATA.png">
+            </div>
+            <pagination-controls (pageChange)="((page = $event))" id="1" (pageIndex)="page"
+                class="paginate-doctor-list">
+            </pagination-controls>
+        </div>
+
+    </div>
+</div>

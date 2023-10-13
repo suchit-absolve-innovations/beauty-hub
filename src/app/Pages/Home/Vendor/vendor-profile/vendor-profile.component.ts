@@ -106,11 +106,8 @@ export class VendorProfileComponent implements OnInit {
     this.vendorForm();
     this.getCountry();
     this.rootUrl = environment.rootPathUrl;
-   
-        this.getVendorDetail();
-    this.getCountriesList();
-
-   
+    this.getVendorDetail();
+    this.getCountriesList();   
   }
 
 
