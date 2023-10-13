@@ -111,7 +111,7 @@ export const RoleRoutes = {
     //   name: "Orders", value: "MANAGE_ReI", isEnabled: false, routerLink: "orders-list", acl: '', subRoutes: []
     // },
        {
-      name: "Service", value: "MANAGE_ReI", isEnabled: false, routerLink: "/service-list", acl: '', subRoutes: []
+      name: "Service", value: "MANAGE_ReI", isEnabled: false, routerLink: "/vendor-service-list", acl: '', subRoutes: []
     },
 
     {

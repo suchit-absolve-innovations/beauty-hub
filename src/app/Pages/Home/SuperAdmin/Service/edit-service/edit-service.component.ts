@@ -23,13 +23,22 @@ export class EditServiceComponent implements OnInit {
   categoryList: any;
   serviceDetailPatch: any;
   editImages: string = '';
-
+  urls: any = []; 
   time2!: string;
   time1!: string;
-
+  urls1: any[] = [];
+  image1: any;
+  imageUrl: any;
+  serviceIconImage:any;
+  // errorMessage: string | null = null;
+  errorMessage: string = '';
+  isValid: boolean = false;
+  previewImage: string = '';
+  errorMessages:any;
   salonId: any;
   base64Image: any;
   selectedImageData: any[] = [];
+  imageFiles!: { link: any; file: any; name: any; type: any; };
 
   constructor(private router: Router,
     private formBuilder: FormBuilder,
@@ -123,7 +132,10 @@ export class EditServiceComponent implements OnInit {
       if (response.isSuccess) {
         this.spinner.hide();
         this.imageConvert64();
+  
         this.serviceDetailPatch = response.data
+        this.imageUrl = this.rootUrl + this.serviceDetailPatch.serviceIconImage
+      
 
         this.form.patchValue({
           serviceName: this.serviceDetailPatch.serviceName,
@@ -169,6 +181,7 @@ export class EditServiceComponent implements OnInit {
       lockTimeStart: this.form.value.lockTimeStart,
       lockTimeEnd: this.form.value.lockTimeEnd,
       serviceDescription: this.form.value.serviceDescription
+    
     }
 
     this.spinner.show();
@@ -176,8 +189,11 @@ export class EditServiceComponent implements OnInit {
       this.spinner.hide();
       // this.productId = response.data?.productId
       this.fileChangeEvent();
+      this.fileChangeEvents();
       if (response.isSuccess) {
         this.toaster.success(response.messages);
+     
+       
         // this._location.back();
       } else {
         this.toaster.error(response.messages);
@@ -201,15 +217,63 @@ export class EditServiceComponent implements OnInit {
     });
   }
 
+  fileChangeEvent() {
+    debugger
+    const formData = new FormData();
+    for (let i = 0; i < this.base64Image.length; i++) {
+      const imageDataUrl = this.base64Image[i];
+      const blob = this.dataURItoBlob(imageDataUrl);
+      formData.append('salonServiceImage', blob, `image_${i}.png`);
+      formData.append('salonServiceImage', imageDataUrl);
+    }
+    formData.append('serviceId', this.serviceId.id2);
+    this.contentService.uploadServiceImage(formData).subscribe(response => {
+      var a = response;
+    });
+  }
+
   onselect(event: any) {
     const files = event.target.files;
+    this.errorMessages = ''; // Clear previous error messages
+  
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
       const reader = new FileReader();
       reader.readAsDataURL(file);
+  
       reader.onload = () => {
-        const imageDataUrl = reader.result as string;
-        this.base64Image.push(imageDataUrl);
+        const image = new Image();
+        image.src = reader.result as string;
+  
+        image.onload = () => {
+          if (image.width === 1280 && image.height === 720 && file.size / 1024 <= 1000) {
+            this.base64Image.push(image.src);
+          } else {
+            this.errorMessages ;
+          }
+        };
+      }
+    }
+  }
+  onBannerImageSelect(event: any) {
+    const file = event.target.files[0];
+  
+    if (file) {
+      const imageSize = file.size / 1024; // in KB
+      const image = new Image();
+  
+      image.src = URL.createObjectURL(file);
+  
+      image.onload = () => {
+        if (image.width === 1280 && image.height === 720 && imageSize <= 1020) {
+          this.errorMessages = '';
+          this.isValid = true;
+          this.previewImage = image.src;
+        } else {
+          this.errorMessages = 'Please select 1280x720 pixels (width×height) image.';
+          this.isValid = false;
+          this.previewImage = '';
+        }
       };
     }
   }
@@ -236,21 +300,68 @@ export class EditServiceComponent implements OnInit {
         });
     });
   }
-
-  fileChangeEvent() {
-    const formData = new FormData();
-    for (let i = 0; i < this.base64Image.length; i++) {
-      const imageDataUrl = this.base64Image[i];
-      const blob = this.dataURItoBlob(imageDataUrl);
-      formData.append('salonServiceImage', blob, `image_${i}.png`);
-      formData.append('salonServiceImage', imageDataUrl);
+  onImageSelect(event: any) {
+    const file = event.target.files[0];
+  
+    if (file) {
+      const imageSize = file.size / 1024; // in KB
+      const image = new Image();
+  
+      image.src = URL.createObjectURL(file);
+  
+      image.onload = () => {
+        if (image.width === 512 && image.height === 512 && imageSize <= 512) {
+          this.errorMessage = '';
+          this.isValid = true;
+          this.previewImage = image.src;
+        } else {
+          this.errorMessage = 'Please select 512x512 pixels (width×height) image.';
+          this.isValid = false;
+          this.imageUrl = '';
+        }
+      };
     }
-    formData.append('serviceId', this.serviceId.id2);
-    this.contentService.uploadServiceImage(formData).subscribe(response => {
-      var a = response;
+  }
+  
+  handleFileInput(event: any) {
+    const files = event.target.files;
+    for (let e = 0; e < files.length; e++) {
+      const file = files[e];
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      
+      reader.onload = () => {
+        const image = new Image();
+        image.src = reader.result as string;
+  
+        image.onload = () => {
+          if (image.width === 512 && image.height === 512) {
+            // Only add the image to the array and update the preview if it meets the dimensions criteria.
+            const imageDataUrl = reader.result as string;
+            this.imageUrl = imageDataUrl;
+            this.imageFiles = {
+              link: imageDataUrl,
+              file: file,
+              name: file.name,
+              type: file.type
+            };
+          } else {
+            // Handle the case where the image doesn't meet the criteria (optional).
+            // You can add error messages or any other handling you prefer.
+          }
+        };
+      }
+    }
+  }
+  
+  fileChangeEvents() {
+    debugger
+    let formData = new FormData();
+    formData.append("salonServiceIconImage", this.imageFiles?.file);
+    formData.append("serviceId", this.serviceId.id2);
+    this.contentService.uploadServiceIconImage(formData).subscribe(response => {
     });
   }
-
 
   private dataURItoBlob(dataURI: string): Blob {
     const byteString = atob(dataURI.split(',')[1]);

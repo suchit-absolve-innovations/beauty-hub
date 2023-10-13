@@ -32,7 +32,7 @@ export class ServiceDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.rootUrl = environment.rootPathUrl;
-    this.serviceId = this.route.snapshot.paramMap.get('id');
+    this.serviceId = this.route.snapshot.queryParams;
     this.getServiceDetail();
   }
 
@@ -49,10 +49,10 @@ export class ServiceDetailComponent implements OnInit {
 
   getServiceDetail() {
     debugger
-    this.spinner.show();
-    this.content.getServiceDetail(this.serviceId).subscribe(response => {
+    // this.spinner.show();
+    this.content.getServiceDetail(this.serviceId.id).subscribe(response => {
       if (response.isSuccess) {
-      
+      debugger
         this.serviceDetail = response.data
         this.serviceImage = this.serviceDetail.serviceIconImage
         console.log(this.serviceImage)
@@ -60,7 +60,7 @@ export class ServiceDetailComponent implements OnInit {
         this.toaster.success(response.messages);
         // this.description = response.data.productDescription
       } else {
-        this.spinner.hide();
+        // this.spinner.hide();
         this.toaster.error(response.messages);
       }
     });

@@ -17,21 +17,25 @@
                             <div class="upload_file text-center">
                                 <div class="imges-upload mb-0">
                                     <div class="imgUp m-auto">
-                                        <div class="imagePreview" style="background-image: url(&quot;undefined&quot;);">
+                                        <div class="imagePreview" style="background-image: url(&quot;undefined&quot;);" *ngIf="previewImage"  width="1280" height="720">
                                         </div>
+
                                         <label class="upload button btn btn-primary">
                                             Upload<input type="file" class="uploadFile img" name="bannerimage"
                                                 style="width: 0px;height: 0px;overflow: file; border-style: none;"
-                                                id="bannerimage" (change)="onselect($event)" multiple />
+                                                id="bannerimage" (change)="onFileSelected($event)"
+                                                (change)="onselect($event)" multiple />
                                         </label>
-                                        <div></div>
+                                        <div *ngIf="errorMessages" class="error-message" style="color: #fd0000">{{ errorMessages }}</div>
+                                        <!-- <label *ngIf="imageUrl1"  width="512" height="512" data-toggle="modal" data-target="#myModal3" class="preview-butn">preview</label> -->
+                                       
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="col-lg-6 mx-auto mb-30">
-                            <div class="multi-img-box">
+                            <div class="multi-img-box" *ngIf="previewImage"  width="1280" height="720">
                                 <div *ngFor="let url of urls; let i = index">
                                     <div class="multiple-images multiple-img-sec ">
                                         <img class="img-responsive" [src]="url" />
@@ -199,18 +203,15 @@
                                 <div *ngIf="f['lockTimeEnd'].errors?.['required']" style="color: #fd0000">
                                     End is required.
                                 </div>
-                               
+
                             </div>
                             <div *ngIf="submitted && form.hasError('timeOrder')" class="help-block">
                                 <div *ngIf="form.hasError('timeOrder')" style="color: #fd0000">
-                                   End time must be greater than start time.
+                                    End time must be greater than start time.
                                 </div>
                             </div>
-                            
+
                         </div>
-
-
-
 
                         <!-- <div class="col-lg-6 col-md-12">
                         <label>Lock Time Start</label>
@@ -249,8 +250,9 @@
                             <label>Service Image</label>
                             <br>
                             <input name="bannerimage" type="file" class="uploadFile img" #image1
-                                (change)="handleFileInput($event)">
-                            <label data-toggle="modal" data-target="#myModal3" class="preview-butn">preview</label>
+                            (change)="handleFileInput($event)"  (change)="onImageSelect($event)" >
+                            <label *ngIf="imageUrl"  width="512" height="512" data-toggle="modal" data-target="#myModal3" class="preview-butn">preview</label>
+                            <div *ngIf="errorMessage" class="help-block" style="color: #fd0000">{{ errorMessage }}</div>
                         </div>
 
                         <div class="col-lg-12 col-md-12 mt-40 text-center btn_margin">
@@ -285,7 +287,7 @@
                 <button type="button" class="border-btn" data-dismiss="modal">
                     Close
                 </button>
-                <button type="button" class="btn_blue" (click)="cancel()" >Yes, Cancel It</button>
+                <button type="button" class="btn_blue" (click)="cancel()">Yes, Cancel It</button>
             </div>
         </div>
     </div>

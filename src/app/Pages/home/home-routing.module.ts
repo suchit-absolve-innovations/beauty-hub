@@ -84,13 +84,12 @@ const routes: Routes = [
       { path: 'salon-list/buy-membership-plan', component: BuyMebershipPlanListComponent },
       { path: 'salon-list/service-list', component : ServiceListComponent},
       { path: 'salon-list/service-list/add-service', component : AddServiceComponent},
-      { path: 'salon-list/service-list/service-detail/:id',component : ServiceDetailComponent},
+      { path: 'salon-list/service-list/service-detail',component : ServiceDetailComponent},
       { path: 'add-edit-schedule',component : AddEditScheduleComponent},
       { path: 'salon-list/service-list/edit-service', component: EditServiceComponent},
       { path: 'super-notification-list',component: SuperNotificationListComponent},   
       { path: 'super-notification-list/add-notification', component:SuperAddNotificationComponent},
-      { path: 'vendor-notification-list', component:VendorNotificationListComponent},
-      { path: 'vendor-notification-list/add-notification', component:VendorAddNotificationComponent},
+      
 
 
       //////Admin///////

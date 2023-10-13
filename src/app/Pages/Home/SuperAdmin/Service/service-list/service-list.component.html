@@ -86,7 +86,7 @@
                     <!-- <td >{{item.statusDisplay}}</td> -->
               
                     <td>
-                        <a [routerLink]="['/salon-list/service-list/service-detail/', item.serviceId]"><i style="background:#e6629f; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;" class="fa fa-eye"></i></a>
+                        <a (click)="details(item)"><i style="background:#e6629f; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;" class="fa fa-eye"></i></a>
                         <a (click)="edit(item)"><i style="background:#9f2d61; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;" class="fa fa-pencil"></i></a>
                         <a data-toggle="modal" data-target="#list-cross-mess" (click)="delet(item)">
                             <i style="background:#9f0a2a; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;" class="fa fa-times"></i>
