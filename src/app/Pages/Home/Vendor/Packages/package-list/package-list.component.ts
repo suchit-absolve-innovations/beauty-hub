@@ -20,6 +20,10 @@ export class PackageListComponent implements OnInit {
   packagesList: any;
   rootUrl!: string;
 
+  isActive: boolean = true;
+  unActive: boolean = false;
+  serviceId: any;
+
   constructor(
     private toaster: ToastrService,
     private spinner: NgxSpinnerService,
@@ -35,7 +39,7 @@ export class PackageListComponent implements OnInit {
   }
 
 
-  getPackagesList(){
+  getPackagesList() {
     debugger
     let payload = {
       pageNumber: 1,
@@ -53,16 +57,71 @@ export class PackageListComponent implements OnInit {
     });
 
   }
-  /*** Delete Collection  ***/
 
-  deleteCollection(data: any) {
+  checkActiveStatus(data: any) {
+    this.isActive = !this.isActive;
+    if (this.isActive == true) {
+      this.postActiveServiceStatus(data)
+    } else if (this.isActive == false) {
+      this.postUnActiveServiceStatus(data)
+    }
+  }
+
+  checkInactiveStatus(data: any) {
+    this.unActive = !this.unActive;
+    if (this.unActive == true) {
+      this.postActiveServiceStatus(data)
+    } else if (this.unActive == false) {
+      this.postUnActiveServiceStatus(data)
+    }
+  }
+
+
+  postActiveServiceStatus(data: any) {
+
+    let payload = {
+      serviceId: data,
+      status: 1
+    }
     this.spinner.show();
-    
-    this.content.deleteCollections(data).subscribe(response => {
+    this.content.statusServicePost(payload).subscribe(response => {
+      this.spinner.hide();
+    });
+  }
+
+  postUnActiveServiceStatus(data: any) {
+
+    let payload = {
+      serviceId: data,
+      status: 0
+    }
+    this.spinner.show();
+    this.content.statusServicePost(payload).subscribe(response => {
+      this.spinner.hide();
+    });
+  }
+
+
+
+
+  /*** Delete Package  ***/
+
+  delet(data: any) {
+
+    this.serviceId = data.serviceId;
+
+  }
+
+  deletePackageService() {
+
+    this.spinner.show();
+
+    this.content.deleteService(this.serviceId).subscribe(response => {
       if (response.isSuccess) {
         this.spinner.hide();
         this.ngZone.run(() => { this.getPackagesList(); })
         this.toaster.success(response.messages);
+        window.location.reload();
       } else {
         this.spinner.hide();
         this.toaster.error(response.messages)
@@ -70,16 +129,16 @@ export class PackageListComponent implements OnInit {
     });
   }
 
-     // edit user 
-     editPackage(data: any) {
+  // edit user 
+  editPackage(data: any) {
 
-      this.router.navigate(['/package-list/edit-package'],
-        {
-          queryParams: {
-            id: data.serviceId,
-            type: data.serviceType
-          }
-        });
-    }
+    this.router.navigate(['/package-list/edit-package'],
+      {
+        queryParams: {
+          id: data.serviceId,
+          type: data.serviceType
+        }
+      });
+  }
 
 }

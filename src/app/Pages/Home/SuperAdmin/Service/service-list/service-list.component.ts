@@ -28,7 +28,9 @@ export class ServiceListComponent implements OnInit {
   form: any;
   subCategoryList: any;
   categoryList: any;
- 
+  isActive: boolean = true;
+  unActive: boolean = false;
+  
   constructor(private toaster: ToastrService,
     private spinner: NgxSpinnerService,
     private content: ContentService,
@@ -179,6 +181,49 @@ export class ServiceListComponent implements OnInit {
         }
       })
   }
+}
+
+checkActiveStatus(data: any) {
+  this.isActive = !this.isActive;
+  if (this.isActive == true) {
+    this.postActiveServiceStatus(data)
+  } else if (this.isActive == false) {
+    this.postUnActiveServiceStatus(data)
+  }
+}
+
+checkInactiveStatus(data: any) {
+  this.unActive = !this.unActive;
+  if (this.unActive == true) {
+    this.postActiveServiceStatus(data)
+  } else if (this.unActive == false) {
+    this.postUnActiveServiceStatus(data)
+  }
+}
+
+
+postActiveServiceStatus(data: any) {
+
+  let payload = {
+    serviceId: data,
+    status: 1
+  }
+  this.spinner.show();
+  this.content.statusServicePost(payload).subscribe(response => {
+    this.spinner.hide();
+  });
+}
+
+postUnActiveServiceStatus(data: any) {
+
+  let payload = {
+    serviceId: data,
+    status: 0
+  }
+  this.spinner.show();
+  this.content.statusServicePost(payload).subscribe(response => {
+    this.spinner.hide();
+  });
 }
 
   delet(data: any) {

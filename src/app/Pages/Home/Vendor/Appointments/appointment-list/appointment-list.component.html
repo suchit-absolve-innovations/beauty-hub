@@ -1,5 +1,5 @@
 <div class="app-main__outer">
-    <form [formGroup]="form" >
+    <form [formGroup]="form">
         <div class="admin_a">
             <!-- <div class="media mb-5" >
                 <img class="align-self-center mr-3 welcome-image" [src]="rootUrl + image" alt="user">
@@ -13,31 +13,34 @@
                         <div class="col-lg-12">
                             <div class="row">
                                 <div class="col-lg-12"><label>Date</label></div>
-                                <div class="col-lg-3" style="position: relative; top:-8px;"><input type="text" formControlName="fromDate" placeholder="From Date" class="form-control"
-                                    (click)="performSearch()" bsDatepicker [bsConfig]="datePickerConfig"></div>
-                                <div class="col-lg-3" style="position: relative; top:-8px;"> <input type="text" formControlName="toDate" placeholder="To Date" class="form-control"
-                                    bsDatepicker [bsConfig]="datePickerConfig"></div>
-                                    
-                                    <div class="col-lg-3" >
-                                        <div class="col-lg-12"style="position: relative; top:-33px;" ><label>Filter By</label>
+                                <div class="col-lg-3" style="position: relative; top:-8px;"><input type="text"
+                                        formControlName="fromDate" placeholder="From Date" class="form-control"
+                                        (click)="performSearch()" bsDatepicker [bsConfig]="datePickerConfig"></div>
+                                <div class="col-lg-3" style="position: relative; top:-8px;"> <input type="text"
+                                        formControlName="toDate" placeholder="To Date" class="form-control" bsDatepicker
+                                        [bsConfig]="datePickerConfig"></div>
+
+                                <div class="col-lg-3">
+                                    <div class="col-lg-12" style="position: relative; top:-33px;"><label>Filter
+                                            By</label>
                                         <select type="text" formControlName="sortDateBy" (click)="performSearch()"
-                                           
                                             class="control-form mr-20  btn_filter">
-                                            <option value="" >Select </option>
+                                            <option value="">Select </option>
                                             <option value="0">Booking Date</option>
                                             <option value="1">Appointment Date</option>
-            
+
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-lg-3" style="position: relative; top:-8px;"><button type="submit" class="go_now" style="color: white;">
-                                    <i class="fa fa-search" (click)="filterAllList()" ></i>
-                                </button></div>
+                                <div class="col-lg-3" style="position: relative; top:-8px;"><button type="submit"
+                                        class="go_now" style="color: white;">
+                                        <i class="fa fa-search" (click)="filterAllList()"></i>
+                                    </button></div>
                             </div>
                         </div>
-                    
 
-                  
+
+
                     </div>
                 </div>
                 <!-- <div class="col-lg-6 col-md-12 mt-30 text-right">
@@ -51,9 +54,7 @@
                     <div class="d-flex flex-wrap if_xs_btn mb-30 justify-content-between">
                         <div class="cate-align">
                             <label>Payment Method </label>
-                            <select type="text" formControlName="paymentMethod" 
-                          
-                                class="control-form mr-20 btn_border">
+                            <select type="text" formControlName="paymentMethod" class="control-form mr-20 btn_border">
                                 <option value="" selected>Select </option>
                                 <!-- <option value="PayByUPI">PayByUPI</option> -->
                                 <option value="InCash">InCash</option>
@@ -61,8 +62,7 @@
                         </div>
                         <div class="cate-align">
                             <label>Appointment Status</label>
-                            <select type="text" formControlName="appointmentStatus"  
-                            (change)="filterAllList()"
+                            <select type="text" formControlName="appointmentStatus" (change)="filterAllList()"
                                 class="control-form mr-20 btn_border">
                                 <option value="" selected>Select </option>
                                 <option value="Scheduled">Scheduled </option>
@@ -72,8 +72,7 @@
                         </div>
                         <div class="cate-align">
                             <label>Payment Status</label>
-                            <select type="text" formControlName="paymentStatus" 
-                            (change)="filterAllList()" 
+                            <select type="text" formControlName="paymentStatus" (change)="filterAllList()"
                                 class="control-form btn_border ">
                                 <option value="" selected>Select </option>
                                 <option value="Paid">Paid </option>
@@ -101,14 +100,15 @@
                                 <th>Price</th>
                                 <th>Payment Method</th>
                                 <th>Payment Status</th>
-                                
-                               
+
+
                                 <th>Action</th>
                             </tr>
 
-                            <tr *ngFor="let item of appointmentsList | filter:searchText | paginate: {itemsPerPage: 5, currentPage: page, totalItems: totalItems,id: '1' }  ">
+                            <tr
+                                *ngFor="let item of appointmentsList | filter:searchText | paginate: {itemsPerPage: 5, currentPage: page, totalItems: totalItems,id: '1' }  ">
                                 <td>{{item.appointmentId}}</td>
-                                                 
+
                                 <!-- <td style="position: relative;" colspan="3"><label style="    margin: 0;
                                     padding: 0;
                                     position: absolute;
@@ -119,16 +119,17 @@
                                 </label > {{item?.orderId}} </td> -->
                                 <td>{{item.customerFirstName}} {{item.customerLastName}}</td>
                                 <td>{{item.createDate}}</td>
-                                <td>{{item.appointmentDate}}</td>  
+                                <td>{{item.appointmentDate}}</td>
                                 <td>{{item.totalServices}}</td>
                                 <!-- <td>{{item.appointmentStatus}}</td>   -->
-                                   <td class="td-dropdown">
-                                    <select type="text" class="control-form btn_border" formControlName="appointmentStatus"
-                                     (change)="appointmentStatus()"   (change)="handleSelectChange(item)">
+                                <td class="td-dropdown">
+                                    <select type="text" class="control-form btn_border"
+                                        formControlName="appointmentStatus" (change)="appointmentStatus()"
+                                        (change)="handleSelectChange(item)">
                                         <option value="" selected>{{item?.appointmentStatus}} </option>
-                                        <option value="Scheduled">Scheduled</option>
-                                        <option value="Cancelled">Cancelled</option>
-                                        <option value="Completed">Completed</option>
+                                        <option value="Scheduled" *ngIf="item?.appointmentStatus !== 'Scheduled'">Scheduled</option>
+                                        <option value="Cancelled" *ngIf="item?.appointmentStatus !== 'Cancelled'">Cancelled</option>
+                                        <option value="Completed" *ngIf="item?.appointmentStatus !== 'Completed'">Completed</option>
 
                                     </select>
                                 </td>
@@ -137,14 +138,14 @@
                                 <td>{{item.paymentMethod}}</td>
                                 <td class="td-dropdown">
                                     <select type="text" class="control-form btn_border" formControlName="paymentStatus"
-                                    (change)="paymentsStatus()"  (change)="postPaymentStatus(item)">
+                                        (change)="paymentsStatus()" (change)="postPaymentStatus(item)">
                                         <option value="" selected>{{item.paymentStatus}} </option>
-                                        <option value="Paid">Paid </option>
-                                        <option value="Unpaid">Unpaid </option>
-                                        <option value="Refunded"> Refunded </option>
+                                        <option value="Paid" *ngIf="item?.paymentStatus !== 'Paid'">Paid </option>
+                                        <option value="Unpaid" *ngIf="item?.paymentStatus !== 'Unpaid'">Unpaid </option>
+                                        <option value="Refunded" *ngIf="item?.paymentStatus !== 'Refunded'"> Refunded </option>
                                     </select>
                                 </td>
-                              
+
                                 <td>
                                     <a [routerLink]="['/appointment-list/appointment-detail/'] + item.appointmentId">
                                         <i class="fa fa-eye"></i>
@@ -172,5 +173,3 @@
         </div>
     </form>
 </div>
-
-

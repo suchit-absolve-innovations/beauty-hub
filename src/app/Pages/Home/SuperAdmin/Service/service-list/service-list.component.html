@@ -66,7 +66,7 @@
                     <th>Service Image</th>
                     <th>Salon Name</th>
                     <th>Price</th>
-                   
+                    <th>Status</th>
                     <th>Action</th>
                 </tr>
 
@@ -84,6 +84,21 @@
                     <td>{{item?.salonName}}</td>
                     <td>{{item?.listingPrice}}</td>
                     <!-- <td >{{item.statusDisplay}}</td> -->
+                    <td>
+                        <!-- <label class="switch" *ngIf="item.status == 0">
+                        <span>Pending</span>
+                    </label> -->
+                        <label class="switch" *ngIf="item?.status == 1 ">
+                            <input type="checkbox" checked (click)="checkActiveStatus(item?.serviceId)">
+                            <span class="slider round"></span>
+                            <!-- <p>Active</p> -->
+                        </label>
+                        <label class="switch" *ngIf="item.status == 0 ">
+                            <input type="checkbox" (click)="checkInactiveStatus(item.serviceId)">
+                            <span class="slider round"></span>
+                            <!-- <p>UnActive</p> -->
+                        </label>
+                    </td>
               
                     <td>
                         <a (click)="details(item)"><i style="background:#e6629f; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;" class="fa fa-eye"></i></a>

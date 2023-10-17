@@ -850,6 +850,10 @@ getPackageList(data: any) {
   return this.http.get<any>(environment.apiUrl + ApiEndPoint.getPackagesList + '?pageNumber=' + data.pageNumber + '&pageSize=' + data.pageSize + '&salonId=' + data.salonId + '&serviceType=' + data.serviceType);
 
 }
+statusServicePost(data: any) {
+  return this.http.post<any>(environment.apiUrl + ApiEndPoint.postServiceStatus, data)
+
+}
   
 
 }
