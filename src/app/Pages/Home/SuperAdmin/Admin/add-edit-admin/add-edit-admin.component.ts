@@ -129,6 +129,9 @@ export class AddEditAdminComponent implements OnInit {
     }
   }
 
+  backClicked() {
+    this._location.back();
+  }
 
   fileChangeEvent() {
     

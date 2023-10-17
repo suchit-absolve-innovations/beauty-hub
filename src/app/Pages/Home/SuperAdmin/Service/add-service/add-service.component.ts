@@ -62,7 +62,6 @@ export class AddServiceComponent implements OnInit {
   ngOnInit(): void {
     this.role = localStorage.getItem('user')
     this.salonIds = localStorage.getItem('salonId');
-    console.log(this.salonIds)
     this.rootUrl = environment.rootPathUrl;
     this.serviceForm();
     this.getcategoryList();
@@ -128,8 +127,6 @@ timeValidator(control: AbstractControl): ValidationErrors | null {
    this.contentService.SuperSubCategory(mainCategoryId).subscribe(response => {
      if (response.isSuccess) {
        this.subCategoryList = response.data;
-       console.log( this.subCategoryList)
-     
        // this.SubSubcategoryList = []
        this.spinner.hide();
      } else {
@@ -142,7 +139,6 @@ timeValidator(control: AbstractControl): ValidationErrors | null {
  // submit 
 
  postSubmit(){
- debugger
   if(this.role == 'SuperAdmin') {
 this.submit();
   } else if (this.role == 'Vendor') {
@@ -304,7 +300,7 @@ onTimeInputChange(event: Event) {
   // Format the time as "hh:mm tt"
   const formattedTime = `${parsedHours.toString().padStart(2, '0')}:${selectedTime.slice(3)} ${period}`;
 this.time = formattedTime
-  console.log('Formatted Time:', formattedTime);
+
   // Now 'formattedTime' contains the time in "hh:mm tt" format with 12-hour time
 }
 
@@ -329,7 +325,7 @@ onTimeInputChange2(event: Event) {
   // Format the time as "hh:mm tt"
   const formattedTime = `${parsedHours.toString().padStart(2, '0')}:${selectedTime.slice(3)} ${period}`;
   this.time2 = formattedTime
-  console.log('Formatted Time:', formattedTime);
+
 
   // Now 'formattedTime' contains the time in "hh:mm tt" format with 12-hour time
 }
@@ -438,10 +434,19 @@ removeImage(index: any) {
 }
 
 cancel(){
-  this.router.navigateByUrl('/salon-list')
-  .then(() => {
-    window.location.reload();
-  });
+  if(this.role == 'SuperAdmin') {
+    this.router.navigateByUrl('/salon-list')
+    .then(() => {
+      window.location.reload();
+    });
+      } else if (this.role == 'Vendor') {
+        this.router.navigateByUrl('/vendor-service-list')
+        .then(() => {
+          window.location.reload();
+        });
+      }
+
+  
 }
 
 }

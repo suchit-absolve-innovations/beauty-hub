@@ -101,7 +101,6 @@ export class AppointmentListComponent implements OnInit {
  
 
   handleSelectChange(item: any) {
-    debugger;
     if (item.totalServices == '1' ) {
     // Handle when totalServices is 1 (e.g., post status)
         this.postAppointmentsStatus(item);
@@ -144,7 +143,6 @@ export class AppointmentListComponent implements OnInit {
   }
 
   postAppointmentsStatus(data:any ){
-    debugger
     let payload = {
       appointmentId : data.appointmentId,
       appointmentStatus : this.postAppointmentStatus,
@@ -169,7 +167,6 @@ export class AppointmentListComponent implements OnInit {
     this.postPaymentsStatus = this.form.value.paymentStatus
   }
   postPaymentStatus(data:any) {
-    debugger
     let payload = {
       appointmentId : data.appointmentId,
       paymentStatus : this.postPaymentsStatus,
@@ -190,7 +187,6 @@ export class AppointmentListComponent implements OnInit {
    // list all filter 
 
    filterAllList() {
-    debugger
     if (this.refreshSubscription) {
       this.refreshSubscription.unsubscribe();
     }
@@ -227,7 +223,6 @@ export class AppointmentListComponent implements OnInit {
       paymentStatus: this.form.value.paymentStatus ? this.form.value.paymentStatus : '',
     }
    // this.spinner.show();
-   debugger
     this.content.appointmentPaymentStatusList(payload).subscribe(response => {
       if (response.isSuccess) {
         this.appointmentsList = response.data
@@ -255,8 +250,3 @@ export class AppointmentListComponent implements OnInit {
 
 
 
- // this.form.get('appointmentStatus').valueChanges.subscribe(() => {
-    //   this.form.get('paymentMethod').setValue('');
-    // }); 
-    // this.form.get('paymentMethod').setValue('');
-    // this.form.get('paymentStatus').setValue('');

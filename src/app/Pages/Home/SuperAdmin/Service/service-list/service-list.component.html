@@ -28,7 +28,7 @@
                 <label>Main Category</label>
                 <!-- (change)="getSubcategoryList(f['countryId'].value)" -->
                 <!-- (change)="getSubcategoryList(f['mainProductCategoryId'].value)" -->
-                <select type="text" class="control-form mr-20 btn_border" formControlName="MainCategoryId" (change)="getFilterMainCategoryList(f['MainCategoryId'].value)" (change)="getSubcategoryList(f['MainCategoryId'].value)">
+                <select type="text" class="control-form mr-20 btn_border" formControlName="mainCategoryId" (change)="serviceListFilter()" (change)="getSubcategoryList(f['mainCategoryId'].value)">
                     <option value="">Select </option>
                     <option   *ngFor="let item of categoryList"   [ngValue]="item?.mainCategoryId"
                    >{{item?.categoryName}}</option>
@@ -39,7 +39,7 @@
     
             <div class="cate-align">
                 <label>Sub Category</label>
-                <select type="text" class="control-form mr-20 btn_border" formControlName="subCategoryId" (change)="getFilterSubCategoryList(s['subCategoryId'].value)">
+                <select type="text" class="control-form mr-20 btn_border" formControlName="subCategoryId" (change)="serviceListFilter()">
                     <option value="">Select </option>
                     <option *ngFor="let item of subCategoryList"  [ngValue]="item?.subCategoryId" >{{item?.categoryName}}</option>
                 </select>	
@@ -47,7 +47,7 @@
 
             <div class="cate-align">
                 <label>Age</label>
-                <select type="text" class="control-form mr-20 btn_border" formControlName="ageRestrictions"  (change)="getFilterServiceAge()">
+                <select type="text" class="control-form mr-20 btn_border" formControlName="ageRestrictions"  (change)="serviceListFilter()">
                     <option value="">Select </option>
                     <option value="Kids">Kids</option>
                     <option value="Adult">Adult</option>
@@ -67,6 +67,7 @@
                     <th>Salon Name</th>
                     <th>Price</th>
                     <th>Status</th>
+                   
                     <th>Action</th>
                 </tr>
 
@@ -139,14 +140,12 @@
             </div>
 
         </div>
-      
+        <pagination-controls (pageChange)="((page = $event))" id="1" (pageIndex)="page" class="paginate-doctor-list"
+        queryParamsHandling="merge" (pageChange)="refresh()">
+        </pagination-controls>
     </div>
+ 
 </div>
-
-<pagination-controls (pageChange)="((page = $event))" id="1" (pageIndex)="page" class="paginate-doctor-list"
-queryParamsHandling="merge" (pageChange)="refresh()">
-</pagination-controls>
-
     <!-- modal -->
 
     <div class="modal fade" id="myModalpurchase-membership" tabindex="-1" role="dialog"

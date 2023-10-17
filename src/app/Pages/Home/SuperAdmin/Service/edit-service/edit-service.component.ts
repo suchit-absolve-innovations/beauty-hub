@@ -30,6 +30,7 @@ export class EditServiceComponent implements OnInit {
   image1: any;
   imageUrl: any;
   serviceIconImage:any;
+  role!: string | null;
   // errorMessage: string | null = null;
   errorMessage: string = '';
   isValid: boolean = false;
@@ -53,7 +54,7 @@ export class EditServiceComponent implements OnInit {
 
   ngOnInit(): void {
     this.rootUrl = environment.rootPathUrl;
-
+    this.role = localStorage.getItem('user')
     this.serviceId = this.route.snapshot.queryParams;
     // this.serviceIds = this.route.snapshot.paramMap.get('id2');
 
@@ -212,13 +213,11 @@ export class EditServiceComponent implements OnInit {
     this.contentService.imageConvert(this.serviceId.id2).subscribe(response => {
       if (response.isSuccess) {
         this.base64Image = response.data
-        console.log(this.base64Image)
       }
     });
   }
 
   fileChangeEvent() {
-    debugger
     const formData = new FormData();
     for (let i = 0; i < this.base64Image.length; i++) {
       const imageDataUrl = this.base64Image[i];
@@ -355,7 +354,7 @@ export class EditServiceComponent implements OnInit {
   }
   
   fileChangeEvents() {
-    debugger
+
     let formData = new FormData();
     formData.append("salonServiceIconImage", this.imageFiles?.file);
     formData.append("serviceId", this.serviceId.id2);
@@ -381,10 +380,16 @@ export class EditServiceComponent implements OnInit {
   }
 
     cancel(){
-      this.router.navigateByUrl('/salon-list')
-      .then(() => {
-        window.location.reload();
-      });
-    }
-    
-}
+      if(this.role == 'SuperAdmin') {
+        this.router.navigateByUrl('/salon-list')
+        .then(() => {
+          window.location.reload();
+        });
+          } else if (this.role == 'Vendor') {
+            this.router.navigateByUrl('/vendor-service-list')
+            .then(() => {
+              window.location.reload();
+            });
+          }
+        }
+      }

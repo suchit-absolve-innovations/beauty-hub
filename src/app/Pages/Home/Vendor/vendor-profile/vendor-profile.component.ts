@@ -377,7 +377,6 @@ getAddress(addressLat: number, addressLong: number) {
      //   this.clearFormArray(this.List1());
         this.vendorDetailPatch = response.data
         this.imageId = response.data.vendorId
-        debugger
         this.shopDetailPatch = this.vendorDetailPatch.salonResponses
 
         this.bankDetailPatch = this.vendorDetailPatch.bankResponses
@@ -729,12 +728,17 @@ getAddress(addressLat: number, addressLong: number) {
   
 
   
-  cancel(){
-    this.router.navigateByUrl('/vendor-product-list')
-    .then(() => {
-      window.location.reload();
-    });
+  // cancel(){
+  //   this.router.navigateByUrl('/vendor-product-list')
+  //   .then(() => {
+  //     window.location.reload();
+  //   });
+  // }
+
+  cancel() {
+    this.router.navigateByUrl('/appointment-list')
+      .then(() => {
+        window.location.reload();
+      });
   }
-
-
 }

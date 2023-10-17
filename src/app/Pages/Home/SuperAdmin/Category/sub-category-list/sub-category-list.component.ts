@@ -90,9 +90,9 @@ export class SubCategoryListComponent implements OnInit {
       salonId:this.salonId,
       status: true
     }
-    // this.spinner.show();
+    this.spinner.show();
     this.content.statusPostCategory(payload).subscribe(response => {
-// this.spinner.hide();
+this.spinner.hide();
     });
   }
   postUnActiveStatus(data: any) {
@@ -102,9 +102,9 @@ export class SubCategoryListComponent implements OnInit {
       salonId:this.salonId,
       status: false
     }
-    // this.spinner.show();
+    this.spinner.show();
     this.content.statusPostCategory(payload).subscribe(response => {
-      // this.spinner.hide();
+      this.spinner.hide();
 
     });
   }

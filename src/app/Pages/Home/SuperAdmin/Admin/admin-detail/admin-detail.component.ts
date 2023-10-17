@@ -41,7 +41,7 @@ export class AdminDetailComponent implements OnInit {
 
   
 
-  console.log('Admin Detail:', this.adminDetail);
+  
 });
   }
 

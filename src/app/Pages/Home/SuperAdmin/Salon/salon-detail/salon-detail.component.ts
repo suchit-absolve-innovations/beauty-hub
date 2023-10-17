@@ -58,7 +58,7 @@ export class SalonDetailComponent implements OnInit {
       callback(file);
     })
     .catch(error => {
-      console.error('Error converting image URL to file:', error);
+      
       callback(null);
     });
 }

@@ -48,14 +48,11 @@ export class ServiceDetailComponent implements OnInit {
   /** get product detail **/
 
   getServiceDetail() {
-    debugger
     // this.spinner.show();
     this.content.getServiceDetail(this.serviceId.id).subscribe(response => {
       if (response.isSuccess) {
-      debugger
         this.serviceDetail = response.data
         this.serviceImage = this.serviceDetail.serviceIconImage
-        console.log(this.serviceImage)
         this.spinner.hide();
         this.toaster.success(response.messages);
         // this.description = response.data.productDescription

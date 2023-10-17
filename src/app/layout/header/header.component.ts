@@ -14,6 +14,7 @@ export class HeaderComponent implements OnInit {
 
 
   sideNav() {
+
     this.show = !this.show;
     this.collapseSideNav.emit(this.show);
   }

@@ -82,3 +82,25 @@
 
 
 </div>
+
+<div class="modal fade" id="cancel-mess" tabindex="-1" role="dialog" aria-labelledby="cancel-messLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content warning-content">
+            <div class="modal-body text-center warning-mess-sec">
+                <button type="button" class="close float-right" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <img src="assets\img\warning.png" />
+                <h2>Alert</h2>
+                <p>Are You Sure, You want to Cancel it?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="border-btn" data-dismiss="modal">
+                    Close
+                </button>
+                <button type="button" class="btn_blue" (click)="cancel()">Yes, Cancel It</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -12,7 +12,7 @@ export class MessagingService {
         
         this.angularfireMessaging.requestToken.subscribe((token: any) => {
              localStorage.setItem('token', token);
-            console.log(token)
+         
         }, (err) => {
 
         });
