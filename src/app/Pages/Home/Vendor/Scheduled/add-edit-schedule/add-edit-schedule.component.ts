@@ -182,9 +182,7 @@ export class AddEditScheduleComponent implements OnInit {
      
       if (response.isSuccess) {
         this.schedule = response.data;
-        console.log( this.schedule)
         
-      
         this.Form.patchValue({
           monday: response.data.monday,
           tuesday: response.data.tuesday,
@@ -242,7 +240,10 @@ export class AddEditScheduleComponent implements OnInit {
   // cancel 
 
   cancel() {
-    this.router.navigateByUrl('/home')
+    this.router.navigateByUrl('/add-edit-schedule')
+      .then(() => {
+        window.location.reload();
+      });
   }
 
 

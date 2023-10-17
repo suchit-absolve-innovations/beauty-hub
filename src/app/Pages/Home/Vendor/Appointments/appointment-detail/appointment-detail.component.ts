@@ -92,7 +92,6 @@ export class AppointmentDetailComponent implements OnInit {
     this.postAppointmentStatus = this.form.value.appointmentStatus
   }
   setSelectedStatus(data:any) {
-    debugger
     let payload = {
       appointmentId : data.appointmentId,
       appointmentStatus : this.postAppointmentStatus,

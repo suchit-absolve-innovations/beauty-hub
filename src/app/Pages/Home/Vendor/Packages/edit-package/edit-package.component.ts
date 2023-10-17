@@ -81,7 +81,6 @@ export class EditPackageComponent implements OnInit {
     this.role = localStorage.getItem('user')
     this.salonIds = localStorage.getItem('salonId');
     this.serviceId = this.route.snapshot.queryParams;
-    console.log(this.salonIds)
     this.rootUrl = environment.rootPathUrl;
     this.serviceForm();
     this.getcategoryList();
@@ -166,7 +165,6 @@ timeValidator(control: AbstractControl): ValidationErrors | null {
    this.contentService.SuperSubCategory(mainCategoryId).subscribe(response => {
      if (response.isSuccess) {
        this.subCategoryList = response.data;
-       console.log( this.subCategoryList)
      
        // this.SubSubcategoryList = []
        this.spinner.hide();
@@ -178,7 +176,6 @@ timeValidator(control: AbstractControl): ValidationErrors | null {
  }
 
  getServicesList() {
-debugger
   this.spinner.show();
 
   let payload = {
@@ -205,7 +202,6 @@ debugger
 }
 
 getServicesListByCategories() {
-  debugger
     this.spinner.show();
   
     let payload = {
@@ -243,8 +239,6 @@ convertSelectedItemsToString(): string {
 
 
 getServiceDetail() {
-
- debugger
  let payload ={
   serviceId: this.serviceId.id,
   serviceType: this.serviceId.type
@@ -259,7 +253,6 @@ getServiceDetail() {
       this.packageDetailPatch = response.data
       this.ServiceImage = this.packageDetailPatch.serviceImage
       this.imageUrl = this.rootUrl + this.packageDetailPatch.serviceIconImage
-      debugger
       this.options = this.packageDetailPatch.includeServiceId
       let serviceListData: { item_id: any; item_text: any; }[] = [];
       this.serviceList.forEach((element: { serviceId: any; serviceName: any; }) => {
@@ -296,11 +289,9 @@ getServiceDetail() {
 }
 
 imageConvert64() {
-  debugger
   this.contentService.imageConvert(this.serviceId.id).subscribe(response => {
     if (response.isSuccess) {
       this.base64Image = response.data
-      console.log(this.base64Image)
     }
   });
 }
@@ -308,7 +299,6 @@ imageConvert64() {
  // submit 
 
  postSubmit(){
- debugger
   if(this.role == 'SuperAdmin') {
 this.submit();
   } else if (this.role == 'Vendor') {
@@ -361,7 +351,6 @@ this.submitVendor();
 
 
 submitVendor() {
-debugger
   this.submitted = true;
   if (this.form.invalid) {
     this.toasterService.error("Form Incomplete: Please fill in all the required fields correctly");
@@ -393,9 +382,7 @@ debugger
   }
   this.spinner.show()
   this.contentService.addNewService(payload).subscribe(response => {
-debugger
     this.serviceIds = response.data?.serviceId
-    console.log(this.serviceIds)
     this.fileChangeEvent();
     this.fileChangeEvents();
     this.spinner.hide()
@@ -408,60 +395,8 @@ debugger
   });
 }
 
-// onTimeInputChange(event: Event) {
-//   const timeInput = event.target as HTMLInputElement;
-//   const selectedTime = timeInput.value; // Get the selected time in "hh:mm" format
-//   // Determine whether it's AM or PM based on a certain condition (e.g., hours)
-//   const [hours] = selectedTime.split(':');
-//   let parsedHours = parseInt(hours, 10);
-//   // Calculate the period (AM or PM)
-//   let period = 'AM';
-//   if (parsedHours >= 12) {
-//     period = 'PM';
-//     if (parsedHours > 12) {
-//       parsedHours -= 12;
-//     }
-//   }
-//   if (parsedHours === 0) {
-//     parsedHours = 12;
-//   }
-  
-//   // Format the time as "hh:mm tt"
-//   const formattedTime = `${parsedHours.toString().padStart(2, '0')}:${selectedTime.slice(3)} ${period}`;
-// this.time = formattedTime
-//   console.log('Formatted Time:', formattedTime);
-//   // Now 'formattedTime' contains the time in "hh:mm tt" format with 12-hour time
-// }
-
-
-// onTimeInputChange2(event: Event) {
-//   const timeInput = event.target as HTMLInputElement;
-//   const selectedTime = timeInput.value; // Get the selected time in "hh:mm" format
-//   // Determine whether it's AM or PM based on a certain condition (e.g., hours)
-//   const [hours] = selectedTime.split(':');
-//   let parsedHours = parseInt(hours, 10);
-//   // Calculate the period (AM or PM)
-//   let period = 'AM';
-//   if (parsedHours >= 12) {
-//     period = 'PM';
-//     if (parsedHours > 12) {
-//       parsedHours -= 12;
-//     }
-//   }
-//   if (parsedHours === 0) {
-//     parsedHours = 12;
-//   }
-//   // Format the time as "hh:mm tt"
-//   const formattedTime = `${parsedHours.toString().padStart(2, '0')}:${selectedTime.slice(3)} ${period}`;
-//   this.time2 = formattedTime
-//   console.log('Formatted Time:', formattedTime);
-
-//   // Now 'formattedTime' contains the time in "hh:mm tt" format with 12-hour time
-// }
-
 
 fileChangeEvent() {
-  debugger
   const formData = new FormData();
   for (let i = 0; i < this.base64Image.length; i++) {
     const imageDataUrl = this.base64Image[i];
@@ -476,21 +411,6 @@ fileChangeEvent() {
 }
 
 
-// onselect(event: any) {
-//   const files = event.target.files;
-//   this.errorMessages = '';
-//   for (let i = 0; i < files.length; i++) {
-//     const file = files[i];
-//     const reader = new FileReader();
-//     reader.readAsDataURL(file);
-//     reader.onload = () => {
-      
-//       const imageDataUrl = reader.result as string;
-      
-//       this.base64Image.push(imageDataUrl);
-//     };
-//   }
-// }
 onselect(event: any) {
   const files = event.target.files;
   this.errorMessages = ''; // Clear previous error messages
@@ -583,25 +503,6 @@ onImageSelect(event: any) {
 }
 
 
-// handleFileInput(event: any) {
-//   debugger
-//   if (event.target.files && event.target.files[0]) {
-
-//     //Show image preview
-//     let reader = new FileReader();
-//     reader.onload = (_event: any) => {
-//       this.imageUrl = _event.target.result;
-
-//       this.imageFiles = {
-//         link: _event.target.result,
-//         file: event.srcElement.files[0],
-//         name: event.srcElement.files[0].name,
-//         type: event.srcElement.files[0].type
-//       };
-//     }
-//     reader.readAsDataURL(event.target.files[0]);
-//   }
-// }
 handleFileInput(event: any) {
   const files = event.target.files;
   for (let e = 0; e < files.length; e++) {
@@ -634,7 +535,6 @@ handleFileInput(event: any) {
 }
 
 fileChangeEvents() {
-  debugger
   let formData = new FormData();
   formData.append("salonServiceIconImage", this.imageFiles?.file);
   formData.append("serviceId", this.serviceIds);
@@ -659,7 +559,7 @@ removeImage(index: any) {
 }
 
 cancel(){
-  this.router.navigateByUrl('/salon-list')
+  this.router.navigateByUrl('/package-list')
   .then(() => {
     window.location.reload();
   });

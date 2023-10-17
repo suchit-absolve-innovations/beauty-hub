@@ -32,9 +32,9 @@
     
             <div class="cate-align">
                 <label>Sub Category</label>
-                <select type="text" class="control-form mr-20 btn_border" formControlName="subCategoryId">
+                <select type="text" class="control-form mr-20 btn_border" formControlName="subCategoryId" (change)="getFilterSubCategoryList(s['subCategoryId'].value)">
                     <option value="">Select </option>
-                    <option *ngFor="let item of subCategoryList"  >{{item?.categoryName}}</option>
+                    <option *ngFor="let item of subCategoryList" [ngValue]="item?.subCategoryId" >{{item?.categoryName}}</option>
                 </select>	
             </div>
     

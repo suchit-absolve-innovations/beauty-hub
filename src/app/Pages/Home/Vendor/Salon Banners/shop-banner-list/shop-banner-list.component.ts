@@ -157,12 +157,9 @@ this.salonBannerId = data.salonBannerId;
 
  
     getSubcategoryList(MainCategoryId:any){
-   
-
     this.content.SubCategory(MainCategoryId).subscribe(response => {
       if (response.isSuccess) {
         this.subCategoryList = response.data;
-        console.log( this.subCategoryList)
       
         // this.SubSubcategoryList = []
         this.spinner.hide();
@@ -187,6 +184,7 @@ this.salonBannerId = data.salonBannerId;
      this.shopBannerList = response.data;
     this.spinner.hide();
    } else {
+    this.shopBannerList = []
      this.spinner.hide();
      // this.data = response.isSuccess == 'false'
  

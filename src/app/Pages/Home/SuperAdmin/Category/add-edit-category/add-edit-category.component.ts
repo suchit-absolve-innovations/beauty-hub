@@ -25,6 +25,7 @@ export class AddEditCategoryComponent implements OnInit {
   mainId: any;
   categoryType : any;
    login:any
+   role!: string | null;
   constructor(
     private formBuilder: FormBuilder,
     private contentService: ContentService,
@@ -37,6 +38,7 @@ export class AddEditCategoryComponent implements OnInit {
 
   ngOnInit(): void {
     this.rootUrl = environment.rootPathUrl;
+    this.role = localStorage.getItem('user')
     this.categoryForm();
 
     this.route.queryParams.subscribe((params: any) => {
@@ -81,6 +83,7 @@ export class AddEditCategoryComponent implements OnInit {
         this.mainId = response.data?.mainCategoryId
         this.fileChangeEvent();
         this.afterResponse(response);
+        
       });
     } else {
       let payload = {
@@ -98,15 +101,22 @@ export class AddEditCategoryComponent implements OnInit {
     }
   }
 
+ 
   
   afterResponse(response: any ) {
     if (response && response.statusCode == 200) {
       if (response.isSuccess) {
-        if (this.login = localStorage.getItem('role')) {
+        if(this.role == 'SuperAdmin') {
+          this.router.navigate(['/category-list'])
           this.showModal();
-        } else {
+        }
+        if(this.role == 'Vendor') {
+          this.router.navigate(['/category-list'])
+          this.showModal();
+        }
+         else {
           // Redirect to a route for non-vendors
-          this.router.navigate(['/category-list']);
+          
         }
         // this.showModal();
         this.form.reset();
@@ -123,11 +133,16 @@ export class AddEditCategoryComponent implements OnInit {
   afterResponses(response: any) {
     if (response && response.statusCode == 200) {
       if (response.isSuccess) {
-        if (this.login = localStorage.getItem('role')) {
+        if(this.role == 'SuperAdmin') {
+          this.router.navigate(['/category-list'])
+          this.showModal();
+        }
+        if(this.role == 'Vendor') {
+          this.router.navigate(['/category-list'])
           this.showModal();
         } else {
           // Redirect to a route for non-vendors
-          this.router.navigate(['/category-list'])
+          
         }
         // this.showModal();
         this.form.reset();

@@ -269,12 +269,10 @@ export class SuperAdminProfileComponent implements OnInit {
           this.spinner.hide();
           this.clearFormArray(this.List1());
           this.superAdminDetailPatch = response.data
-          console.log(this.superAdminDetailPatch)
           this.superAdminId = response.data.id
           this.bankDetailPatch = this.superAdminDetailPatch.bankResponses
           this.upiDetailPatch = this.superAdminDetailPatch.upiResponses
           this.editImages = this.rootUrl + this.superAdminDetailPatch?.profilePic;
-          console.log(this.superAdminId)
           this.getCountry();
           this.patchBankDetail();
           this.form.patchValue({
@@ -426,7 +424,7 @@ export class SuperAdminProfileComponent implements OnInit {
   }
   
   cancel(){
-    this.router.navigateByUrl('/dashboard/dashboard')
+    this.router.navigateByUrl('super-Admin-Dashboard')
     .then(() => {
       window.location.reload();
     });

@@ -269,7 +269,6 @@ getMembershipPlanList() {
 
   getPlanId(data:any){
 this.membershipPlanIds = data
-console.log(this.membershipPlanIds)
   }
 
 
@@ -341,7 +340,7 @@ console.log(this.membershipPlanIds)
         // Add any further actions or notifications here
       })
       .catch((error) => {
-        console.error('Failed to copy item:', error);
+  
         // Handle error or show appropriate error message
       });
   }

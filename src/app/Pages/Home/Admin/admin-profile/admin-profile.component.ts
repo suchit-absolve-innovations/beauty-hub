@@ -93,7 +93,7 @@ export class AdminProfileComponent implements OnInit {
         if (response.isSuccess) {
           this.spinner.hide();
           this.adminDetailPatch = response.data
-          console.log( this.adminDetailPatch)
+       
       
           this.editImages = this.rootUrl + this.adminDetailPatch?.profilePic;  
           this.getCountry();

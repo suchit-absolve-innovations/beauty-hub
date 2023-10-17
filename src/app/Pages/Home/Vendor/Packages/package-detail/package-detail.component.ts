@@ -35,8 +35,6 @@ export class PackageDetailComponent implements OnInit {
     this.rootUrl = environment.rootPathUrl;
     this.serviceId = this.route.snapshot.paramMap.get('id');
     this.packageType = this.route.snapshot.paramMap.get('type');
-    console.log(this.serviceId)
-    console.log(this.packageType)
     this.getPackageDetails();
   }
 
@@ -52,7 +50,6 @@ export class PackageDetailComponent implements OnInit {
   /** get product detail **/
 
   getPackageDetails() {
-    debugger
     let payload ={
       serviceId : this.serviceId,
       serviceType : this.packageType
@@ -64,7 +61,6 @@ export class PackageDetailComponent implements OnInit {
         this.packageDetail = response.data
         this.serviceImage = this.packageDetail.serviceIconImage
         this.packageservicesList = this.packageDetail.includeService
-        console.log(this.packageservicesList)
         this.spinner.hide();
         this.toaster.success(response.messages);
         // this.description = response.data.productDescription

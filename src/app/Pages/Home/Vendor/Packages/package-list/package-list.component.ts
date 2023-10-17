@@ -36,7 +36,6 @@ export class PackageListComponent implements OnInit {
 
 
   getPackagesList(){
-    debugger
     let payload = {
       pageNumber: 1,
       pageSize: 1000,

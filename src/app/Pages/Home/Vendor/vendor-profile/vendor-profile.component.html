@@ -375,8 +375,10 @@
             </div>
             <div class="vendor-form bg-white ">
                 <div class="col-lg-12 col-md-12  text-center">
-                    <button class="border-btn" type="submit" data-toggle="modal"
-                        data-target="#cancel-mess">Cancel</button>
+                    <button class="border-btn" type="submit" value="" data-toggle="modal"
+                                data-target="#cancel-mess">
+                                Cancel
+                            </button>
                     <button class="btn_blue " type="submit" (click)="postVendor()">Submit</button>
                 </div>
             </div>
@@ -433,24 +435,24 @@
 
 
 
-    <!-- Modal -->
     <div class="modal fade" id="cancel-mess" tabindex="-1" role="dialog" aria-labelledby="cancel-messLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content warning-content">
-
-                <div class="modal-body text-center warning-mess-sec">
-                    <button type="button" class="close float-right" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <img src="assets\img\warning.png">
-                    <h2>Alert</h2>
-                    <p>Are You Sure, You want to Cancel it?</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class=" border-btn" data-dismiss="modal">Close</button>
-                    <button type="button" class=" btn_blue" (click)="cancel()">Yes, Cancel It</button>
-                </div>
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content warning-content">
+            <div class="modal-body text-center warning-mess-sec">
+                <button type="button" class="close float-right" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <img src="assets\img\warning.png" />
+                <h2>Alert</h2>
+                <p>Are You Sure, You want to Cancel it?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="border-btn" data-dismiss="modal">
+                    Close
+                </button>
+                <button type="button" class="btn_blue" (click)="cancel()">Yes, Cancel It</button>
             </div>
         </div>
     </div>
+</div>

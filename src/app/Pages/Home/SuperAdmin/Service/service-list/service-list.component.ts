@@ -28,7 +28,9 @@ export class ServiceListComponent implements OnInit {
   form: any;
   subCategoryList: any;
   categoryList: any;
- 
+  isActive: boolean = true;
+  unActive: boolean = false;
+
   constructor(private toaster: ToastrService,
     private spinner: NgxSpinnerService,
     private content: ContentService,
@@ -44,7 +46,7 @@ export class ServiceListComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.page = +params['page'] || 0; // Use the 'page' query parameter value, or default to 1
     });
-    
+
     this.salonId = this.route.snapshot.queryParams
     // this.salonIds = localStorage.setItem('salonid',this.salonId.id)
     this.getList();
@@ -72,10 +74,54 @@ export class ServiceListComponent implements OnInit {
     });
   }
 
+  checkActiveStatus(data: any) {
+    this.isActive = !this.isActive;
+    if (this.isActive == true) {
+      this.postActiveStatus(data)
+    } else if (this.isActive == false) {
+      this.postUnActiveStatus(data)
+    }
+  }
+
+  checkInactiveStatus(data: any) {
+    this.unActive = !this.unActive;
+    if (this.unActive == true) {
+      this.postActiveStatus(data)
+    } else if (this.unActive == false) {
+      this.postUnActiveStatus(data)
+    }
+  }
+
+
+  postActiveStatus(data: any) {
+
+    let payload = {
+      mainCategoryId: data,
+      salonId: this.salonId,
+      status: true
+    }
+    this.spinner.show();
+    this.content.statusPostCategory(payload).subscribe(response => {
+      this.spinner.hide();
+    });
+  }
+
+  postUnActiveStatus(data: any) {
+    let payload = {
+      mainCategoryId: data,
+      salonId: this.salonId,
+      status: false
+    }
+    this.spinner.show();
+    this.content.statusPostCategory(payload).subscribe(response => {
+      this.spinner.hide();
+    });
+  }
+
   // Service List 
 
   getList() {
-    
+
     if (this.role == 'SuperAdmin') {
       this.getServiceList();
     } else if (this.role == 'Vendor') {
@@ -84,7 +130,7 @@ export class ServiceListComponent implements OnInit {
   }
 
   getServiceList() {
-    
+
     let payload = {
       pageNumber: 1,
       pageSize: 1000,
@@ -112,85 +158,78 @@ export class ServiceListComponent implements OnInit {
 
         this.spinner.hide();
       }
-      
+
     });
   }
 
-
-
   passId() {
-    if(this.role == 'SuperAdmin'){
-    this.router.navigate(['/salon-list/service-list/add-service'],
-      {
-        queryParams: {
-          id: this.salonId.id
+    if (this.role == 'SuperAdmin') {
+      this.router.navigate(['/salon-list/service-list/add-service'],
+        {
+          queryParams: {
+            id: this.salonId.id
 
-        }
-      })
-      }
-      else if (this.role == 'Vendor'){
-        this.router.navigate(['/vendor-service-list/add-service'],
-      {
-        queryParams: {
-          id: this.salonId.id
-
-        }
-      })
-      }
-
-    
-  }
-  details(data: any){
-    if(this.role == 'SuperAdmin'){
-      this.router.navigate(['/salon-list/service-list/service-detail'],
-      {
-        queryParams: {
-          id: data.serviceId
-        }
-      })
+          }
+        })
     }
-    else if (this.role == 'Vendor'){
+    else if (this.role == 'Vendor') {
+      this.router.navigate(['/vendor-service-list/add-service'],
+        {
+          queryParams: {
+            id: this.salonId.id
+
+          }
+        })
+    }
+  }
+  details(data: any) {
+    if (this.role == 'SuperAdmin') {
+      this.router.navigate(['/salon-list/service-list/service-detail'],
+        {
+          queryParams: {
+            id: data.serviceId
+          }
+        })
+    }
+    else if (this.role == 'Vendor') {
       this.router.navigate(['/vendor-service-list/service-detail'],
-      {
-        queryParams: {
-          id: data.serviceId
-        }
-      })
+        {
+          queryParams: {
+            id: data.serviceId
+          }
+        })
     }
   }
   edit(data: any) {
-    if(this.role == 'SuperAdmin'){
-    this.router.navigate(['/salon-list/service-list/edit-service'],
-      {
-        queryParams: {
-          id2: data.serviceId,
-          id: data.salonId
+    if (this.role == 'SuperAdmin') {
+      this.router.navigate(['/salon-list/service-list/edit-service'],
+        {
+          queryParams: {
+            id2: data.serviceId,
+            id: data.salonId
 
-        }
-      })
+          }
+        })
     }
-    else if (this.role == 'Vendor'){
+    else if (this.role == 'Vendor') {
       this.router.navigate(['vendor-service-list/edit-service'],
-      {
-        queryParams: {
-          id2: data.serviceId,
-          id: data.salonId
+        {
+          queryParams: {
+            id2: data.serviceId,
+            id: data.salonId
 
-        }
-      })
+          }
+        })
+    }
   }
-}
 
   delet(data: any) {
-    
+
     this.serviceId = data.serviceId;
 
   }
-
   serviceDelete() {
-    
     this.spinner.show();
-    
     this.content.deleteService(this.serviceId).subscribe(response => {
       if (response.isSuccess) {
         this.spinner.hide();
@@ -214,7 +253,7 @@ export class ServiceListComponent implements OnInit {
   filterListForm() {
     this.form = this.formBuilder.group({
       genderPreferences: [''],
-      MainCategoryId: [''],
+      mainCategoryId: [''],
       subCategoryId: [''],
       ageRestrictions: ['']
     });
@@ -240,7 +279,7 @@ export class ServiceListComponent implements OnInit {
         genderPreferences: this.form.value.genderPreferences
       };
     } else if (this.role === 'SuperAdmin') {
-       payload = {
+      payload = {
         pageNumber: 1,
         pageSize: 1000,
         salonId: this.salonId.id,
@@ -261,7 +300,6 @@ export class ServiceListComponent implements OnInit {
     });
   }
 
-
   getcategoryList() {
     // this.spinner.show();
     this.content.getcategory().subscribe(response => {
@@ -276,51 +314,12 @@ export class ServiceListComponent implements OnInit {
     });
   }
 
-  getFilterMainCategoryList(data: any) {
-
- 
-
-    let payload;
-
-
-    if (this.role === 'Vendor') {
-      payload = {
-        pageNumber: 1,
-        pageSize: 1000,
-        salonId: this.id,
-        mainCategoryId: data
-      };
-    } else if (this.role === 'SuperAdmin') {
-       payload = {
-        pageNumber: 1,
-        pageSize: 1000,
-        salonId: this.salonId.id,
-        mainCategoryId: data
-      };
-    }
-    this.content.getserviceMainCategory(payload).subscribe(response => {
-      if (response.isSuccess) {
-
-        this.list = response.data.dataList;
-
-
-      } else {
-
-        this.list = [];
-
-      }
-    });
-  }
-
-
 
   getSubcategoryList(MainCategoryId: any) {
-    
 
     this.content.SubCategory(MainCategoryId).subscribe(response => {
       if (response.isSuccess) {
         this.subCategoryList = response.data;
-        console.log(this.subCategoryList)
 
         // this.SubSubcategoryList = []
         this.spinner.hide();
@@ -331,78 +330,38 @@ export class ServiceListComponent implements OnInit {
     });
   }
 
-  getFilterSubCategoryList(data: any) {
+  serviceListFilter() {
     this.spinner.show();
-
-
     let payload;
-
-
     if (this.role === 'Vendor') {
       payload = {
         pageNumber: 1,
         pageSize: 1000,
         salonId: this.id,
-        subCategoryId: data
+        ageRestrictions: this.form.value.ageRestrictions ? this.form.value.ageRestrictions : '',
+        mainCategoryId: this.form.value.mainCategoryId ? this.form.value.mainCategoryId : '',
+        subCategoryId: this.form.value.subCategoryId ? this.form.value.subCategoryId : ''
+
       };
     } else if (this.role === 'SuperAdmin') {
-       payload = {
-        pageNumber: 1,
-        pageSize: 1000,
-        salonId: this.salonId.id,
-        subCategoryId: data
-      };
-    }
-
-     this.content.getserviceSubCategory(payload).subscribe(response => {
-       if (response.isSuccess) {
-        this.list = response.data.dataList;
-       this.spinner.hide();
-      } else {
-      
-
-          this.list = [];
-  
-        this.spinner.hide();
-
-      }
-     });
-  }
-
-
-  getFilterServiceAge() {
-
-    let payload;
-
-
-    if (this.role === 'Vendor') {
       payload = {
         pageNumber: 1,
         pageSize: 1000,
-        salonId: this.id,
-        ageRestrictions: this.form.value.ageRestrictions
-      };
-    } else if (this.role === 'SuperAdmin') {
-       payload = {
-        pageNumber: 1,
-        pageSize: 1000,
         salonId: this.salonId.id,
-        ageRestrictions: this.form.value.ageRestrictions
+        ageRestrictions: this.form.value.ageRestrictions ? this.form.value.ageRestrictions : '',
+        mainCategoryId: this.form.value.mainCategoryId ? this.form.value.mainCategoryId : '',
+        subCategoryId: this.form.value.subCategoryId ? this.form.value.subCategoryId : ''
+
       };
     }
-      
-    this.content.getserviceAge(payload).subscribe(response => {
+    this.content.filterServiceList(payload).subscribe(response => {
       if (response.isSuccess) {
-
         this.list = response.data.dataList;
-
-
+        this.spinner.hide();
       } else {
-
         this.list = [];
 
       }
     });
-
   }
 }

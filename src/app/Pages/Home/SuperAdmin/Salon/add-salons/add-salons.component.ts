@@ -60,6 +60,7 @@ export class AddSalonsComponent implements OnInit {
   upidetailIds: any;
   membershipRecordId!: any;
   recordId!: number;
+  role!: string | null;
 
   // // Google Map
   addressLat!: number;
@@ -89,6 +90,7 @@ export class AddSalonsComponent implements OnInit {
     }
 
     ngOnInit(): void {
+      this.role = localStorage.getItem('user')
       
       this.membershipRecordId = localStorage.getItem('membershipRecordId');
       this.recordId = parseInt(this.membershipRecordId)
@@ -775,7 +777,6 @@ add() {
           this.spinner.hide();
           this.clearFormArray(this.List1());
           this.vendorDetailPatch = response.data
-          console.log(this.vendorDetailPatch)
           this.imageId = response.data.vendorId
           this.shopDetailPatch = this.vendorDetailPatch.salonResponses
           this.bankDetailPatch = this.vendorDetailPatch.bankResponses
@@ -855,13 +856,19 @@ add() {
       this.form.patchValue(data)
     }
   
-    cancel() {
-      this.router.navigateByUrl('/salon-list')
+    cancel(){
+      if(this.role == 'SuperAdmin') {
+        this.router.navigateByUrl('/salon-list')
         .then(() => {
           window.location.reload();
         });
-    }
+          } else if (this.role == 'Vendor') {
+            this.router.navigateByUrl('/subscription')
+            .then(() => {
+              window.location.reload();
+            });
+          }
   }
   
-  
+}
   
