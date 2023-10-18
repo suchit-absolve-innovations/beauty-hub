@@ -54,6 +54,14 @@
                 </select>	
             </div>
     
+            <div class="cate-align">
+                <label>Gender Preferences</label>
+                <select type="text" class="control-form mr-20 btn_border" formControlName="genderPreferences"  (change)="serviceListFilter()">
+                    <option value="">Select </option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>	
+            </div>
                 </div>
             </form>
 
@@ -64,10 +72,9 @@
                     <!-- <th>Serial No.</th> -->
                     <th>Service Name</th>
                     <th>Service Image</th>
-                    <th>Salon Name</th>
+                    <th>Gender Preferences</th>
                     <th>Price</th>
                     <th>Status</th>
-                   
                     <th>Action</th>
                 </tr>
 
@@ -82,7 +89,7 @@
                         <!-- <img src="assets/img/product_items.png" class="img-responsive">-->
                         <img [src]="rootUrl + item?.serviceImage" class="img-responsive">
                     </td>
-                    <td>{{item?.salonName}}</td>
+                    <td>{{item?.genderPreferences}}</td>
                     <td>{{item?.listingPrice}}</td>
                     <!-- <td >{{item.statusDisplay}}</td> -->
                     <td>

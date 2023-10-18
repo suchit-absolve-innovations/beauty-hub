@@ -48,7 +48,7 @@ export class AppointmentListComponent implements OnInit {
       toDate           : [''],
       paymentMethod    : [''],
       appointmentStatus: [''],
-      sortDateBy       : ['0'],
+      sortDateBy       : ['1'],
   
       
 
@@ -187,6 +187,7 @@ export class AppointmentListComponent implements OnInit {
    // list all filter 
 
    filterAllList() {
+    debugger
     if (this.refreshSubscription) {
       this.refreshSubscription.unsubscribe();
     }
@@ -215,22 +216,22 @@ export class AppointmentListComponent implements OnInit {
       pageNumber: 1,
       pageSize: 1000,
       salonId : localStorage.getItem('salonId'),
-      fromDate: fromDate,
-      toDate: toDate,
+      fromDate: fromDate ,
+      toDate: toDate ,
       sortDateBy: this.form.value.sortDateBy,
       paymentMethod: this.form.value.paymentMethod ? this.form.value.paymentMethod : '',
       appointmentStatus:this.form.value.appointmentStatus ? this.form.value.appointmentStatus : '',
       paymentStatus: this.form.value.paymentStatus ? this.form.value.paymentStatus : '',
     }
-   // this.spinner.show();
+   this.spinner.show();
     this.content.appointmentPaymentStatusList(payload).subscribe(response => {
       if (response.isSuccess) {
         this.appointmentsList = response.data
         this.startRefreshIntervallist5();
-    //    this.spinner.hide();
+       this.spinner.hide();
      //   this.toaster.success(response.messages)
       } else {
-     //   this.spinner.hide();
+       this.spinner.hide();
         this.toaster.error(response.messages)
         this.appointmentsList = []
       }

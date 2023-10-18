@@ -366,7 +366,8 @@ postUnActiveServiceStatus(data: any) {
         salonId: this.id,
         ageRestrictions: this.form.value.ageRestrictions ? this.form.value.ageRestrictions : '',
         mainCategoryId: this.form.value.mainCategoryId ? this.form.value.mainCategoryId : '',
-        subCategoryId: this.form.value.subCategoryId ? this.form.value.subCategoryId : ''
+        subCategoryId: this.form.value.subCategoryId ? this.form.value.subCategoryId : '',
+        genderPreferences : this.form.value.genderPreferences ? this.form.value.genderPreferences : ''
 
       };
     } else if (this.role === 'SuperAdmin') {
@@ -376,7 +377,8 @@ postUnActiveServiceStatus(data: any) {
         salonId: this.salonId.id,
         ageRestrictions: this.form.value.ageRestrictions ? this.form.value.ageRestrictions : '',
         mainCategoryId: this.form.value.mainCategoryId ? this.form.value.mainCategoryId : '',
-        subCategoryId: this.form.value.subCategoryId ? this.form.value.subCategoryId : ''
+        subCategoryId: this.form.value.subCategoryId ? this.form.value.subCategoryId : '',
+        genderPreferences : this.form.value.genderPreferences ? this.form.value.genderPreferences : ''
 
       };
     }

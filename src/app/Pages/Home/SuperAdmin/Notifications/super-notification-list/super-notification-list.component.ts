@@ -86,7 +86,7 @@ export class SuperNotificationListComponent implements OnInit {
     this.content.getBroadNotificationFilter(payload).subscribe(response => {
       if (response.isSuccess) {
         // this.router.navigateByUrl('/super-notification-list')
-        this.hideFilterModal(); 
+        // this.hideFilterModal(); 
         this.spinner.hide();
         this.notificationList = response.data.dataList
         this.toasterService.success(response.messages);
@@ -96,21 +96,21 @@ export class SuperNotificationListComponent implements OnInit {
       }
     });
   }
-  showFilterModal() {
-    const modalElement = document.getElementById('myModalpurchase-membership');
-    this.renderer.addClass(modalElement, 'show');
-  }
-  hideFilterModal() {
-    debugger
-    const modalElement = document.getElementById('myModalpurchase-membership');
+  // showFilterModal() {
+  //   const modalElement = document.getElementById('myModalpurchase-membership');
+  //   this.renderer.addClass(modalElement, 'show');
+  // }
+  // hideFilterModal() {
+  //   debugger
+  //   const modalElement = document.getElementById('myModalpurchase-membership');
 
-    if (modalElement) {
-      this.renderer.removeClass(modalElement, 'show'); 
-      // Change the z-index to hide the modal
-      modalElement.style.zIndex = '-1 !important' ;  // Set z-index to a value that hides it
-    }
+  //   if (modalElement) {
+  //     this.renderer.removeClass(modalElement, 'show'); 
+  //     // Change the z-index to hide the modal
+  //     modalElement.style.zIndex = '-1 !important' ;  // Set z-index to a value that hides it
+  //   }
 
-  }
+  // }
   
   // hideFilterModal() {
   //   const modalElement = document.getElementById('myModalpurchase-membership');

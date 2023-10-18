@@ -468,7 +468,7 @@ add() {
             zip: this.form.value.salonDetail[0]?.zip,
             gstnumber: this.form.value.salonDetail[0]?.gstnumber,
             businessPAN: this.form.value.salonDetail[0]?.businessPAN,
-            shopId: this.shopDetailPatch[0]?.shopId,
+            salonId: this.shopDetailPatch[0]?.salonId,
           }],
   
           bankDetail: [{

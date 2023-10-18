@@ -17,6 +17,7 @@
                 <tr>
                     <th>Package Name </th>
                     <th>Service Image</th>
+                    <th>Gender Preferences</th>
                     <th> Total Count</th>
                     <th> Price</th>
                     <th> Status</th>
@@ -29,7 +30,7 @@
                         {{item?.serviceName}}
                     </td>
                     <td> <img [src]="rootUrl + item?.serviceImage" class="img-responsive xs-sm-logo" /></td>
-
+                    <td>{{item.genderPreferences}}</td>
                     <td>{{item?.totalCountPerDuration}}</td>
                     <td>{{item?.basePrice}}</td>
                     <td>

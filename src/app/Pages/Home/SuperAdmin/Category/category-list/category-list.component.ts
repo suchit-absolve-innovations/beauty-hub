@@ -309,6 +309,7 @@ export class CategoryListComponent implements OnInit {
    }
   
     deleteMainCategory() {
+      
       this.spinner.show();
       this.content.mainCategoryDelete(this.mainCategoryId).subscribe(response => {
         if (response.isSuccess) {
