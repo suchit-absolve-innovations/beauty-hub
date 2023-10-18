@@ -213,7 +213,7 @@
                                 (input)="onTimeInputChange($event)" />
                             <div *ngIf="submitted && f['lockTimeStart'].errors" class="help-block">
                                 <div *ngIf="f['lockTimeStart'].errors?.['required']" style="color: #fd0000">
-                                    Start is required.
+                                    Start time is required.
                                 </div>
                             </div>
                         </div>
@@ -224,7 +224,7 @@
                                 (input)="onTimeInputChange2($event)" />
                             <div *ngIf="submitted && f['lockTimeEnd'].errors" class="help-block">
                                 <div *ngIf="f['lockTimeEnd'].errors?.['required']" style="color: #fd0000">
-                                    End is required.
+                                    End time is required.
                                 </div>
 
                             </div>

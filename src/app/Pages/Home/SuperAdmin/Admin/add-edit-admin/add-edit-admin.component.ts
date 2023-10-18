@@ -62,7 +62,7 @@ export class AddEditAdminComponent implements OnInit {
         lastName: ['', [Validators.required]],
         gender: ['', [Validators.required]],
         phoneNumber: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
-        dialCode: ['91', [Validators.required]],
+        dialCode: ['+91', [Validators.required]],
         countryId: ['101'],
         stateId: ['', [Validators.required]],
         email: ['', [Validators.required, Validators.email,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]]

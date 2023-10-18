@@ -501,7 +501,7 @@ add() {
             this.fileChangeEvents();
             this.fileQrChangeEvents();
             this.toaster.success(response.messages);
-            // this.router.navigateByUrl('/salon-list');
+            this.router.navigateByUrl('/salon-list');
           } else {
             this.spinner.hide();
             this.toaster.error(response.messages);
@@ -568,8 +568,8 @@ add() {
             this.fileChangeEvent();
             this.fileChangeEvents();
             this.fileQrChangeEvents();
-            // this.toaster.success(response.messages);
-            // this.router.navigateByUrl('/salon-list');
+            this.toaster.success(response.messages);
+            this.router.navigateByUrl('/salon-list');
           } else {
             this.spinner.hide();
             this.toaster.error(response.messages);

@@ -214,9 +214,7 @@ this.spinner.hide();
   }
 
   delet(data:any){
-    
-this.subCategoryId = data.subCategoryId;
-
+  this.subCategoryId = data.subCategoryId;
   }
 
   deleteSubCategory() {

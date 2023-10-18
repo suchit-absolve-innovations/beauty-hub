@@ -12,6 +12,8 @@ import { ContentService } from 'src/app/Shared/service/content.service';
   styleUrls: ['./vendor-notification-list.component.css']
 })
 export class VendorNotificationListComponent implements OnInit {
+
+  public searchText: any = '';
   notificationList: any;
   notificationId: any;
   constructor(

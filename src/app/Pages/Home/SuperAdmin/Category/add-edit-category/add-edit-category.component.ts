@@ -24,7 +24,7 @@ export class AddEditCategoryComponent implements OnInit {
   id: any;
   mainId: any;
   categoryType : any;
-   login:any
+  login = localStorage.getItem('role');
    role!: string | null;
   constructor(
     private formBuilder: FormBuilder,
@@ -95,7 +95,7 @@ export class AddEditCategoryComponent implements OnInit {
 
         this.mainId = response.data?.mainCategoryId
         this.fileChangeEvent();
-        this.afterResponses(response);
+        this.afterResponse(response);
 
       });
     }
@@ -104,21 +104,17 @@ export class AddEditCategoryComponent implements OnInit {
  
   
   afterResponse(response: any ) {
+    debugger
     if (response && response.statusCode == 200) {
       if (response.isSuccess) {
-        if(this.role == 'SuperAdmin') {
-          this.router.navigate(['/category-list'])
-          this.showModal();
-        }
-        if(this.role == 'Vendor') {
-          this.router.navigate(['/category-list'])
-          this.showModal();
-        }
-         else {
-          // Redirect to a route for non-vendors
-          
-        }
-        // this.showModal();
+        if(this.login == 'SuperAdmin'){
+         this._location.back();
+         this.toasterService.success(response.messages);
+
+        } else if (this.login == 'Vendor')
+           this.showModal();
+   
+        this.toasterService.success(response.messages);
         this.form.reset();
       
       }
@@ -128,32 +124,6 @@ export class AddEditCategoryComponent implements OnInit {
     }
   }
   
-
-
-  afterResponses(response: any) {
-    if (response && response.statusCode == 200) {
-      if (response.isSuccess) {
-        if(this.role == 'SuperAdmin') {
-          this.router.navigate(['/category-list'])
-          this.showModal();
-        }
-        if(this.role == 'Vendor') {
-          this.router.navigate(['/category-list'])
-          this.showModal();
-        } else {
-          // Redirect to a route for non-vendors
-          
-        }
-        // this.showModal();
-        this.form.reset();
-        // this.toasterService.success('Thanks for placing category request. Your request will be processed in 24hrs');
-        // this.router.navigate(['/category-list']);
-      }
-      else {
-        this.toasterService.error(response.messages);
-      }
-    }
-  }
 
   ok(){
      this.router.navigate(['/category-list'])

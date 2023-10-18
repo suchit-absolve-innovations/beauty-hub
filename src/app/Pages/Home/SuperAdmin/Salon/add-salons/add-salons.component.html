@@ -349,11 +349,11 @@
                             <label
                                 *ngIf="bankDetail.controls[i].get('confirmbankAccountNumber')?.errors?.['required'] && submitted != null && !submitted"
                                 class="invalid-formdata">
-                                Confirm bank account number
+                                Confirm bank account number.
                             </label>
                             <label *ngIf="bankDetail.controls[i].get('confirmbankAccountNumber')?.errors?.['mustMatch'] && submitted != null && !submitted"
                                 class="invalid-formdata">
-                                Account number must be same</label>
+                                Account number must be same.</label>
                         </div>
   
                         <div class="col-lg-6 col-md-12">

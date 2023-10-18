@@ -118,12 +118,12 @@ this.salonBannerId = data.salonBannerId;
 
 
    getcategoryList(){
-     // this.spinner.show();
+     this.spinner.show();
        this.content.getcategory().subscribe(response => {
          if (response.isSuccess) {
            this.categoryList = response.data;
          
-         //  this.spinner.hide();
+          this.spinner.hide();
          } else {
            // this.spinner.hide();
            this.toaster.error(response.messages);
@@ -133,7 +133,7 @@ this.salonBannerId = data.salonBannerId;
  
      getFilterMainCategoryList(data:any){
  
-       // this.spinner.show();
+        this.spinner.show();
  
        let payload = {
          salonId:localStorage.getItem('salonId'),
@@ -144,7 +144,7 @@ this.salonBannerId = data.salonBannerId;
            if (response.isSuccess) {
            
               this.shopBannerList = response.data;
-             
+              this.spinner.hide();
         
            } else {
        

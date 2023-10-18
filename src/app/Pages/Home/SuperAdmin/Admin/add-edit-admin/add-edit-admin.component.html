@@ -94,7 +94,7 @@
             </div>
             <div class="col-lg-6 col-md-12">
               <label>Dial Code</label>
-              <input type="tel" class="control-form" formControlName="dialCode" numbersOnly />
+              <input type="tel" class="control-form" formControlName="dialCode" numbersOnly [readonly]="true" style="background-color: rgb(218, 231, 243);" />
               <div *ngIf="submitted && f['dialCode'].errors" class="help-block">
                 <div *ngIf="f['dialCode'].errors" style="color: #fd0000">
                  Dial is required.

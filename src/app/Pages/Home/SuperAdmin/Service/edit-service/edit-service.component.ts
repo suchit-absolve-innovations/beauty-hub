@@ -195,7 +195,7 @@ export class EditServiceComponent implements OnInit {
         this.toaster.success(response.messages);
      
        
-        // this._location.back();
+        this._location.back();
       } else {
         this.toaster.error(response.messages);
       }
