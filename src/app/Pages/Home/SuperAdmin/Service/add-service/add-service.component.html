@@ -105,6 +105,11 @@
                                     {{item?.categoryName}}</option>
 
                             </select>
+                            <div *ngIf="submitted && f['mainCategoryId'].errors" class="help-block">
+                                <div *ngIf="f['mainCategoryId'].errors" style="color: #fd0000">
+                                    Main Category is required.
+                                </div>
+                            </div>
                             <!-- <select type="text" class="control-form mr-20 btn_border" formControlName="mainCategoryId"
                               (change)="getSubcategoryList(f['mainCategoryId'].value)">
                               <option value="">Select </option>
@@ -190,7 +195,7 @@
                                 (input)="onTimeInputChange($event)" />
                             <div *ngIf="submitted && f['lockTimeStart'].errors" class="help-block">
                                 <div *ngIf="f['lockTimeStart'].errors?.['required']" style="color: #fd0000">
-                                    Start is required.
+                                    Start time is required.
                                 </div>
                             </div>
                         </div>
@@ -201,7 +206,7 @@
                                 (input)="onTimeInputChange2($event)" />
                             <div *ngIf="submitted && f['lockTimeEnd'].errors" class="help-block">
                                 <div *ngIf="f['lockTimeEnd'].errors?.['required']" style="color: #fd0000">
-                                    End is required.
+                                    End time is required.
                                 </div>
 
                             </div>

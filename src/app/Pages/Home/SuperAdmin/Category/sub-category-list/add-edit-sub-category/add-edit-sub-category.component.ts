@@ -25,6 +25,8 @@ export class AddEditSubCategoryComponent implements OnInit {
   Id2: any;
   subId: any;
   categoryType: any;
+  login = localStorage.getItem('role');
+ 
 
   constructor(
     private spinner: NgxSpinnerService,
@@ -115,18 +117,24 @@ export class AddEditSubCategoryComponent implements OnInit {
 
 
 afterResponse(response: any) {
+  debugger
 if (response && response.statusCode == 200) {
-  if (response.isSuccess) {
-    this.showModal();
+  if(this.login == 'SuperAdmin'){
+
+   this._location.back();
+   this.toasterService.success(response.messages);
+  } else if (this.login == 'Vendor')
+     this.showModal();
+  
     this.form.reset();
-    this.toasterService.success(response.messages);
-    // this.router.navigate(['/category-list']);
-  }
+}
+
   else {
     this.toasterService.error(response.messages);
   }
 }
-}
+
+
 
 ok(){
   this.router.navigate(['/category-list'])

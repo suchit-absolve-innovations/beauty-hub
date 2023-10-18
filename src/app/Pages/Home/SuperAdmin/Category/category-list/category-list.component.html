@@ -3,7 +3,7 @@
 
         <div class="category-section" *ngIf="login == 'Vendor'">
             <div class="d-flex if_xs_btn mt-30">
-                <input type="text" placeholder="Search Category" class="btn_border search_here" [(ngModel)]="searchText"
+                <input type="text" placeholder="Search Here" class="btn_border search_here" [(ngModel)]="searchText"
                     (click)="performSearch()">
                 <!-- <a data-toggle="modal" data-target="#myModalpurchase-membership" class="btn_blue ml-3 mb-0">Filter</a>         -->
                 <a [routerLink]="['/category-list/add-edit-category']" class="btn_blue ml-auto">Add New Category</a>
@@ -12,7 +12,7 @@
             <div class="table-responsive">
                 <table class="table admin_table">
 
-                    <tr>
+                    <tr>    
                         <!-- <th>Serial No.</th> -->
                         <th>Category Name</th>
                         <th>Category Image</th>
@@ -100,7 +100,7 @@
 
         <div class="category-section" *ngIf="login == 'Admin'">
             <div class="d-flex if_xs_btn mt-30">
-                <input type="text" placeholder="Search Category" class="btn_border search_here" [(ngModel)]="searchText"
+                <input type="text" placeholder="Search Here" class="btn_border search_here" [(ngModel)]="searchText"
                     (click)="performSearch()">
                 <a [routerLink]="['/category-list/add-edit-category']" class="btn_blue ml-auto">Add New Category</a>
             </div>
@@ -184,7 +184,7 @@
         <div class="tab-butns" *ngIf="login == 'SuperAdmin'">
 
             <div class="d-flex if_xs_btn mt-30">
-                <input type="text" placeholder="Search Category" class="btn_border search_here" [(ngModel)]="searchText"
+                <input type="text" placeholder="Search Here" class="btn_border search_here" [(ngModel)]="searchText"
                     (click)="performSearch()">
                 <a data-toggle="modal" data-target="#myModalpurchase-membership" class="btn_blue ml-3 mb-0">Filter</a>
                 <a [routerLink]="['/category-list/add-edit-category']" class="btn_blue ml-auto">Add New Category</a>

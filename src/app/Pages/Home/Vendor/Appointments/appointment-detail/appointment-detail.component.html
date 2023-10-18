@@ -112,10 +112,10 @@
 
 
 
-                            <dl class="d-flex inform_text">
+                            <!-- <dl class="d-flex inform_text">
                                 <dt>Payment Receipt:</dt>
                                 <dd>{{appointmentDetail?.paymentReceipt}}</dd>
-                            </dl>
+                            </dl> -->
                             <!-- <dl class="d-flex inform_text">
                             <dt>Shipping Charges:</dt>
                             <dd>{{appointmentDetail?.shippingCharges}}</dd>
@@ -172,9 +172,9 @@
                             <select type="text" class="control-form btn_border" formControlName="appointmentStatus"
                             (change)="appointmentStatus()"  (change)="setSelectedStatus(item)">
                                 <option value="" selected>{{item?.appointmentStatus}} </option>
-                                <option value="Scheduled">Scheduled </option>
-                                <option value="Cancelled">Cancelled </option>
-                                <option value="Completed">Completed </option>
+                                <option value="Scheduled"  *ngIf="item?.appointmentStatus !== 'Scheduled'">Scheduled </option>
+                                <option value="Cancelled" *ngIf="item?.appointmentStatus !== 'Cancelled'">Cancelled </option>
+                                <option value="Completed" *ngIf="item?.appointmentStatus !== 'Completed'" >Completed </option>
                             </select>
                         </td>
                         <td>{{item.serviceCountInCart}}</td>
