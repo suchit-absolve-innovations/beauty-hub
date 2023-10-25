@@ -477,14 +477,16 @@ a.forget_link {
 }
 
 .btn_filter{
-    margin-top: -23px;
+    margin-top: -8px;
     color: #525252;
-    padding: 0px 28px;
-    height: 38px;
+    padding: 0px 40px;
+    height: 37px;
     border-radius: 4px;
     font-size: 15px;
     border: 1px solid #d3cfd0;
     outline: none;
+    margin-left: -65px;
+   
 }
 .border-btn {
     color: #000;
