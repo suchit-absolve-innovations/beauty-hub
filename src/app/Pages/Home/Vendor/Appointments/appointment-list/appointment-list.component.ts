@@ -41,6 +41,9 @@ export class AppointmentListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAppointmentsList();
+    this.route.queryParams.subscribe(params => {
+      this.page = +params['page'] || 0; // Use the 'page' query parameter value, or default to 1
+    });
     this.form = this.formBuilder.group({
       // deliveryType: [''],
       paymentStatus    : [''],
@@ -49,9 +52,7 @@ export class AppointmentListComponent implements OnInit {
       paymentMethod    : [''],
       appointmentStatus: [''],
       sortDateBy       : ['1'],
-  
-      
-
+       
     });
   }
 

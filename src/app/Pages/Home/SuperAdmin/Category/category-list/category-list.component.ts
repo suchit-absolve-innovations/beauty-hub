@@ -303,7 +303,6 @@ export class CategoryListComponent implements OnInit {
   }
 
   delet(data: any) {
-    debugger
     this.mainCategoryId = data.mainCategoryId;
     this.subCategoryId = data.subCategoryId;
   }

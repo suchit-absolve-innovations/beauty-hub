@@ -139,6 +139,6 @@ export enum ApiEndPoint {
   postAppointmentsStatus = 'api/Vendor/SetAppointmentStatus',
   postPaymentStatus = 'api/Vendor/SetPaymentStatus',
   getPackagesList = "api/Service/GetSalonServiceList",
-  postServiceStatus = "/api/Service/SetServiceStatus"
-
+  postServiceStatus = "api/Service/SetServiceStatus"
+                           
 }

@@ -54,7 +54,7 @@
                     <div class="d-flex flex-wrap if_xs_btn mb-30 justify-content-between">
                         <div class="cate-align">
                             <label>Payment Method </label>
-                            <select type="text" formControlName="paymentMethod" class="control-form mr-20 btn_border">
+                            <select type="text" formControlName="paymentMethod" class="control-form mr-20 btn_border" (click)="performSearch()">
                                 <option value="" selected>Select </option>
                                 <!-- <option value="PayByUPI">PayByUPI</option> -->
                                 <option value="InCash">InCash</option>
@@ -62,7 +62,7 @@
                         </div>
                         <div class="cate-align">
                             <label>Appointment Status</label>
-                            <select type="text" formControlName="appointmentStatus" (change)="filterAllList()"
+                            <select type="text" formControlName="appointmentStatus"  (change)="filterAllList()"
                                 class="control-form mr-20 btn_border">
                                 <option value="" selected>Select </option>
                                 <option value="Scheduled">Scheduled </option>
