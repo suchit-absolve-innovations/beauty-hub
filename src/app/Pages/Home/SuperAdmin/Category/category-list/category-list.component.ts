@@ -337,7 +337,7 @@ export class CategoryListComponent implements OnInit {
         this.toaster.error(response.messages)
       }
     });
-  }
+  }                                                                     
 
 
 

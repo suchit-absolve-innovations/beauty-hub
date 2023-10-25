@@ -115,7 +115,7 @@ export enum ApiEndPoint {
  
   UpdateAdminUser = "api/Admin/UpdateAdminUser",
   AdminUserDetail = "api/Admin/GetAdminUserDetail",
-  getBuyMemberShipPlan= "/api/Admin/getMembershipPlanList",
+  getBuyMemberShipPlan= "api/Admin/getMembershipPlanList",
   serviceList = "api/Service/GetSalonServiceList",
   serviceDetail = "api/Service/GetSalonServiceDetail",
   getScheduleDayTimes = "api/Service/getScheduledDaysTime",
