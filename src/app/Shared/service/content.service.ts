@@ -547,6 +547,9 @@ planUpdate(data: any) {
       return this.http.delete<any>(environment.apiUrl + ApiEndPoint.deleteMainCategory + '?mainCategoryId=' + mainCategoryId)
   
     }
+    // subCategoryDelete(subCategoryId:any){
+    //   return this.http.delete<any>(environment.apiUrl + ApiEndPoint.deleteSubCategory + '?subCategoryId=' + subCategoryId)
+    // }
 
       subCategorySuper(MainCategoryId: any) {
     

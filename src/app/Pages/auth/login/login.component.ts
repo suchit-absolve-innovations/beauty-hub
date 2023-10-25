@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
   formPayload: any = {};
   userRole: any;
   password!: any;
-  show: boolean = false;
+  show = false;
   showPassword: boolean = false;
   constructor(private router: Router,
     private formBuilder: FormBuilder,

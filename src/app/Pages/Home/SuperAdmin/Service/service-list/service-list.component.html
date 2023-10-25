@@ -4,7 +4,10 @@
 
 
     <div class="admin_a form_dashbord">
-
+        <div class="top-head" *ngIf="login == 'SuperAdmin'">
+            <img (click)="backClicked()" src="assets\img\backimage.svg" class="backimage-butn">
+          <h2>Services</h2>
+          </div>
         <!-- <div class="text-center d-table">
             <img src="https://dummyimage.com/100x100/ddd/fff" class="img-responsive rounded-circle">
             <h3>James Walter</h3>
@@ -28,7 +31,7 @@
                 <label>Main Category</label>
                 <!-- (change)="getSubcategoryList(f['countryId'].value)" -->
                 <!-- (change)="getSubcategoryList(f['mainProductCategoryId'].value)" -->
-                <select type="text" class="control-form mr-20 btn_border" formControlName="mainCategoryId" (change)="serviceListFilter()" (change)="getSubcategoryList(f['mainCategoryId'].value)">
+                <select type="text" class="control-form mr-20 btn_border" formControlName="mainCategoryId" (click)="performSearch()" (change)="serviceListFilter()" (change)="getSubcategoryList(f['mainCategoryId'].value)">
                     <option value="">Select </option>
                     <option   *ngFor="let item of categoryList"   [ngValue]="item?.mainCategoryId"
                    >{{item?.categoryName}}</option>

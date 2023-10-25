@@ -34,21 +34,26 @@
                             is
                             required</div>
                     </div>
-                    <label>Password</label>
-                    <div class="input-group password-input">
-                    <input type= "{{show ? 'text' : 'password' }}"
-                     class="form-control login-inputpass" formControlName="password"
-                        [ngClass]="{ 'is-invalid': submitted && f['password'].errors }">
-                    <div class="input-group-append eye-icon" (click)="onClick()"> 
-                        <i class="fa" [ngClass]="show ? 'fa-eye' : 'fa-eye-slash'" aria-hidden="true"></i>
-                     </div>
-                    <div *ngIf="submitted && f['password'].errors" class="help-block"
+                        <div class="position-relative mt-20">
+                                <label>Password</label>
+                                <div class="position-relative password-input">
+                                <input type= "{{show ? 'text' : 'password' }}" class="form-control login-inputpass password-input " formControlName="password"
+                                    [ngClass]="{ 'is-invalid': submitted && f['password'].errors }">
+                                <div class="input-group-append eye-icon login-passsword" (click)="onClick()">
+                                    <i class="fa fa-eye-slash eye-icon " aria-hidden="true"
+                                        *ngIf="!show"></i>
+                                    <i class="fa fa-eye " aria-hidden="true" *ngIf="show"></i>
+                                </div>
+                            </div>
+                            </div>
+                            <div *ngIf="submitted && f['password'].errors" class="help-block"
                                 [ngClass]="{ 'is-invalid': submitted && f['password'].errors }">
                                 <div *ngIf="f['password'].errors['required']" style="color: #fd0000; margin-top: 3px;">
                                     Password is
                                     required</div>
-                                </div>
+
                             </div>
+                            
                     <input type="submit" value="Submit" />
 
                     <a href="" class="forget_link">Forgot Password</a>

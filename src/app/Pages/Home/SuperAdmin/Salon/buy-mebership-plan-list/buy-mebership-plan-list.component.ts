@@ -305,6 +305,12 @@ this.membershipPlanIds = data
               window.location.reload();
             });
           }
+          if (this.userRole == 'Admin') {
+            this.router.navigateByUrl('/subscription/buy-membership-plan/add-salon')
+              .then(() => {
+                window.location.reload();
+              });
+            }
       } else {
         this.toaster.error(response.messages)
       }

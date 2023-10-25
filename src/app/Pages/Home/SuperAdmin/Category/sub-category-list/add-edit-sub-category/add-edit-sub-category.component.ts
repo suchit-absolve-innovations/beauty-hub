@@ -123,12 +123,16 @@ if (response && response.statusCode == 200) {
 
    this._location.back();
    this.toasterService.success(response.messages);
-  } else if (this.login == 'Vendor')
+  }if (this.login == 'Vendor'){
      this.showModal();
-  
-    this.form.reset();
+     this.toasterService.success(response.messages);
 }
+else if(this.login == 'Admin')
+this.showModal();
+this.toasterService.success(response.messages);
 
+
+}
   else {
     this.toasterService.error(response.messages);
   }

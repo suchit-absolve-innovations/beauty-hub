@@ -35,6 +35,7 @@ export class CategoryListComponent implements OnInit {
   salonId = localStorage.getItem('salonId');
   categoryRequestList: any;
   mainCategoryId: any;
+  subCategoryId :any;
   form: any;
   constructor(private toaster: ToastrService,
     private spinner: NgxSpinnerService,
@@ -52,7 +53,6 @@ export class CategoryListComponent implements OnInit {
     this.page4 = queryParams['page4'] ? +queryParams['page4'] : 0;
 
   }
-
   ngOnInit(): void {
 
     this.rootUrl = environment.rootPathUrl;
@@ -269,7 +269,7 @@ export class CategoryListComponent implements OnInit {
       subCategoryId: data.subCategoryId,
       status: 1
     }
-    // this.spinner.show();
+    this.spinner.show();
     this.content.acceptRejectCategorys(payload).subscribe(response => {
       if (response.isSuccess) {
         this.spinner.hide();
@@ -289,7 +289,7 @@ export class CategoryListComponent implements OnInit {
       subCategoryId: data.subCategoryId,
       status: 2
     }
-    // this.spinner.show();
+    this.spinner.show();
     this.content.acceptRejectCategorys(payload).subscribe(response => {
       if (response.isSuccess) {
         this.spinner.hide();
@@ -303,9 +303,25 @@ export class CategoryListComponent implements OnInit {
   }
 
   delet(data: any) {
-debugger
+    debugger
     this.mainCategoryId = data.mainCategoryId;
-
+    this.subCategoryId = data.subCategoryId;
+  }
+ 
+  deleteSubCategory() {
+    this.spinner.show();
+    this.content.subCategoryDelete(this.subCategoryId).subscribe(response => {
+      if (response.isSuccess) {
+        this.spinner.hide();
+        //   this.ngZone.run(() => { this.getcategoryList(); })
+        //  this.ngZone.run(() => { this.getsuperlist(); })
+        window.location.reload();
+        this.toaster.success(response.messages);
+      } else {
+        this.spinner.hide();
+        this.toaster.error(response.messages)
+      }
+    });
   }
 
   deleteMainCategory() {

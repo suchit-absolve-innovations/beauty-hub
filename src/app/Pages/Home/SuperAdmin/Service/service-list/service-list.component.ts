@@ -5,7 +5,7 @@ import { ContentService } from 'src/app/Shared/service/content.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { FormBuilder } from '@angular/forms';
-
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-service-list',
@@ -16,6 +16,7 @@ export class ServiceListComponent implements OnInit {
   list: any;
   // serach 
   public searchText: any = '';
+  login = localStorage.getItem('role');
   page: number = 0;
   itemsPerPage!: number;
   totalItems!: number;
@@ -30,13 +31,15 @@ export class ServiceListComponent implements OnInit {
   categoryList: any;
   isActive: boolean = true;
   unActive: boolean = false;
+ 
   constructor(private toaster: ToastrService,
     private spinner: NgxSpinnerService,
     private content: ContentService,
     private router: Router,
     private ngZone: NgZone,
     private route: ActivatedRoute,
-    private formBuilder: FormBuilder,) { }
+    private formBuilder: FormBuilder,
+    private _location: Location) { }
 
   ngOnInit(): void {
     this.rootUrl = environment.rootPathUrl;
@@ -53,6 +56,9 @@ export class ServiceListComponent implements OnInit {
     this.filterListForm();
   }
 
+  backClicked() {
+    this._location.back();
+  }
 
   performSearch() {
 
@@ -73,7 +79,7 @@ export class ServiceListComponent implements OnInit {
     });
   }
 
- 
+  
 
 
   postActiveStatus(data: any) {

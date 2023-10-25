@@ -45,6 +45,11 @@ export class AddServiceComponent implements OnInit {
   errorMessages: string = '';
   isValid: boolean = false;
   previewImage: string = '';
+  basePrice!: number;
+  discount: number = 0;
+  listingPrice!: number;
+
+
 
 
   constructor(private router: Router,
@@ -100,7 +105,15 @@ timeValidator(control: AbstractControl): ValidationErrors | null {
   return null;
 }
 
-  
+calculateBasePrice() {
+    this.listingPrice = this.basePrice - this.discount;
+    
+  } 
+
+calculateDiscount() {
+  this.listingPrice = this.basePrice - this.discount;
+}  
+
   get f() {
     return this.form.controls;
   }

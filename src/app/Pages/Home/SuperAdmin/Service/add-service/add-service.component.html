@@ -68,7 +68,7 @@
 
                         <div class="col-lg-6 col-md-12">
                             <label>Base Price </label>
-                            <input type="text" class="form-control" formControlName="basePrice" />
+                            <input type="text" class="form-control" formControlName="basePrice" [(ngModel)]="basePrice" (input)="calculateBasePrice()"/>
                             <div *ngIf="submitted && f['basePrice'].errors" class="help-block">
                                 <div *ngIf="f['basePrice'].errors" style="color: #fd0000">
                                     Base Price is required.</div>
@@ -77,7 +77,7 @@
 
                         <div class="col-lg-6 col-md-12">
                             <label>Discount</label>
-                            <input type="tel" class="control-form" formControlName="discount" numbersOnly />
+                            <input type="tel" class="control-form" formControlName="discount" numbersOnly  [(ngModel)]="discount" (input)="calculateBasePrice()"/>
                             <div *ngIf="submitted && f['discount'].errors" class="help-block">
                                 <div *ngIf="f['discount'].errors" style="color: #fd0000">
                                     Discount is required.
@@ -87,7 +87,7 @@
 
                         <div class="col-lg-6 col-md-12">
                             <label>Listing Price</label>
-                            <input type="text" class="form-control" formControlName="listingPrice" />
+                            <input type="text" class="form-control" formControlName="listingPrice" [(ngModel)]="listingPrice" (input)="calculateDiscount()"/>
 
                             <div *ngIf="submitted && f['listingPrice'].errors" class="help-block">
                                 <div *ngIf="f['listingPrice'].errors" style="color: #fd0000">
@@ -168,6 +168,35 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-lg-6 col-md-12 mb-20">
+                            <label>Lock Time Start</label>
+                            <input type="time" id="time" class="form-control" formControlName="lockTimeStart"
+                                (input)="onTimeInputChange($event)" />
+                            <div *ngIf="submitted && f['lockTimeStart'].errors" class="help-block">
+                                <div *ngIf="f['lockTimeStart'].errors?.['required']" style="color: #fd0000">
+                                    Start time is required.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-md-12 mb-20">
+                            <label>Lock Time End</label>
+                            <input type="time" class="form-control" formControlName="lockTimeEnd"
+                                (input)="onTimeInputChange2($event)" />
+                            <div *ngIf="submitted && f['lockTimeEnd'].errors" class="help-block">
+                                <div *ngIf="f['lockTimeEnd'].errors?.['required']" style="color: #fd0000">
+                                    End time is required.
+                                </div>
+
+                            </div>
+
+                            <div *ngIf="submitted && form.hasError('timeOrder')" class="help-block">
+                                <div *ngIf="form.hasError('timeOrder')" style="color: #fd0000">
+                                    End time must be greater than start time.
+                                </div>
+                            </div>
+
+                        </div>
 
                         <div class="col-lg-6 col-md-12">
                             <label>Duration In Minutes</label>
@@ -189,34 +218,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6 col-md-12">
-                            <label>Lock Time Start</label>
-                            <input type="time" id="time" class="form-control" formControlName="lockTimeStart"
-                                (input)="onTimeInputChange($event)" />
-                            <div *ngIf="submitted && f['lockTimeStart'].errors" class="help-block">
-                                <div *ngIf="f['lockTimeStart'].errors?.['required']" style="color: #fd0000">
-                                    Start time is required.
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-6 col-md-12">
-                            <label>Lock Time End</label>
-                            <input type="time" class="form-control" formControlName="lockTimeEnd"
-                                (input)="onTimeInputChange2($event)" />
-                            <div *ngIf="submitted && f['lockTimeEnd'].errors" class="help-block">
-                                <div *ngIf="f['lockTimeEnd'].errors?.['required']" style="color: #fd0000">
-                                    End time is required.
-                                </div>
-
-                            </div>
-                            <div *ngIf="submitted && form.hasError('timeOrder')" class="help-block">
-                                <div *ngIf="form.hasError('timeOrder')" style="color: #fd0000">
-                                    End time must be greater than start time.
-                                </div>
-                            </div>
-
-                        </div>
+                    
 
                         <!-- <div class="col-lg-6 col-md-12">
                         <label>Lock Time Start</label>
