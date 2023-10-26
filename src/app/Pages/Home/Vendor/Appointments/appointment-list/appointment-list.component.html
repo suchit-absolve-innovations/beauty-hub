@@ -20,20 +20,19 @@
                                         formControlName="toDate" placeholder="To Date" class="form-control" bsDatepicker
                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"></div>
 
-                                
-                                    <div style="position: relative; top:-34px; left:14px "><label>Filter
-                                            By</label>    </div>
-                                            <div class="col-lg-3">
+                                <div class="col-lg-3">
+                                    <div class="col-lg-12" style="position: relative; top:-33px;"><label>Filter
+                                            By</label>
                                         <select type="text" formControlName="sortDateBy" (click)="performSearch()"
-                                            class="control-form   btn_filter">
+                                            class="control-form mr-20  btn_filter">
                                             <option value="">Select </option>
                                             <option value="1">Booking Date</option>
                                             <option value="2">Appointment Date</option>
 
                                         </select>
-                                
+                                    </div>
                                 </div>
-                                <div class="col-lg-2 " style="position: relative; top:-8px; left:-66px "><button type="submit"
+                                <div class="col-lg-3" style="position: relative; top:-8px;"><button type="submit"
                                         class="go_now" style="color: white;">
                                         <i class="fa fa-search" (click)="filterAllList()"></i>
                                     </button></div>

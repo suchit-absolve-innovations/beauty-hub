@@ -118,7 +118,7 @@ export class AddEditCategoryComponent implements OnInit {
         else if (this.login == 'Admin')
           this.showModal();
           
-      }
+      }  
       else {
         this.toasterService.error(response.messages);
       }
@@ -138,7 +138,7 @@ export class AddEditCategoryComponent implements OnInit {
   }
 
 
-
+                  
   getCategoryDetail(id: string) {
     this.contentService.categoryDetail(id).subscribe(response => {
       if (response.isSuccess) {

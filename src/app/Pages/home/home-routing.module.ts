@@ -20,8 +20,6 @@ import { SalonDetailComponent } from './SuperAdmin/Salon/salon-detail/salon-deta
 import { BuyMebershipPlanListComponent } from './SuperAdmin/Salon/buy-mebership-plan-list/buy-mebership-plan-list.component';
 import { SubCategoryListComponent } from './SuperAdmin/Category/sub-category-list/sub-category-list.component';
 import { AddEditSubCategoryComponent } from './SuperAdmin/Category/sub-category-list/add-edit-sub-category/add-edit-sub-category.component';
-import { AddEditSubSubCategoryComponent } from './SuperAdmin/Category/sub-sub-category-list/add-edit-sub-sub-category/add-edit-sub-sub-category.component';
-import { SubSubCategoryListComponent } from './SuperAdmin/Category/sub-sub-category-list/sub-sub-category-list.component';
 import { CategoryListComponent } from './SuperAdmin/Category/category-list/category-list.component';
 import { VendorProfileComponent } from './Vendor/vendor-profile/vendor-profile.component';
 import { ShopBannerListComponent } from './Vendor/Salon Banners/shop-banner-list/shop-banner-list.component';
@@ -73,8 +71,6 @@ const routes: Routes = [
       { path: 'category-list/sub-category-list/addEdit-sub-category', component: AddEditSubCategoryComponent },
       { path: 'category-list/sub-category-list/addEdit-sub-category/:id', component: AddEditSubCategoryComponent },
       { path: 'category-list/sub-category-list/addEdit-sub-category/:id/:id2', component: AddEditSubCategoryComponent },
-      { path: 'category-list/sub-category-list/subSub-category-list', component: SubSubCategoryListComponent },
-      { path: 'category-list/sub-category-list/subSub-category-list/AddEdit-subSub-Category', component: AddEditSubSubCategoryComponent },
       { path: 'banner-list', component: BannerListComponent },
       { path: 'banner-list/add-edit-banner', component: AddEditBannerComponent },
       { path: 'banner-list/banner-detail/:id', component: BannerDetailComponent },
@@ -121,8 +117,6 @@ const routes: Routes = [
      { path: 'package-list/add-edit-package',component: AddEditPackageComponent},
      { path: 'package-list/edit-package', component: EditPackageComponent}
     
-     
-
     ]
 
   }

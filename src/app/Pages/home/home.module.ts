@@ -26,8 +26,6 @@ import { AddSalonsComponent } from './SuperAdmin/Salon/add-salons/add-salons.com
 import { CommonModule } from '@angular/common';
 import { SubCategoryListComponent } from './SuperAdmin/Category/sub-category-list/sub-category-list.component';
 import { AddEditSubCategoryComponent } from './SuperAdmin/Category/sub-category-list/add-edit-sub-category/add-edit-sub-category.component';
-import { SubSubCategoryListComponent } from './SuperAdmin/Category/sub-sub-category-list/sub-sub-category-list.component';
-import { AddEditSubSubCategoryComponent } from './SuperAdmin/Category/sub-sub-category-list/add-edit-sub-sub-category/add-edit-sub-sub-category.component';
 import { VendorProfileComponent } from './Vendor/vendor-profile/vendor-profile.component';
 import { ShopBannerListComponent } from './Vendor/Salon Banners/shop-banner-list/shop-banner-list.component';
 import { SalonBannerDetailComponent } from './Vendor/Salon Banners/salon-banner-detail/salon-banner-detail.component';
@@ -83,8 +81,7 @@ import { EditPackageComponent } from './Vendor/Packages/edit-package/edit-packag
    SalonDetailComponent,
    SubCategoryListComponent,
    AddEditSubCategoryComponent,
-   SubSubCategoryListComponent,
-   AddEditSubSubCategoryComponent,
+
    VendorProfileComponent,
    ShopBannerListComponent,
    SalonBannerDetailComponent,
