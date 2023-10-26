@@ -126,6 +126,7 @@ export class SalonListComponent implements OnInit {
    }
 
    
+   
     // edit user 
     editPlan(data: any) {
       this.router.navigate(['/salon-list/buy-membership-plan/add-salon'],
