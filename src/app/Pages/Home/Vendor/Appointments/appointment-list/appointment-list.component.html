@@ -21,7 +21,7 @@
                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"></div>
 
                                 <div class="col-lg-3">
-                                    <div class="col-lg-12" style="position: relative; top:-33px;"><label>Filter
+                                    <div class="col-lg-6" style=" top:-33px; left:-16px "><label>Filter
                                             By</label>
                                         <select type="text" formControlName="sortDateBy" (click)="performSearch()"
                                             class="control-form mr-20  btn_filter">
@@ -137,29 +137,18 @@
                                           <option value="Cancelled" *ngIf="item?.appointmentStatus !== 'Cancelled'">Cancelled</option>
                                         </ng-container>
                                       </select>
-                                      
-                                    <!-- <select type="text" class="control-form btn_border"
-                                        formControlName="appointmentStatus" (change)="appointmentStatus()"
-                                        (change)="handleSelectChange(item)">
-                                        <option value="" selected>{{item?.appointmentStatus}} </option>
-                                        <option value="Scheduled" *ngIf="item?.appointmentStatus === 'Scheduled'">Scheduled</option>
-                                        <option value="Cancelled" *ngIf="item?.appointmentStatus === 'Completed'">Cancelled</option>
-                                        <option value="Completed"  *ngIf="item?.appointmentStatus === 'Cancelled'">Completed</option>
-
-                                    </select> -->
-                                    
                                 </td>
                                 <td>{{item.phoneNumber}}</td>
                                 <td>{{item.finalPrice}}</td>
                                 <td>{{item.paymentMethod}}</td>
                                 <td class="td-dropdown">
                                     <select type="text" class="control-form btn_border" formControlName="paymentStatus"
-                                        (change)="paymentsStatus()" (change)="postPaymentStatus(item)">
-                                        <option value="" selected>{{item.paymentStatus}} </option>
-                                        <option value="Paid" *ngIf="item?.paymentStatus !== 'Paid'">Paid </option>
-                                        <option value="Unpaid" *ngIf="item?.paymentStatus !== 'Unpaid'">Unpaid </option>
-                                        <option value="Refunded" *ngIf="item?.paymentStatus !== 'Refunded'"> Refunded </option>
-                                    </select>
+                                    (change)="paymentsStatus()" (change)="postPaymentStatus(item)">
+                                    <option value="" selected>{{item.paymentStatus}} </option>
+                                    <option value="Paid" *ngIf="item?.paymentStatus !== 'Paid'">Paid </option>
+                                    <option value="Unpaid" *ngIf="item?.paymentStatus !== 'Unpaid'">Unpaid </option>
+                                    <option value="Refunded" *ngIf="item?.paymentStatus !== 'Refunded'"> Refunded </option>
+                                </select>
                                 </td>
 
                                 <td>
