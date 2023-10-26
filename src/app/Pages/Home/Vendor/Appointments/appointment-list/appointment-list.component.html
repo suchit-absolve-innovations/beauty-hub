@@ -124,15 +124,31 @@
                                 <td>{{item.totalServices}}</td>
                                 <!-- <td>{{item.appointmentStatus}}</td>   -->
                                 <td class="td-dropdown">
-                                    <select type="text" class="control-form btn_border"
+                                    <select type="text" class="control-form btn_border" formControlName="appointmentStatus" (change)="handleSelectChange(item)">
+                                        <option value="" selected>{{item?.appointmentStatus}} </option>
+                                        <ng-container *ngIf="item?.appointmentStatus === 'Scheduled'">
+                                          <option value="Scheduled" *ngIf="item?.appointmentStatus !== 'Scheduled'">Scheduled</option>
+                                          <option value="Cancelled">Cancelled</option>
+                                          <option value="Completed">Completed</option>
+                                        </ng-container>
+                                        <ng-container *ngIf="item?.appointmentStatus === 'Completed'">
+                                          <option value="Completed" *ngIf="item?.appointmentStatus !== 'Completed'">Completed</option>
+                                        </ng-container>
+                                        <ng-container *ngIf="item?.appointmentStatus === 'Cancelled'">
+                                          <option value="Cancelled" *ngIf="item?.appointmentStatus !== 'Cancelled'">Cancelled</option>
+                                        </ng-container>
+                                      </select>
+                                      
+                                    <!-- <select type="text" class="control-form btn_border"
                                         formControlName="appointmentStatus" (change)="appointmentStatus()"
                                         (change)="handleSelectChange(item)">
                                         <option value="" selected>{{item?.appointmentStatus}} </option>
-                                        <option value="Scheduled" *ngIf="item?.appointmentStatus !== 'Scheduled'">Scheduled</option>
-                                        <option value="Cancelled" *ngIf="item?.appointmentStatus !== 'Cancelled'">Cancelled</option>
-                                        <option value="Completed" *ngIf="item?.appointmentStatus !== 'Completed'">Completed</option>
+                                        <option value="Scheduled" *ngIf="item?.appointmentStatus === 'Scheduled'">Scheduled</option>
+                                        <option value="Cancelled" *ngIf="item?.appointmentStatus === 'Completed'">Cancelled</option>
+                                        <option value="Completed"  *ngIf="item?.appointmentStatus === 'Cancelled'">Completed</option>
 
-                                    </select>
+                                    </select> -->
+                                    
                                 </td>
                                 <td>{{item.phoneNumber}}</td>
                                 <td>{{item.finalPrice}}</td>
