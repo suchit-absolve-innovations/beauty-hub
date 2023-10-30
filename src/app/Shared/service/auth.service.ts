@@ -35,8 +35,9 @@ export class AuthService {
           localStorage.setItem('vendorId', user.data.vendorId);
           localStorage.setItem('userAdminId', user.data.id);
           localStorage.setItem('Id', user.data.id)
-          // localStorage.setItem('shopImage', user.data.shopImage );
-          // localStorage.setItem('firstName', user.data.firstName );
+          localStorage.setItem('salonImage', user.data.salonImage );
+          localStorage.setItem('salonName', user.data.salonName );
+          localStorage.setItem('firstName', user.data.firstName );
           localStorage.setItem('user', user.data.role);
           // localStorage.setItem('shopName', user.data.ShopName );
           this.currentUserSubject.next(user);

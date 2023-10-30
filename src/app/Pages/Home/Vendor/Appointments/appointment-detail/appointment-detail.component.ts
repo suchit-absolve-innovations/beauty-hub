@@ -14,26 +14,25 @@ import { Location } from '@angular/common';
 })
 export class AppointmentDetailComponent implements OnInit {
   @ViewChild('scrollToElement')
-  scrollToElement!: ElementRef;
-  rootUrl: any;
-  product :any;
-  data:any;
-  orderDetails:any;
-  appointmentDetail: any;
-  appointmentId:any;
-  services:any;
-
-  form:any
+  scrollToElement!     : ElementRef;
+  rootUrl              : any;
+  product              : any;
+  data                 : any;
+  orderDetails         : any;
+  appointmentDetail    : any;
+  appointmentId        : any;
+  services             : any;
+  form                 : any
   postAppointmentStatus: any;
 
   constructor(
-    private spinner: NgxSpinnerService,
-    private content: ContentService,
-    private toaster: ToastrService,
-    private route: ActivatedRoute,
+    private spinner    : NgxSpinnerService,
+    private content    : ContentService,
+    private toaster    : ToastrService,
+    private route      : ActivatedRoute,
     private formBuilder: FormBuilder,
-    private _location: Location,
-    private renderer: Renderer2) { }
+    private _location  : Location,
+   ) { }
 
     ngAfterViewInit() {
       // Scroll to the desired element when the view is initialized
@@ -47,20 +46,11 @@ export class AppointmentDetailComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.rootUrl = environment.rootPathUrl;
+    this.rootUrl       = environment.rootPathUrl;
     this.appointmentId = this.route.snapshot.paramMap.get('id');
     this.getApointmentDetail();
     this.form = this.formBuilder.group({
-      // deliveryType: [''],
-   
-      // fromDate         : [''],
-      // toDate           : [''],
-      // paymentMethod    : [''],
       appointmentStatus: [''],
-      // sortDateBy       : ['0'],
-  
-      
-
     });
   }
   
@@ -68,8 +58,7 @@ export class AppointmentDetailComponent implements OnInit {
     this._location.back();
   }
 
-  getApointmentDetail() {
-    
+  getApointmentDetail() {  
     this.spinner.show();
     this.content.getAppointmentDetail(this.appointmentId).subscribe(response => {
       if (response.isSuccess) {
@@ -78,30 +67,26 @@ export class AppointmentDetailComponent implements OnInit {
         this.services = this.appointmentDetail.bookedServices
         this.spinner.hide();
         this.toaster.success(response.messages);
-      
       } else {
         this.spinner.hide();
         this.toaster.error(response.messages);
       }
     });
-   
-  
   }
 
   appointmentStatus(){
     this.postAppointmentStatus = this.form.value.appointmentStatus
   }
+
   setSelectedStatus(data:any) {
     let payload = {
-      appointmentId : data.appointmentId,
-      appointmentStatus : this.postAppointmentStatus,
-      slotIds : data.slotId.toString()
-
+      appointmentId    : data.appointmentId,
+      appointmentStatus: this.postAppointmentStatus,
+      slotIds          : data.slotId.toString()
     };
     this.spinner.show();
     this.content.postStatus(payload).subscribe(response => {
       if (response.isSuccess) {
-        
         this.toaster.success(response.messages);
       }
       else {

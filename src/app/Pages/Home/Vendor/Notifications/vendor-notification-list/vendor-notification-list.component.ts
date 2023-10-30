@@ -29,8 +29,7 @@ export class VendorNotificationListComponent implements OnInit {
     this.getBroadList();
   }
 
-  getBroadList() {
-    
+  getBroadList() { 
     let payload = {
       pageNumber: 1,
       pageSize: 1000
