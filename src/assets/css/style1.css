@@ -3519,3 +3519,17 @@ label.preview-butn {
 .theme-green .bs-datepicker-head {
     background-color: #85214f !important;
 }
+a:not([href]):not([tabindex]) {
+    color: inherit !important;
+    text-decoration: none;
+}
+.map:hover {
+    text-decoration: underline !important;
+}
+[type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled), button:not(:disabled) {
+    cursor: pointer;
+}
+a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}   

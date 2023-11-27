@@ -410,13 +410,12 @@ private dataURItoBlob1(dataURI: string): Blob {
           const imageDataUrl = reader.result as string;
           this.imageUrl1 = imageDataUrl;
           this.urls.push(imageDataUrl);
-        } else {
-          
-        }
+        } 
       };
     }
   }
   }
+  
 
 fileChangeEvent() {
   const formData = new FormData();
@@ -443,6 +442,7 @@ private dataURItoBlob(dataURI: string): Blob {
 }
 
 removeImage(index: any) {
+  debugger
   this.urls.splice(index, 1);
 }
 

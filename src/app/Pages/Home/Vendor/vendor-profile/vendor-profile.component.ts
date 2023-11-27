@@ -66,6 +66,8 @@ export class VendorProfileComponent implements OnInit {
  inputAddress: string | undefined;
   QrimageUrl: any;
   uploadedImages: { file: File; previewUrl: string }[] = [];
+  lati: any;
+  long: any;
 
   constructor(private router: Router,
     private formBuilder: FormBuilder,
@@ -80,29 +82,28 @@ export class VendorProfileComponent implements OnInit {
   ngOnInit(): void {
    // maps
    this.mapsAPILoader.load().then(() => {
-    
-          this.setCurrentLocation();
-          this.geoCoder = new google.maps.Geocoder;
-    
-          let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
-    
-          autocomplete.addListener("place_changed", () => {
-            this.ngZone.run(() => {
-              let place: google.maps.places.PlaceResult = autocomplete.getPlace();
-              this.inputAddress = place.formatted_address
-    
-    
-              if (place.geometry === undefined || place.geometry === null) {
-                return;
-              }
-              
-              this.addressLat = place.geometry.location.lat();
-              this.addressLong = place.geometry.location.lng();
-         
-              this.zoom = 12;
-            });
-          });
-        });
+    //     this.setCurrentLocation();
+
+    this.geoCoder = new google.maps.Geocoder;
+
+    let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
+
+    autocomplete.addListener("place_changed", () => {
+      this.ngZone.run(() => {
+        let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+        this.inputAddress = place.formatted_address
+
+        if (place.geometry === undefined || place.geometry === null) {
+          return;
+        }
+
+        this.addressLat = place.geometry.location.lat();
+        this.addressLong = place.geometry.location.lng();
+
+        this.zoom = 12;
+      });
+    });
+  });
     this.vendorForm();
     this.getCountry();
     this.rootUrl = environment.rootPathUrl;
@@ -157,7 +158,7 @@ export class VendorProfileComponent implements OnInit {
       city: ['', [Validators.required]],
       zip: ['', [Validators.required]],
       landmark: ['', [Validators.required]],
-      // salonAddress: ['', [Validators.required]]
+      salonAddress: ['', [Validators.required]]
     });
   }
 
@@ -326,37 +327,46 @@ mapReady(map: any) {
   });
 }
 
+getlocation() {
+  // Assuming this.lati and this.long are strings, convert them to numbers
+  this.addressLat = parseFloat(this.lati);
+  this.addressLong = parseFloat(this.long);
 
-private setCurrentLocation() {
+  this.zoom = 14;
+  this.getAddress(this.addressLat, this.addressLong);
+}
+
+setCurrentLocation() {
 
   if ('geolocation' in navigator) {
     navigator.geolocation.getCurrentPosition((position) => {
       this.addressLat = position.coords.latitude;
       this.addressLong = position.coords.longitude;
       this.zoom = 14;
-
       this.getAddress(this.addressLat, this.addressLong);
     });
   }
 }
 
+getAddress(addressLat: any, addressLong: any) {
 
+  if (this.geoCoder) {
+    // Initialize this.geoCoder here if it's not already initialized
+    this.geoCoder = new google.maps.Geocoder();
+  }
 
-getAddress(addressLat: number, addressLong: number) {
-
-  this.geoCoder.geocode({ 'location': { lat: addressLat, lng: addressLong } }, (results, status) => {
-
+  this.geoCoder?.geocode({ location: { lat: addressLat, lng: addressLong } }, (results, status) => {
     if (status === 'OK') {
       if (results[0]) {
-
         this.zoom = 12;
 
         this.addressStreet = results[0].formatted_address;
-
-        this.addressCountry = results[13]?.formatted_address;
+        // If you want to access the country, you can do it like this:
+        // this.addressCountry = results[0].address_components.find(component =>
+        //   component.types.includes('country')
+        // )?.long_name;
 
       } else {
-
         window.alert('No results found');
       }
     } else {
@@ -364,7 +374,6 @@ getAddress(addressLat: number, addressLong: number) {
     }
   });
 }
-
 
       // patch vendor
 
@@ -378,12 +387,14 @@ getAddress(addressLat: number, addressLong: number) {
         this.vendorDetailPatch = response.data
         this.imageId = response.data.vendorId
         this.shopDetailPatch = this.vendorDetailPatch.salonResponses
-
+        this.addressStreet = this.shopDetailPatch[0].salonAddress
         this.bankDetailPatch = this.vendorDetailPatch.bankResponses
         this.upiDetailPatch = this.vendorDetailPatch.upiResponses
         this.editImages = this.rootUrl + this.vendorDetailPatch?.profilePic;
         this.imageUrl = this.rootUrl + this.shopDetailPatch[0]?.salonImage
-        this.QrimageUrl = this.rootUrl + this.upiDetailPatch[0]?.qrcode
+        this.QrimageUrl = this.rootUrl + this.upiDetailPatch[0]?.qrcode;
+        this.lati = this.shopDetailPatch[0].addressLatitude
+        this.long = this.shopDetailPatch[0].addressLongitude
         this.getCountry();
         this.patchShopDetail();
         this.patchBankDetail();
@@ -424,7 +435,7 @@ getAddress(addressLat: number, addressLong: number) {
         salonName: this.shopDetailPatch[0]?.salonName,
         salonType:this.shopDetailPatch[0]?.salonType,
         salonDescription: this.shopDetailPatch[0]?.salonDescription,
-        shopAddress: this.shopDetailPatch[0]?.shopAddress,
+        salonAddress: this.shopDetailPatch[0]?.salonAddress,
         landmark: this.shopDetailPatch[0]?.landmark,
         city: this.shopDetailPatch[0]?.city,
         zip: this.shopDetailPatch[0]?.zip,
@@ -483,11 +494,11 @@ getAddress(addressLat: number, addressLong: number) {
 
 
     postVendor() {
-      
-      this.submitted = false;
-      if (this.form.invalid) {
-        return;
-      }
+      debugger
+      // this.submitted = false;
+      // if (this.form.invalid) {
+      //   return;
+      // }
     
       let checkStatus: any;
       if (this.isActive == true) {
@@ -520,7 +531,7 @@ getAddress(addressLat: number, addressLong: number) {
             salonName: this.form.value.salonDetail[0]?.salonName,
             salonType:this.form.value.salonDetail[0]?.salonType,
             salonDescription: this.form.value.salonDetail[0]?.salonDescription,
-            shopAddress: this.addressStreet,
+            salonAddress: this.addressStreet,
             landmark: this.form.value.salonDetail[0]?.landmark,
             city: this.form.value.salonDetail[0]?.city,
             zip: this.form.value.salonDetail[0]?.zip,
