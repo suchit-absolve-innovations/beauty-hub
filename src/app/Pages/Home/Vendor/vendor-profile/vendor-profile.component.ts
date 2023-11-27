@@ -130,21 +130,21 @@ export class VendorProfileComponent implements OnInit {
       bankDetail: this.formBuilder.array([
         this.bankDetails(),
       ]),
-      upiDetail: this.formBuilder.array([
-        this.upiDetails(),
-      ])
+      // upiDetail: this.formBuilder.array([
+      //   this.upiDetails(),
+      // ])
     });
   }
 
-  upiDetails(){
-    return this.formBuilder.group({
-      upiid: ['', [Validators.required]],
-      // qrcode: ['', [Validators.required]],
-      isActive: [this.isActive],
-      // bankName: ['', [Validators.required]],
-      accountHolderName: ['', [Validators.required]],
-    });
-  }
+  // upiDetails(){
+  //   return this.formBuilder.group({
+  //     upiid: ['', [Validators.required]],
+  //     // qrcode: ['', [Validators.required]],
+  //     isActive: [this.isActive],
+  //     // bankName: ['', [Validators.required]],
+  //     accountHolderName: ['', [Validators.required]],
+  //   });
+  // }
 
 
   businessDetail() {
@@ -203,9 +203,9 @@ export class VendorProfileComponent implements OnInit {
     return (<FormArray>this.form.get("upiDetail"));
   }
 
-  add() {
-    this.List1().push(this.upiDetails());
-  }
+  // add() {
+  //   this.List1().push(this.upiDetails());
+  // }
   deleteHomeData(data: any, id: any )   {
     this.List1().removeAt(id);
     this.uploadedImages.splice(1);
@@ -397,14 +397,14 @@ getAddress(addressLat: number, addressLong: number) {
           email: this.vendorDetailPatch.email,
 
         });
-        if (this.vendorDetailPatch.upiResponses) {
-          this.vendorDetailPatch.upiResponses.forEach((element: any) => {
-            var listGroup = this.upiDetails();
-            listGroup.patchValue({ upiid: element.upiid, accountHolderName: element.accountHolderName,
-              bankName: element.bankName, isActive:element.isActive , qrcode:element.qrcode});
-            this.List1().push(listGroup)
-          });
-        }
+        // if (this.vendorDetailPatch.upiResponses) {
+        //   this.vendorDetailPatch.upiResponses.forEach((element: any) => {
+        //     var listGroup = this.upiDetails();
+        //     listGroup.patchValue({ upiid: element.upiid, accountHolderName: element.accountHolderName,
+        //       bankName: element.bankName, isActive:element.isActive , qrcode:element.qrcode});
+        //     this.List1().push(listGroup)
+        //   });
+        // }
 
       }
       this.spinner.hide();

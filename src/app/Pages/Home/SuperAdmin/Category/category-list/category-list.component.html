@@ -409,7 +409,7 @@
                                     <select type="text" class="control-form mb-0 btn_border"
                                         formControlName="CategoryType">
                                         <!-- <option value="">Select </option> -->
-                                        <option value="0">All</option>
+                                        <option value="0" selected>All</option>
                                         <option value="1">Male</option>
                                         <option value="2">Female</option>
                                         <option value="3">Male & Female</option>
@@ -420,7 +420,7 @@
                         <div class="modal-footer">
                             <a type="button" class=" border-btn cancelinfilter" data-dismiss="modal"
                                 (click)="backClickedreload()">Reset</a>
-                            <a type="button" class=" btn_blue" (click)="getCategoryListFilter()">Apply</a>
+                            <a type="button" class=" btn_blue" data-dismiss="modal" (click)="getCategoryListFilter()">Apply</a>
                         </div>
 
                     </div>

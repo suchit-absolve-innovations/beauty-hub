@@ -185,13 +185,7 @@ this.spinner.hide();
           }
         });
       }
-      backClickedreload() {
-        this.router.navigateByUrl('/category-list')
-          .then(() => {
-            window.location.reload();
-          });
-      }
-    
+   
 
   // Vendor
 

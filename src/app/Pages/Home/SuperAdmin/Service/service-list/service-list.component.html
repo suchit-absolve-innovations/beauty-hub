@@ -59,7 +59,7 @@
     
             <div class="cate-align">
                 <label>Gender Preferences</label>
-                <select type="text" class="control-form mr-20 btn_border" formControlName="genderPreferences"  (change)="serviceListFilter()">
+                <select type="text" class="control-form mr-20 btn_border" formControlName="genderPreferences"  (change)="serviceListFilter()" (click)="performSearch()">
                     <option value="">Select </option>
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>

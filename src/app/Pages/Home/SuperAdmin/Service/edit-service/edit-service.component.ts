@@ -40,6 +40,9 @@ export class EditServiceComponent implements OnInit {
   base64Image: any;
   selectedImageData: any[] = [];
   imageFiles!: { link: any; file: any; name: any; type: any; };
+  basePrice!: number;
+  discount: number = 0;
+  listingPrice: any;
 
   constructor(private router: Router,
     private formBuilder: FormBuilder,
@@ -91,6 +94,13 @@ export class EditServiceComponent implements OnInit {
   backClicked() {
     this._location.back();
   }
+  calculateBasePrice() {
+    this.listingPrice = this.basePrice - this.discount;
+    
+  } 
+  calculateDiscount() {
+    this.listingPrice = this.basePrice - this.discount;
+  }  
 
   getcategoryList() {
 

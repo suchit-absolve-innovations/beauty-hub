@@ -11,7 +11,7 @@
                     <div class="row">
                         <div class="col-lg-6 col-md-12">
                             <label>Plan Name</label>
-                            <input type="text" class="control-form" formControlName="planName">
+                            <input type="text" class="control-form" formControlName="planName"  noSpacesAtStart>
                             <label *ngIf="submitted && f['planName'].errors" class="invalid-formdata">
                                 Plan Name is required
                             </label>

@@ -16,10 +16,10 @@
                                 <div class="col-lg-3" style="position: relative; top:-8px;"><input type="text"
                                         formControlName="fromDate" placeholder="From Date" class="form-control" style="background-color: #fff;"
                                         (click)="performSearch()" bsDatepicker
-                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"  [readonly]="true"></div>
+                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" (bsValueChange)="setToDateMinDate($event)"></div>
                                 <div class="col-lg-3" style="position: relative; top:-8px;"> <input type="text"
-                                        formControlName="toDate" placeholder="To Date" class="form-control" style="background-color: #fff;" bsDatepicker
-                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"  [readonly]="true"></div>
+                                        formControlName="toDate" placeholder="To Date" class="form-control" bsDatepicker
+                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [minDate]="minToDate"></div>
 
                                 <div class="col-lg-3">
                                     <div class="col-lg-6" style=" top:-33px; left:-16px "><label>Filter
