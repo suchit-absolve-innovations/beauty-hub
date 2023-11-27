@@ -58,7 +58,7 @@
 
                         <div class="col-lg-6 col-md-12">
                             <label>Service Name</label>
-                            <input type="text" class="control-form" formControlName="serviceName" />
+                            <input type="text" class="control-form" formControlName="serviceName" noSpacesAtStart  />
                             <div *ngIf="submitted && f['serviceName'].errors" class="help-block">
                                 <div *ngIf="f['serviceName'].errors" style="color: #fd0000">
                                     Service name is required.
@@ -68,7 +68,7 @@
 
                         <div class="col-lg-6 col-md-12">
                             <label>Base Price </label>
-                            <input type="text" class="form-control" formControlName="basePrice" [(ngModel)]="basePrice" (input)="calculateBasePrice()"/>
+                            <input type="text" class="form-control" formControlName="basePrice" [(ngModel)]="basePrice" (input)="calculateBasePrice()" numbersOnly/>
                             <div *ngIf="submitted && f['basePrice'].errors" class="help-block">
                                 <div *ngIf="f['basePrice'].errors" style="color: #fd0000">
                                     Base Price is required.</div>
@@ -87,7 +87,7 @@
 
                         <div class="col-lg-6 col-md-12">
                             <label>Listing Price</label>
-                            <input type="text" class="form-control" formControlName="listingPrice" [(ngModel)]="listingPrice" (input)="calculateDiscount()"/>
+                            <input type="text" class="form-control" formControlName="listingPrice" [(ngModel)]="listingPrice" (input)="calculateDiscount()" [readOnly]="true"/>
 
                             <div *ngIf="submitted && f['listingPrice'].errors" class="help-block">
                                 <div *ngIf="f['listingPrice'].errors" style="color: #fd0000">
