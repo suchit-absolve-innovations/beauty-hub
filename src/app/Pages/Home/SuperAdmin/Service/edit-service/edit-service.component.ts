@@ -23,19 +23,19 @@ export class EditServiceComponent implements OnInit {
   categoryList: any;
   serviceDetailPatch: any;
   editImages: string = '';
-  urls: any = []; 
+  urls: any = [];
   time2!: string;
   time1!: string;
   urls1: any[] = [];
   image1: any;
   imageUrl: any;
-  serviceIconImage:any;
+  serviceIconImage: any;
   role!: string | null;
   // errorMessage: string | null = null;
   errorMessage: string = '';
   isValid: boolean = false;
   previewImage: string = '';
-  errorMessages:any;
+  errorMessages: any;
   salonId: any;
   base64Image: any;
   selectedImageData: any[] = [];
@@ -84,7 +84,7 @@ export class EditServiceComponent implements OnInit {
       lockTimeStart: ['', [Validators.required]],
       lockTimeEnd: ['', [Validators.required]],
       serviceDescription: ['', [Validators.required]],
-    })
+    });
   }
 
   get f() {
@@ -126,7 +126,7 @@ export class EditServiceComponent implements OnInit {
         // this.SubSubcategoryList = []
         var categoryListData = this.subCategoryList?.find((y: { subCategoryId: any; }) => y.subCategoryId == this.serviceDetailPatch.subCategoryId);
         this.form.patchValue({
-       subCategoryId: categoryListData?.subCategoryId,
+          subCategoryId: categoryListData?.subCategoryId,
         })
         this.spinner.hide();
       } else {
@@ -143,10 +143,10 @@ export class EditServiceComponent implements OnInit {
       if (response.isSuccess) {
         this.spinner.hide();
         this.imageConvert64();
-  
+
         this.serviceDetailPatch = response.data
         this.imageUrl = this.rootUrl + this.serviceDetailPatch.serviceIconImage
-      
+
 
         this.form.patchValue({
           serviceName: this.serviceDetailPatch.serviceName,
@@ -164,18 +164,14 @@ export class EditServiceComponent implements OnInit {
           serviceDescription: this.serviceDetailPatch.serviceDescription,
         });
         this.getSubcategoryList(this.serviceDetailPatch?.mainCategoryId);
-     
+
 
       }
     });
   }
 
- 
-
-
-
   updateService() {
-    
+
     let payload = {
       serviceId: parseInt(this.serviceId.id2),
       salonId: parseInt(this.salonId.id),
@@ -192,9 +188,8 @@ export class EditServiceComponent implements OnInit {
       lockTimeStart: this.form.value.lockTimeStart,
       lockTimeEnd: this.form.value.lockTimeEnd,
       serviceDescription: this.form.value.serviceDescription
-    
-    }
 
+    }
     this.spinner.show();
     this.contentService.addNewService(payload).subscribe(response => {
       this.spinner.hide();
@@ -203,20 +198,12 @@ export class EditServiceComponent implements OnInit {
       this.fileChangeEvents();
       if (response.isSuccess) {
         this.toaster.success(response.messages);
-     
-       
         this._location.back();
       } else {
         this.toaster.error(response.messages);
       }
     });
   }
-
-  
-
-
-
-
 
   imageConvert64() {
 
@@ -244,21 +231,21 @@ export class EditServiceComponent implements OnInit {
   onselect(event: any) {
     const files = event.target.files;
     this.errorMessages = ''; // Clear previous error messages
-  
+
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
       const reader = new FileReader();
       reader.readAsDataURL(file);
-  
+
       reader.onload = () => {
         const image = new Image();
         image.src = reader.result as string;
-  
+
         image.onload = () => {
           if (image.width === 1280 && image.height === 720 && file.size / 1024 <= 1000) {
             this.base64Image.push(image.src);
           } else {
-            this.errorMessages ;
+            this.errorMessages;
           }
         };
       }
@@ -266,13 +253,13 @@ export class EditServiceComponent implements OnInit {
   }
   onBannerImageSelect(event: any) {
     const file = event.target.files[0];
-  
+
     if (file) {
       const imageSize = file.size / 1024; // in KB
       const image = new Image();
-  
+
       image.src = URL.createObjectURL(file);
-  
+
       image.onload = () => {
         if (image.width === 1280 && image.height === 720 && imageSize <= 1020) {
           this.errorMessages = '';
@@ -311,13 +298,13 @@ export class EditServiceComponent implements OnInit {
   }
   onImageSelect(event: any) {
     const file = event.target.files[0];
-  
+
     if (file) {
       const imageSize = file.size / 1024; // in KB
       const image = new Image();
-  
+
       image.src = URL.createObjectURL(file);
-  
+
       image.onload = () => {
         if (image.width === 512 && image.height === 512 && imageSize <= 512) {
           this.errorMessage = '';
@@ -331,18 +318,18 @@ export class EditServiceComponent implements OnInit {
       };
     }
   }
-  
+
   handleFileInput(event: any) {
     const files = event.target.files;
     for (let e = 0; e < files.length; e++) {
       const file = files[e];
       const reader = new FileReader();
       reader.readAsDataURL(file);
-      
+
       reader.onload = () => {
         const image = new Image();
         image.src = reader.result as string;
-  
+
         image.onload = () => {
           if (image.width === 512 && image.height === 512) {
             // Only add the image to the array and update the preview if it meets the dimensions criteria.
@@ -362,7 +349,7 @@ export class EditServiceComponent implements OnInit {
       }
     }
   }
-  
+
   fileChangeEvents() {
 
     let formData = new FormData();
@@ -389,17 +376,17 @@ export class EditServiceComponent implements OnInit {
     this.base64Image.splice(index, 1);
   }
 
-    cancel(){
-      if(this.role == 'SuperAdmin') {
-        this.router.navigateByUrl('/salon-list')
+  cancel() {
+    if (this.role == 'SuperAdmin') {
+      this.router.navigateByUrl('/salon-list')
         .then(() => {
           window.location.reload();
         });
-          } else if (this.role == 'Vendor') {
-            this.router.navigateByUrl('/vendor-service-list')
-            .then(() => {
-              window.location.reload();
-            });
-          }
-        }
-      }
+    } else if (this.role == 'Vendor') {
+      this.router.navigateByUrl('/vendor-service-list')
+        .then(() => {
+          window.location.reload();
+        });
+    }
+  }
+}

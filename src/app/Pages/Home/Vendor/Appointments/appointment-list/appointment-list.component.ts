@@ -43,9 +43,9 @@ export class AppointmentListComponent implements OnInit {
     private formBuilder: FormBuilder,
     private ngZone     : NgZone,
     public datepipe    : DatePipe) {
-    this.datePickerConfig = Object.assign(
-      {},
-    );
+      this.datePickerConfig = Object.assign(
+        { }
+      );
   }
 
   ngOnInit(): void {
@@ -164,7 +164,7 @@ export class AppointmentListComponent implements OnInit {
         this.toaster.success(response.messages)
       } else {
         this.spinner.hide();
-        this.toaster.error(response.messages)
+        this.toaster.error(response.messages);
       }
     });
   }
@@ -236,7 +236,7 @@ export class AppointmentListComponent implements OnInit {
       }
     });
   }
-
+                     
   startRefreshIntervallist5() {
     const refreshInterval = 60000; 
     // Use interval to call getOrderListType every 6 seconds

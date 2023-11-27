@@ -211,7 +211,7 @@ getServicesListByCategories() {
   
         this.spinner.hide();
       }
-    })
+    });
   }
   
 
@@ -254,13 +254,13 @@ this.submitVendor();
     serviceDescription   : this.form.value.serviceDescription,
     includeServiceId     : this.selectedItems
   }
-  this.spinner.show()
+  this.spinner.show();
   this.contentService.addNewService(payload).subscribe(response => {
 
     this.serviceId = response.data?.serviceId
     this.fileChangeEvent();
     this.fileChangeEvents();
-    this.spinner.hide()
+    this.spinner.hide();
     if (response.isSuccess) {
       this.toaster.success(response.messages);
        this._location.back();
@@ -302,13 +302,13 @@ submitVendor() {
   
 
   }
-  this.spinner.show()
+  this.spinner.show();
   this.contentService.addNewService(payload).subscribe(response => {
 
     this.serviceId = response.data?.serviceId
     this.fileChangeEvent();
     this.fileChangeEvents();
-    this.spinner.hide()
+    this.spinner.hide();
     if (response.isSuccess) {
       this.toaster.success(response.messages);
        this._location.back();
