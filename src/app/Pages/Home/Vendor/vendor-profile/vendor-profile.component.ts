@@ -170,7 +170,7 @@ export class VendorProfileComponent implements OnInit {
       ifsc: ['', [Validators.required, Validators.pattern("^[a-zA-Z0-9]{11}$")]],
       // isActive:[true],
       // confirmbankAccountNumber: ['', [Validators.required]],
-    })
+    });
       // {
       //   validator: this.MustMatch('bankAccountNumber', 'confirmbankAccountNumber')
       // });
@@ -207,7 +207,7 @@ export class VendorProfileComponent implements OnInit {
     this.List1().push(this.upiDetails());
   }
   deleteHomeData(data: any, id: any )   {
-    this.List1().removeAt(id)
+    this.List1().removeAt(id);
     this.uploadedImages.splice(1);
 
   }

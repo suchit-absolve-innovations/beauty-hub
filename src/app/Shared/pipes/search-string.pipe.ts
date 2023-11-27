@@ -53,9 +53,6 @@ export class SearchStringPipe implements PipeTransform {
     }
     if (parm && parm2 && parm3) {
       return items.filter((obj: any) => obj[parm] == term && obj[parm2] == term2 && obj[parm3] == term3)
-
-
-
     }
 
   }
@@ -66,11 +63,7 @@ export class SearchStringPipe implements PipeTransform {
     }
     if (parm && parm2 && parm3) {
       return items.filter((obj: any) => obj[parm] == term && obj[parm2] == term2 && obj[parm3] == term3 && obj[parm4] == term4)
-
-
-
     }
-
   }
 
 }

@@ -60,7 +60,7 @@ import { BsDatepickerModule, BsDatepickerConfig } from 'ngx-bootstrap/datepicker
       preventDuplicates: true,
     }),
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyAqVkAIpWw38LEG9LghW1s0ZzSW-PUsjt0',
+      apiKey: 'AIzaSyBStBK-iNO1S6himB2q41PLm9bSoBfVmP4',
       libraries: ['places']
     }),
 

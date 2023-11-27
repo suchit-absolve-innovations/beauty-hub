@@ -159,7 +159,7 @@ export class AppointmentListComponent implements OnInit {
         this.toaster.success(response.messages)
       } else {
         this.spinner.hide();
-        this.toaster.error(response.messages)
+        this.toaster.error(response.messages);
       }
     });
   }

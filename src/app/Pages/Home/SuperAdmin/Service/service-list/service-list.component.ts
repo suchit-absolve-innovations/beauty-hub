@@ -44,7 +44,7 @@ export class ServiceListComponent implements OnInit {
   ngOnInit(): void {
     this.rootUrl = environment.rootPathUrl;
     this.id = localStorage.getItem('salonId');
-    this.role = localStorage.getItem('user')
+    this.role = localStorage.getItem('user');
     this.route.queryParams.subscribe(params => {
       this.page = +params['page'] || 0; // Use the 'page' query parameter value, or default to 1
     });
@@ -127,7 +127,7 @@ export class ServiceListComponent implements OnInit {
     }
     this.content.getservice(payload).subscribe(response => {
       if (response.isSuccess) {
-        this.list = response.data.dataList
+        this.list = response.data.dataList;
 
         this.spinner.hide();
       }
@@ -143,7 +143,7 @@ export class ServiceListComponent implements OnInit {
     }
     this.content.getservice(payload).subscribe(response => {
       if (response.isSuccess) {
-        this.list = response.data.dataList
+        this.list = response.data.dataList;
 
         this.spinner.hide();
       }
@@ -215,18 +215,18 @@ export class ServiceListComponent implements OnInit {
 checkActiveStatus(data: any) {
   this.isActive = !this.isActive;
   if (this.isActive == true) {
-    this.postActiveServiceStatus(data)
+    this.postActiveServiceStatus(data);
   } else if (this.isActive == false) {
-    this.postUnActiveServiceStatus(data)
+    this.postUnActiveServiceStatus(data);
   }
 }
 
 checkInactiveStatus(data: any) {
   this.unActive = !this.unActive;
   if (this.unActive == true) {
-    this.postActiveServiceStatus(data)
+    this.postActiveServiceStatus(data);
   } else if (this.unActive == false) {
-    this.postUnActiveServiceStatus(data)
+    this.postUnActiveServiceStatus(data);
   }
 }
 
@@ -270,7 +270,7 @@ postUnActiveServiceStatus(data: any) {
         window.location.reload();
       } else {
         this.spinner.hide();
-        this.toaster.error(response.messages)
+        this.toaster.error(response.messages);
       }
     });
   }

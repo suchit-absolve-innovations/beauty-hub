@@ -91,7 +91,7 @@ export class AppointmentDetailComponent implements OnInit {
       }
       else {
         this.toaster.error(response.messages)}
-    });  this.spinner.hide()
+    });  this.spinner.hide();
   }
 }
 
