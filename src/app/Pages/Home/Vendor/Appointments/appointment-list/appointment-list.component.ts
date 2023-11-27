@@ -17,6 +17,7 @@ import { environment } from 'src/environments/environment';
 export class AppointmentListComponent implements OnInit {
 
   appointmentsList     : any; 
+  minToDate            : any;
   page                 : number = 0;
   itemsPerPage!        : number;
   totalItems!          : number;
@@ -87,6 +88,10 @@ export class AppointmentListComponent implements OnInit {
       queryParamsHandling: 'merge'
     });
   }
+  
+  setToDateMinDate(event: Date) {
+    this.minToDate = event; // Set the minimum date for the "toDate" field
+}
 
   getAppointmentsList() {
     let payload = {

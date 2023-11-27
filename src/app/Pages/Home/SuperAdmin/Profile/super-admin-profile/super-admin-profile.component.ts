@@ -67,9 +67,9 @@ export class SuperAdminProfileComponent implements OnInit {
       bankDetail: this.formBuilder.array([
         this.bankDetails(),
       ]),
-      upiDetail: this.formBuilder.array([
-        this.upiDetails(),
-      ])
+      // upiDetail: this.formBuilder.array([
+      //   this.upiDetails(),
+      // ])
     });
   }
 
@@ -90,16 +90,16 @@ export class SuperAdminProfileComponent implements OnInit {
   }
 
 
-  upiDetails(){
-    return this.formBuilder.group({
-      upiid: ['', [Validators.required]],
-      // qrcode: ['', [Validators.required]],
-      isActive: ['', [Validators.required]],
-      // bankName: ['', [Validators.required]],
-      accountHolderName: ['', [Validators.required]],
+  // upiDetails(){
+  //   return this.formBuilder.group({
+  //     upiid: ['', [Validators.required]],
+  //     // qrcode: ['', [Validators.required]],
+  //     isActive: ['', [Validators.required]],
+  //     // bankName: ['', [Validators.required]],
+  //     accountHolderName: ['', [Validators.required]],
      
-    });
-  }
+  //   });
+  // }
 
 
   // onPhoneNumberInput(event: any) {
@@ -143,9 +143,9 @@ export class SuperAdminProfileComponent implements OnInit {
     return (<FormArray>this.form.get("upiDetail"));
   }
 
-  add() {
-    this.List1().push(this.upiDetails());
-  }
+  // add() {
+  //   this.List1().push(this.upiDetails());
+  // }
 
   deleteHomeData(data: any, id: any) {   
       this.List1().removeAt(id)
@@ -285,14 +285,14 @@ export class SuperAdminProfileComponent implements OnInit {
             email: this.superAdminDetailPatch.email,
   
           });
-          if (this.superAdminDetailPatch.upiResponses) {
-            this.superAdminDetailPatch.upiResponses.forEach((element: any) => {
-              var listGroup = this.upiDetails();
-              listGroup.patchValue({ upiid: element.upiid, accountHolderName: element.accountHolderName,
-                bankName: element.bankName, isActive:element.isActive , qrcode:element.qrcode});
-              this.List1().push(listGroup)
-            });
-          }
+          // if (this.superAdminDetailPatch.upiResponses) {
+          //   this.superAdminDetailPatch.upiResponses.forEach((element: any) => {
+          //     var listGroup = this.upiDetails();
+          //     listGroup.patchValue({ upiid: element.upiid, accountHolderName: element.accountHolderName,
+          //       bankName: element.bankName, isActive:element.isActive , qrcode:element.qrcode});
+          //     this.List1().push(listGroup)
+          //   });
+          // }
   
         }
       });
@@ -393,14 +393,14 @@ export class SuperAdminProfileComponent implements OnInit {
           bankId: this.bankDetailPatch[0]?.bankId,
 
         }],
-        upiDetail: [{
-          // upidetailId :this.form.value.upiDetail[0].upidetailId,
-          upiid: this.form.value.upiDetail[0]?.upiid,
-          bankName: this.form.value.upiDetail[0]?.bankName,
-          accountHolderName: this.form.value.upiDetail[0]?.accountHolderName,
-          isActive: data1.status
+        // upiDetail: [{
+        //   // upidetailId :this.form.value.upiDetail[0].upidetailId,
+        //   upiid: this.form.value.upiDetail[0]?.upiid,
+        //   bankName: this.form.value.upiDetail[0]?.bankName,
+        //   accountHolderName: this.form.value.upiDetail[0]?.accountHolderName,
+        //   isActive: data1.status
 
-        }]
+        // }]
 
       }
       this.contentService.updateSuperAdmimProfile(payload).subscribe(response => {

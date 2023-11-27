@@ -52,8 +52,10 @@ import { PackageDetailComponent } from './Vendor/Packages/package-detail/package
 import { AddEditPackageComponent } from './Vendor/Packages/add-edit-package/add-edit-package.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { EditPackageComponent } from './Vendor/Packages/edit-package/edit-package.component';
-
-
+import { OnlyNumberDirective } from 'src/app/numberonly.directive';
+import { AlphanumericDirective } from 'src/app/alphanumericDirective ';
+import { AlphabeticOnlyDirective } from 'src/app/alphabetic-only.directive';
+import { NoSpacesAtStartDirective } from 'src/app/NoSpacesAtStartDirective ';
 
 
 
@@ -106,7 +108,10 @@ import { EditPackageComponent } from './Vendor/Packages/edit-package/edit-packag
    PackageDetailComponent,
    AddEditPackageComponent,
    EditPackageComponent,
-  
+   AlphanumericDirective,
+   OnlyNumberDirective,
+   AlphabeticOnlyDirective,
+   NoSpacesAtStartDirective
 
 
 

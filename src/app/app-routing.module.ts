@@ -14,7 +14,7 @@ const routes: Routes = [
   {
     path: 'auth',
     loadChildren: AuthModule,  canActivate: [AuthGuard]
-  },
+  },  
   {
     path: 'super-Admin-Dashboard',
     loadChildren: HomeModule

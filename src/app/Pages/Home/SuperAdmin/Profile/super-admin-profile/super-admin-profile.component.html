@@ -36,7 +36,7 @@
                         </div>
                         <div class="col-lg-6 col-md-12">
                             <label>First Name</label>
-                            <input type="text" formControlName="firstName" class="control-form ">
+                            <input type="text" formControlName="firstName" class="control-form" noSpacesAtStart appAlphabeticOnly>
                             <div *ngIf="submitted && f['firstName'].errors" class="help-block">
                                 <div *ngIf="f['firstName'].errors" style="color: #fd0000">
                                     First name is required.
@@ -46,7 +46,7 @@
                         <div class="col-lg-6 col-md-12">
                             <label>Last Name
                             </label>
-                            <input type="text" class="control-form " formControlName="lastName">
+                            <input type="text" class="control-form " formControlName="lastName" noSpacesAtStart appAlphabeticOnly>
                             <div *ngIf="submitted && f['lastName'].errors" class="help-block">
                                 <div *ngIf="f['lastName'].errors" style="color: #fd0000">
                                     Last name is required.
@@ -130,7 +130,7 @@
                     <div class="row" *ngFor="let item of bankDetail.controls;  let i = index;" [formGroupName]="i">
                         <div class="col-lg-6 col-md-12">
                             <label>Bank Name </label>
-                            <input type="text" class="control-form" formControlName="bankName">
+                            <input type="text" class="control-form" formControlName="bankName" noSpacesAtStart appAlphabeticOnly    >
                             <div *ngIf="item.get('bankName')?.errors && submitted" class="help-block"
                                 style="color: #fd0000">
                                 Bank name is required.
@@ -138,7 +138,7 @@
                         </div>
                         <div class="col-lg-6 col-md-12">
                             <label>Account Holder Name</label>
-                            <input type="text" class="control-form" formControlName="bankAccountHolderName">
+                            <input type="text" class="control-form" formControlName="bankAccountHolderName" noSpacesAtStart appAlphabeticOnly>
                             <div *ngIf="item.get('bankAccountHolderName')?.errors && submitted" class="help-block"
                                 style="color: #fd0000">
                                 Account holder name is required.
@@ -155,7 +155,7 @@
 
                         <div class="col-lg-4 col-md-12">
                             <label>IFSC Code</label>
-                            <input type="text" class="control-form" formControlName="ifsc">
+                            <input type="text" class="control-form" formControlName="ifsc" noSpacesAtStart alphanumericOnly>
                             <div *ngIf="item.get('ifsc')?.errors && submitted" class="help-block"
                                 style="color: #fd0000">
                                 IFSC code is required.
@@ -164,7 +164,7 @@
 
                         <div class="col-lg-4 col-md-12">
                             <label>Branch Name</label>
-                            <input type="text" class="control-form" formControlName="branchName">
+                            <input type="text" class="control-form" formControlName="branchName" noSpacesAtStart appAlphabeticOnly>
                             <div *ngIf="item.get('branchName')?.errors && submitted" class="help-block"
                                 style="color: #fd0000">
                                 Branch name is required.
@@ -180,17 +180,17 @@
 
                 <div class="this_row" formArrayName="upiDetail">
 
-                    <div class="col-lg-12 p-0">
+                    <!-- <div class="col-lg-12 p-0">
                         <div class="upi-detail-head">
                             <h3>UPI Detail</h3>
                             <a class="btn_blue add-butn m-0" (click)="add()"><i class="fa fa-plus mr-2"
                                     aria-hidden="true"></i> Add</a>
                         </div>
-                    </div>
-                    <div class="row" *ngFor="let item of List1().controls;  let i = index;" [formGroupName]="i">
+                    </div> -->
+                    <!-- <div class="row" *ngFor="let item of List1().controls;  let i = index;" [formGroupName]="i">
                         <div class="col-lg-5 col-md-12">
                             <label>UPI Id </label>
-                            <input type="text" class="control-form" formControlName="upiid">
+                            <input type="text" class="control-form" formControlName="upiid" >
                             <div *ngIf="item.get('upiid')?.errors && submitted" class="help-block"
                                 style="color: #fd0000">
                                 UPI id is required.
@@ -224,9 +224,7 @@
                                 <span class="slider round"></span>
                             </label>
                         </div>
-
-
-                    </div>
+                    </div> -->
                 </div>
             </div>
             <div class="vendor-form bg-white ">

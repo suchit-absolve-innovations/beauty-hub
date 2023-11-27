@@ -122,7 +122,7 @@ this.salonBannerId = data.salonBannerId;
        this.content.getcategory().subscribe(response => {
          if (response.isSuccess) {
            this.categoryList = response.data;
-         
+        
           this.spinner.hide();
          } else {
            // this.spinner.hide();
@@ -142,7 +142,7 @@ this.salonBannerId = data.salonBannerId;
        }
          this.content.getFilterShopMain(payload).subscribe(response => {
            if (response.isSuccess) {
-           
+            this.form.get('subCategoryId').setValue(''); 
               this.shopBannerList = response.data;
               this.spinner.hide();
         

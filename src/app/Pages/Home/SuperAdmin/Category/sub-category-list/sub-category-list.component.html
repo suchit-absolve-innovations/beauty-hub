@@ -120,7 +120,7 @@
                                     <label>Select Filter</label>
                                     <select type="text" class="control-form mb-0 btn_border" formControlName="CategoryType">
                                         <!-- <option value="">Select </option> -->
-                                        <option value="3" >All</option>
+                                        <option value="3" selected>All</option>
                                         <option value="1">Male</option>
                                         <option value="2">Female</option>
                                         <option value="0">Male & Female</option>
@@ -130,8 +130,8 @@
                         </form>
                         <div class="modal-footer">
                             <a type="button" class=" border-btn cancelinfilter" data-dismiss="modal"
-                                (click)="backClickedreload()">Reset</a>
-                            <a type="button" class=" btn_blue" (click)="getSubCategoryListFilter()" >Apply</a>
+                               >Reset</a>
+                            <a type="button" class="btn_blue" (click)="getSubCategoryListFilter()" data-dismiss="modal">Apply</a>
                         </div>
                 
                     </div>
