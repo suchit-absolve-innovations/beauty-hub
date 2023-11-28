@@ -233,6 +233,7 @@ getServicesListByCategories() {
   
 
 convertSelectedItemsToString(): string {
+  debugger
   return this.selectedItems.map(item => item.item_id).join(',');
   
 }
@@ -255,18 +256,20 @@ getServiceDetail() {
       this.packageDetailPatch = response.data
       this.ServiceImage = this.packageDetailPatch.serviceImage
       this.imageUrl = this.rootUrl + this.packageDetailPatch.serviceIconImage
-      this.options = this.packageDetailPatch.includeServiceId
-      let serviceListData: { item_id: any; item_text: any; }[] = [];
-      this.serviceList?.forEach((element: { serviceId: any; serviceName: any; }) => {
-        this.packageDetailPatch.includeServiceId?.split(',').forEach((x: any) => {
-          if (element.serviceId == x) {
-            serviceListData?.push(  
-              { item_id: element.serviceId, item_text: element.serviceName }
-            )
-          }
-        })
-      });
+      // this.options = this.packageDetailPatch.includeServiceId
+      // let serviceListData: { item_id: any; item_text: any; }[] = [];
+      // this.serviceList?.forEach((element: { serviceId: any; serviceName: any; }) => {
+      //   this.packageDetailPatch.includeServiceId?.split(',').forEach((x: any) => {
+      //     if (element.serviceId == x) {
+      //       serviceListData.push(  
+      //         { item_id: element.serviceId, item_text: element.serviceName }
+      //       )
+      //     }
+      //   })
+      // });
+      
       debugger
+     // this.packageDetailPatch.includeService.map((service: any) => service.serviceName, ),
       this.form.patchValue({
         serviceName: this.packageDetailPatch.serviceName,
         basePrice: this.packageDetailPatch.basePrice,
@@ -281,7 +284,8 @@ getServiceDetail() {
         lockTimeStart: this.packageDetailPatch.lockTimeStart,
         lockTimeEnd: this.packageDetailPatch.lockTimeEnd,
         serviceDescription: this.packageDetailPatch.serviceDescription,
-        includeServiceId: serviceListData,
+        includeServiceId: this.packageDetailPatch.includeService.map((element: { serviceId: any; serviceName: any; }) => ({ item_id: element.serviceId, item_text: element.serviceName })),
+
        
       });
       // this.getSubcategoryList(this.packageDetailPatch?.mainCategoryId);
@@ -359,6 +363,7 @@ submitVendor() {
     this.toasterService.error("Form Incomplete: Please fill in all the required fields correctly");
     return;
   }
+  debugger
   const selectedItemsString = this.convertSelectedItemsToString();
   let payload = {
     serviceId            : this.serviceId.id,
