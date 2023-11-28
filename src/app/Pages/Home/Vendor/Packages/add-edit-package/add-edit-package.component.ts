@@ -251,59 +251,7 @@ convertSelectedItemsToString(): string {
 }
 
  // submit 
-
- postSubmit(){
-  if(this.role == 'SuperAdmin') {
-this.submit();
-  } else if (this.role == 'Vendor') {
-this.submitVendor();
-  }
-}
-
- submit() {
-  this.submitted = true;
-  if (this.form.invalid) {
-    this.toasterService.error("Form Incomplete: Please fill in all the required fields correctly");
-    return;
-  }
-
-  let payload = {
-    serviceId            : 0,
-    salonId              : parseInt(this.salonId.id),
-    serviceName          : this.form.value.serviceName,
-    basePrice            : parseInt(this.form.value.basePrice),
-    discount             : parseInt(this.form.value.discount),
-    listingPrice         : parseInt(this.form.value.listingPrice),
-    // mainCategoryId       : this.form.value.mainCategoryId,
-    // subCategoryId        : this.form.value.subCategoryId,
-    ageRestrictions      : this.form.value.ageRestrictions,
-    genderPreferences    : this.form.value.genderPreferences,
-    totalCountPerDuration: this.form.value.totalCountPerDuration,
-    durationInMinutes    : this.form.value.durationInMinutes,
-    lockTimeStart        : this.time,
-    lockTimeEnd          : this.time2,
-    serviceDescription   : this.form.value.serviceDescription,
-    includeServiceId     : this.selectedItems
-  }
-  this.spinner.show();
-  this.contentService.addNewService(payload).subscribe(response => {
-
-    this.serviceId = response.data?.serviceId
-    this.fileChangeEvent();
-    this.fileChangeEvents();
-    this.spinner.hide();
-    if (response.isSuccess) {
-      this.toaster.success(response.messages);
-       this._location.back();
-    } else {
-      this.toaster.error(response.messages)
-    }
-  });
-}
-
-
-
-submitVendor() {
+postSubmit() {
   debugger
   this.submitted = true;
   if (this.form.invalid) {
