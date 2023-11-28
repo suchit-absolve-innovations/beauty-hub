@@ -50,6 +50,10 @@ export class AddEditPackageComponent implements OnInit {
   errorMessages: string = '';
   isValid: boolean = false;
   previewImage: string = '';
+  basePrice: any;
+  discount : any = 0 ;
+  listingPrice: any = 0 ;
+  maxDiscountValue: any;
 
 
   constructor(private router: Router,
@@ -93,7 +97,7 @@ export class AddEditPackageComponent implements OnInit {
     this.form = this.formBuilder.group({
       serviceName          : ['', [Validators.required]],
       basePrice            : ['', [Validators.required]],
-      discount             : ['', [Validators.required]],
+      discount             : [0 , [Validators.required]],
       listingPrice         : ['', [Validators.required]],
       mainCategoryId       : [''],
       subCategoryId        : [''],
@@ -121,7 +125,6 @@ timeValidator(control: AbstractControl): ValidationErrors | null {
 
   return null;
 }
-
   
   get f() {
     return this.form.controls;
@@ -129,6 +132,34 @@ timeValidator(control: AbstractControl): ValidationErrors | null {
   backClicked() {
     this._location.back();
   }
+
+  calculateSellingPrice() {
+    const basePrice = parseFloat(this.basePrice);
+    let discount = parseFloat(this.discount);
+
+      if (isNaN(discount)) {
+        discount = 0; // Set discount to 0 if it's NaN
+      } 
+        
+      if (isNaN(discount) || discount > basePrice) {
+        discount = 0; // Set discount to 0 if it's NaN
+      }
+      if (discount > basePrice || discount > this.maxDiscountValue) {
+        discount = Math.min(basePrice, this.maxDiscountValue);
+      }
+      this.listingPrice = basePrice - discount;
+      if (discount === basePrice) {
+        discount = 0;
+
+      }
+    
+    // Update the discount property with the validated discount value
+    this.discount = discount;
+  }
+  resetDiscount() {
+  
+      this.listingPrice = this.basePrice - this.discount;
+    } 
 
   getcategoryList(){
     // this.spinner.show();
@@ -273,6 +304,7 @@ this.submitVendor();
 
 
 submitVendor() {
+  debugger
   this.submitted = true;
   if (this.form.invalid) {
     this.toasterService.error("Form Incomplete: Please fill in all the required fields correctly");
@@ -298,9 +330,6 @@ submitVendor() {
     status               : 1,
     includeServiceId     : selectedItemsString,
     serviceType          : 'Package'
-
-  
-
   }
   this.spinner.show();
   this.contentService.addNewService(payload).subscribe(response => {

@@ -112,7 +112,7 @@
                         </div>
                         <div class="col-lg-6 col-md-12">
                             <label>Phone Number </label>
-                            <input type="text" class="control-form " formControlName="phoneNumber" numbersOnly>
+                            <input type="text" class="control-form " formControlName="phoneNumber" OnlyNumbers>
                             <div *ngIf="submitted && f['phoneNumber'].errors?.['required']" style="color: #fd0000">
                                 Mobile number is required.
                             </div>
@@ -130,7 +130,7 @@
                     <div class="row" *ngFor="let item of bankDetail.controls;  let i = index;" [formGroupName]="i">
                         <div class="col-lg-6 col-md-12">
                             <label>Bank Name </label>
-                            <input type="text" class="control-form" formControlName="bankName" noSpacesAtStart appAlphabeticOnly    >
+                            <input type="text" class="control-form" formControlName="bankName" noSpacesAtStart     >
                             <div *ngIf="item.get('bankName')?.errors && submitted" class="help-block"
                                 style="color: #fd0000">
                                 Bank name is required.
@@ -138,7 +138,7 @@
                         </div>
                         <div class="col-lg-6 col-md-12">
                             <label>Account Holder Name</label>
-                            <input type="text" class="control-form" formControlName="bankAccountHolderName" noSpacesAtStart appAlphabeticOnly>
+                            <input type="text" class="control-form" formControlName="bankAccountHolderName" noSpacesAtStart >
                             <div *ngIf="item.get('bankAccountHolderName')?.errors && submitted" class="help-block"
                                 style="color: #fd0000">
                                 Account holder name is required.
@@ -146,7 +146,7 @@
                         </div>
                         <div class="col-lg-4 col-md-12">
                             <label>Account Number</label>
-                            <input type="text" class="control-form" numberOnly formControlName="bankAccountNumber" numbersOnly>
+                            <input type="text" class="control-form" numberOnly formControlName="bankAccountNumber" OnlyNumbers>
                             <div *ngIf="item.get('bankAccountNumber')?.errors && submitted" class="help-block"
                                 style="color: #fd0000">
                                 Account number is required.
@@ -164,7 +164,7 @@
 
                         <div class="col-lg-4 col-md-12">
                             <label>Branch Name</label>
-                            <input type="text" class="control-form" formControlName="branchName" noSpacesAtStart appAlphabeticOnly>
+                            <input type="text" class="control-form" formControlName="branchName" noSpacesAtStart >
                             <div *ngIf="item.get('branchName')?.errors && submitted" class="help-block"
                                 style="color: #fd0000">
                                 Branch name is required.

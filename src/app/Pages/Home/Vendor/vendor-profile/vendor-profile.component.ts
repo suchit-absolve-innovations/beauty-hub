@@ -383,7 +383,7 @@ getAddress(addressLat: any, addressLong: any) {
     this.contentService.getVendorDetail(this.vendorIds).subscribe(response => {
       if (response.isSuccess) {
         this.spinner.hide();
-     //   this.clearFormArray(this.List1());
+       this.clearFormArray(this.List1());
         this.vendorDetailPatch = response.data
         this.imageId = response.data.vendorId
         this.shopDetailPatch = this.vendorDetailPatch.salonResponses
@@ -412,7 +412,7 @@ getAddress(addressLat: any, addressLong: any) {
           this.vendorDetailPatch.upiResponses.forEach((element: any) => {
             var listGroup = this.upiDetails();
             listGroup.patchValue({ upiid: element.upiid, accountHolderName: element.accountHolderName,
-              bankName: element.bankName, isActive:element.isActive , qrcode:element.qrcode});
+              isActive:element.isActive , qrcode:element.qrcode});
             this.List1().push(listGroup)
           });
         }

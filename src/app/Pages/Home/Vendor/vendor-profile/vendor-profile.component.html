@@ -51,7 +51,7 @@
                         <div class="col-lg-6 col-md-12">
                             <label>Last Name
                             </label>
-                            <input type="text" class="control-form " formControlName="lastName" noSpacesAtStart>
+                            <input type="text" class="control-form " formControlName="lastName" noSpacesAtStart appAlphabeticOnly>
                             <label *ngIf="lastName?.invalid && submitted != null && !submitted"
                                 class="invalid-formdata">
                                 Last name is required.
@@ -165,7 +165,7 @@
                         </div>
                         <div class="col-lg-6 col-md-12">
                             <label>GST Number</label>
-                            <input type="text" class="control-form " formControlName="gstnumber">
+                            <input type="text" class="control-form " formControlName="gstnumber" noSpacesAtStart alphanumericOnly> 
                             <label
                                 *ngIf="salonDetail.controls[i].get('gstnumber')?.errors?.['required'] && submitted != null && !submitted"
                                 class="invalid-formdata">
@@ -179,7 +179,7 @@
                         </div>
                         <div class="col-lg-6 col-md-12">
                             <label>Business Pan</label>
-                            <input type="text" class="control-form " formControlName="businessPAN" >
+                            <input type="text" class="control-form " formControlName="businessPAN" noSpacesAtStart alphanumericOnly>
                             <label
                                 *ngIf="salonDetail.controls[i].get('businessPAN')?.errors?.['required'] && submitted != null && !submitted"
                                 class="invalid-formdata">
@@ -193,7 +193,7 @@
                         </div>
                         <div class="col-lg-4 col-md-12">
                             <label>Landmark</label>
-                            <input type="text" class="control-form " formControlName="landmark">
+                            <input type="text" class="control-form " formControlName="landmark" noSpacesAtStart>
                             <label
                                 *ngIf="salonDetail.controls[i].get('landmark')?.errors?.['required'] && submitted != null && !submitted"
                                 class="invalid-formdata">
@@ -202,7 +202,7 @@
                         </div>
                         <div class="col-lg-4 col-md-12">
                             <label>City</label>
-                            <input type="text" class="form-control " formControlName="city">
+                            <input type="text" class="form-control " formControlName="city" appAlphabeticOnly>
                             <label
                                 *ngIf="salonDetail.controls[i].get('city')?.errors?.['required'] && submitted != null && !submitted"
                                 class="invalid-formdata">
@@ -211,7 +211,7 @@
                         </div>
                         <div class="col-lg-4 col-md-12">
                             <label>Zip Code</label>
-                            <input type="text" class="form-control " formControlName="zip" numbersOnly>
+                            <input type="text" class="form-control " formControlName="zip" OnlyNumbers>
                             <label
                                 *ngIf="salonDetail.controls[i].get('zip')?.errors?.['required'] && submitted != null && !submitted"
                                 class="invalid-formdata">
@@ -220,7 +220,7 @@
                         </div>
                         <div class="col-lg-12 col-md-12">
                             <h5 class="mb-3">Shop Address</h5>
-                            <a type="button" class="map" (click)="setCurrentLocation()">Get Current Location</a>
+                            <a type="button" class="map" style=" color: inherit !important;" (click)="setCurrentLocation()">Get Current Location</a>
                             <input type="text" class="form-control" (keydown.enter)="$event.preventDefault()"
                                 placeholder="Search Nearest Location" autocorrect="on" autocapitalize="off"
                                 spellcheck="off" type="text" [(ngModel)]="addressStreet"
@@ -233,9 +233,31 @@
 
                             </agm-map>
                         </div>
+                        <!-- <div class="col-lg-12 col-md-12">
+                            <h5 class="mb-3">Shop Address</h5>
+                            <input type="text" class="form-control" (keydown.enter)="$event.preventDefault()"
+                                placeholder="Search Nearest Location" autocorrect="on" autocapitalize="off"
+                                spellcheck="off" type="text" [(ngModel)]="addressStreet"
+                                [ngModelOptions]="{standalone: true}" #search>
+
+
+                            <br>
+                            <agm-map (mapReady)="mapReady($event)" style="height:240px" [zoom]="zoom"
+                                [latitude]="addressLat" [longitude]="addressLong">
+                                <agm-marker [latitude]="addressLat" [longitude]="addressLong"
+                                    [markerDraggable]="true"></agm-marker>
+
+                            </agm-map>
+
+
+
+
+
+                        </div> -->
+
                         <div class="col-lg-12 col-md-12">
                             <label>Salon Description</label>
-                            <textarea type="text" class="control-form " formControlName="salonDescription"></textarea>
+                            <textarea type="text" class="control-form " formControlName="salonDescription" noSpacesAtStart ></textarea>
                             <label
                                 *ngIf="salonDetail.controls[i].get('salonDescription')?.errors?.['required'] && submitted != null && !submitted"
                                 class="invalid-formdata">
@@ -251,7 +273,7 @@
                     <div class="row" *ngFor="let item of bankDetail.controls;  let i = index;" [formGroupName]="i">
                         <div class="col-lg-6 col-md-12">
                             <label>Bank Name </label>
-                            <input type="text" class="control-form" formControlName="bankName">
+                            <input type="text" class="control-form" formControlName="bankName" noSpacesAtStart>
                             <label
                                 *ngIf="bankDetail.controls[i].get('bankName')?.errors?.['required'] && submitted != null && !submitted"
                                 class="invalid-formdata">
@@ -261,7 +283,7 @@
 
                         <div class="col-lg-6 col-md-12">
                             <label>Account Holder Name</label>
-                            <input type="text" class="control-form" formControlName="bankAccountHolderName">
+                            <input type="text" class="control-form" formControlName="bankAccountHolderName" noSpacesAtStart>
                             <label
                                 *ngIf="bankDetail.controls[i].get('bankAccountHolderName')?.errors?.['required'] && submitted != null && !submitted"
                                 class="invalid-formdata">
@@ -271,7 +293,7 @@
 
                         <div class="col-lg-4 col-md-12">
                             <label>Account Number</label>
-                            <input type="text" class="control-form" formControlName="bankAccountNumber" numbersOnly>
+                            <input type="text" class="control-form" formControlName="bankAccountNumber" OnlyNumbers>
                             <label
                                 *ngIf="bankDetail.controls[i].get('bankAccountNumber')?.errors?.['required'] && submitted != null && !submitted"
                                 class="invalid-formdata">
@@ -289,7 +311,7 @@
                         </div> -->
                         <div class="col-lg-4 col-md-12">
                             <label>IFSC Code</label>
-                            <input type="text" class="control-form" formControlName="ifsc">
+                            <input type="text" class="control-form" formControlName="ifsc" alphanumericOnly >
                             <label *ngIf="bankDetail.controls[i].get('ifsc')?.errors && submitted != null && !submitted"
                                 class="invalid-formdata">
                                 Ifsc code is required.
@@ -298,7 +320,7 @@
 
                         <div class="col-lg-4 col-md-12">
                             <label>Branch Name</label>
-                            <input type="text" class="control-form" formControlName="branchName">
+                            <input type="text" class="control-form" formControlName="branchName" noSpacesAtStart>
                             <label
                                 *ngIf="bankDetail.controls[i].get('branchName')?.errors?.['required'] && submitted != null && !submitted"
                                 class="invalid-formdata">
@@ -361,8 +383,6 @@
                                 <span class="slider round"></span>
                             </label>
                         </div>
-
-
                     </div>
                 </div>
             </div>

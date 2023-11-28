@@ -13,7 +13,7 @@
                     <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
                 </ol>
                 <div class="carousel-inner">
-                    <div class="carousel-item active" *ngFor="let item of  packageDetail?.serviceImage; let i = index"
+                    <div class="carousel-item active" *ngFor="let item of  packageDetail.serviceImage; let i = index"
                         [ngClass]="{'active': i == 0 }">
                         <img class="d-block w-100" [src]="rootUrl + item?.salonServiceImage" alt="First slide">
                     </div>
