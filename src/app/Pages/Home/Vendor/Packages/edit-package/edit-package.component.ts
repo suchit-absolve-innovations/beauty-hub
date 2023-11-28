@@ -82,10 +82,11 @@ export class EditPackageComponent implements OnInit {
     this.salonIds = localStorage.getItem('salonId');
     this.serviceId = this.route.snapshot.queryParams;
     this.rootUrl = environment.rootPathUrl;
+    this.getServiceDetail() 
     this.serviceForm();
     this.getcategoryList();
     this.getServicesList();
-    this.getServiceDetail() 
+   
     this.salonId = this.route.snapshot.queryParams
     this.dropdownSettings = {
       singleSelection: false,
@@ -239,6 +240,7 @@ convertSelectedItemsToString(): string {
 
 
 getServiceDetail() {
+
  let payload ={
   serviceId: this.serviceId.id,
   serviceType: this.serviceId.type
@@ -255,15 +257,16 @@ getServiceDetail() {
       this.imageUrl = this.rootUrl + this.packageDetailPatch.serviceIconImage
       this.options = this.packageDetailPatch.includeServiceId
       let serviceListData: { item_id: any; item_text: any; }[] = [];
-      this.serviceList.forEach((element: { serviceId: any; serviceName: any; }) => {
-        this.packageDetailPatch.includeServiceId.split(',').forEach((x: any) => {
+      this.serviceList?.forEach((element: { serviceId: any; serviceName: any; }) => {
+        this.packageDetailPatch.includeServiceId?.split(',').forEach((x: any) => {
           if (element.serviceId == x) {
-            serviceListData.push(  
+            serviceListData?.push(  
               { item_id: element.serviceId, item_text: element.serviceName }
             )
           }
         })
       });
+      debugger
       this.form.patchValue({
         serviceName: this.packageDetailPatch.serviceName,
         basePrice: this.packageDetailPatch.basePrice,
