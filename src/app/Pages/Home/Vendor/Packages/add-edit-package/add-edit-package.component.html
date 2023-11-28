@@ -40,8 +40,6 @@
                                         <button class="remove" (click)="removeImage(i)">X</button>
                                     </div>
                                 </div>
-
-
                             </div>
                         </div>
                     </div>
@@ -53,10 +51,9 @@
             <div class="vendor-form pt-0 bg-white">
                 <div class="this_row">
                     <div class="row">
-
                         <div class="col-lg-6 col-md-12">
                             <label>Package Name</label>
-                            <input type="text" class="control-form" formControlName="serviceName" />
+                            <input type="text" class="control-form" formControlName="serviceName" noSpacesAtStart />
                             <div *ngIf="submitted && f['serviceName'].errors" class="help-block">
                                 <div *ngIf="f['serviceName'].errors" style="color: #fd0000">
                                     Package name is required.
@@ -127,7 +124,7 @@
 
                         <div class="col-lg-4 col-md-12 mb-20 ">
                             <label>Base Price </label>
-                            <input type="text" class="form-control" formControlName="basePrice" />
+                            <input type="text" class="form-control" formControlName="basePrice" [(ngModel)]="basePrice"  (input)="calculateSellingPrice()" numbersOnly />
                             <div *ngIf="submitted && f['basePrice'].errors" class="help-block">
                                 <div *ngIf="f['basePrice'].errors" style="color: #fd0000">
                                     Base Price is required.</div>
@@ -135,7 +132,7 @@
                         </div>
                         <div class="col-lg-4 col-md-12">
                             <label>Discount</label>
-                            <input type="tel" class="control-form" formControlName="discount" numbersOnly />
+                            <input type="text" class="control-form" formControlName="discount" [(ngModel)]="discount" (input)="calculateSellingPrice()"(input)="resetDiscount()" numbersOnly />
                             <div *ngIf="submitted && f['discount'].errors" class="help-block">
                                 <div *ngIf="f['discount'].errors" style="color: #fd0000">
                                     Discount is required.
@@ -145,7 +142,7 @@
 
                         <div class="col-lg-4 col-md-12">
                             <label>Listing Price</label>
-                            <input type="text" class="form-control" formControlName="listingPrice" />
+                            <input type="text" class="form-control" formControlName="listingPrice" [(ngModel)]="listingPrice"  [readOnly]="true"/>
 
                             <div *ngIf="submitted && f['listingPrice'].errors" class="help-block">
                                 <div *ngIf="f['listingPrice'].errors" style="color: #fd0000">
@@ -189,7 +186,7 @@
 
                         <div class="col-lg-6 col-md-12">
                             <label>Duration In Minutes</label>
-                            <input type="tel" class="control-form" formControlName="durationInMinutes" numbersOnly />
+                            <input type="tel" class="control-form" formControlName="durationInMinutes" OnlyNumbers />
                             <div *ngIf="submitted && f['durationInMinutes'].errors" class="help-block">
                                 <div *ngIf="f['durationInMinutes'].errors" style="color: #fd0000">
                                     Duration is required.
@@ -199,7 +196,7 @@
 
                         <div class="col-lg-6 col-md-12">
                             <label>Total Count Per Duration</label>
-                            <input formControlName="totalCountPerDuration" type="text" class="form-control" />
+                            <input formControlName="totalCountPerDuration" type="text" class="form-control" OnlyNumbers/>
 
                             <div *ngIf="submitted && f['totalCountPerDuration'].errors" class="help-block">
                                 <div *ngIf="f['totalCountPerDuration'].errors?.['required']" style="color: #fd0000">
@@ -238,7 +235,7 @@
 
                         <div class=" col-md-12 mt-20">
                             <label>Description</label>
-                            <textarea type="text" class="control-form" formControlName="serviceDescription">
+                            <textarea type="text" class="control-form" formControlName="serviceDescription" noSpacesAtStart>
                   </textarea>
 
                             <div *ngIf="submitted && f['serviceDescription'].errors" class="help-block">

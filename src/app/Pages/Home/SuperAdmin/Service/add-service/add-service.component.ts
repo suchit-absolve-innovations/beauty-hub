@@ -45,9 +45,10 @@ export class AddServiceComponent implements OnInit {
   errorMessages: string = '';
   isValid: boolean = false;
   previewImage: string = '';
-  basePrice!: number;
-  discount: number = 0;
-  listingPrice!: number;
+  basePrice: any;
+  discount : any = 0 ;
+  listingPrice: any = 0 ;
+  maxDiscountValue: any;
 
 
 
@@ -105,14 +106,33 @@ timeValidator(control: AbstractControl): ValidationErrors | null {
   return null;
 }
 
-calculateBasePrice() {
-    this.listingPrice = this.basePrice - this.discount;
-    
-  } 
+calculateSellingPrice() {
+  const basePrice = parseFloat(this.basePrice);
+  let discount = parseFloat(this.discount);
 
-calculateDiscount() {
-  this.listingPrice = this.basePrice - this.discount;
-}  
+    if (isNaN(discount)) {
+      discount = 0; // Set discount to 0 if it's NaN
+    } 
+      
+    if (isNaN(discount) || discount > basePrice) {
+      discount = 0; // Set discount to 0 if it's NaN
+    }
+    if (discount > basePrice || discount > this.maxDiscountValue) {
+      discount = Math.min(basePrice, this.maxDiscountValue);
+    }
+    this.listingPrice = basePrice - discount;
+    if (discount === basePrice) {
+      discount = 0;
+
+    }
+  
+  // Update the discount property with the validated discount value
+  this.discount = discount;
+}
+resetDiscount() {
+
+    this.listingPrice = this.basePrice - this.discount;
+  } 
 
   get f() {
     return this.form.controls;

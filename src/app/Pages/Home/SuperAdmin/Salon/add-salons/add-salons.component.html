@@ -102,7 +102,7 @@
   
                         <div class="col-lg-6 col-md-12">
                             <label>Phone Number</label>
-                            <input type="text" class="control-form" formControlName="phoneNumber" numbersOnly >
+                            <input type="text" class="control-form" formControlName="phoneNumber" OnlyNumbers >
                             <label
                             *ngIf="form.get('phoneNumber')?.errors?.['required'] && submitted != null && !submitted"
                             class="invalid-formdata">
@@ -199,7 +199,7 @@
   
                         <div class="col-lg-12 col-md-12">
                             <label>Salon Description</label>
-                            <textarea type="text" class="control-form" formControlName="salonDescription"></textarea>
+                            <textarea type="text" class="control-form" formControlName="salonDescription" noSpacesAtStart></textarea>
                             <label
                                 *ngIf="salonDetail.controls[i].get('salonDescription')?.errors?.['required'] && submitted != null && !submitted"
                                 class="invalid-formdata">
@@ -237,7 +237,7 @@
   
                         <div class="col-lg-6 col-md-12">
                             <label>City</label>
-                            <input type="text" class="control-form" formControlName="city" appAlphabeticOnly>
+                            <input type="text" class="control-form" formControlName="city" appAlphabeticOnly noSpacesAtStart>
                             <label
                                 *ngIf="salonDetail.controls[i].get('city')?.errors?.['required'] && submitted != null && !submitted"
                                 class="invalid-formdata">
@@ -247,7 +247,7 @@
   
                         <div class="col-lg-3 col-md-12">
                             <label>Zip Code</label>
-                            <input type="text" class="control-form" formControlName="zip" numbersOnly>
+                            <input type="text" class="control-form" formControlName="zip" OnlyNumbers>
                             <label
                                 *ngIf="salonDetail.controls[i].get('zip')?.errors?.['required'] && submitted != null && !submitted"
                                 class="invalid-formdata">
@@ -257,7 +257,7 @@
   
                         <div class="col-lg-3 col-md-12">
                             <label>GST No</label>
-                            <input type="text" class="control-form" formControlName="gstnumber" >
+                            <input type="text" class="control-form" formControlName="gstnumber" noSpacesAtStart alphanumericOnly >
                             <label *ngIf="salonDetail.controls[i].get('gstnumber')?.errors?.['required'] && submitted != null && !submitted"
                             class="invalid-formdata">
                                 GST number is required.
@@ -270,7 +270,7 @@
   
                         <div class="col-lg-6 col-md-12">
                             <label>PAN</label>
-                            <input type="text" class="control-form" formControlName="businessPAN">
+                            <input type="text" class="control-form" formControlName="businessPAN" noSpacesAtStart alphanumericOnly>
                             <label
                                 *ngIf="salonDetail.controls[i].get('businessPAN')?.errors?.['required'] && submitted != null && !submitted"
                                 class="invalid-formdata">
@@ -297,7 +297,7 @@
   
                         <div class="col-lg-6 col-md-12">
                             <label>Bank Name</label>
-                            <input type="text" class="control-form" formControlName="bankName" appAlphabeticOnly noSpacesAtStart>
+                            <input type="text" class="control-form" formControlName="bankName"  noSpacesAtStart>
   
                             <label
                                 *ngIf="bankDetail.controls[i].get('bankName')?.errors?.['required'] && submitted != null && !submitted"
@@ -318,7 +318,7 @@
   
                         <div class="col-lg-6 col-md-12">
                             <label>Account Holder Name</label>
-                            <input type="text" class="control-form" formControlName="bankAccountHolderName">
+                            <input type="text" class="control-form" formControlName="bankAccountHolderName" noSpacesAtStart >
                             <label
                                 *ngIf="bankDetail.controls[i].get('bankAccountHolderName')?.errors?.['required'] && submitted != null && !submitted"
                                 class="invalid-formdata">
@@ -329,7 +329,7 @@
                         <div class="col-lg-6 col-md-12">
                             <label>Account No.</label>
                             <input type="password" class="control-form" formControlName="bankAccountNumber" 
-                                (cut)="DisableCut($event)" (copy)="DisableCopy($event)" (paste)="DisablePaste($event)" numbersOnly>
+                                (cut)="DisableCut($event)" (copy)="DisableCopy($event)" (paste)="DisablePaste($event)" OnlyNumbers>
                             <label
                                 *ngIf="bankDetail.controls[i].get('bankAccountNumber')?.errors?.['required'] && submitted != null && !submitted"
                                 class="invalid-formdata">
@@ -340,7 +340,7 @@
                         <div class="col-lg-6 col-md-12">
                             <label>Confirm Account No.</label>
                             <input type="password" class="control-form" formControlName="confirmbankAccountNumber"
-                                (cut)="DisableCut($event)" (copy)="DisableCopy($event)" (paste)="DisablePaste($event)" numbersOnly>
+                                (cut)="DisableCut($event)" (copy)="DisableCopy($event)" (paste)="DisablePaste($event)" OnlyNumbers>
                             <label
                                 *ngIf="bankDetail.controls[i].get('confirmbankAccountNumber')?.errors?.['required'] && submitted != null && !submitted"
                                 class="invalid-formdata">
@@ -353,7 +353,7 @@
   
                         <div class="col-lg-6 col-md-12">
                             <label>IFSC CODE</label>
-                            <input type="text" class="control-form" formControlName="ifsc" noSpacesAtStart>
+                            <input type="text" class="control-form" formControlName="ifsc" noSpacesAtStart alphanumericOnly>
                             <label
                                 *ngIf="bankDetail.controls[i].get('ifsc')?.errors && submitted != null && !submitted"
                                 class="invalid-formdata">
@@ -381,7 +381,7 @@
   
                         <div class="col-lg-10 col-md-12">
                             <label>Account Holder Name</label>
-                            <input type="text"formControlName="accountHolderName" class="control-form" appAlphabeticOnly>
+                            <input type="text"formControlName="accountHolderName" class="control-form"  noSpacesAtStart>
                             <label
                                 *ngIf="List1().controls[i].get('accountHolderName')?.errors?.['required'] && submitted != null && !submitted"
                                 class="invalid-formdata">
@@ -394,7 +394,7 @@
   
                         <div class="col-lg-5 col-md-12">
                             <label>UPI Id </label>
-                            <input type="text" formControlName="upiid" class="control-form" numberOnly>
+                            <input type="text" formControlName="upiid" class="control-form"noSpacesAtStart>
                             <label
                             *ngIf="List1().controls[i].get('upiid')?.errors?.['required'] && submitted != null && !submitted"
                             class="invalid-formdata">

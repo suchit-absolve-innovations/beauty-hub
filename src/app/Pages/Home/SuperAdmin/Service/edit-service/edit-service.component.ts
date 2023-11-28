@@ -40,9 +40,10 @@ export class EditServiceComponent implements OnInit {
   base64Image: any;
   selectedImageData: any[] = [];
   imageFiles!: { link: any; file: any; name: any; type: any; };
-  basePrice!: number;
-  discount: number = 0;
-  listingPrice: any;
+  basePrice: any;
+  discount : any = 0 ;
+  listingPrice: any = 0 ;
+  maxDiscountValue: any;
 
   constructor(private router: Router,
     private formBuilder: FormBuilder,
@@ -94,13 +95,34 @@ export class EditServiceComponent implements OnInit {
   backClicked() {
     this._location.back();
   }
-  calculateBasePrice() {
-    this.listingPrice = this.basePrice - this.discount;
+  calculateSellingPrice() {
+    const basePrice = parseFloat(this.basePrice);
+    let discount = parseFloat(this.discount);
+
+      if (isNaN(discount)) {
+        discount = 0; // Set discount to 0 if it's NaN
+      } 
+        
+      if (isNaN(discount) || discount > basePrice) {
+        discount = 0; // Set discount to 0 if it's NaN
+      }
+      if (discount > basePrice || discount > this.maxDiscountValue) {
+        discount = Math.min(basePrice, this.maxDiscountValue);
+      }
+      this.listingPrice = basePrice - discount;
+      if (discount === basePrice) {
+        discount = 0;
+
+      }
     
-  } 
-  calculateDiscount() {
-    this.listingPrice = this.basePrice - this.discount;
-  }  
+    // Update the discount property with the validated discount value
+    this.discount = discount;
+  }
+  resetDiscount() {
+  
+      this.listingPrice = this.basePrice - this.discount;
+    } 
+ 
 
   getcategoryList() {
 

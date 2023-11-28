@@ -49,7 +49,7 @@
         <div class="this_row">
           <div class="row">
             <div class="col-lg-6 col-md-12">
-              <label>Firstt Name</label>
+              <label>First Name</label>
               <input type="text" class="control-form" formControlName="firstName" appAlphabeticOnly noSpacesAtStart />
               <div *ngIf="submitted && f['firstName'].errors" class="help-block">
                 <div *ngIf="f['firstName'].errors" style="color: #fd0000">
@@ -105,7 +105,7 @@
             <div class="col-lg-6 col-md-12">
               <label for="phoneNumber">Phone Number</label>
               <input formControlName="phoneNumber" id="phoneNumber" type="text" class="form-control"
-                (input)="onPhoneNumberInput($event)" noSpacesAtStart/>
+                (input)="onPhoneNumberInput($event)" noSpacesAtStart OnlyNumbers/>
 
               <div *ngIf="phoneNumberHasError('pattern')" style="color: #fd0000">
                 Phone number must be 10 digits.

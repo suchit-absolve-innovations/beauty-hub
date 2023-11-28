@@ -46,8 +46,8 @@ export class EditPackageComponent implements OnInit {
   bindServiceList!: any[];
   selectedIndex: number = -1;
   selectedItems: any[] = [];
-  serviceList: any;
-  packageDetailPatch: any;
+  serviceList: any[] = [];
+  packageDetailPatch: any = {};
   includeServicePatch: any;
   options: any;
   base64Image: any;
@@ -61,7 +61,10 @@ export class EditPackageComponent implements OnInit {
   isValid: boolean = false;
   previewImage: string = '';
   serviceIds: any;
-
+  basePrice: any;
+  discount : any = 0 ;
+  listingPrice: any = 0 ;
+  maxDiscountValue: any;
 
 
   constructor(private router: Router,
@@ -146,6 +149,34 @@ timeValidator(control: AbstractControl): ValidationErrors | null {
   backClicked() {
     this._location.back();
   }
+
+  calculateSellingPrice() {
+    const basePrice = parseFloat(this.basePrice);
+    let discount = parseFloat(this.discount);
+
+      if (isNaN(discount)) {
+        discount = 0; // Set discount to 0 if it's NaN
+      } 
+        
+      if (isNaN(discount) || discount > basePrice) {
+        discount = 0; // Set discount to 0 if it's NaN
+      }
+      if (discount > basePrice || discount > this.maxDiscountValue) {
+        discount = Math.min(basePrice, this.maxDiscountValue);
+      }
+      this.listingPrice = basePrice - discount;
+      if (discount === basePrice) {
+        discount = 0;
+
+      }
+    
+    // Update the discount property with the validated discount value
+    this.discount = discount;
+  }
+  resetDiscount() {
+  
+      this.listingPrice = this.basePrice - this.discount;
+    } 
 
   getcategoryList(){
     // this.spinner.show();
@@ -241,17 +272,17 @@ convertSelectedItemsToString(): string {
 
 
 getServiceDetail() {
-
+  this.spinner.show();
  let payload ={
   serviceId: this.serviceId.id,
   serviceType: this.serviceId.type
  }
 
-  this.spinner.show();
+  
   this.contentService.getPackageDetail( payload).subscribe(response => {
 
     if (response.isSuccess) {
-      this.spinner.hide();
+   
       this.imageConvert64();
       this.packageDetailPatch = response.data
       this.ServiceImage = this.packageDetailPatch.serviceImage
@@ -288,11 +319,13 @@ getServiceDetail() {
 
        
       });
+    
       // this.getSubcategoryList(this.packageDetailPatch?.mainCategoryId);
    
 
     }
   });
+  this.spinner.hide();
 }
 
 imageConvert64() {
@@ -304,60 +337,8 @@ imageConvert64() {
 }
 
  // submit 
-
- postSubmit(){
-  if(this.role == 'SuperAdmin') {
-this.submit();
-  } else if (this.role == 'Vendor') {
-this.submitVendor();
-  }
-}
-
- submit() {
-  this.submitted = true;
-  if (this.form.invalid) {
-    this.toasterService.error("Form Incomplete: Please fill in all the required fields correctly");
-    return;
-  }
-
-  let payload = {
-    serviceId            : 0,
-    salonId              : parseInt(this.salonId.id),
-    serviceName          : this.form.value.serviceName,
-    basePrice            : parseInt(this.form.value.basePrice),
-    discount             : parseInt(this.form.value.discount),
-    listingPrice         : parseInt(this.form.value.listingPrice),
-    // mainCategoryId       : this.form.value.mainCategoryId,
-    // subCategoryId        : this.form.value.subCategoryId,
-    ageRestrictions      : this.form.value.ageRestrictions,
-    genderPreferences    : this.form.value.genderPreferences,
-    totalCountPerDuration: this.form.value.totalCountPerDuration,
-    durationInMinutes    : this.form.value.durationInMinutes,
-    lockTimeStart        : this.time,
-    lockTimeEnd          : this.time2,
-    serviceDescription   : this.form.value.serviceDescription,
-    includeServiceId     : this.selectedItems,
-    
-  }
-  this.spinner.show()
-  this.contentService.addNewService(payload).subscribe(response => {
-
-    this.serviceIds = response.data?.serviceId
-    this.fileChangeEvent();
-    this.fileChangeEvents();
-    this.spinner.hide()
-    if (response.isSuccess) {
-      this.toaster.success(response.messages);
-       this._location.back();
-    } else {
-      this.toaster.error(response.messages)
-    }
-  });
-}
-
-
-
-submitVendor() {
+ postSubmit() {
+  debugger
   this.submitted = true;
   if (this.form.invalid) {
     this.toasterService.error("Form Incomplete: Please fill in all the required fields correctly");
@@ -385,12 +366,10 @@ submitVendor() {
     includeServiceId     : selectedItemsString,
     serviceType          : 'Package'
 
-  
-
   }
   this.spinner.show()
   this.contentService.addNewService(payload).subscribe(response => {
-    this.serviceIds = response.data?.serviceId
+    this.serviceIds = response.data.serviceId
     this.fileChangeEvent();
     this.fileChangeEvents();
     this.spinner.hide()
