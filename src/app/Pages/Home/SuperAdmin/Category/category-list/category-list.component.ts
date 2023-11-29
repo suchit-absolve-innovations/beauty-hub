@@ -356,7 +356,6 @@ export class CategoryListComponent implements OnInit {
 
   startRefreshInterval() {
     const refreshInterval = 40000;
-
     // Check if there is an existing subscription and unsubscribe if needed
     if (this.refreshSubscription) {
       this.refreshSubscription.unsubscribe();
