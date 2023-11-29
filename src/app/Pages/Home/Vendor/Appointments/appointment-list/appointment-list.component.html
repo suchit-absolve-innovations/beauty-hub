@@ -16,10 +16,10 @@
                                 <div class="col-lg-3" style="position: relative; top:-8px;"><input type="text"
                                         formControlName="fromDate" placeholder="From Date" class="form-control" style="background-color: #fff;"
                                         (click)="performSearch()" bsDatepicker
-                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" (bsValueChange)="setToDateMinDate($event)"></div>
+                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" (bsValueChange)="setToDateMinDate($event)" [readonly]="true"></div>
                                 <div class="col-lg-3" style="position: relative; top:-8px;"> <input type="text"
-                                        formControlName="toDate" placeholder="To Date" class="form-control" bsDatepicker
-                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [minDate]="minToDate"></div>
+                                        formControlName="toDate" placeholder="To Date" class="form-control" style="background-color: #fff;" bsDatepicker
+                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [minDate]="minToDate" [readonly]="true"></div>
 
                                 <div class="col-lg-3">
                                     <div class="col-lg-6" style=" top:-33px; left:-16px "><label>Filter
@@ -64,7 +64,7 @@
                         </div>
                         <div class="cate-align">
                             <label>Appointment Status</label>
-                            <select type="text" formControlName="appointmentStatus" (change)="filterAllList()"
+                            <select type="text" formControlName="appointmentStatus" (change)="filterAllList()"(click)="performSearch()"
                                 class="control-form mr-20 btn_border">
                                 <option value="" selected>Select </option>
                                 <option value="Scheduled">Scheduled </option>
@@ -74,7 +74,7 @@
                         </div>
                         <div class="cate-align">
                             <label>Payment Status</label>
-                            <select type="text" formControlName="paymentStatus" (change)="filterAllList()"
+                            <select type="text" formControlName="paymentStatus" (change)="filterAllList()"(click)="performSearch()"
                                 class="control-form btn_border ">
                                 <option value="" selected>Select </option>
                                 <option value="Paid">Paid </option>

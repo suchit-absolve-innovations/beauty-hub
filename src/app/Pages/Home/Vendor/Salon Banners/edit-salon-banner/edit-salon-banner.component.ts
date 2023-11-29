@@ -68,6 +68,7 @@ export class EditSalonBannerComponent implements OnInit {
     this._location.back();
   }
 
+ 
 
   getSalonBannerDetail() {
 

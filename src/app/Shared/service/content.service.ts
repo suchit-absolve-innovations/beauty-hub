@@ -293,9 +293,12 @@ export class ContentService {
   getfilerShopSub(data: any) {
     return this.http.get<any>(environment.apiUrl + ApiEndPoint.getSalonBannerList + '?salonId=' + data.salonId + '&subCategoryId=' + data.subCategoryId)
   }
+  filterAllBanners(data: any) {
+    return this.http.get<any>(environment.apiUrl + ApiEndPoint.getSalonBannerList + '?salonId=' + data.salonId +  '&mainCategoryId=' + data.mainCategoryId + '&subCategoryId=' + data.subCategoryId + '&salonBannerType=' + data.salonBannerType )
+  }
   // Sub Category List 
-  SubCategory(MainCategoryId: any) {
-    return this.http.get<any>(environment.apiUrl + ApiEndPoint.getcategoryListVendor + '?MainCategoryId=' + MainCategoryId)
+  SubCategory(mainCategoryId: any) {
+    return this.http.get<any>(environment.apiUrl + ApiEndPoint.getcategoryListVendor + '?mainCategoryId=' + mainCategoryId)
   }
 
   SuperSubCategory(mainCategoryId: any) {

@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
-import { Subscription, interval } from 'rxjs';
+import { EMPTY, Observable, Subscription, interval } from 'rxjs';
 import { ContentService } from 'src/app/Shared/service/content.service';
 import { environment } from 'src/environments/environment';
 
@@ -69,6 +69,12 @@ export class AppointmentListComponent implements OnInit {
     });
   }
 
+  // ngOnDestroy() {
+  //   if (this.refreshSubscription) {
+  //     this.refreshSubscription.unsubscribe();
+  //   }
+  // }
+
   refresh(): void {
     // Perform refresh actions
     // Update the query parameter with the current page index
@@ -103,6 +109,7 @@ export class AppointmentListComponent implements OnInit {
     this.content.getAppointmentList(payload).subscribe(response => {
       if (response.isSuccess) {
         this.appointmentsList = response.data;
+        this.startRefreshInterval();
         this.spinner.hide();
       }
     });
@@ -125,9 +132,10 @@ export class AppointmentListComponent implements OnInit {
     this.router.navigate(['/appointment-list/appointment-detail/', item.appointmentId]);
   }
 
-  appointmentStatus() {
-    this.postAppointmentStatus = this.form.value.appointmentStatus
-  }
+  // appointmentStatus() {
+  //   debugger
+  //   this.postAppointmentStatus = this.form.value.appointmentStatus
+  // }
 
   getPaymentMethodList() {
 
@@ -152,9 +160,10 @@ export class AppointmentListComponent implements OnInit {
   }
 
   postAppointmentsStatus(data: any) {
+    debugger
     let payload = {
       appointmentId    : data.appointmentId,
-      appointmentStatus: this.postAppointmentStatus,
+      appointmentStatus: this.form.value.appointmentStatus,
       setToAll         : true
     }
     this.spinner.show();
@@ -226,7 +235,7 @@ export class AppointmentListComponent implements OnInit {
     this.content.appointmentPaymentStatusList(payload).subscribe(response => {
       if (response.isSuccess) {
         this.appointmentsList = response.data
-        this.startRefreshIntervallist5();
+        this.startRefreshInterval();
         this.spinner.hide();
         //   this.toaster.success(response.messages)
       } else {
@@ -237,11 +246,18 @@ export class AppointmentListComponent implements OnInit {
     });
   }
                      
-  startRefreshIntervallist5() {
-    const refreshInterval = 60000; 
-    // Use interval to call getOrderListType every 6 seconds
+  
+  startRefreshInterval() {
+    const refreshInterval = 30000;
+
+    // Check if there is an existing subscription and unsubscribe if needed
+    if (this.refreshSubscription) {
+      this.refreshSubscription.unsubscribe();
+    }
+
+    // Use interval to call getOrderList every 10 seconds
     this.refreshSubscription = interval(refreshInterval).subscribe(() => {
-      this.filterAllList();
+      this.getAppointmentsList();
     });
   }
 }

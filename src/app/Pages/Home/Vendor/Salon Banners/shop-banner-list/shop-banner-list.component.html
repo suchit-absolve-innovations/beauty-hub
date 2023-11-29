@@ -13,7 +13,22 @@
         </div>
 
         <form [formGroup]="form">
-            <div class="d-flex flex-wrap if_xs_btn mb-30" style="gap: 25px;">
+
+            <div class="d-flex flex-wrap if_xs_btn mb-30 justify-content-between">
+
+                <div class="cate-align ">
+                    <label>Banner Type</label>
+                    <select type="text" class="control-form mr-20 btn_border" formControlName="salonBannerType"
+                        #bannerTypeSelect (change)="onBannerTypeChange(bannerTypeSelect.value)">
+                        <option value="">Select</option>
+                        <option value="SalonBanner">Salon Banner </option>
+                        <option value="SalonCategoryBanner">Salon Category Banner </option>
+                        
+                    </select>
+                </div>
+
+            </div>
+            <div class="d-flex flex-wrap if_xs_btn mb-30" style="gap: 25px;" *ngIf="showBrandDiv">
               
         
     
@@ -21,7 +36,7 @@
                 <label>Main Category</label>
                 <!-- (change)="getSubcategoryList(f['countryId'].value)" -->
                 <!-- (change)="getSubcategoryList(f['mainProductCategoryId'].value)" -->
-                <select type="text" class="control-form mr-20 btn_border" formControlName="MainCategoryId" (change)="getFilterMainCategoryList(f['MainCategoryId'].value)" (change)="getSubcategoryList(f['MainCategoryId'].value)">
+                <select type="text" class="control-form mr-20 btn_border" formControlName="mainCategoryId"  (change)="getSubcategoryList(f['mainCategoryId'].value);filterAllBannersList() ; onCategoryFilterChange('Main')">
                     <option value="">Select </option>
                     <option   *ngFor="let item of categoryList"   [ngValue]="item?.mainCategoryId"
                    >{{item?.categoryName}}</option>
@@ -32,7 +47,7 @@
     
             <div class="cate-align">
                 <label>Sub Category</label>
-                <select type="text" class="control-form mr-20 btn_border" formControlName="subCategoryId" (change)="getFilterSubCategoryList(s['subCategoryId'].value)">
+                <select type="text" class="control-form mr-20 btn_border" formControlName="subCategoryId"  (change)="filterAllBannersList() ; onCategoryFilterChange('Sub')">
                     <option value="">Select </option>
                     <option *ngFor="let item of subCategoryList" [ngValue]="item?.subCategoryId" >{{item?.categoryName}}</option>
                 </select>	

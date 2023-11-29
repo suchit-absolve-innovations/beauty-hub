@@ -5,6 +5,7 @@ import { ContentService } from 'src/app/Shared/service/content.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { FormBuilder } from '@angular/forms';
+import { EMPTY, Observable, Subscription, interval } from 'rxjs';
 
 @Component({
   selector: 'app-category-list',
@@ -37,6 +38,7 @@ export class CategoryListComponent implements OnInit {
   mainCategoryId: any;
   subCategoryId :any;
   form: any;
+  private refreshSubscription!: Subscription;
   constructor(private toaster: ToastrService,
     private spinner: NgxSpinnerService,
     private content: ContentService,
@@ -257,7 +259,7 @@ export class CategoryListComponent implements OnInit {
     this.content.getRequestList().subscribe(response => {
       if (response.isSuccess) {
         this.categoryRequestList = response.data;
-
+        this.startRefreshInterval();
         this.spinner.hide();
       }
     });
@@ -349,6 +351,21 @@ export class CategoryListComponent implements OnInit {
           id: data.mainCategoryId
         }
       });
+  }
+
+
+  startRefreshInterval() {
+    const refreshInterval = 40000;
+
+    // Check if there is an existing subscription and unsubscribe if needed
+    if (this.refreshSubscription) {
+      this.refreshSubscription.unsubscribe();
+    }
+
+    // Use interval to call getOrderList every 10 seconds
+    this.refreshSubscription = interval(refreshInterval).subscribe(() => {
+      this.getCategoryRequestList();
+    });
   }
 
 
