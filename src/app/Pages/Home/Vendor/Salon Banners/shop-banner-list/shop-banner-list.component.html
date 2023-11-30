@@ -7,7 +7,7 @@
         </div> -->
 
         <div class="d-flex if_xs_btn mt-30">
-            <input type="text" placeholder="Search Here" class="btn_border search_here" [(ngModel)]="searchText">
+            <input type="text" placeholder="Search Here" class="btn_border search_here" [(ngModel)]="searchText"   (click)="performSearch()">
             <a [routerLink]="['/salon-banner-list/add-salon-banner']" class="btn_blue ml-auto">Add New Banner</a>
             <!-- [routerLink]="['/banner-list/banner-detail/'] + item?.bannerId " -->
         </div>
@@ -36,7 +36,7 @@
                 <label>Main Category</label>
                 <!-- (change)="getSubcategoryList(f['countryId'].value)" -->
                 <!-- (change)="getSubcategoryList(f['mainProductCategoryId'].value)" -->
-                <select type="text" class="control-form mr-20 btn_border" formControlName="mainCategoryId"  (change)="getSubcategoryList(f['mainCategoryId'].value);filterAllBannersList() ; onCategoryFilterChange('Main')">
+                <select type="text" class="control-form mr-20 btn_border" formControlName="mainCategoryId" (click)="performSearch()" (change)="getSubcategoryList(f['mainCategoryId'].value);filterAllBannersList() ; onCategoryFilterChange('Main')">
                     <option value="">Select </option>
                     <option   *ngFor="let item of categoryList"   [ngValue]="item?.mainCategoryId"
                    >{{item?.categoryName}}</option>
@@ -63,7 +63,9 @@
                 <tr>
                     <th>Create Date  </th>
                     <th>Banner Image</th>  
-                    <th>Banner Type </th>   
+                    <th>Banner Type </th> 
+                    <th *ngIf="selectedFilter === 'Main'">Main Category</th>
+                    <th *ngIf="selectedFilter === 'Sub'">Sub Category</th>
                     <th>Action</th>
                 </tr>
                 <tr
@@ -76,7 +78,8 @@
                         {{item?.bannerTypeName}}
                         
                     </td>
-                    
+                    <td *ngIf="selectedFilter === 'Main'">{{ item?.mainCategoryName }}</td>
+                    <td *ngIf="selectedFilter === 'Sub'">{{ item?.subCategoryName }}</td>
                     <!-- <td>{{item.createDate}}</td> -->
                     <td>
                  
@@ -120,7 +123,8 @@
             </div>
 
         </div>
-        <pagination-controls (pageChange)="((page = $event))" id="1" (pageIndex)="page" class="paginate-doctor-list">
+        <pagination-controls (pageChange)="((page = $event))" id="1" (pageIndex)="page" class="paginate-doctor-list"
+        queryParamsHandling="merge" (pageChange)="refresh()">
         </pagination-controls>
     </div>
 </div>

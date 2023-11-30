@@ -219,30 +219,85 @@ this.submitVendor();
   });
 }
 
+handleImageInput(event: any) {
+  const files = event.target.files;
 
-onImageSelect(event: any) {
-  const file = event.target.files[0];
-
-  if (file) {
+  for (let i = 0; i < files.length; i++) {
+    const file = files[i];
     const imageSize = file.size / 1024; // in KB
-    const image = new Image();
 
-    image.src = URL.createObjectURL(file);
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
 
-    image.onload = () => {
-      if (image.width === 512 && image.height === 512 && imageSize <= 512) {
-        this.errorMessage = '';
-        this.isValid = true;
-        this.previewImage = image.src;
-      } else {
-        this.errorMessage = 'Please select 512x512 pixels (width×height) image.';
-        this.isValid = false;
-        this.imageUrl = '';
-      }
+    reader.onload = () => {
+      const image = new Image();
+      image.src = reader.result as string;
+
+      image.onload = () => {
+        if (image.width === 512 && image.height === 512 && imageSize <= 512) {
+          // Add image to the array and set as valid if it meets criteria
+          const imageDataUrl = reader.result as string;
+          this.errorMessage = '';
+          this.isValid = true;
+          this.previewImage = imageDataUrl;
+          this.urls1.push(imageDataUrl);
+        } else {
+          // Set as invalid if criteria not met
+          this.errorMessage = 'Please select 512x512 pixels (width×height) image.';
+          this.isValid = false;
+          this.previewImage = '';
+        }
+      };
     };
   }
 }
 
+// onImageSelect(event: any) {
+//   const file = event.target.files[0];
+
+//   if (file) {
+//     const imageSize = file.size / 1024; // in KB
+//     const image = new Image();
+
+//     image.src = URL.createObjectURL(file);
+
+//     image.onload = () => {
+//       if (image.width === 512 && image.height === 512 && imageSize <= 512) {
+//         this.errorMessage = '';
+//         this.isValid = true;
+//         this.previewImage = image.src;
+//       } else {
+//         this.errorMessage = 'Please select 512x512 pixels (width×height) image.';
+//         this.isValid = false;
+//         this.imageUrl = '';
+//       }
+//     };
+//   }
+// }
+
+// handleFileInput(event: any) {   
+//   const files = event.target.files;
+//   for (let e = 0; e < files.length; e++) {
+//     const file = files[e];
+//     const reader = new FileReader();
+//     reader.readAsDataURL(file);
+//   reader.onload = () => {
+//     const image = new Image();
+//     image.src = reader.result as string;
+
+//     image.onload = () => {
+//       if (image.width === 512 && image.height === 512) {
+//         // Only add the image to the array if it meets the dimensions criteria.
+//         const imageDataUrl1 = reader.result as string;
+//               this.imageUrl = imageDataUrl1;
+//            this.urls1.push(imageDataUrl1);
+//       } else {
+        
+//       }
+//     };
+//   }
+// }
+// }
 onFileSelected(event: any) {
   const file = event.target.files[0];
 
@@ -363,29 +418,7 @@ onTimeInputChange2(event: Event) {
   // Now 'formattedTime' contains the time in "hh:mm tt" format with 12-hour time
 }
 
-handleFileInput(event: any) {   
-  const files = event.target.files;
-  for (let e = 0; e < files.length; e++) {
-    const file = files[e];
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-  reader.onload = () => {
-    const image = new Image();
-    image.src = reader.result as string;
 
-    image.onload = () => {
-      if (image.width === 512 && image.height === 512) {
-        // Only add the image to the array if it meets the dimensions criteria.
-        const imageDataUrl1 = reader.result as string;
-              this.imageUrl = imageDataUrl1;
-           this.urls1.push(imageDataUrl1);
-      } else {
-        
-      }
-    };
-  }
-}
-}
 
 
 fileChangeEvents() {

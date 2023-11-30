@@ -26,7 +26,13 @@ export class AddEditSubCategoryComponent implements OnInit {
   subId: any;
   categoryType: any;
   login = localStorage.getItem('role');
- 
+  previewImage: string = '';
+  urls1: any = [];
+  image1: any;
+  imageUrl: any;
+  imageUrl1: any;
+  errorMessage: string = '';
+  isValid: boolean = false;
 
   constructor(
     private spinner: NgxSpinnerService,
@@ -115,6 +121,38 @@ export class AddEditSubCategoryComponent implements OnInit {
   return this.form['controls'];
 }
 
+handleImageInput(event: any) {
+  const files = event.target.files;
+
+  for (let i = 0; i < files.length; i++) {
+    const file = files[i];
+    const imageSize = file.size / 1024; // in KB
+
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+
+    reader.onload = () => {
+      const image = new Image();
+      image.src = reader.result as string;
+
+      image.onload = () => {
+        if (image.width === 512 && image.height === 512 && imageSize <= 512) {
+          // Add image to the array and set as valid if it meets criteria
+          const imageDataUrl = reader.result as string;
+          this.errorMessage = '';
+          this.isValid = true;
+          this.previewImage = imageDataUrl;
+          this.urls1.push(imageDataUrl);
+        } else {
+          // Set as invalid if criteria not met
+          this.errorMessage = 'Please select 512x512 pixels (width×height) image.';
+          this.isValid = false;
+          this.previewImage = '';
+        }
+      };
+    };
+  }
+}
 
 afterResponse(response: any) {
   debugger

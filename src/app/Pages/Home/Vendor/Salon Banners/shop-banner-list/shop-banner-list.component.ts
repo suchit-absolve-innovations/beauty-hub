@@ -46,7 +46,9 @@ export class ShopBannerListComponent implements OnInit {
 
     this.getSalonBannerList();
     this.getcategoryList();
-
+    this.route.queryParams.subscribe(params => {
+      this.page = +params['page'] || 0; // Use the 'page' query parameter value, or default to 1
+    });
     this.form = this.formBuilder.group({
       mainCategoryId : [''],
       subCategoryId  : [''],
@@ -73,6 +75,24 @@ export class ShopBannerListComponent implements OnInit {
     return this.form['controls'];
   }
 
+  refresh(): void {
+    // Perform refresh actions
+    // Update the query parameter with the current page index
+
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { page: this.page },
+      queryParamsHandling: 'merge'
+    });
+  }
+  performSearch() {
+
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { page: null },
+      queryParamsHandling: 'merge'
+    });
+  }
 
 
   onBannerTypeChange(selectedValue: string) {
