@@ -69,11 +69,11 @@ export class AppointmentListComponent implements OnInit {
     });
   }
 
-  // ngOnDestroy() {
-  //   if (this.refreshSubscription) {
-  //     this.refreshSubscription.unsubscribe();
-  //   }
-  // }
+  ngOnDestroy() {
+    if (this.refreshSubscription) {
+      this.refreshSubscription.unsubscribe();
+    }
+  }
 
   refresh(): void {
     // Perform refresh actions
