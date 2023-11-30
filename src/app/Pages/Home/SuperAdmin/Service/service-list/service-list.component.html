@@ -32,7 +32,7 @@
                 <!-- (change)="getSubcategoryList(f['countryId'].value)" -->
                 <!-- (change)="getSubcategoryList(f['mainProductCategoryId'].value)" -->
                 <select type="text" class="control-form mr-20 btn_border" formControlName="mainCategoryId" (click)="performSearch()" (change)="serviceListFilter()" (change)="getSubcategoryList(f['mainCategoryId'].value)">
-                    <option value="">Select </option>
+                    <option value="" disabled>Select </option>
                     <option   *ngFor="let item of categoryList"   [ngValue]="item?.mainCategoryId"
                    >{{item?.categoryName}}</option>
     
@@ -43,7 +43,7 @@
             <div class="cate-align">
                 <label>Sub Category</label>
                 <select type="text" class="control-form mr-20 btn_border" formControlName="subCategoryId" (change)="serviceListFilter()">
-                    <option value="">Select </option>
+                    <option value="" disabled>Select </option>
                     <option *ngFor="let item of subCategoryList"  [ngValue]="item?.subCategoryId" >{{item?.categoryName}}</option>
                 </select>	
             </div>

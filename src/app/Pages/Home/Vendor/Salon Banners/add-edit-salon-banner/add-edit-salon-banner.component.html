@@ -19,26 +19,20 @@
                             <div class="upload_file text-center">
                                 <div class="imges-upload mb-0">
                                     <div class="imgUp m-auto">
-
-
-
-                                      
-                                    <div *ngIf="isValid" class="imagePreview" [style.background-image]="'url(' + previewImage + ')'"></div>
-                                    <div *ngIf="!isValid && errorMessage" class="error"></div>
+                                        
+                                            <div *ngIf="isValid" class="imagePreview">
+                                                <img [src]="imageFile.link" alt="Image Preview">
+                                            </div>
                                     
-
-                                    <!-- {{imageFile}}/ -->
-                                    <label class="upload button btn btn-primary">
-                                        <!-- <input value="rootUrl + homeServicesData.imagePath" name="bannerHidden" type="hidden"> -->
-                                        Upload<input  type="file" class="uploadFile img" name="bannerimage"
-                                            style="width: 0px;height: 0px;overflow: file; border-style: none;"
-                                            id="bannerimage"   (change)="handleImageInput($event)" >
-                                    </label>
-                                    <div *ngIf="errorMessage" class="help-block" style="color: #fd0000">{{ errorMessage }}</div>
-                                    <div>
+                                        <label class="upload button btn btn-primary">
+                                            <!-- <input value="rootUrl + homeServicesData.imagePath" name="bannerHidden" type="hidden"> -->
+                                            Upload<input type="file" class="uploadFile img" name="bannerimage"
+                                                style="width: 0px;height: 0px;overflow: file; border-style: none;"
+                                                id="bannerimage" (change)="imagesUpload($event)">
+                                        </label>
+                                        <div *ngIf="errorMessage" class="help-block" style="color: #fd0000">{{ errorMessage }}</div>
                                     </div>
-
-                                    </div>
+                                
                                     <br>
                                     <br>
                                 </div>
@@ -55,9 +49,8 @@
                                   </select>
                             </div>
                         </div>
-
+                        
                         <div class="w-100" *ngIf="visible">
-
                             <div class="col-lg-12 col-md-12">
                                 <div class="banner-dropdown ">
                                     <label>Main Category</label>
@@ -67,7 +60,6 @@
                                         <option value="" selected>Select </option>
                                         <option *ngFor="let item of categoryList"
                                             [ngValue]="item?.mainCategoryId">{{item?.categoryName}}</option>
-
                                     </select>
                                 </div>
                             </div>

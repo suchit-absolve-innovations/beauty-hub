@@ -32,11 +32,13 @@ export class AddEditSalonBannerComponent implements OnInit {
   imageUrl1: any;
   errorMessage: string = '';
   isValid: boolean = false;
+  submitted = false;
   constructor(private toaster: ToastrService,
     private spinner: NgxSpinnerService,
     private content: ContentService,
     private router: Router,
     private ngZone: NgZone,
+    private toasterService: ToastrService,
     private formBuilder: FormBuilder,
     private _location: Location,
     private route: ActivatedRoute) { }
@@ -45,8 +47,6 @@ export class AddEditSalonBannerComponent implements OnInit {
     // this.vendorId = localStorage.getItem('vendorId');
     this.salonId = localStorage.getItem('salonId');
     this.getcategoryList();
-
-
     this.form = this.formBuilder.group({
       bannerType: this.bannerTypeControl,
       ShopCategoryBanner: [''],
@@ -75,7 +75,6 @@ export class AddEditSalonBannerComponent implements OnInit {
   /*** Category List ***/
 
   getcategoryList() {
-
     this.spinner.show();
     this.content.getcategory().subscribe(response => {
       if (response.isSuccess) {
@@ -94,13 +93,10 @@ export class AddEditSalonBannerComponent implements OnInit {
   /*** Sub  Category List ***/
 
   getSubcategoryList(data: any) {
-
     // this.spinner.show();
-
     this.content.SubCategory(data).subscribe(response => {
       if (response.isSuccess) {
         this.subCategoryList = response.data;
-
         // this.SubSubcategoryList = []
         this.spinner.hide();
       } else {
@@ -112,52 +108,45 @@ export class AddEditSalonBannerComponent implements OnInit {
 
 
 
-
   // Add Shop Banner
-
   /*** Image Upload ***/
   // image upload 
-  handleImageInput(event: any) {
-    const files = event.target.files;
-  
-    for (let i = 0; i < files.length; i++) {
-      const file = files[i];
+
+  imagesUpload(event: any) {
+    if (event.target.files && event.target.files[0]) {
+      const file = event.target.files[0];
       const imageSize = file.size / 1024; // in KB
   
       const reader = new FileReader();
-      reader.readAsDataURL(file);
-  
-      reader.onload = () => {
+      reader.onload = (_event: any) => {
         const image = new Image();
-        image.src = reader.result as string;
-  
+        image.src = _event.target.result as string;
         image.onload = () => {
           if (image.width === 1280 && image.height === 720 && imageSize <= 1024) {
-            // Add image to the array and set as valid if it meets criteria
-            const imageDataUrl = reader.result as string;
-            this.errorMessage = '';
+            this.imageFile = {
+              link: _event.target.result,
+              file: file,
+              name: file.name,
+              type: file.type
+            };
             this.isValid = true;
-            this.previewImage = imageDataUrl;
-            this.urls1.push(imageDataUrl);
+            this.errorMessage = ''; // No error message if the image meets criteria
           } else {
-            // Set as invalid if criteria not met
-            this.errorMessage = 'Please select 1280x720 pixels (width×height) image.';
             this.isValid = false;
-            this.previewImage = '';
+            this.errorMessage = 'Please select a 1280x720 pixels (width×height) image .'; // Error message for invalid image
+            // You can add further handling if needed for invalid images
           }
         };
       };
+      reader.readAsDataURL(file);
     }
   }
+  
 
   // Shop Detail
 
-
- 
-
   fileChangeEvent() {
-    
-    
+ 
     this.spinner.show();
     let formData = new FormData();
     formData.append("bannerImage", this.imageFile?.file);
@@ -181,7 +170,6 @@ export class AddEditSalonBannerComponent implements OnInit {
   // use to submit data
 
   Submit() {
-    
     this.fileChangeEvent();
   }
 
@@ -192,8 +180,6 @@ export class AddEditSalonBannerComponent implements OnInit {
     // Determine if the subcategory dropdown should be visible
     this.visible = selectedBannerType === 'SalonCategoryBanner';
   }
-
-
 
 
 }

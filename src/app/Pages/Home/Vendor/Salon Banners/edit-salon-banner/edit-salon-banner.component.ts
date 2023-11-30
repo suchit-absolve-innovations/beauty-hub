@@ -130,36 +130,33 @@ export class EditSalonBannerComponent implements OnInit {
 
 
 
-  handleImageInput(event: any) {
-    const files = event.target.files;
-  
-    for (let i = 0; i < files.length; i++) {
-      const file = files[i];
+  imagesUpload(event: any) {
+    if (event.target.files && event.target.files[0]) {
+      const file = event.target.files[0];
       const imageSize = file.size / 1024; // in KB
   
       const reader = new FileReader();
-      reader.readAsDataURL(file);
-  
-      reader.onload = () => {
+      reader.onload = (_event: any) => {
         const image = new Image();
-        image.src = reader.result as string;
-  
+        image.src = _event.target.result as string;
         image.onload = () => {
           if (image.width === 1280 && image.height === 720 && imageSize <= 1024) {
-            // Add image to the array and set as valid if it meets criteria
-            const imageDataUrl = reader.result as string;
-            this.errorMessage = '';
+            this.imageFile = {
+              link: _event.target.result,
+              file: file,
+              name: file.name,
+              type: file.type
+            };
             this.isValid = true;
-            this.previewImage = imageDataUrl;
-            this.urls1.push(imageDataUrl);
+            this.errorMessage = ''; // No error message if the image meets criteria
           } else {
-            // Set as invalid if criteria not met
-            this.errorMessage = 'Please select 1280x720 pixels (width×height) image.';
             this.isValid = false;
-            this.previewImage = '';
+            this.errorMessage = 'Please select a 1280x720 pixels (width×height) image .'; // Error message for invalid image
+            // You can add further handling if needed for invalid images
           }
         };
       };
+      reader.readAsDataURL(file);
     }
   }
 

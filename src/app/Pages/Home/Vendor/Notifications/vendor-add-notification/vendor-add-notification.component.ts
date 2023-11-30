@@ -14,7 +14,7 @@ import { Location } from '@angular/common';
 })
 export class VendorAddNotificationComponent implements OnInit {
   form!: FormGroup;
-
+  submitted = false;
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
@@ -38,7 +38,11 @@ export class VendorAddNotificationComponent implements OnInit {
     }
 
     postNotification() {
-      
+      this.submitted = true;
+      if (this.form.invalid) {
+        this.toasterService.error("Form Incomplete: Please fill in all the required fields correctly");
+        return;
+      }
      this.spinner.show();
       this.contentService.postBroadNotification(this.form.value).subscribe(response => {
         if (response.isSuccess) {
