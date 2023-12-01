@@ -78,6 +78,7 @@ export class EditCategoryComponent implements OnInit {
     if (this.form.invalid) {
       return;
     }
+    
     if (this.detail) {
       let payload = {
         mainCategoryId: this.detail.mainCategoryId,
@@ -187,7 +188,7 @@ export class EditCategoryComponent implements OnInit {
             this.errorMessage = ''; // No error message if the image meets criteria
           } else {
             this.isValid = false;
-            this.errorMessage = 'Please select a 1280x720 pixels (width×height) image .'; // Error message for invalid image
+            this.errorMessage = 'Please select a 512x512 pixels (width×height) image .'; // Error message for invalid image
             // You can add further handling if needed for invalid images
           }
         };
