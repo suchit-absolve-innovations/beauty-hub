@@ -53,7 +53,7 @@ export class ContentService {
 
   // Update Sub Category 
   UpdateSubCategory(data: any) {
-    return this.http.post<any>(environment.apiUrl + ApiEndPoint.updateCategory + '?subProductCategoryId=' + data.subProductCategoryId, data)
+    return this.http.post<any>(environment.apiUrl + ApiEndPoint.updateCategory + '?subCategoryId=' + data.subCategoryId, data)
 
   }
   // Banner Detail
@@ -493,6 +493,9 @@ export class ContentService {
 
   statusServicePost(data: any) {
     return this.http.post<any>(environment.apiUrl + ApiEndPoint.postServiceStatus, data)
+  }
+  getCategorytypes(mainCategoryId:any){
+    return this.http.get<any>(environment.apiUrl + ApiEndPoint.getCategorytype + '?mainCategoryId=' + mainCategoryId );
   }
 
 }

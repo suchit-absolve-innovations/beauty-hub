@@ -33,6 +33,7 @@ export class AddEditSubCategoryComponent implements OnInit {
   imageUrl1: any;
   errorMessage: string = '';
   isValid: boolean = false;
+  categoryTypes: any;
 
   constructor(
     private spinner: NgxSpinnerService,
@@ -45,11 +46,13 @@ export class AddEditSubCategoryComponent implements OnInit {
     private _location: Location,) { }
 
   ngOnInit(): void {
+    this.categoryForm();
     this.rootUrl = environment.rootPathUrl;
     this.Id = this.route.snapshot.paramMap.get('id');
     this.Id2 = this.route.snapshot.paramMap.get('id2');
-    this.categoryForm();
+   
     this.getCategoryDetail();
+    this.getCategoryType();
   }
   backClicked() {
     this._location.back();
@@ -66,20 +69,34 @@ export class AddEditSubCategoryComponent implements OnInit {
    
     });
   }
-  onGenderChange(event: any) {
-    
-    const selectedGender = event.target.value;
-    if (selectedGender === '1') {
-    this.categoryType =  this.form.patchValue({ male: true, female: false });
-    } else if (selectedGender === '2') {
-   this.categoryType =   this.form.patchValue({ male: false, female: true });
-    } else if (selectedGender === '3') {
-    this.categoryType =  this.form.patchValue({ male: true, female: true });
+
+  getCategoryType(){
+    debugger
+
+      this.content.getCategorytypes(this.Id).subscribe( response => { 
+        if (response.isSuccess) {
+          this.categoryTypes = response.data.mainCategoryType;
+          console.log(this.categoryTypes)
+        
+       
+        }
+  
+      });
     }
-  }
+  // onGenderChange(event: any) {
+    
+  //   const selectedGender = event.target.value;
+  //   if (selectedGender === '1') {
+  //   this.categoryType =  this.form.patchValue({ male: true, female: false });
+  //   } else if (selectedGender === '2') {
+  //  this.categoryType =   this.form.patchValue({ male: false, female: true });
+  //   } else if (selectedGender === '3') {
+  //   this.categoryType =  this.form.patchValue({ male: true, female: true });
+  //   }
+  // }
 
   postCategory(){
-    
+    debugger
     this.submitted = true;
     if (this.form.invalid) {
       return;
@@ -201,7 +218,7 @@ showModal() {
     this.content.SubcategoryDetail(payload).subscribe( response => { 
       if (response.isSuccess) {
         this.detail = response.data;
-        this.id = this.detail.mainProductCategoryId
+        this.id = this.detail.mainCategoryId
         this.editImages = this.rootUrl + this.detail?.categoryImage;
         this.form.patchValue({
           categoryName: this.detail.categoryName,
