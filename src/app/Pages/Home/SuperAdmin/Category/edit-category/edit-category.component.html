@@ -21,12 +21,12 @@
                             <div class="imges-upload mb-0">
                                 <div class="imgUp m-auto">
                  
-                                  
-
-                                    <!-- <div class="imagePreview"><img src="{{editImages}}"></div> -->
-
-                                    <div  class="imagePreview" [style.background-image]="'url(' + editImages + ')'"></div>
-                                  
+                                    <div>
+                                        <div *ngIf="!isValid "class="imagePreview"><img src="{{editImages}}"></div>
+    
+                                        <div *ngIf="isValid" class="imagePreview" [style.background-image]="'url(' + editImages + ')'"></div>
+                                      </div>
+                                    
 
                                     <!-- {{imageFile}}/ -->
                                     <label class="upload button btn btn-primary">

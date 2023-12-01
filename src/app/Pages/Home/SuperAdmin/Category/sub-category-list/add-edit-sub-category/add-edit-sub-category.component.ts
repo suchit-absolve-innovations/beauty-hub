@@ -33,7 +33,7 @@ export class AddEditSubCategoryComponent implements OnInit {
   imageUrl1: any;
   errorMessage: string = '';
   isValid: boolean = false;
-  categoryTypes: any;
+  categoryTypes: string | null = null;
 
   constructor(
     private spinner: NgxSpinnerService,
@@ -50,9 +50,9 @@ export class AddEditSubCategoryComponent implements OnInit {
     this.rootUrl = environment.rootPathUrl;
     this.Id = this.route.snapshot.paramMap.get('id');
     this.Id2 = this.route.snapshot.paramMap.get('id2');
-   
-    this.getCategoryDetail();
     this.getCategoryType();
+    this.getCategoryDetail();
+  
   }
   backClicked() {
     this._location.back();
@@ -214,18 +214,20 @@ showModal() {
     mainCategoryId : this.Id,
     subCategoryId : this.Id2
   }
-  
+  this.spinner.show();
     this.content.SubcategoryDetail(payload).subscribe( response => { 
       if (response.isSuccess) {
         this.detail = response.data;
         this.id = this.detail.mainCategoryId
         this.editImages = this.rootUrl + this.detail?.categoryImage;
         this.form.patchValue({
+          categoryType: this.detail.categoryType,
           categoryName: this.detail.categoryName,
           categoryDescription: this.detail.categoryDescription,
-          categoryType: this.detail.categoryType
+         
         });
       }
+      this.spinner.hide();
 
     });
   }

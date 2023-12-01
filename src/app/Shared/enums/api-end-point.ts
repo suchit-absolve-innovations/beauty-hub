@@ -36,7 +36,7 @@ export enum ApiEndPoint {
   updateCategory = "api/Category/UpdateCategory",
   deleteMainCategory = "api/Category/DeleteCategory",
   deleteSubCategory = "api/Category/DeleteCategory",
-  categoryImageUpload = "/api/Upload/UploadCategoryImage",
+  categoryImageUpload = "api/Upload/UploadCategoryImage",
   UpdateVendor = "api/Admin/UpdateVendor",
   getcategoryVendor = "api/Vendor/GetVendorCategoryList",
   getcategoryListVendor = "api/Vendor/GetVendorCategoryList",

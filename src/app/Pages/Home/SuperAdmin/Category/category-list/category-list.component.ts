@@ -345,7 +345,7 @@ export class CategoryListComponent implements OnInit {
 
   // edit user 
   edit(data: any) {
-    this.router.navigate(['/category-list/add-edit-category'],
+    this.router.navigate(['/category-list/category-edit'],
       {
         queryParams: {
           id: data.mainCategoryId

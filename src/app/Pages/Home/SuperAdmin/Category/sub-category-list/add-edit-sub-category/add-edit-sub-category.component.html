@@ -56,10 +56,19 @@
                     <div class="col-lg-6 col-md-12">
                         <label>Category Type</label>
                         <select type="text" class="control-form" formControlName="categoryType" >
-                            <option >Select</option>
-                            <option *ngIf="categoryTypes == '1'" value="1">Male</option>
-                            <option *ngIf="categoryTypes == '2'" value="2">Female</option>
-                            <option *ngIf="categoryTypes == '3'"value="3">Male & Female</option>
+                            <option disabled selected>Select</option>
+                           
+                            <ng-container *ngIf="categoryTypes == '3'">
+                                <option value="1">Male</option>
+                                <option value="2">Female</option>
+                                <option value="3">Male & Female</option>
+                            </ng-container>
+                            <ng-container *ngIf="categoryTypes == '2'">
+                                <option value="2">Female</option>
+                            </ng-container>
+                            <ng-container *ngIf="categoryTypes == '1'">
+                                <option value="1">Male</option>
+                            </ng-container>
                         </select>
                         <div *ngIf="submitted && f['categoryType'].errors" class="help-block">
                             <div *ngIf="f['categoryType'].errors['required']" style="color: #fd0000;">Category Type is

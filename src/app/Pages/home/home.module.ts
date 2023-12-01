@@ -56,6 +56,7 @@ import { OnlyNumberDirective } from 'src/app/numberonly.directive';
 import { AlphanumericDirective } from 'src/app/alphanumericDirective ';
 import { AlphabeticOnlyDirective } from 'src/app/alphabetic-only.directive';
 import { NoSpacesAtStartDirective } from 'src/app/NoSpacesAtStartDirective ';
+import { EditCategoryComponent } from './SuperAdmin/Category/edit-category/edit-category.component';
 
 
 
@@ -111,7 +112,8 @@ import { NoSpacesAtStartDirective } from 'src/app/NoSpacesAtStartDirective ';
    AlphanumericDirective,
    OnlyNumberDirective,
    AlphabeticOnlyDirective,
-   NoSpacesAtStartDirective
+   NoSpacesAtStartDirective,
+   EditCategoryComponent
 
 
 
