@@ -173,12 +173,15 @@ export class AddEditCategoryComponent implements OnInit {
         image.src = _event.target.result as string;
         image.onload = () => {
           if (image.width === 512 && image.height === 512 && imageSize <= 1024) {
+            const imageDataUrl = reader.result as string;
             this.imageFile = {
               link: _event.target.result,
               file: file,
               name: file.name,
               type: file.type
             };
+            this.previewImage = imageDataUrl;
+            this.urls1.push(imageDataUrl);
             this.isValid = true;
             this.errorMessage = ''; // No error message if the image meets criteria
           } else {
