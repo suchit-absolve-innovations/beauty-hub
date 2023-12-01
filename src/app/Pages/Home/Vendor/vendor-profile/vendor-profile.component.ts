@@ -561,7 +561,7 @@ getAddress(addressLat: any, addressLong: any) {
           }]
   
         }
-        // this.spinner.show()
+        this.spinner.show()
         this.contentService.updateVendorProfile(payload).subscribe(response => {
 
          
@@ -575,7 +575,7 @@ getAddress(addressLat: any, addressLong: any) {
             this.fileQrChangeEvents();
             this.fileChangeEvent();
             this.fileChangeEvents();
-            
+            this.spinner.hide();
             this.toaster.success(response.messages);
             // this.router.navigateByUrl('/salon-list');
           } else {
@@ -747,7 +747,7 @@ getAddress(addressLat: any, addressLong: any) {
   // }
 
   cancel() {
-    this.router.navigateByUrl('/appointment-list')
+    this.router.navigateByUrl('/vendor-profile')
       .then(() => {
         window.location.reload();
       });

@@ -41,7 +41,8 @@
                         </div>
                         <div class="col-lg-6 col-md-12">
                             <label>First Name</label>
-                            <input type="text" formControlName="firstName" class="control-form" noSpacesAtStart appAlphabeticOnly>
+                            <input type="text" formControlName="firstName" class="control-form" noSpacesAtStart
+                                appAlphabeticOnly>
                             <label *ngIf="firstName?.invalid && submitted != null && !submitted"
                                 class="invalid-formdata">
                                 First name is required.
@@ -51,7 +52,8 @@
                         <div class="col-lg-6 col-md-12">
                             <label>Last Name
                             </label>
-                            <input type="text" class="control-form " formControlName="lastName" noSpacesAtStart appAlphabeticOnly>
+                            <input type="text" class="control-form " formControlName="lastName" noSpacesAtStart
+                                appAlphabeticOnly>
                             <label *ngIf="lastName?.invalid && submitted != null && !submitted"
                                 class="invalid-formdata">
                                 Last name is required.
@@ -103,7 +105,7 @@
                         <div class="col-lg-6 col-md-12">
                             <label>Dial Code</label>
                             <input type="text" class="form-control " formControlName="dialCode"
-                            style="background-color: rgb(218, 231, 243);" [readonly]="true" >
+                                style="background-color: rgb(218, 231, 243);" [readonly]="true">
                             <label *ngIf="dialCode?.invalid && submitted != null && !submitted"
                                 class="invalid-formdata">
                                 Dial Code is required.
@@ -111,7 +113,7 @@
                         </div>
                         <div class="col-lg-6 col-md-12">
                             <label>Phone Number </label>
-                            <input type="text" class="control-form " formControlName="phoneNumber" numbersOnly >
+                            <input type="text" class="control-form " formControlName="phoneNumber" numbersOnly>
                             <label
                                 *ngIf="form.get('phoneNumber')?.errors?.['required'] && submitted != null && !submitted"
                                 class="invalid-formdata">
@@ -165,7 +167,8 @@
                         </div>
                         <div class="col-lg-6 col-md-12">
                             <label>GST Number</label>
-                            <input type="text" class="control-form " formControlName="gstnumber" noSpacesAtStart alphanumericOnly> 
+                            <input type="text" class="control-form " formControlName="gstnumber" noSpacesAtStart
+                                alphanumericOnly>
                             <label
                                 *ngIf="salonDetail.controls[i].get('gstnumber')?.errors?.['required'] && submitted != null && !submitted"
                                 class="invalid-formdata">
@@ -179,17 +182,18 @@
                         </div>
                         <div class="col-lg-6 col-md-12">
                             <label>Business Pan</label>
-                            <input type="text" class="control-form " formControlName="businessPAN" noSpacesAtStart alphanumericOnly>
+                            <input type="text" class="control-form " formControlName="businessPAN" noSpacesAtStart
+                                alphanumericOnly>
                             <label
                                 *ngIf="salonDetail.controls[i].get('businessPAN')?.errors?.['required'] && submitted != null && !submitted"
                                 class="invalid-formdata">
                                 Business Pan is required.
                             </label>
                             <label
-                            *ngIf="salonDetail.controls[i].get('businessPAN')?.errors?.['pattern'] && submitted != null && !submitted"
-                            class="invalid-formdata">
-                            Please enter 10 digit PAN number.
-                        </label>
+                                *ngIf="salonDetail.controls[i].get('businessPAN')?.errors?.['pattern'] && submitted != null && !submitted"
+                                class="invalid-formdata">
+                                Please enter 10 digit PAN number.
+                            </label>
                         </div>
                         <div class="col-lg-4 col-md-12">
                             <label>Landmark</label>
@@ -220,7 +224,8 @@
                         </div>
                         <div class="col-lg-12 col-md-12">
                             <h5 class="mb-3">Shop Address</h5>
-                            <a type="button" class="map" style=" color: inherit !important;" (click)="setCurrentLocation()">Get Current Location</a>
+                            <a type="button" class="map" style=" color: inherit !important;"
+                                (click)="setCurrentLocation()">Get Current Location</a>
                             <input type="text" class="form-control" (keydown.enter)="$event.preventDefault()"
                                 placeholder="Search Nearest Location" autocorrect="on" autocapitalize="off"
                                 spellcheck="off" type="text" [(ngModel)]="addressStreet"
@@ -257,7 +262,8 @@
 
                         <div class="col-lg-12 col-md-12">
                             <label>Salon Description</label>
-                            <textarea type="text" class="control-form " formControlName="salonDescription" noSpacesAtStart ></textarea>
+                            <textarea type="text" class="control-form " formControlName="salonDescription"
+                                noSpacesAtStart></textarea>
                             <label
                                 *ngIf="salonDetail.controls[i].get('salonDescription')?.errors?.['required'] && submitted != null && !submitted"
                                 class="invalid-formdata">
@@ -283,7 +289,8 @@
 
                         <div class="col-lg-6 col-md-12">
                             <label>Account Holder Name</label>
-                            <input type="text" class="control-form" formControlName="bankAccountHolderName" noSpacesAtStart>
+                            <input type="text" class="control-form" formControlName="bankAccountHolderName"
+                                noSpacesAtStart>
                             <label
                                 *ngIf="bankDetail.controls[i].get('bankAccountHolderName')?.errors?.['required'] && submitted != null && !submitted"
                                 class="invalid-formdata">
@@ -311,7 +318,7 @@
                         </div> -->
                         <div class="col-lg-4 col-md-12">
                             <label>IFSC Code</label>
-                            <input type="text" class="control-form" formControlName="ifsc" alphanumericOnly >
+                            <input type="text" class="control-form" formControlName="ifsc" alphanumericOnly>
                             <label *ngIf="bankDetail.controls[i].get('ifsc')?.errors && submitted != null && !submitted"
                                 class="invalid-formdata">
                                 Ifsc code is required.
@@ -388,10 +395,9 @@
             </div>
             <div class="vendor-form bg-white ">
                 <div class="col-lg-12 col-md-12  text-center">
-                    <button class="border-btn" type="submit" value="" data-toggle="modal"
-                                data-target="#cancel-mess">
-                                Cancel
-                            </button>
+                    <button class="border-btn" type="submit" value="" data-toggle="modal" data-target="#cancel-mess">
+                        Cancel
+                    </button>
                     <button class="btn_blue " type="submit" (click)="postVendor()">Submit</button>
                 </div>
             </div>
@@ -399,11 +405,8 @@
     </div>
 </div>
 
-
-
 <!-- modal3 -->
-
-<div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+<div class="modal fade vendor-popup" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
     aria-hidden="true">
     <div class="modal-dialog max_sf modal-dialog-centered" role="document"
         style="border-radius:15px; overflow:hidden; border:none;">
@@ -412,23 +415,18 @@
                 <span aria-hidden="true">&times;</span>
             </button>
             <div class="modal-body text-center">
-                <div class="imagePreview vendor-preview">
-                    <img class="image" [src]="imageUrl">
+                <div class="imagePreview">
+                    <img [src]="imageUrl">
                 </div>
-
-
             </div>
-
         </div>
     </div>
 </div>
 
-
-
-<div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+<div class="modal fade vendor-popup" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitles"
     aria-hidden="true">
-    <div class="modal-dialog max_sf modal-dialog-centered" role="document"
-        style="border-radius:15px; overflow:hidden; border:none;">
+    <div class="modal-dialog max_sf modal-dialog-centered modal-sm" role="document"
+        style="border-radius: 15px; overflow: hidden; border: none;">
         <div class="modal-content popup_advance">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -440,31 +438,30 @@
                         <button (click)="deleteUploadedImage(i)">Remove</button>
                     </div>
                 </div>
-
             </div>
-
         </div>
     </div>
+</div>
+<!-- </div>
+</div> -->
 
-
-
-    <div class="modal fade" id="cancel-mess" tabindex="-1" role="dialog" aria-labelledby="cancel-messLabel"
+<!--Cancel Modal -->
+<div class="modal fade" id="cancel-mess" tabindex="-1" role="dialog" aria-labelledby="cancel-messLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content warning-content">
+
             <div class="modal-body text-center warning-mess-sec">
                 <button type="button" class="close float-right" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <img src="assets\img\warning.png" />
+                <img src="assets\img\warning.png">
                 <h2>Alert</h2>
                 <p>Are You Sure, You want to Cancel it?</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="border-btn" data-dismiss="modal">
-                    Close
-                </button>
-                <button type="button" class="btn_blue" (click)="cancel()">Yes, Cancel It</button>
+                <button type="button" class=" border-btn" data-dismiss="modal">Close</button>
+                <button type="button" class=" btn_blue" (click)="  cancel()">Yes, Cancel It</button>
             </div>
         </div>
     </div>
