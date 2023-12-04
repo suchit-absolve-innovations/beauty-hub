@@ -72,6 +72,11 @@ export class AddEditCategoryComponent implements OnInit {
     if (this.form.invalid) {
       return;
     }
+  
+    if (!this.imageFile) {
+      this.errorMessage = 'Please select an image.';
+      return;
+    }
     if (this.detail) {
       let payload = {
         categoryName: this.form.value.categoryName,
@@ -134,7 +139,7 @@ export class AddEditCategoryComponent implements OnInit {
         const image = new Image();
         image.src = _event.target.result as string;
         image.onload = () => {
-          if (image.width === 512 && image.height === 512 && imageSize <= 1024) {
+          if (image.width === 512 && image.height === 512 && imageSize <= 512) {
             const imageDataUrl = reader.result as string;
             this.imageFile = {
               link: _event.target.result,
@@ -148,7 +153,7 @@ export class AddEditCategoryComponent implements OnInit {
             this.errorMessage = ''; // No error message if the image meets criteria
           } else {
             this.isValid = false;
-            this.errorMessage = 'Please select a 1280x720 pixels (width×height) image .'; // Error message for invalid image
+            this.errorMessage = 'Please select a 512x512 pixels (width×height) image .'; // Error message for invalid image
             // You can add further handling if needed for invalid images
           }
         };
