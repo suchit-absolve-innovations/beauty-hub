@@ -77,7 +77,7 @@ export class AddEditCategoryComponent implements OnInit {
       this.errorMessage = 'Please select an image.';
       return;
     }
-    if (this.detail) {
+   
       let payload = {
         categoryName: this.form.value.categoryName,
         categoryDescription: this.form.value.categoryDescription,
@@ -90,7 +90,7 @@ export class AddEditCategoryComponent implements OnInit {
         this.afterResponse(response);
 
       });
-    }
+    
   }
 
 

@@ -98,7 +98,7 @@ export class AddEditSubCategoryComponent implements OnInit {
     if (this.form.invalid) {
       return;
     }
-    if (this.detail) {
+  
       let payload = {
         mainCategoryId: this.Id,
         categoryName: this.form.value.categoryName,
@@ -110,7 +110,7 @@ export class AddEditSubCategoryComponent implements OnInit {
         this.fileChangeEvent();
         this.afterResponse(response);
       });
-    }
+    
   }
 
 
