@@ -8,12 +8,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
 declare var $: any;
 
+
 @Component({
-  selector: 'app-add-edit-sub-category',
-  templateUrl: './add-edit-sub-category.component.html',
-  styleUrls: ['./add-edit-sub-category.component.css']
+  selector: 'app-edit-sub-category',
+  templateUrl: './edit-sub-category.component.html',
+  styleUrls: ['./edit-sub-category.component.css']
 })
-export class AddEditSubCategoryComponent implements OnInit {
+export class EditSubCategoryComponent implements OnInit {
   Id: any;
   form!: FormGroup;
   detail: any;
@@ -51,12 +52,13 @@ export class AddEditSubCategoryComponent implements OnInit {
     this.Id = this.route.snapshot.paramMap.get('id');
     this.Id2 = this.route.snapshot.paramMap.get('id2');
     this.getCategoryType();
-    // this.getCategoryDetail();
-
+    this.getCategoryDetail();
+  
   }
   backClicked() {
     this._location.back();
   }
+
 
 
   /** Add Category Form **/
@@ -64,24 +66,21 @@ export class AddEditSubCategoryComponent implements OnInit {
     this.form = this.formBuilder.group({
       categoryName: ['', [Validators.required]],
       categoryDescription: [''],
-      categoryType: ['', [Validators.required]]
-
+      categoryType: ['',[Validators.required]]
+   
     });
   }
 
-  getCategoryType() {
-    this.content.getCategorytypes(this.Id).subscribe(response => {
-      if (response.isSuccess) {
-        this.categoryTypes = response.data.mainCategoryType;
-        console.log(this.categoryTypes)
-
-
-      }
-
-    });
-  }
+  getCategoryType(){
+      this.content.getCategorytypes(this.Id).subscribe( response => { 
+        if (response.isSuccess) {
+          this.categoryTypes = response.data.mainCategoryType;
+          console.log(this.categoryTypes)
+        }
+      });
+    }
   // onGenderChange(event: any) {
-
+    
   //   const selectedGender = event.target.value;
   //   if (selectedGender === '1') {
   //   this.categoryType =  this.form.patchValue({ male: true, female: false });
@@ -92,71 +91,95 @@ export class AddEditSubCategoryComponent implements OnInit {
   //   }
   // }
 
-  postCategory() {
+  postCategory(){
     debugger
     this.submitted = true;
     if (this.form.invalid) {
       return;
     }
-    if (this.detail) {
+    if (this.detail) { 
       let payload = {
-        mainCategoryId: this.Id,
+         subCategoryId: this.Id2,
         categoryName: this.form.value.categoryName,
         categoryDescription: this.form.value.categoryDescription,
         categoryType: this.form.value.categoryType
       }
-      this.content.addSubCategory(payload).subscribe(response => {
-        this.subId = response.data?.subCategoryId
+      this.content.UpdateSubCategory(payload).subscribe(response => {
+        this.subId = response.data.subCategoryId
         this.fileChangeEvent();
         this.afterResponse(response);
       });
-    }
+
+    } 
+ }
+
+   
+ get f() {
+  return this.form['controls'];
+}
+
+
+afterResponse(response: any) {
+  debugger
+if (response && response.statusCode == 200) {
+  if(this.login == 'SuperAdmin'){
+
+   this._location.back();
+   this.toasterService.success(response.messages);
+  }if (this.login == 'Vendor'){
+     this.showModal();
+     this.toasterService.success(response.messages);
+}
+else if(this.login == 'Admin')
+this.showModal();
+this.toasterService.success(response.messages);
+
+
+}
+  else {
+    this.toasterService.error(response.messages);
   }
+}
 
 
 
+ok(){
+  this.router.navigate(['/category-list'])
+  .then(() => {
+   window.location.reload();
+ });
+
+}
+showModal() {
+ $('#myModal').modal('show');
+}
 
 
-  get f() {
-    return this.form['controls'];
+
+  getCategoryDetail(){
+    
+  let payload = { 
+    mainCategoryId : this.Id,
+    subCategoryId : this.Id2
   }
-
-
-
-  afterResponse(response: any) {
-    debugger
-    if (response && response.statusCode == 200) {
-      if (this.login == 'SuperAdmin') {
-
-        this._location.back();
-        this.toasterService.success(response.messages);
-      } if (this.login == 'Vendor') {
-        this.showModal();
-        this.toasterService.success(response.messages);
+  this.spinner.show();
+    this.content.SubcategoryDetail(payload).subscribe( response => { 
+      if (response.isSuccess) {
+        this.detail = response.data;
+        this.id = this.detail.mainCategoryId
+        this.editImages = this.rootUrl + this.detail?.categoryImage;
+        this.form.patchValue({
+          categoryType: this.detail.categoryType,
+          categoryName: this.detail.categoryName,
+          categoryDescription: this.detail.categoryDescription,
+         
+        });
       }
-      else if (this.login == 'Admin')
-        this.showModal();
-      this.toasterService.success(response.messages);
+      this.spinner.hide();
 
-
-    }
-    else {
-      this.toasterService.error(response.messages);
-    }
+    });
   }
 
-
-
-  ok() {
-    this.router.navigate(['/category-list'])
-      .then(() => {
-        window.location.reload();
-      });
-
-  }
-  showModal() {
-    $('#myModal').modal('show');
-  }
 
 
   /*** Image Upload ***/
@@ -170,7 +193,7 @@ export class AddEditSubCategoryComponent implements OnInit {
         const image = new Image();
         image.src = _event.target.result as string;
         image.onload = () => {
-
+       
           if (image.width === 512 && image.height === 512 && imageSize <= 1024) {
             const imageDataUrl = reader.result as string;
             this.imageFile = {
@@ -178,7 +201,7 @@ export class AddEditSubCategoryComponent implements OnInit {
               file: file,
               name: file.name,
               type: file.type,
-
+              
             };
             this.previewImage = imageDataUrl;
             this.urls1.push(imageDataUrl);
@@ -195,15 +218,16 @@ export class AddEditSubCategoryComponent implements OnInit {
     }
   }
 
-  fileChangeEvent() {
-    debugger
-    let formData = new FormData();
-    formData.append("categoryImage", this.imageFile?.file);
-    formData.append("subCategoryId", this.subId);
-    this.content.categoryImage(formData).subscribe(response => {
+fileChangeEvent() {
+  debugger
+  let formData = new FormData();
+  formData.append("categoryImage", this.imageFile?.file);
+  formData.append("subCategoryId", this.subId);
+  this.content.categoryImage(formData).subscribe(response => {
 
-    });
-  }
+  });
+}
+
 
 
 }

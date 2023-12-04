@@ -47,13 +47,6 @@ export class AddEditCategoryComponent implements OnInit {
     this.rootUrl = environment.rootPathUrl;
     this.role = localStorage.getItem('user')
     this.categoryForm();
-
-    this.route.queryParams.subscribe((params: any) => {
-      if (params.id) {
-        this.getCategoryDetail(params.id);
-
-      }
-    });
   }
   backClicked() {
     this._location.back();
@@ -80,19 +73,6 @@ export class AddEditCategoryComponent implements OnInit {
       return;
     }
     if (this.detail) {
-      let payload = {
-        mainCategoryId: this.detail.mainCategoryId,
-        categoryName: this.form.value.categoryName,
-        categoryDescription: this.form.value.categoryDescription,
-        categoryType: this.form.value.categoryType
-      }
-      this.contentService.UpdateCategory(payload).subscribe(response => {
-        this.mainId = response.data?.mainCategoryId
-        this.fileChangeEvent();
-        this.afterResponse(response);
-
-      });
-    } else {
       let payload = {
         categoryName: this.form.value.categoryName,
         categoryDescription: this.form.value.categoryDescription,
@@ -144,24 +124,6 @@ export class AddEditCategoryComponent implements OnInit {
     $('#myModal').modal('show');
   }
 
-
-                  
-  getCategoryDetail(id: string) {
-    this.contentService.categoryDetail(id).subscribe(response => {
-      if (response.isSuccess) {
-        this.detail = response.data;
-        this.id = this.detail.mainCategoryId
-
-        this.editImages = this.rootUrl + this.detail?.categoryImage;
-        this.form.patchValue({
-          categoryName: this.detail.categoryName,
-          categoryDescription: this.detail.categoryDescription,
-          categoryType: this.detail.categoryType
-        });
-      }
-
-    });
-  }
   imagesUpload(event: any) {
     debugger
     if (event.target.files && event.target.files[0]) {
@@ -195,25 +157,9 @@ export class AddEditCategoryComponent implements OnInit {
     }
   }
   
-  // imagesUpload(event: any) {
-  //   if (event.target.files && event.target.files[0]) {
-  //     const reader = new FileReader();
-  //     reader.onload = (_event: any) => {
-  //       this.imageFile = {
-  //         link: _event.target.result,
-  //         file: event.srcElement.files[0],
-  //         name: event.srcElement.files[0].name,
-  //         type: event.srcElement.files[0].type
-  //       };
-  //     };
-  //     reader.readAsDataURL(event.target.files[0]);
-
-  //   }
-  // }
 
 
   fileChangeEvent() {
-
     let formData = new FormData();
     formData.append("CategoryImage", this.imageFile?.file);
     formData.append("MainCategoryId", this.mainId);

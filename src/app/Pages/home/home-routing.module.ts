@@ -44,6 +44,7 @@ import { PackageDetailComponent } from './Vendor/Packages/package-detail/package
 import { AddEditPackageComponent } from './Vendor/Packages/add-edit-package/add-edit-package.component';
 import { EditPackageComponent } from './Vendor/Packages/edit-package/edit-package.component';
 import { EditCategoryComponent } from './SuperAdmin/Category/edit-category/edit-category.component';
+import { EditSubCategoryComponent } from './SuperAdmin/Category/sub-category-list/edit-sub-category/edit-sub-category.component';
 
 
 const routes: Routes = [
@@ -89,7 +90,7 @@ const routes: Routes = [
       { path: 'vendor-notification-list', component:VendorNotificationListComponent},
       { path: 'vendor-notification-list/add-notification', component:VendorAddNotificationComponent},
       { path: 'category-list/category-edit',component:EditCategoryComponent},
-
+      { path: 'category-list/sub-category-list/sub-category-edit/:id/:id2',component:EditSubCategoryComponent},
 
       //////Admin///////
       { path: 'admin-user-profile', component: AdminProfileComponent },

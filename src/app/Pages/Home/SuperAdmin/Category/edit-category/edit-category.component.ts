@@ -91,20 +91,7 @@ export class EditCategoryComponent implements OnInit {
         this.afterResponse(response);
 
       });
-    } else {
-      let payload = {
-        categoryName: this.form.value.categoryName,
-        categoryDescription: this.form.value.categoryDescription,
-        categoryType: this.form.value.categoryType
-      }
-      this.contentService.addCategory(payload).subscribe(response => {
-
-        this.mainId = response.data?.mainCategoryId
-        this.fileChangeEvent();
-        this.afterResponse(response);
-
-      });
-    }
+    } 
   }
 
 
@@ -195,55 +182,7 @@ export class EditCategoryComponent implements OnInit {
       reader.readAsDataURL(file);
     }
   }
-  // handleImageInput(event: any) {
-  //   const files = event.target.files;
-  
-  //   for (let i = 0; i < files.length; i++) {
-  //     const file = files[i];
-  //     const imageSize = file.size / 1024; // in KB
-  
-  //     const reader = new FileReader();
-  //     reader.readAsDataURL(file);
-  
-  //     reader.onload = () => {
-  //       const image = new Image();
-  //       image.src = reader.result as string;
-  
-  //       image.onload = () => {
-  //         if (image.width === 512 && image.height === 512 && imageSize <= 512) {
-  //           // Add image to the array and set as valid if it meets criteria
-  //           const imageDataUrl = reader.result as string;
-  //           this.errorMessage = '';
-  //           this.isValid = true;
-  //           this.previewImage = imageDataUrl;
-  //           this.urls1.push(imageDataUrl);
-  //         } else {
-  //           // Set as invalid if criteria not met
-  //           this.errorMessage = 'Please select 512x512 pixels (width×height) image.';
-  //           this.isValid = false;
-  //           this.previewImage = '';
-  //         }
-  //       };
-  //     };
-  //   }
-  // }
-  
-  // imagesUpload(event: any) {
-  //   if (event.target.files && event.target.files[0]) {
-  //     const reader = new FileReader();
-  //     reader.onload = (_event: any) => {
-  //       this.imageFile = {
-  //         link: _event.target.result,
-  //         file: event.srcElement.files[0],
-  //         name: event.srcElement.files[0].name,
-  //         type: event.srcElement.files[0].type
-  //       };
-  //     };
-  //     reader.readAsDataURL(event.target.files[0]);
-
-  //   }
-  // }
-
+ 
 
   fileChangeEvent() {
 

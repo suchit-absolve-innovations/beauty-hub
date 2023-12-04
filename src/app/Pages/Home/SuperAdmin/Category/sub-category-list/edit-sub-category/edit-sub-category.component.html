@@ -21,10 +21,11 @@
                                     <div class="imgUp m-auto">
 
 
-                                        <div *ngIf="isValid" class="imagePreview"
-                                            [style.background-image]="'url(' + previewImage + ')'"></div>
-                                        <div *ngIf="!isValid && errorMessage" class="error"></div>
-
+                                        <div>
+                                            <div *ngIf="!isValid "class="imagePreview"><img src="{{editImages}}"></div>
+        
+                                            <div *ngIf="isValid" class="imagePreview" [style.background-image]="'url(' + previewImage + ')'"></div>
+                                          </div>
 
                                         <!-- {{imageFile}}/ -->
                                         <label class="upload button btn btn-primary">

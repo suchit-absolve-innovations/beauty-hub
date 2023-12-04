@@ -246,7 +246,7 @@ export class ContentService {
   }
   // Sub  Category Detail
   SubcategoryDetail(data: any) {
-    return this.http.get<any>(environment.apiUrl + ApiEndPoint.categoryDetail + '?mainCategoryId=' + data.mainCategoryId + '&SubCategoryId=' + data.subCategoryId)
+    return this.http.get<any>(environment.apiUrl + ApiEndPoint.categoryDetail + '?mainCategoryId=' + data.mainCategoryId + '&subCategoryId=' + data.subCategoryId)
   }
   // Sub Category Delete
   subCategoryDelete(subCategoryId: any) {

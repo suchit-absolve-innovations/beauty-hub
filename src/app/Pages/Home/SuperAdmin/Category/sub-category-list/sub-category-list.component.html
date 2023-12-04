@@ -55,7 +55,7 @@
                     <td *ngIf="login == 'SuperAdmin'  && 'Admin' ">
                    
                         <a *ngIf="login == 'SuperAdmin'  && 'Admin' "
-                            [routerLink]="['/category-list/sub-category-list/addEdit-sub-category/',   item.mainCategoryId ,item?.subCategoryId]">
+                            [routerLink]="['/category-list/sub-category-list/sub-category-edit/',   item.mainCategoryId ,item?.subCategoryId]">
                             <i class="fa fa-pencil"></i>
                         </a>
                         <!-- <a *ngIf="login == 'SuperAdmin' && 'Admin'" (click)="deleteSubCategory(item.subProductCategoryId)"><i
