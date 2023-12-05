@@ -17,9 +17,33 @@
                             <div class="upload_file text-center">
                                 <div class="imges-upload mb-0">
                                     <div class="imgUp m-auto">
-                                        <div class="imagePreview" style="background-image: url(&quot;undefined&quot;);" *ngIf="previewImage"  width="1280" height="720">
+                                        <img *ngIf="previewImage"  class="imagePreview" style="background-image: url(&quot;undefined&quot;);"/>
+                                     
+                                    <!-- <div class="imgUp m-auto">
+                                        <div class="imagePreview" style="background-image: url(&quot;undefined&quot;);" *ngIf="previewImage" >
+                                        </div> -->
+                                        <label class="upload button btn btn-primary">
+                                            Upload<input type="file" class="uploadFile img" name="bannerimage"
+                                                style="width: 0px;height: 0px;overflow: file; border-style: none;"
+                                                id="bannerimage" (change)="onFileSelected($event)" (change)="onselect($event)" multiple />
+                                          </label>
+                                          <div *ngIf="errorMessages" class="error-message" style="color: #fd0000">{{ errorMessages }}</div>
+                                          
                                         </div>
-
+                                    </div>
+                                </div>
+                            </div>
+                                          <div class="col-lg-6 mx-auto mb-30">
+                                            <div class="multi-img-box">
+                                              <div *ngFor="let url of urls; let i = index">
+                                                <div class="multiple-images multiple-img-sec">
+                                                  <img class="img-responsive" [src]="url" />
+                                                  <button class="remove" (click)="removeImage(i)">X</button>
+                                                </div>
+                                              </div>
+                                           
+                                          
+<!-- 
                                         <label class="upload button btn btn-primary">
                                             Upload<input type="file" class="uploadFile img" name="bannerimage"
                                                 style="width: 0px;height: 0px;overflow: file; border-style: none;"
@@ -27,7 +51,7 @@
                                                 (change)="onselect($event)" multiple />
                                         </label>
                                         <div *ngIf="errorMessages" class="error-message" style="color: #fd0000">{{ errorMessages }}</div>
-                                        <!-- <label *ngIf="imageUrl1"  width="512" height="512" data-toggle="modal" data-target="#myModal3" class="preview-butn">preview</label> -->
+                                       
                                        
                                     </div>
                                 </div>
@@ -41,8 +65,7 @@
                                         <img class="img-responsive" [src]="url" />
                                         <button class="remove" (click)="removeImage(i)">X</button>
                                     </div>
-                                </div>
-
+                                </div> -->
 
                             </div>
                         </div>
@@ -258,7 +281,7 @@
                             <br>
                             <input name="bannerimage" type="file" class="uploadFile img" #image1
                         (change)="handleImageInput($event)" >
-                            <label *ngIf="imageUrl"  width="512" height="512" data-toggle="modal" data-target="#myModal3" class="preview-butn">preview</label>
+                            <label *ngIf="previewImage"   data-toggle="modal" data-target="#myModal3" class="preview-butn">preview</label>
                             <div *ngIf="errorMessage" class="help-block" style="color: #fd0000">{{ errorMessage }}</div>
                         </div>
 
@@ -312,7 +335,7 @@
             </button>
             <div class="modal-body text-center">
                 <div class="imagePreview vendor-preview">
-                    <img class="image" [src]="imageUrl">
+                    <img class="image" [src]="previewImage">
                 </div>
 
 

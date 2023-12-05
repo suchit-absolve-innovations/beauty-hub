@@ -110,6 +110,7 @@
                         <!-- <th>Serial No.</th> -->
                         <th>Category Name</th>
                         <th>Category Image</th>
+                        <th>Category Type</th>
                         <th>Date</th>
                         <!-- <th>Status</th> -->
                         <th>Action</th>
@@ -120,6 +121,9 @@
                             {{item?.categoryName}}
                         </td>
                         <td class="profile"><img [src]="rootUrl + item?.categoryImage" class="img-responsive"></td>
+                        <td *ngIf="item?.categoryType == 1">Male</td>
+                        <td *ngIf="item?.categoryType == 2">Female</td>
+                        <td *ngIf="item?.categoryType == 3">Male & Female</td>
                         <td>{{item?.createDate}}</td>
                         <!-- <td *ngIf="login == 'Vendor'"> -->
                         <!-- <td>
