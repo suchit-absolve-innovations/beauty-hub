@@ -80,34 +80,35 @@ export class VendorProfileComponent implements OnInit {
     private mapsAPILoader: MapsAPILoader,) { }
 
   ngOnInit(): void {
+    this.getVendorDetails();
    // maps
    this.mapsAPILoader.load().then(() => {
-    //     this.setCurrentLocation();
-
+    this.setCurrentLocation();
     this.geoCoder = new google.maps.Geocoder;
-
     let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
-
     autocomplete.addListener("place_changed", () => {
       this.ngZone.run(() => {
         let place: google.maps.places.PlaceResult = autocomplete.getPlace();
         this.inputAddress = place.formatted_address
 
+
         if (place.geometry === undefined || place.geometry === null) {
           return;
         }
-
         this.addressLat = place.geometry.location.lat();
         this.addressLong = place.geometry.location.lng();
-
+      
         this.zoom = 12;
       });
+
+
     });
+    
   });
     this.vendorForm();
     this.getCountry();
     this.rootUrl = environment.rootPathUrl;
-    this.getVendorDetail();
+
     this.getCountriesList();   
   }
 
@@ -158,7 +159,7 @@ export class VendorProfileComponent implements OnInit {
       city: ['', [Validators.required]],
       zip: ['', [Validators.required]],
       landmark: ['', [Validators.required]],
-      salonAddress: ['', [Validators.required]]
+      salonAddress: [null,]
     });
   }
 
@@ -309,76 +310,77 @@ export class VendorProfileComponent implements OnInit {
       event.preventDefault();
     }
 
-// for map
-mapReady(map: any) {
 
-  map.setOptions({
-    zoomControl: "true",
-    zoomControlOptions: {
-      position: google.maps.ControlPosition.TOP_RIGHT
-    }
-  });
-  //this.loader = true;
-  map.addListener("dragend", () => {
+  // for map
+  mapReady(map: any) {
 
-    // do something with centerLatitude/centerLongitude
-    //api call to load dynamic marker for your application
-    //this.loader = false;
-  });
-}
+    map.setOptions({
+      zoomControl: "true",
+      zoomControlOptions: {
+        position: google.maps.ControlPosition.TOP_RIGHT
+      }
+    });
+    //this.loader = true;
+    map.addListener("dragend", () => {
 
-getlocation() {
-  // Assuming this.lati and this.long are strings, convert them to numbers
-  this.addressLat = parseFloat(this.lati);
-  this.addressLong = parseFloat(this.long);
-
-  this.zoom = 14;
-  this.getAddress(this.addressLat, this.addressLong);
-}
-
-setCurrentLocation() {
-
-  if ('geolocation' in navigator) {
-    navigator.geolocation.getCurrentPosition((position) => {
-      this.addressLat = position.coords.latitude;
-      this.addressLong = position.coords.longitude;
-      this.zoom = 14;
-      this.getAddress(this.addressLat, this.addressLong);
+      // do something with centerLatitude/centerLongitude
+      //api call to load dynamic marker for your application
+      //this.loader = false;
     });
   }
-}
 
-getAddress(addressLat: any, addressLong: any) {
+  getlocation() {
+    // Assuming this.lati and this.long are strings, convert them to numbers
+    this.addressLat = parseFloat(this.lati);
+    this.addressLong = parseFloat(this.long);
 
-  if (this.geoCoder) {
-    // Initialize this.geoCoder here if it's not already initialized
-    this.geoCoder = new google.maps.Geocoder();
+    this.zoom = 14;
+    this.getAddress(this.addressLat, this.addressLong);
   }
 
-  this.geoCoder?.geocode({ location: { lat: addressLat, lng: addressLong } }, (results, status) => {
-    if (status === 'OK') {
-      if (results[0]) {
-        this.zoom = 12;
-
-        this.addressStreet = results[0].formatted_address;
-        // If you want to access the country, you can do it like this:
-        // this.addressCountry = results[0].address_components.find(component =>
-        //   component.types.includes('country')
-        // )?.long_name;
-
-      } else {
-        window.alert('No results found');
-      }
-    } else {
-      window.alert('Geocoder failed due to: ' + status);
+  setCurrentLocation() {
+debugger
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.addressLat = position.coords.latitude;
+        this.addressLong = position.coords.longitude;
+        this.zoom = 14;
+        this.getAddress(this.addressLat, this.addressLong);
+      });
     }
-  });
-}
+  }
+
+  getAddress(addressLat: any, addressLong: any) {
+
+    if (this.geoCoder) {
+      // Initialize this.geoCoder here if it's not already initialized
+      this.geoCoder = new google.maps.Geocoder();
+    }
+
+    this.geoCoder?.geocode({ location: { lat: addressLat, lng: addressLong } }, (results, status) => {
+      if (status === 'OK') {
+        if (results[0]) {
+          this.zoom = 12;
+
+          this.addressStreet = results[0].formatted_address;
+          // If you want to access the country, you can do it like this:
+          // this.addressCountry = results[0].address_components.find(component =>
+          //   component.types.includes('country')
+          // )?.long_name;
+
+        } else {
+          window.alert('No results found');
+        }
+      } else {
+        window.alert('Geocoder failed due to: ' + status);
+      }
+    });
+  }
 
       // patch vendor
 
   // Vendor detail 
-  getVendorDetail() {
+  getVendorDetails() {
     this.spinner.show();
     this.contentService.getVendorDetail(this.vendorIds).subscribe(response => {
       if (response.isSuccess) {

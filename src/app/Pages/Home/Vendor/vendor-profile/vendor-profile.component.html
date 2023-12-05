@@ -226,7 +226,7 @@
                             <h5 class="mb-3">Shop Address</h5>
                             <a type="button" class="map" style=" color: inherit !important;"
                                 (click)="setCurrentLocation()">Get Current Location</a>
-                            <input type="text" class="form-control" (keydown.enter)="$event.preventDefault()"
+                                <input type="text" class="form-control" (keydown.enter)="$event.preventDefault()"
                                 placeholder="Search Nearest Location" autocorrect="on" autocapitalize="off"
                                 spellcheck="off" type="text" [(ngModel)]="addressStreet"
                                 [ngModelOptions]="{standalone: true}" #search>
@@ -237,6 +237,7 @@
                                     [markerDraggable]="true"></agm-marker>
 
                             </agm-map>
+                        
                         </div>
                         <!-- <div class="col-lg-12 col-md-12">
                             <h5 class="mb-3">Shop Address</h5>
