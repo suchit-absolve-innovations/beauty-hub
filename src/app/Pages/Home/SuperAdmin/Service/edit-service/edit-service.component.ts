@@ -193,7 +193,7 @@ export class EditServiceComponent implements OnInit {
   }
 
   updateService() {
-
+    debugger
     let payload = {
       serviceId: parseInt(this.serviceId.id2),
       salonId: parseInt(this.salonId.id),
@@ -237,6 +237,7 @@ export class EditServiceComponent implements OnInit {
   }
 
   fileChangeEvent() {
+    debugger
     const formData = new FormData();
     for (let i = 0; i < this.base64Image.length; i++) {
       const imageDataUrl = this.base64Image[i];
@@ -251,6 +252,7 @@ export class EditServiceComponent implements OnInit {
   }
 
   onselect(event: any) {
+    debugger
     const files = event.target.files;
     this.errorMessages = ''; // Clear previous error messages
 
@@ -274,6 +276,7 @@ export class EditServiceComponent implements OnInit {
     }
   }
   onBannerImageSelect(event: any) {
+    debugger
     const file = event.target.files[0];
 
     if (file) {

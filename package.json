@@ -14,7 +14,7 @@
     "@agm/markerclusterer": "^3.0.0-beta.0",
     "@angular/animations": "~13.3.0",
     "@angular/common": "~13.3.0",
-    "@angular/compiler": "~13.3.0",
+    "@angular/compiler": "^13.3.9",
     "@angular/core": "~13.3.0",
     "@angular/fire": "^7.0.4",
     "@angular/forms": "~13.3.0",
