@@ -17,8 +17,6 @@
                                 <div class="imges-upload mb-0">
                                     <div class="imgUp m-auto">
 
-
-
                                         <div class="imagePreview" [style.background-image]="'url(' + editImages + ')'">
                                         </div>
                                         <label class="upload button btn btn-primary">
@@ -42,7 +40,7 @@
                         <div class="col-lg-6 col-md-12">
                             <label>First Name</label>
                             <input type="text" formControlName="firstName" class="control-form" noSpacesAtStart
-                                appAlphabeticOnly>
+                                appAlphabeticOnly appCapitalizeFirstLetter>
                             <label *ngIf="firstName?.invalid && submitted != null && !submitted"
                                 class="invalid-formdata">
                                 First name is required.
@@ -53,7 +51,7 @@
                             <label>Last Name
                             </label>
                             <input type="text" class="control-form " formControlName="lastName" noSpacesAtStart
-                                appAlphabeticOnly>
+                                appAlphabeticOnly appCapitalizeFirstLetter>
                             <label *ngIf="lastName?.invalid && submitted != null && !submitted"
                                 class="invalid-formdata">
                                 Last name is required.
@@ -137,13 +135,13 @@
                         <div class="col-lg-12 col-md-12 mb-20">
                             <label>Salon Image</label>
                             <br>
-                            <input name="bannerimage" type="file" class="uploadFile img" #image1
+                            <input name="bannerimage" type="file"  class="uploadFile img" #image1
                                 (change)="handleFileInput($event)">
                             <label data-toggle="modal" data-target="#myModal3" class="preview-butn">preview</label>
                         </div>
                         <div class="col-lg-6 col-md-12">
                             <label>Salon Name</label>
-                            <input type="text" class="control-form " formControlName="salonName" noSpacesAtStart>
+                            <input type="text" class="control-form " formControlName="salonName" noSpacesAtStart appCapitalizeFirstLetter>
                             <label
                                 *ngIf="salonDetail.controls[i].get('salonName')?.errors?.['required'] && submitted != null && !submitted"
                                 class="invalid-formdata">
@@ -197,7 +195,7 @@
                         </div>
                         <div class="col-lg-4 col-md-12">
                             <label>Landmark</label>
-                            <input type="text" class="control-form " formControlName="landmark" noSpacesAtStart>
+                            <input type="text" class="control-form " formControlName="landmark" noSpacesAtStart appCapitalizeFirstLetter>
                             <label
                                 *ngIf="salonDetail.controls[i].get('landmark')?.errors?.['required'] && submitted != null && !submitted"
                                 class="invalid-formdata">
@@ -206,7 +204,7 @@
                         </div>
                         <div class="col-lg-4 col-md-12">
                             <label>City</label>
-                            <input type="text" class="form-control " formControlName="city" appAlphabeticOnly>
+                            <input type="text" class="form-control " formControlName="city" appAlphabeticOnly appCapitalizeFirstLetter>
                             <label
                                 *ngIf="salonDetail.controls[i].get('city')?.errors?.['required'] && submitted != null && !submitted"
                                 class="invalid-formdata">
@@ -280,7 +278,7 @@
                     <div class="row" *ngFor="let item of bankDetail.controls;  let i = index;" [formGroupName]="i">
                         <div class="col-lg-6 col-md-12">
                             <label>Bank Name </label>
-                            <input type="text" class="control-form" formControlName="bankName" noSpacesAtStart>
+                            <input type="text" class="control-form" formControlName="bankName" noSpacesAtStart appCapitalizeFirstLetter>
                             <label
                                 *ngIf="bankDetail.controls[i].get('bankName')?.errors?.['required'] && submitted != null && !submitted"
                                 class="invalid-formdata">
@@ -291,7 +289,7 @@
                         <div class="col-lg-6 col-md-12">
                             <label>Account Holder Name</label>
                             <input type="text" class="control-form" formControlName="bankAccountHolderName"
-                                noSpacesAtStart>
+                                noSpacesAtStart appCapitalizeFirstLetter>
                             <label
                                 *ngIf="bankDetail.controls[i].get('bankAccountHolderName')?.errors?.['required'] && submitted != null && !submitted"
                                 class="invalid-formdata">
@@ -328,7 +326,7 @@
 
                         <div class="col-lg-4 col-md-12">
                             <label>Branch Name</label>
-                            <input type="text" class="control-form" formControlName="branchName" noSpacesAtStart>
+                            <input type="text" class="control-form" formControlName="branchName" noSpacesAtStart appCapitalizeFirstLetter>
                             <label
                                 *ngIf="bankDetail.controls[i].get('branchName')?.errors?.['required'] && submitted != null && !submitted"
                                 class="invalid-formdata">
@@ -363,7 +361,7 @@
 
                         <div class="col-lg-5 col-md-12">
                             <label>Account Holder Name</label>
-                            <input type="text" class="control-form" formControlName="accountHolderName">
+                            <input type="text" class="control-form" formControlName="accountHolderName" appCapitalizeFirstLetter>
                             <label
                                 *ngIf="List1().controls[i].get('accountHolderName')?.errors?.['required'] && submitted != null && !submitted"
                                 class="invalid-formdata">

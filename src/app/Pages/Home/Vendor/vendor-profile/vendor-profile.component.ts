@@ -385,7 +385,7 @@ export class VendorProfileComponent implements OnInit {
     this.contentService.getVendorDetail(this.vendorIds).subscribe(response => {
       if (response.isSuccess) {
         this.spinner.hide();
-       this.clearFormArray(this.List1());
+   
         this.vendorDetailPatch = response.data
         this.imageId = response.data.vendorId
         this.shopDetailPatch = this.vendorDetailPatch.salonResponses
@@ -412,6 +412,7 @@ export class VendorProfileComponent implements OnInit {
 
         });
         if (this.vendorDetailPatch.upiResponses) {
+              this.clearFormArray(this.List1());
           this.vendorDetailPatch.upiResponses.forEach((element: any) => {
             var listGroup = this.upiDetails();
             listGroup.patchValue({ upiid: element.upiid, accountHolderName: element.accountHolderName,
@@ -498,10 +499,11 @@ export class VendorProfileComponent implements OnInit {
 
     postVendor() {
       debugger
-      // this.submitted = false;
-      // if (this.form.invalid) {
-      //   return;
-      // }
+      this.submitted = false;
+      if (this.form.invalid) {
+        this.toaster.error("Form Incomplete: Please fill in all the required fields correctly");
+        return;
+      }
     
       let checkStatus: any;
       if (this.isActive == true) {

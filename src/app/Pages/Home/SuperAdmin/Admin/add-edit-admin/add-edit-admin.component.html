@@ -50,7 +50,7 @@
           <div class="row">
             <div class="col-lg-6 col-md-12">
               <label>First Name</label>
-              <input type="text" class="control-form" formControlName="firstName" appAlphabeticOnly noSpacesAtStart />
+              <input type="text" class="control-form" formControlName="firstName" appAlphabeticOnly noSpacesAtStart appCapitalizeFirstLetter />
               <div *ngIf="submitted && f['firstName'].errors" class="help-block">
                 <div *ngIf="f['firstName'].errors" style="color: #fd0000">
                   First Name is required.
@@ -60,7 +60,7 @@
 
             <div class="col-lg-6 col-md-12">
               <label>Last Name</label>
-              <input type="text" class="control-form" formControlName="lastName" appAlphabeticOnly noSpacesAtStart  />
+              <input type="text" class="control-form" formControlName="lastName" appAlphabeticOnly noSpacesAtStart appCapitalizeFirstLetter />
               <div *ngIf="submitted && f['lastName'].errors" class="help-block">
                 <div *ngIf="f['lastName'].errors" style="color: #fd0000">
                   Last Name is required.

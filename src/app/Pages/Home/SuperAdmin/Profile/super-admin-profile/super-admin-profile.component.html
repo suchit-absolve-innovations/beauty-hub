@@ -36,7 +36,7 @@
                         </div>
                         <div class="col-lg-6 col-md-12">
                             <label>First Name</label>
-                            <input type="text" formControlName="firstName" class="control-form" noSpacesAtStart appAlphabeticOnly>
+                            <input type="text" formControlName="firstName" class="control-form" noSpacesAtStart appAlphabeticOnly appCapitalizeFirstLetter>
                             <div *ngIf="submitted && f['firstName'].errors" class="help-block">
                                 <div *ngIf="f['firstName'].errors" style="color: #fd0000">
                                     First name is required.
@@ -46,7 +46,7 @@
                         <div class="col-lg-6 col-md-12">
                             <label>Last Name
                             </label>
-                            <input type="text" class="control-form " formControlName="lastName" noSpacesAtStart appAlphabeticOnly>
+                            <input type="text" class="control-form " formControlName="lastName" noSpacesAtStart appAlphabeticOnly appCapitalizeFirstLetter>
                             <div *ngIf="submitted && f['lastName'].errors" class="help-block">
                                 <div *ngIf="f['lastName'].errors" style="color: #fd0000">
                                     Last name is required.
@@ -130,7 +130,7 @@
                     <div class="row" *ngFor="let item of bankDetail.controls;  let i = index;" [formGroupName]="i">
                         <div class="col-lg-6 col-md-12">
                             <label>Bank Name </label>
-                            <input type="text" class="control-form" formControlName="bankName" noSpacesAtStart     >
+                            <input type="text" class="control-form" formControlName="bankName" noSpacesAtStart   appCapitalizeFirstLetter  >
                             <div *ngIf="item.get('bankName')?.errors && submitted" class="help-block"
                                 style="color: #fd0000">
                                 Bank name is required.
@@ -138,7 +138,7 @@
                         </div>
                         <div class="col-lg-6 col-md-12">
                             <label>Account Holder Name</label>
-                            <input type="text" class="control-form" formControlName="bankAccountHolderName" noSpacesAtStart >
+                            <input type="text" class="control-form" formControlName="bankAccountHolderName" noSpacesAtStart appCapitalizeFirstLetter>
                             <div *ngIf="item.get('bankAccountHolderName')?.errors && submitted" class="help-block"
                                 style="color: #fd0000">
                                 Account holder name is required.
@@ -164,7 +164,7 @@
 
                         <div class="col-lg-4 col-md-12">
                             <label>Branch Name</label>
-                            <input type="text" class="control-form" formControlName="branchName" noSpacesAtStart >
+                            <input type="text" class="control-form" formControlName="branchName" noSpacesAtStart appCapitalizeFirstLetter>
                             <div *ngIf="item.get('branchName')?.errors && submitted" class="help-block"
                                 style="color: #fd0000">
                                 Branch name is required.

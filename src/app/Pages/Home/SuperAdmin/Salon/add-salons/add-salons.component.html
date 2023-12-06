@@ -55,7 +55,7 @@
                     <div class="row">
                         <div class="col-lg-6 col-md-12">
                             <label>First Name</label>
-                            <input type="text" class="control-form" formControlName="firstName" appAlphabeticOnly noSpacesAtStart>
+                            <input type="text" class="control-form" formControlName="firstName" appAlphabeticOnly noSpacesAtStart appCapitalizeFirstLetter> 
                             <label *ngIf="firstName?.invalid && submitted != null && !submitted"
                                 class="invalid-formdata">
                                 First name is required.
@@ -65,7 +65,7 @@
   
                         <div class="col-lg-6 col-md-12">
                             <label>Last Name</label>
-                            <input type="text" class="control-form" formControlName="lastName" appAlphabeticOnly noSpacesAtStart>
+                            <input type="text" class="control-form" formControlName="lastName" appAlphabeticOnly noSpacesAtStart appCapitalizeFirstLetter>
                             <label *ngIf="lastName?.invalid && submitted != null && !submitted"
                                 class="invalid-formdata">
                                 Last name is required.
@@ -232,7 +232,7 @@
   
                         <div class="col-lg-6 col-md-12">
                             <label>Landmark</label>
-                            <input type="text" class="control-form" formControlName="landmark" noSpacesAtStart>
+                            <input type="text" class="control-form" formControlName="landmark" noSpacesAtStart appCapitalizeFirstLetter>
                             <label
                                 *ngIf="salonDetail.controls[i].get('landmark')?.errors?.['required'] && submitted != null && !submitted"
                                 class="invalid-formdata">
@@ -242,7 +242,7 @@
   
                         <div class="col-lg-6 col-md-12">
                             <label>City</label>
-                            <input type="text" class="control-form" formControlName="city" appAlphabeticOnly noSpacesAtStart>
+                            <input type="text" class="control-form" formControlName="city" appAlphabeticOnly noSpacesAtStart appCapitalizeFirstLetter>
                             <label
                                 *ngIf="salonDetail.controls[i].get('city')?.errors?.['required'] && submitted != null && !submitted"
                                 class="invalid-formdata">
@@ -302,7 +302,7 @@
   
                         <div class="col-lg-6 col-md-12">
                             <label>Bank Name</label>
-                            <input type="text" class="control-form" formControlName="bankName"  noSpacesAtStart>
+                            <input type="text" class="control-form" formControlName="bankName"  noSpacesAtStart appCapitalizeFirstLetter>
   
                             <label
                                 *ngIf="bankDetail.controls[i].get('bankName')?.errors?.['required'] && submitted != null && !submitted"
@@ -313,7 +313,7 @@
   
                         <div class="col-lg-6 col-md-12">
                             <label>Branch Name</label>
-                            <input type="text" class="control-form" formControlName="branchName" noSpacesAtStart appAlphabeticOnly>
+                            <input type="text" class="control-form" formControlName="branchName" noSpacesAtStart  appCapitalizeFirstLetter>
                             <label
                                 *ngIf="bankDetail.controls[i].get('branchName')?.errors?.['required'] && submitted != null && !submitted"
                                 class="invalid-formdata">
@@ -323,7 +323,7 @@
   
                         <div class="col-lg-6 col-md-12">
                             <label>Account Holder Name</label>
-                            <input type="text" class="control-form" formControlName="bankAccountHolderName" noSpacesAtStart >
+                            <input type="text" class="control-form" formControlName="bankAccountHolderName" noSpacesAtStart appCapitalizeFirstLetter>
                             <label
                                 *ngIf="bankDetail.controls[i].get('bankAccountHolderName')?.errors?.['required'] && submitted != null && !submitted"
                                 class="invalid-formdata">
@@ -386,7 +386,7 @@
   
                         <div class="col-lg-10 col-md-12">
                             <label>Account Holder Name</label>
-                            <input type="text"formControlName="accountHolderName" class="control-form"  noSpacesAtStart>
+                            <input type="text"formControlName="accountHolderName" class="control-form"  noSpacesAtStart appCapitalizeFirstLetter>
                             <label
                                 *ngIf="List1().controls[i].get('accountHolderName')?.errors?.['required'] && submitted != null && !submitted"
                                 class="invalid-formdata">

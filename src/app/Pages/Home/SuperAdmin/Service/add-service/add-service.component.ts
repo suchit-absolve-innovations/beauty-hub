@@ -267,19 +267,18 @@ export class AddServiceComponent implements OnInit {
       }
     }
   }
-  fileChangeEvents() {
-    debugger
+  fileChangeEvent() {
     const formData = new FormData();
-    for (let e = 0; e < this.urls1.length; e++) {
-      const imageDataUrl1 = this.urls1[e];
-      const blob = this.dataURItoBlob1(imageDataUrl1);
-      formData.append('salonServiceIconImage', blob, `image_${e}.png`);
+    for (let i = 0; i < this.urls.length; i++) {
+      const imageDataUrl = this.urls[i];
+      const blob = this.dataURItoBlob(imageDataUrl);
+      formData.append('salonServiceImage', blob, `image_${i}.png`);
     }
-    // formData.append("SalonImage", this.imageFiles?.file);
     formData.append('serviceId', this.serviceId);
-    this.contentService.uploadServiceIconImage(formData).subscribe(response => {
+    this.contentService.uploadServiceImage(formData).subscribe(response => {
     });
   }
+
   private dataURItoBlob1(dataURI: string): Blob {
 
     const byteString = atob(dataURI.split(',')[1]);
@@ -322,15 +321,17 @@ export class AddServiceComponent implements OnInit {
       };
     }
   }
-  fileChangeEvent() {
+  fileChangeEvents() {
+    debugger
     const formData = new FormData();
-    for (let i = 0; i < this.urls.length; i++) {
-      const imageDataUrl = this.urls[i];
-      const blob = this.dataURItoBlob(imageDataUrl);
-      formData.append('salonServiceImage', blob, `image_${i}.png`);
+    for (let e = 0; e < this.urls1.length; e++) {
+      const imageDataUrl1 = this.urls1[e];
+      const blob = this.dataURItoBlob1(imageDataUrl1);
+      formData.append('salonServiceIconImage', blob, `image_${e}.png`);
     }
+    // formData.append("SalonImage", this.imageFiles?.file);
     formData.append('serviceId', this.serviceId);
-    this.contentService.uploadServiceImage(formData).subscribe(response => {
+    this.contentService.uploadServiceIconImage(formData).subscribe(response => {
     });
   }
   private dataURItoBlob(dataURI: string): Blob {
