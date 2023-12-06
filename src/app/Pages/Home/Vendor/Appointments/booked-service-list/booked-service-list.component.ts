@@ -28,7 +28,7 @@ export class BookedServiceListComponent implements OnInit {
   ngOnInit(): void {
     this.rootUrl = environment.rootPathUrl;
     this.appointmentId = this.route.snapshot.paramMap.get('id');
-this. getApointmentDetail()
+    this. getApointmentDetail()
   }
   getApointmentDetail() {
     

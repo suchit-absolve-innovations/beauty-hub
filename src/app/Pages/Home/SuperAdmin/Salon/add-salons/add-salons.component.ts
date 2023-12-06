@@ -72,7 +72,8 @@ export class AddSalonsComponent implements OnInit {
   @ViewChild('search')
   public searchElementRef!: ElementRef;
   inputAddress: string | undefined;
-
+  lati: any;
+  long: any;
   // Inside your component class
   uploadedImages: { file: File; previewUrl: string }[] = [];
 
@@ -152,9 +153,17 @@ export class AddSalonsComponent implements OnInit {
         //this.loader = false;
       });
     }
+
+    getlocation() {
+      // Assuming this.lati and this.long are strings, convert them to numbers
+      this.addressLat = parseFloat(this.lati);
+      this.addressLong = parseFloat(this.long);
+      this.zoom = 14;
+      this.getAddress(this.addressLat, this.addressLong);
+    }
   
   
-    private setCurrentLocation() {
+     setCurrentLocation() {
       if ('geolocation' in navigator) {
         navigator.geolocation.getCurrentPosition((position) => {
           this.addressLat = position.coords.latitude;
@@ -462,13 +471,15 @@ add() {
             salonName: this.form.value.salonDetail[0]?.salonName,
             salonDescription: this.form.value.salonDetail[0]?.salonDescription,
             salonType:this.form.value.salonDetail[0]?.salonType,
-            salonAddress: this.inputAddress,
+            salonAddress: this.addressStreet,
             landmark: this.form.value.salonDetail[0]?.landmark,
             city: this.form.value.salonDetail[0]?.city,
             zip: this.form.value.salonDetail[0]?.zip,
             gstnumber: this.form.value.salonDetail[0]?.gstnumber,
             businessPAN: this.form.value.salonDetail[0]?.businessPAN,
             salonId: this.shopDetailPatch[0]?.salonId,
+            addressLatitude: this.addressLat.toString(),
+            addressLongitude: this.addressLong.toString(),
           }],
   
           bankDetail: [{
@@ -526,7 +537,7 @@ add() {
             salonName: this.form.value.salonDetail[0]?.salonName,
             salonDescription: this.form.value.salonDetail[0]?.salonDescription,
             salonType:this.form.value.salonDetail[0]?.salonType,
-            salonAddress: this.inputAddress,
+            salonAddress: this.addressStreet,
             landmark: this.form.value.salonDetail[0]?.landmark,
             city: this.form.value.salonDetail[0]?.city,
             zip: this.form.value.salonDetail[0]?.zip,
@@ -775,12 +786,15 @@ add() {
       this.contentService.getVendorDetail(id).subscribe(response => {
         if (response.isSuccess) {
           this.spinner.hide();
-          this.clearFormArray(this.List1());
+       //   this.clearFormArray(this.List1());
           this.vendorDetailPatch = response.data
           this.imageId = response.data.vendorId
           this.shopDetailPatch = this.vendorDetailPatch.salonResponses
           this.bankDetailPatch = this.vendorDetailPatch.bankResponses
+          this.lati = this.shopDetailPatch[0].addressLatitude
+          this.long = this.shopDetailPatch[0].addressLongitude
           this.upiDetailPatch = this.vendorDetailPatch.upiResponses
+          this.addressStreet = this.shopDetailPatch[0].salonAddress
           //  this.upidetailIds =this.vendorDetailPatch.upiResponses.upidetailId
           this.editImages = this.rootUrl + this.vendorDetailPatch?.profilePic;
           this.imageUrl = this.rootUrl + this.shopDetailPatch[0]?.salonImage
@@ -827,7 +841,7 @@ add() {
           salonName: this.shopDetailPatch[0]?.salonName,
           salonType: this.shopDetailPatch[0]?.salonType,
           salonDescription: this.shopDetailPatch[0]?.salonDescription,
-          shopAddress: this.shopDetailPatch[0]?.shopAddress,
+          salonAddress: this.shopDetailPatch[0]?.salonAddress,
           landmark: this.shopDetailPatch[0]?.landmark,
           city: this.shopDetailPatch[0]?.city,
           zip: this.shopDetailPatch[0]?.zip,

@@ -209,22 +209,26 @@
                         </div>
   
                         <div class="col-lg-12 col-md-12">
-                          <h5 class="mb-3">Salon Address</h5>
-                          <input type="text" class="form-control" (keydown.enter)="$event.preventDefault()"
-                            placeholder="Search Nearest Location" autocorrect="on" autocapitalize="off" spellcheck="off"
-                            type="text"  [(ngModel)]="addressStreet" [ngModelOptions]="{standalone: true}" #search>
-          
-                    
-                        <br>
-                        <agm-map (mapReady)="mapReady($event)" style="height:240px" [zoom]="zoom" [latitude]="addressLat"
-                          [longitude]="addressLong">
-                          <agm-marker [latitude]="addressLat" [longitude]="addressLong" [markerDraggable]="true"></agm-marker>
-          
-                        </agm-map>
-                        <!-- <agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom">
-                            <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
-                          </agm-map> -->
-                    </div>
+                            <label class="mb-3">Salon Address</label>
+                            <a type="button" class="map" (click)="setCurrentLocation()" style="color: blue;">Get Current Location</a>
+                            <input type="text" class="form-control" (keydown.enter)="$event.preventDefault()"
+                                placeholder="Search Nearest Location" autocorrect="on" autocapitalize="off"
+                                spellcheck="off" type="text" [(ngModel)]="addressStreet"
+                                [ngModelOptions]="{standalone: true}" #search>
+                            <!-- <label
+                                *ngIf="shopDetail.controls[i].get('addressStreet')?.errors?.['required'] && submitted != null && !submitted"
+                                class="invalid-formdata">
+                                Shop Address is required.
+                            </label> -->
+
+                            <br>
+                            <agm-map (mapReady)="mapReady($event)" style="height:240px" [zoom]="zoom"
+                                [latitude]="addressLat" [longitude]="addressLong">
+                                <agm-marker [latitude]="addressLat" [longitude]="addressLong"
+                                    [markerDraggable]="true"></agm-marker>
+
+                            </agm-map>
+                        </div>
   
                         <div class="col-lg-6 col-md-12">
                             <label>Landmark</label>
