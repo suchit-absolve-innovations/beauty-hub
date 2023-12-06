@@ -396,7 +396,8 @@ private dataURItoBlob1(dataURI: string): Blob {
 }
 onFileSelected(event: any) {
   const file = event.target.files[0];
-
+  const fileType = event.target.files[0].type;
+  if ((fileType === 'image/jpeg' || fileType === 'image/png') && fileType !== 'image/jfif') {
   if (file) {
     const imageSize = file.size / 1024; // in KB
     const image = new Image();
@@ -413,13 +414,17 @@ onFileSelected(event: any) {
         // this.submitted = false;
         this.previewImage = '';
       }
-      
+    }
     };
 
-  }
+  } else {
+    this.errorMessage = 'Please select a valid JPEG or PNG image.';
+      }
 }
 onImageSelect(event: any) {
   const file = event.target.files[0];
+  const fileType = event.target.files[0].type;
+    if ((fileType === 'image/jpeg' || fileType === 'image/png') && fileType !== 'image/jfif') {
 
   if (file) {
     const imageSize = file.size / 1024; // in KB
@@ -439,6 +444,10 @@ onImageSelect(event: any) {
       }
     };
   }
+}
+else {
+  this.errorMessage = 'Please select a valid JPEG or PNG image.';
+    }
 }
 
 

@@ -162,6 +162,8 @@ export class AddEditSubCategoryComponent implements OnInit {
   /*** Image Upload ***/
   imagesUpload(event: any) {
     debugger
+    const fileType = event.target.files[0].type;
+    if ((fileType === 'image/jpeg' || fileType === 'image/png') && fileType !== 'image/jfif') {
     if (event.target.files && event.target.files[0]) {
       const file = event.target.files[0];
       const imageSize = file.size / 1024; // in KB
@@ -193,6 +195,10 @@ export class AddEditSubCategoryComponent implements OnInit {
       };
       reader.readAsDataURL(file);
     }
+  }
+  else {
+    this.errorMessage = 'Please select a valid JPEG or PNG image.';
+      }
   }
 
   fileChangeEvent() {

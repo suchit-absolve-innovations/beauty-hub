@@ -32,6 +32,7 @@ export class VendorProfileComponent implements OnInit {
   bankDetailPatch: any;
   rootUrl: any;
   imageId: any;
+  errorMessage:any;
 
   // Banner Image
   fileToUpload: any;
@@ -601,7 +602,8 @@ debugger
     }
   // Shop Image 
   handleFileInput(event: any) {
-    
+    const fileType = event.target.files[0].type;
+    if ((fileType === 'image/jpeg' || fileType === 'image/png') && fileType !== 'image/jfif') {
     const files = event.target.files;
     for (let e = 0; e < files.length; e++) {
       const file = files[e];
@@ -614,6 +616,10 @@ debugger
         this.urls1.push(imageDataUrl1);
       };
     }
+  }
+  else {
+    this.errorMessage = 'Please select a valid JPEG or PNG image.';
+      }
   }
 
 
@@ -648,6 +654,8 @@ debugger
     /*** Image Upload ***/
     // image upload 
     imagesUpload(event: any) {
+      const fileType = event.target.files[0].type;
+    if ((fileType === 'image/jpeg' || fileType === 'image/png') && fileType !== 'image/jfif') {
       if (event.target.files && event.target.files[0]) {
         const reader = new FileReader();
         reader.onload = (_event: any) => {
@@ -656,11 +664,15 @@ debugger
             file: event.srcElement.files[0],
             name: event.srcElement.files[0].name,
             type: event.srcElement.files[0].type
-          };
+          }
+        
         };
         // this.name = this.imageFile.link
         reader.readAsDataURL(event.target.files[0]);
       }
+    } else {
+      this.errorMessage = 'Please select a valid JPEG or PNG image.';
+        }
     }
   
     fileChangeEvent() {

@@ -248,6 +248,8 @@ export class AddServiceComponent implements OnInit {
   onselect(event: any) {
     debugger
     const files = event.target.files;
+    const fileType = event.target.files[0].type;
+    if ((fileType === 'image/jpeg' || fileType === 'image/png') && fileType !== 'image/jfif') {
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
       const reader = new FileReader();
@@ -266,6 +268,9 @@ export class AddServiceComponent implements OnInit {
         };
       }
     }
+    } else {
+      this.errorMessage = 'Please select a valid JPEG or PNG image.';
+        }
   }
   fileChangeEvent() {
     const formData = new FormData();
@@ -295,6 +300,8 @@ export class AddServiceComponent implements OnInit {
   //////service icon image//
   handleImageInput(event: any) {
     const files = event.target.files;
+    const fileType = event.target.files[0].type;
+    if ((fileType === 'image/jpeg' || fileType === 'image/png') && fileType !== 'image/jfif') {
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
       const imageSize = file.size / 1024; // in KB
@@ -320,6 +327,9 @@ export class AddServiceComponent implements OnInit {
         };
       };
     }
+  } else {
+    this.errorMessage = 'Please select a valid JPEG or PNG image.';
+      }
   }
   fileChangeEvents() {
     debugger

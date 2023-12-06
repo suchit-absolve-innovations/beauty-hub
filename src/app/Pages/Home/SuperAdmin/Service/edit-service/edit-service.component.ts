@@ -252,7 +252,8 @@ export class EditServiceComponent implements OnInit {
   }
 
   onselect(event: any) {
-    debugger
+    const fileType = event.target.files[0].type;
+    if ((fileType === 'image/jpeg' || fileType === 'image/png') && fileType !== 'image/jfif') {
     const files = event.target.files;
     this.errorMessages = ''; // Clear previous error messages
 
@@ -274,6 +275,9 @@ export class EditServiceComponent implements OnInit {
         };
       }
     }
+  } else {
+    this.errorMessage = 'Please select a valid JPEG or PNG image.';
+      }
   }
   onBannerImageSelect(event: any) {
     debugger
@@ -323,7 +327,8 @@ export class EditServiceComponent implements OnInit {
   }
   onImageSelect(event: any) {
     const file = event.target.files[0];
-
+    const fileType = event.target.files[0].type;
+    if ((fileType === 'image/jpeg' || fileType === 'image/png') && fileType !== 'image/jfif') {
     if (file) {
       const imageSize = file.size / 1024; // in KB
       const image = new Image();
@@ -342,6 +347,9 @@ export class EditServiceComponent implements OnInit {
         }
       };
     }
+  } else {
+    this.errorMessage = 'Please select a valid JPEG or PNG image.';
+      }
   }
 
   handleFileInput(event: any) {

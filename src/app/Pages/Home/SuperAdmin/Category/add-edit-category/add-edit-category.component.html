@@ -20,15 +20,10 @@
                             
                             <div class="imges-upload mb-0">
                                 <div class="imgUp m-auto">
-                 
-                                  
-
                                     <!-- <div class="imagePreview"><img src="{{editImages}}"></div> -->
 
                                     <div *ngIf="isValid" class="imagePreview" [style.background-image]="'url(' + previewImage + ')'"></div>
                                     <div *ngIf="!isValid && errorMessage" class="error"></div>
-                                    
-
                                     <!-- {{imageFile}}/ -->
                                     <label class="upload button btn btn-primary">
                                         <!-- <input value="rootUrl + homeServicesData.imagePath" name="bannerHidden" type="hidden"> -->
@@ -39,8 +34,6 @@
                                     <div *ngIf="errorMessage" class="help-block" style="color: #fd0000">{{ errorMessage }}</div>
                                     <div>
                                     </div>
-                              
-
                                 </div>
                                 <br>
                                 <br>

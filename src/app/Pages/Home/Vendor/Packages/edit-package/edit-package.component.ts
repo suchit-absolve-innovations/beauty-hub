@@ -423,7 +423,8 @@ onselect(event: any) {
 }
 onBannerImageSelect(event: any) {
   const file = event.target.files[0];
-
+  const fileType = event.target.files[0].type;
+  if ((fileType === 'image/jpeg' || fileType === 'image/png') && fileType !== 'image/jfif') {
   if (file) {
     const imageSize = file.size / 1024; // in KB
     const image = new Image();
@@ -442,6 +443,9 @@ onBannerImageSelect(event: any) {
       }
     };
   }
+} else {
+  this.errorMessage = 'Please select a valid JPEG or PNG image.';
+    }
 }
 
 convertImageToBase64(url: string): Promise<string> {
@@ -492,6 +496,8 @@ onImageSelect(event: any) {
 
 handleFileInput(event: any) {
   const files = event.target.files;
+  const fileType = event.target.files[0].type;
+    if ((fileType === 'image/jpeg' || fileType === 'image/png') && fileType !== 'image/jfif') {
   for (let e = 0; e < files.length; e++) {
     const file = files[e];
     const reader = new FileReader();
@@ -519,6 +525,9 @@ handleFileInput(event: any) {
       };
     }
   }
+} else {
+  this.errorMessage = 'Please select a valid JPEG or PNG image.';
+    }
 }
 
 fileChangeEvents() {

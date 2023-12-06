@@ -134,20 +134,14 @@ export class AddEditAdminComponent implements OnInit {
   }
 
   fileChangeEvent() {
-    
     let formData = new FormData();
     formData.append("ProfilePic", this.imageFile?.file);
     formData.append("Id", this.id);
     this.contentService.uploadImage(formData).subscribe(response => {
-
     });
   }
-
-
   /*** Post Admin User  ***/
-
   postAdmin() {
-    
     this.submitted = true;
     if (this.form.invalid) {
       this.toasterService.error("Form Incomplete: Please fill in all the required fields correctly");
