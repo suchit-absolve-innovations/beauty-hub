@@ -178,6 +178,7 @@ export class AddSalonsComponent implements OnInit {
   
   
     getAddress(addressLat: number, addressLong: number) {
+      debugger
       this.geoCoder.geocode({ 'location': { lat: addressLat, lng: addressLong } }, (results, status) => {
   
         if (status === 'OK') {
@@ -802,7 +803,7 @@ add() {
           this.patchShopDetail();
           this.patchBankDetail();
           // this.patchUpiDetail();
-          
+          this.getlocation();
           this.form.patchValue({
             firstName: this.vendorDetailPatch.firstName,
             lastName: this.vendorDetailPatch.lastName,

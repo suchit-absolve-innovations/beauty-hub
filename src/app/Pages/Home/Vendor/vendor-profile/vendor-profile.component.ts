@@ -83,6 +83,7 @@ export class VendorProfileComponent implements OnInit {
   ngOnInit(): void {
         this.getVendorDetails();
         //map
+        debugger
         this.mapsAPILoader.load().then(() => {
               // this.setCurrentLocation();
     
@@ -302,19 +303,30 @@ export class VendorProfileComponent implements OnInit {
     /** Disable Input cut Copy Paste  **/
 
     DisableCut(event: any) {
+      debugger
       event.preventDefault();
     }
     DisableCopy(event: any) {
+      debugger
       event.preventDefault();
     }
     DisablePaste(event: any) {
+      debugger
       event.preventDefault();
     }
 
-
+ 
+    onMarkerDragEnd(event: any) {
+      debugger
+      this.addressLat = event.coords.lat;
+      this.addressLong = event.coords.lng;
+  
+      // Now you have the updated latitude and longitude in this.addressLat and this.addressLong
+      // You can use these values as needed.
+  }
   // for map
   mapReady(map: any) {
-
+debugger
     map.setOptions({
       zoomControl: "true",
       zoomControlOptions: {
@@ -331,6 +343,7 @@ export class VendorProfileComponent implements OnInit {
   }
 
   getlocation() {
+    debugger
     // Assuming this.lati and this.long are strings, convert them to numbers
     this.addressLat = parseFloat(this.lati);
     this.addressLong = parseFloat(this.long);
@@ -340,7 +353,7 @@ export class VendorProfileComponent implements OnInit {
   }
 
   setCurrentLocation() {
-
+    debugger
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
         this.addressLat = position.coords.latitude;
@@ -352,7 +365,7 @@ export class VendorProfileComponent implements OnInit {
   }
 
   getAddress(addressLat: any, addressLong: any) {
-
+    debugger
     if (this.geoCoder) {
       // Initialize this.geoCoder here if it's not already initialized
       this.geoCoder = new google.maps.Geocoder();
@@ -389,7 +402,7 @@ export class VendorProfileComponent implements OnInit {
         this.vendorDetailPatch = response.data
         this.imageId = response.data.vendorId
         this.shopDetailPatch = this.vendorDetailPatch.salonResponses
-        this.addressStreet = this.shopDetailPatch[0].salonAddress
+        this.addressStreet = this.shopDetailPatch[0]?.salonAddress
         this.bankDetailPatch = this.vendorDetailPatch.bankResponses
         this.upiDetailPatch = this.vendorDetailPatch.upiResponses
         this.editImages = this.rootUrl + this.vendorDetailPatch?.profilePic;

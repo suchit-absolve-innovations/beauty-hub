@@ -226,13 +226,13 @@
                                 (click)="setCurrentLocation()">Get Current Location</a>
                                 <input type="text" class="form-control" (keydown.enter)="$event.preventDefault()"
                                 placeholder="Search Nearest Location" autocorrect="on" autocapitalize="off"
-                                spellcheck="off" type="text" [(ngModel)]="addressStreet"
-                                [ngModelOptions]="{standalone: true}" #search>
+                                spellcheck="on" type="text" [(ngModel)]="addressStreet"
+                                [ngModelOptions]="{standalone: true}"  #search>
                             <br>
                             <agm-map (mapReady)="mapReady($event)" style="height:240px" [zoom]="zoom"
                                 [latitude]="addressLat" [longitude]="addressLong">
                                 <agm-marker [latitude]="addressLat" [longitude]="addressLong"
-                                    [markerDraggable]="true"></agm-marker>
+                                (markerDragEnd)="onMarkerDragEnd($event)"   [markerDraggable]="true"></agm-marker>
 
                             </agm-map>
                         
