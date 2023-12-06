@@ -245,7 +245,7 @@
 
                         <div class=" col-md-12 mt-20">
                             <label>Description</label>
-                            <textarea type="text" class="control-form" formControlName="serviceDescription" noSpacesAtStart>
+                            <textarea type="text" class="control-form" formControlName="serviceDescription" noSpacesAtStart appCapitalizeFirstLetter>
                   </textarea>
 
                             <div *ngIf="submitted && f['serviceDescription'].errors" class="help-block">

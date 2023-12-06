@@ -58,6 +58,7 @@ import { AlphabeticOnlyDirective } from 'src/app/alphabetic-only.directive';
 import { NoSpacesAtStartDirective } from 'src/app/NoSpacesAtStartDirective ';
 import { EditCategoryComponent } from './SuperAdmin/Category/edit-category/edit-category.component';
 import { EditSubCategoryComponent } from './SuperAdmin/Category/sub-category-list/edit-sub-category/edit-sub-category.component';
+import { CapitalizeFirstLetterDirective } from 'src/app/CapitalizeFirstLetterDirective ';
 
 
 
@@ -115,7 +116,8 @@ import { EditSubCategoryComponent } from './SuperAdmin/Category/sub-category-lis
    AlphabeticOnlyDirective,
    NoSpacesAtStartDirective,
    EditCategoryComponent,
-   EditSubCategoryComponent
+   EditSubCategoryComponent,
+   CapitalizeFirstLetterDirective 
 
 
 

@@ -173,7 +173,7 @@
 
                         <div class="col-lg-6 col-md-12">
                             <label>Salon name</label>
-                            <input type="text" class="control-form" formControlName="salonName" value="salon Name"  noSpacesAtStart>
+                            <input type="text" class="control-form" formControlName="salonName" value="salon Name"  noSpacesAtStart appCapitalizeFirstLetter>
                             <label
                                 *ngIf="salonDetail.controls[i].get('salonName')?.errors?.['required'] && submitted != null && !submitted"
                                 class="invalid-formdata">
@@ -200,7 +200,7 @@
   
                         <div class="col-lg-12 col-md-12">
                             <label>Salon Description</label>
-                            <textarea type="text" class="control-form" formControlName="salonDescription" noSpacesAtStart></textarea>
+                            <textarea type="text" class="control-form" formControlName="salonDescription" noSpacesAtStart appCapitalizeFirstLetter></textarea>
                             <label
                                 *ngIf="salonDetail.controls[i].get('salonDescription')?.errors?.['required'] && submitted != null && !submitted"
                                 class="invalid-formdata">

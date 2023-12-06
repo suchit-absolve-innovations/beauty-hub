@@ -55,19 +55,20 @@ export class VendorProfileComponent implements OnInit {
   upidetailIds: any;
   upidetail: any;
    // // Google Map
- addressLat!: number;
- addressLong!: number;
- zoom!: number;
+   addressLat!: number;
+   addressLong!: number;
+   zoom!: number;
  addressCountry!: string;
- addressStreet!: string;
+ addressStreet!: any;
  private geoCoder!: google.maps.Geocoder;
  @ViewChild('search')
  public searchElementRef!: ElementRef;
  inputAddress: string | undefined;
+ lati: any;
+ long: any;
   QrimageUrl: any;
   uploadedImages: { file: File; previewUrl: string }[] = [];
-  lati: any;
-  long: any;
+
 
   constructor(private router: Router,
     private formBuilder: FormBuilder,
@@ -80,31 +81,31 @@ export class VendorProfileComponent implements OnInit {
     private mapsAPILoader: MapsAPILoader,) { }
 
   ngOnInit(): void {
-    this.getVendorDetails();
-   // maps
-   this.mapsAPILoader.load().then(() => {
-    this.setCurrentLocation();
-    this.geoCoder = new google.maps.Geocoder;
-    let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
-    autocomplete.addListener("place_changed", () => {
-      this.ngZone.run(() => {
-        let place: google.maps.places.PlaceResult = autocomplete.getPlace();
-        this.inputAddress = place.formatted_address
-
-
-        if (place.geometry === undefined || place.geometry === null) {
-          return;
-        }
-        this.addressLat = place.geometry.location.lat();
-        this.addressLong = place.geometry.location.lng();
-      
-        this.zoom = 12;
-      });
-
-
-    });
+        this.getVendorDetails();
+        //map
+        this.mapsAPILoader.load().then(() => {
+              // this.setCurrentLocation();
     
-  });
+          this.geoCoder = new google.maps.Geocoder;
+    
+          let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
+    
+          autocomplete.addListener("place_changed", () => {
+            this.ngZone.run(() => {
+              let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+              this.inputAddress = place.formatted_address
+    
+              if (place.geometry === undefined || place.geometry === null) {
+                return;
+              }
+    
+              this.addressLat = place.geometry.location.lat();
+              this.addressLong = place.geometry.location.lng();
+    
+              this.zoom = 12;
+            });
+          });
+        });
     this.vendorForm();
     this.getCountry();
     this.rootUrl = environment.rootPathUrl;
@@ -159,7 +160,7 @@ export class VendorProfileComponent implements OnInit {
       city: ['', [Validators.required]],
       zip: ['', [Validators.required]],
       landmark: ['', [Validators.required]],
-      salonAddress: [null,]
+      salonAddress: ['', [Validators.required]]
     });
   }
 
@@ -339,7 +340,7 @@ export class VendorProfileComponent implements OnInit {
   }
 
   setCurrentLocation() {
-debugger
+
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
         this.addressLat = position.coords.latitude;
@@ -376,7 +377,6 @@ debugger
       }
     });
   }
-
       // patch vendor
 
   // Vendor detail 
@@ -400,6 +400,7 @@ debugger
         this.getCountry();
         this.patchShopDetail();
         this.patchBankDetail();
+        console.log(this.addressStreet)
         this.form.patchValue({
           firstName: this.vendorDetailPatch.firstName,
           lastName: this.vendorDetailPatch.lastName,
