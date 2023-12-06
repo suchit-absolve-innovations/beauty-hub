@@ -54,8 +54,8 @@ export class AddEditScheduleComponent implements OnInit {
       friday: [true, [Validators.required]],
       saturday: [true, [Validators.required]],
       sunday: [true, [Validators.required]],
-      fromTime: ['', [Validators.required]],
-      toTime: ['', [Validators.required]],
+      fromTime: ['00:00', [Validators.required]],
+      toTime: ['00:00', [Validators.required]],
 
     });
 

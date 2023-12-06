@@ -3,6 +3,7 @@
         <div class="admin_a">
             <div class="media mb-5">
                 <img class="align-self-center mr-3 welcome-image" [src]="rootUrl + salonImage" alt="user">
+                <img *ngIf="salonImage == null" class="align-self-center mr-3 welcome-image" src="assets\images\858.jpg" alt="user">
                 <div class="media-body align-self-center">
                     <p class="heading" *ngIf="'Vendor' == role">Welcome, <span>{{salonName}}</span></p>
                 </div>
@@ -14,29 +15,34 @@
                             <div class="row">
                                 <div class="col-lg-12"><label>Date</label></div>
                                 <div class="col-lg-3" style="position: relative; top:-8px;"><input type="text"
-                                        formControlName="fromDate" placeholder="From Date" class="form-control" style="background-color: #fff;"
-                                        (click)="performSearch()" bsDatepicker
-                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" (bsValueChange)="setToDateMinDate($event)" [readonly]="true"></div>
+                                        formControlName="fromDate" placeholder="From Date" class="form-control"
+                                        style="background-color: #fff;" (click)="performSearch()" bsDatepicker
+                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                        (bsValueChange)="setToDateMinDate($event)" [readonly]="true"></div>
                                 <div class="col-lg-3" style="position: relative; top:-8px;"> <input type="text"
-                                        formControlName="toDate" placeholder="To Date" class="form-control" style="background-color: #fff;" bsDatepicker
-                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [minDate]="minToDate" [readonly]="true"></div>
+                                        formControlName="toDate" placeholder="To Date" class="form-control"
+                                        style="background-color: #fff;" bsDatepicker
+                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [minDate]="minToDate"
+                                        [readonly]="true"></div>
 
-                                <div class="col-lg-3">
-                                    <div class="col-lg-6" style=" top:-33px; left:-16px "><label>Filter
-                                            By</label>
-                                        <select type="text" formControlName="sortDateBy" (click)="performSearch()"
-                                            class="control-form  btn_filter">
-                                            <option value="">Select </option>
-                                            <option value="1">Booking Date</option>
-                                            <option value="2">Appointment Date</option>
 
-                                        </select>
-                                    </div>
-                                </div>
                                 <div class="col-lg-3" style="position: relative; top:-8px;"><button type="submit"
                                         class="go_now" style="color: white;">
                                         <i class="fa fa-search" (click)="filterAllList()"></i>
                                     </button></div>
+
+                                    <div class="col-lg-3">
+                                        <div class="col-lg-6" style=" top:-33px; left:-16px "><label>Sort
+                                                By</label>
+                                            <select type="text" formControlName="sortDateBy" (click)="performSearch()" (change)="filterAllList()"
+                                                class="control-form  btn_filter">
+                                                <!-- <option value="">Select </option> -->
+                                                <option value="1">Booking Date</option>
+                                                <option value="2">Appointment Date</option>
+    
+                                            </select>
+                                        </div>
+                                    </div>
                             </div>
                         </div>
 
@@ -64,8 +70,8 @@
                         </div>
                         <div class="cate-align">
                             <label>Appointment Status</label>
-                            <select type="text" formControlName="appointmentStatus" (change)="filterAllList()"(click)="performSearch()"
-                                class="control-form mr-20 btn_border">
+                            <select type="text" formControlName="appointmentStatus" (change)="filterAllList()"
+                                (click)="performSearch()" class="control-form mr-20 btn_border">
                                 <option value="" selected>Select </option>
                                 <option value="Scheduled">Scheduled </option>
                                 <option value="Cancelled">Cancelled </option>
@@ -74,8 +80,8 @@
                         </div>
                         <div class="cate-align">
                             <label>Payment Status</label>
-                            <select type="text" formControlName="paymentStatus" (change)="filterAllList()"(click)="performSearch()"
-                                class="control-form btn_border ">
+                            <select type="text" formControlName="paymentStatus" (change)="filterAllList()"
+                                (click)="performSearch()" class="control-form btn_border ">
                                 <option value="" selected>Select </option>
                                 <option value="Paid">Paid </option>
                                 <option value="Unpaid">Unpaid </option>

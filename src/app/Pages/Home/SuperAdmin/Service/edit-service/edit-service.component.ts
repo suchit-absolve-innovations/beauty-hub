@@ -220,7 +220,7 @@ export class EditServiceComponent implements OnInit {
       this.fileChangeEvents();
       if (response.isSuccess) {
         this.toaster.success(response.messages);
-        this._location.back();
+      this.both()
       } else {
         this.toaster.error(response.messages);
       }
@@ -237,7 +237,7 @@ export class EditServiceComponent implements OnInit {
   }
 
   fileChangeEvent() {
-    debugger
+
     const formData = new FormData();
     for (let i = 0; i < this.base64Image.length; i++) {
       const imageDataUrl = this.base64Image[i];
@@ -384,7 +384,7 @@ export class EditServiceComponent implements OnInit {
   }
 
   fileChangeEvents() {
-
+debugger
     let formData = new FormData();
     formData.append("salonServiceIconImage", this.imageFiles?.file);
     formData.append("serviceId", this.serviceId.id2);
@@ -410,6 +410,19 @@ export class EditServiceComponent implements OnInit {
   }
 
   cancel() {
+    if (this.role == 'SuperAdmin') {
+      this.router.navigateByUrl('/salon-list')
+        .then(() => {
+          window.location.reload();
+        });
+    } else if (this.role == 'Vendor') {
+      this.router.navigateByUrl('/vendor-service-list')
+        .then(() => {
+          window.location.reload();
+        });
+    }
+  }
+  both() {
     if (this.role == 'SuperAdmin') {
       this.router.navigateByUrl('/salon-list')
         .then(() => {

@@ -54,6 +54,7 @@ export class AppointmentListComponent implements OnInit {
     this.salonName  = localStorage.getItem('salonName');
     this.role       = localStorage.getItem('role');
     this.getAppointmentsList();
+    this.getAppointmentsLists();
     this.route.queryParams.subscribe(params => {
       this.page = +params['page'] || 0; // Use the 'page' query parameter value, or default to 1
     });
@@ -109,8 +110,25 @@ export class AppointmentListComponent implements OnInit {
     this.content.getAppointmentList(payload).subscribe(response => {
       if (response.isSuccess) {
         this.appointmentsList = response.data;
-        this.startRefreshInterval();
+        
         this.spinner.hide();
+        // this.startRefreshInterval();
+      }
+    });
+  }
+  getAppointmentsLists() {
+    let payload = {
+      pageNumber: 1,
+      pageSize  : 1000,
+      salonId   : localStorage.getItem('salonId'),
+    }
+    // this.spinner.show();
+    this.content.getAppointmentList(payload).subscribe(response => {
+      if (response.isSuccess) {
+        this.appointmentsList = response.data;
+        this.startRefreshInterval();
+        // this.spinner.hide();
+        
       }
     });
   }
@@ -235,7 +253,7 @@ export class AppointmentListComponent implements OnInit {
     this.content.appointmentPaymentStatusList(payload).subscribe(response => {
       if (response.isSuccess) {
         this.appointmentsList = response.data
-        this.startRefreshInterval();
+        // this.startRefreshInterval();
         this.spinner.hide();
         //   this.toaster.success(response.messages)
       } else {
@@ -257,7 +275,7 @@ export class AppointmentListComponent implements OnInit {
 
     // Use interval to call getOrderList every 10 seconds
     this.refreshSubscription = interval(refreshInterval).subscribe(() => {
-      this.getAppointmentsList();
+      this.getAppointmentsLists();
     });
   }
 }

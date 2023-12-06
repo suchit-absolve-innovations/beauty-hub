@@ -30,9 +30,7 @@
                         [ngClass]="{ 'is-invalid': submitted && f['emailOrPhone'].errors }">
 
                     <div *ngIf="submitted && f['emailOrPhone'].errors" class="help-block">
-                        <div *ngIf="f['emailOrPhone'].errors['required']" style="color: #fd0000;">Email or Phone
-                            is
-                            required</div>
+                        <div *ngIf="f['emailOrPhone'].errors['required']" style="color: #fd0000;">Email is required</div>
                     </div>
                         <div class="position-relative mt-20">
                                 <label>Password</label>

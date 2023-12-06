@@ -9,7 +9,7 @@
   
         <div class="d-flex if_xs_btn mt-30 mb-30">
             <div class="broad-search top-head">
-                <input type="text" placeholder="Search Here" class="btn_border search_here"  [(ngModel)]="searchText">
+                <input type="text" placeholder="Search Here" class="btn_border search_here"  [(ngModel)]="searchText" noSpacesAtStart>
                 <!-- <a data-toggle="modal" data-target="#myModalpurchase-membership" class="btn_blue ml-3 mb-0">Filter</a> -->
             </div>
             <a [routerLink]="['/vendor-notification-list/add-notification']" class="btn_blue ml-auto mb-0 add-notify"> Add
@@ -26,7 +26,7 @@
                     <th>Action</th>
                 </tr>
   
-                <tr *ngFor="let item of notificationList | filter:searchText" >
+                <tr *ngFor="let item of notificationList | filter:searchText ">
                     <td>{{item.title}}</td>
                     <td class="checkbox-td notify-padding">{{item.description}}
                     </td>
