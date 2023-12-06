@@ -85,7 +85,7 @@ export class VendorProfileComponent implements OnInit {
         //map
         debugger
         this.mapsAPILoader.load().then(() => {
-              // this.setCurrentLocation();
+               this.setCurrentLocation();
     
           this.geoCoder = new google.maps.Geocoder;
     
@@ -364,25 +364,20 @@ debugger
     }
   }
 
-  getAddress(addressLat: any, addressLong: any) {
+  getAddress(addressLat: number, addressLong: number) {
     debugger
-    if (this.geoCoder) {
-      // Initialize this.geoCoder here if it's not already initialized
-      this.geoCoder = new google.maps.Geocoder();
-    }
+    this.geoCoder.geocode({ 'location': { lat: addressLat, lng: addressLong } }, (results, status) => {
 
-    this.geoCoder?.geocode({ location: { lat: addressLat, lng: addressLong } }, (results, status) => {
       if (status === 'OK') {
         if (results[0]) {
+
           this.zoom = 12;
 
-          this.addressStreet = results[0].formatted_address;
-          // If you want to access the country, you can do it like this:
-          // this.addressCountry = results[0].address_components.find(component =>
-          //   component.types.includes('country')
-          // )?.long_name;
+          this.addressStreet = results[0]?.formatted_address;
+          this.addressCountry = results[13]?.formatted_address;
 
         } else {
+
           window.alert('No results found');
         }
       } else {
@@ -413,6 +408,7 @@ debugger
         this.getCountry();
         this.patchShopDetail();
         this.patchBankDetail();
+        this.getlocation();
         console.log(this.addressStreet)
         this.form.patchValue({
           firstName: this.vendorDetailPatch.firstName,
