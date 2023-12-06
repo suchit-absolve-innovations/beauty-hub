@@ -62,7 +62,8 @@ export class AddEditCategoryComponent implements OnInit {
     this.form = this.formBuilder.group({
       categoryName: ['', [Validators.required]],
       categoryDescription: [''],
-      categoryType: ['', [Validators.required]]
+      categoryType: ['', [Validators.required]],
+      bannerimage : ['',[Validators.required]]
     });
   }
 
