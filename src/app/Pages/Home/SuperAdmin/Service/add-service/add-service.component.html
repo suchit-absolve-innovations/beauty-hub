@@ -17,33 +17,36 @@
                             <div class="upload_file text-center">
                                 <div class="imges-upload mb-0">
                                     <div class="imgUp m-auto">
-                                        <img *ngIf="previewImage"  class="imagePreview" style="background-image: url(&quot;undefined&quot;);"/>
-                                     
-                                    <!-- <div class="imgUp m-auto">
+                                        <img *ngIf="previewImage" class="imagePreview"
+                                            style="background-image: url(&quot;undefined&quot;);" />
+
+                                        <!-- <div class="imgUp m-auto">
                                         <div class="imagePreview" style="background-image: url(&quot;undefined&quot;);" *ngIf="previewImage" >
                                         </div> -->
                                         <label class="upload button btn btn-primary">
                                             Upload<input type="file" class="uploadFile img" name="bannerimage"
                                                 style="width: 0px;height: 0px;overflow: file; border-style: none;"
-                                                id="bannerimage" (change)="onFileSelected($event)" (change)="onselect($event)" multiple />
-                                          </label>
-                                          <div *ngIf="errorMessages" class="error-message" style="color: #fd0000">{{ errorMessages }}</div>
-                                          
-                                        </div>
+                                                id="bannerimage" (change)="onFileSelected($event)"
+                                                (change)="onselect($event)" multiple />
+                                        </label>
+                                        <div *ngIf="errorMessages" class="error-message" style="color: #fd0000">{{
+                                            errorMessages }}</div>
+
                                     </div>
                                 </div>
                             </div>
-                                          <div class="col-lg-6 mx-auto mb-30">
-                                            <div class="multi-img-box">
-                                              <div *ngFor="let url of urls; let i = index">
-                                                <div class="multiple-images multiple-img-sec">
-                                                  <img class="img-responsive" [src]="url" />
-                                                  <button class="remove" (click)="removeImage(i)">X</button>
-                                                </div>
-                                              </div>
-                                           
-                                          
-<!-- 
+                        </div>
+                        <div class="col-lg-6 mx-auto mb-30">
+                            <div class="multi-img-box">
+                                <div *ngFor="let url of urls; let i = index">
+                                    <div class="multiple-images multiple-img-sec">
+                                        <img class="img-responsive" [src]="url" />
+                                        <button class="remove" (click)="removeImage(i)">X</button>
+                                    </div>
+                                </div>
+
+
+                                <!-- 
                                         <label class="upload button btn btn-primary">
                                             Upload<input type="file" class="uploadFile img" name="bannerimage"
                                                 style="width: 0px;height: 0px;overflow: file; border-style: none;"
@@ -80,8 +83,9 @@
                     <div class="row">
 
                         <div class="col-lg-6 col-md-12">
-                            <label>Service Name</label>
-                            <input type="text" class="control-form" formControlName="serviceName" noSpacesAtStart appCapitalizeFirstLetter   />
+                            <label>Service Name <i class="fa fa-asterisk" aria-hidden="true"></i></label>
+                            <input type="text" class="control-form" formControlName="serviceName" noSpacesAtStart
+                                appCapitalizeFirstLetter />
                             <div *ngIf="submitted && f['serviceName'].errors" class="help-block">
                                 <div *ngIf="f['serviceName'].errors" style="color: #fd0000">
                                     Service name is required.
@@ -90,8 +94,9 @@
                         </div>
 
                         <div class="col-lg-6 col-md-12">
-                            <label>Base Price </label>
-                            <input type="text" class="form-control" formControlName="basePrice" [(ngModel)]="basePrice" (input)="calculateSellingPrice()" OnlyNumbers/>
+                            <label>Base Price <i class="fa fa-asterisk" aria-hidden="true"></i></label>
+                            <input type="text" class="form-control" formControlName="basePrice" [(ngModel)]="basePrice"
+                                (input)="calculateSellingPrice()" OnlyNumbers />
                             <div *ngIf="submitted && f['basePrice'].errors" class="help-block">
                                 <div *ngIf="f['basePrice'].errors" style="color: #fd0000">
                                     Base Price is required.</div>
@@ -100,7 +105,8 @@
 
                         <div class="col-lg-6 col-md-12">
                             <label>Discount</label>
-                            <input type="tel" class="control-form" formControlName="discount" OnlyNumbers  [(ngModel)]="discount" (input)="calculateSellingPrice()" (input)="resetDiscount()"/>
+                            <input type="tel" class="control-form" formControlName="discount" OnlyNumbers
+                                [(ngModel)]="discount" (input)="calculateSellingPrice()" (input)="resetDiscount()" />
                             <div *ngIf="submitted && f['discount'].errors" class="help-block">
                                 <div *ngIf="f['discount'].errors" style="color: #fd0000">
                                     Discount is required.
@@ -109,8 +115,9 @@
                         </div>
 
                         <div class="col-lg-6 col-md-12">
-                            <label>Listing Price</label>
-                            <input type="text" class="form-control" formControlName="listingPrice" [(ngModel)]="listingPrice" OnlyNumbers  [readOnly]="true"/>
+                            <label>Listing Price <i class="fa fa-asterisk" aria-hidden="true"></i></label>
+                            <input type="text" class="form-control" formControlName="listingPrice"
+                                [(ngModel)]="listingPrice" OnlyNumbers [readOnly]="true" />
 
                             <div *ngIf="submitted && f['listingPrice'].errors" class="help-block">
                                 <div *ngIf="f['listingPrice'].errors" style="color: #fd0000">
@@ -120,7 +127,7 @@
                         </div>
 
                         <div class="col-lg-6 col-md-12">
-                            <label>Main Category</label>
+                            <label>Main Category <i class="fa fa-asterisk" aria-hidden="true"></i></label>
                             <select type="text" class="control-form mr-20 btn_border" formControlName="mainCategoryId"
                                 (change)="getSubcategoryList(f['mainCategoryId'].value)">
                                 <option value="">Select </option>
@@ -164,7 +171,7 @@
 
 
                         <div class="col-lg-6 col-md-12">
-                            <label>Age</label>
+                            <label>Age <i class="fa fa-asterisk" aria-hidden="true"></i></label>
                             <select type="text" class="control-form" formControlName="ageRestrictions">
                                 <option value="" selected>Select</option>
                                 <option>Kids</option>
@@ -179,7 +186,7 @@
                         </div>
 
                         <div class="col-lg-6 col-md-12">
-                            <label>Gender </label>
+                            <label>Gender <i class="fa fa-asterisk" aria-hidden="true"></i></label>
                             <select type="text" class="control-form" formControlName="genderPreferences">
                                 <option value="" selected>Choose Gender</option>
                                 <option>Male</option>
@@ -189,7 +196,7 @@
                                 <div *ngIf="f['genderPreferences'].errors" style="color: #fd0000">
                                     State is required.
                                 </div>
-                            </div> 
+                            </div>
                         </div>
                         <div class="col-lg-6 col-md-12 mb-20">
                             <label>Lock Time Start</label>
@@ -222,7 +229,7 @@
                         </div>
 
                         <div class="col-lg-6 col-md-12">
-                            <label>Duration In Minutes</label>
+                            <label>Duration In Minutes <i class="fa fa-asterisk" aria-hidden="true"></i></label>
                             <input type="tel" class="control-form" formControlName="durationInMinutes" OnlyNumbers />
                             <div *ngIf="submitted && f['durationInMinutes'].errors" class="help-block">
                                 <div *ngIf="f['durationInMinutes'].errors" style="color: #fd0000">
@@ -232,8 +239,9 @@
                         </div>
 
                         <div class="col-lg-6 col-md-12">
-                            <label>Total Count Per Duration</label>
-                            <input formControlName="totalCountPerDuration" type="text" class="form-control" OnlyNumbers/>
+                            <label>Total Count Per Duration <i class="fa fa-asterisk" aria-hidden="true"></i></label>
+                            <input formControlName="totalCountPerDuration" type="text" class="form-control"
+                                OnlyNumbers />
 
                             <div *ngIf="submitted && f['totalCountPerDuration'].errors" class="help-block">
                                 <div *ngIf="f['totalCountPerDuration'].errors?.['required']" style="color: #fd0000">
@@ -241,7 +249,7 @@
                                 </div>
                             </div>
                         </div>
-                    
+
 
                         <!-- <div class="col-lg-6 col-md-12">
                         <label>Lock Time Start</label>
@@ -265,9 +273,13 @@
                       </div> -->
 
                         <div class=" col-md-12">
-                            <label>Description</label>
-                            <textarea type="text" class="control-form" formControlName="serviceDescription" noSpacesAtStart appCapitalizeFirstLetter>
-                  </textarea>
+                            <label>Description <i class="fa fa-asterisk" aria-hidden="true"></i></label>
+                            <textarea type="text" class="control-form" formControlName="serviceDescription"
+                                noSpacesAtStart appCapitalizeFirstLetter>
+                                <!-- <div *ngIf="form.get('serviceDescription')?.hasError('maxLengthExceeded')"  style="color: #fd0000;">
+                                    Maximum 160 characters for description.
+                                  </div> -->
+                            </textarea>
 
                             <div *ngIf="submitted && f['serviceDescription'].errors" class="help-block">
                                 <div *ngIf="f['serviceDescription'].errors" style="color: #fd0000">
@@ -280,8 +292,9 @@
                             <label>Service Image</label>
                             <br>
                             <input name="bannerimage" type="file" class="uploadFile img" #image1
-                        (change)="handleImageInput($event)" >
-                            <label *ngIf="previewImage"   data-toggle="modal" data-target="#myModal3" class="preview-butn">preview</label>
+                                (change)="handleImageInput($event)">
+                            <label *ngIf="previewImage" data-toggle="modal" data-target="#myModal3"
+                                class="preview-butn">preview</label>
                             <div *ngIf="errorMessage" class="help-block" style="color: #fd0000">{{ errorMessage }}</div>
                         </div>
 

@@ -63,10 +63,19 @@ export class AddEditSubCategoryComponent implements OnInit {
   categoryForm() {
     this.form = this.formBuilder.group({
       categoryName: ['', [Validators.required]],
-      categoryDescription: [''],
+      categoryDescription: ['',[this.maxLengthValidator(160)]],
       categoryType: ['', [Validators.required]]
 
     });
+  }
+  maxLengthValidator(maxLength: number) {
+    return (control: { value: any; }) => {
+      const value = control.value;
+      if (value && value.length > maxLength) {
+        return { maxLengthExceeded: true };
+      }
+      return null;
+    };
   }
 
   getCategoryType() {

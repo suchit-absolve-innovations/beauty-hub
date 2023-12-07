@@ -107,11 +107,21 @@ export class AddEditPackageComponent implements OnInit {
       durationInMinutes    : ['', [Validators.required]],
       lockTimeStart        : ['', [Validators.required]],
       lockTimeEnd          : ['', [Validators.required]],
-      serviceDescription   : ['', [Validators.required]],
+      serviceDescription: ['', [Validators.required, this.maxLengthValidator(160)]],
       serviceId            : [],
       includeServiceId     : []
 
     },{ validator: this.timeValidator });
+}
+
+maxLengthValidator(maxLength: number) {
+  return (control: { value: any; }) => {
+    const value = control.value;
+    if (value && value.length > maxLength) {
+      return { maxLengthExceeded: true };
+    }
+    return null;
+  };
 }
 timeValidator(control: AbstractControl): ValidationErrors | null {
   const startTime = control.get('lockTimeStart')?.value;
@@ -272,8 +282,8 @@ postSubmit() {
     genderPreferences    : this.form.value.genderPreferences,
     totalCountPerDuration: this.form.value.totalCountPerDuration,
     durationInMinutes    : this.form.value.durationInMinutes,
-    lockTimeStart        : this.form.value.lockTimeStart,
-    lockTimeEnd          : this.form.value.lockTimeEnd,
+    lockTimeStart          : this.form.value.lockTimeStart !== '' ? this.form.value.lockTimeStart : '',
+    lockTimeEnd          : this.form.value.lockTimeEnd !== '' ? this.form.value.lockTimeEnd : '',
     serviceDescription   : this.form.value.serviceDescription,
     status               : 1,
     includeServiceId     : selectedItemsString,

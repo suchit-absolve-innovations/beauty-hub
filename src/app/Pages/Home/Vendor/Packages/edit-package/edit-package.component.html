@@ -55,7 +55,7 @@
                     <div class="row">
 
                         <div class="col-lg-6 col-md-12">
-                            <label>Package Name</label>
+                            <label>Package Name <i class="fa fa-asterisk" aria-hidden="true"></i></label>
                             <input type="text" class="control-form" formControlName="serviceName" noSpacesAtStart appCapitalizeFirstLetter/>
                             <div *ngIf="submitted && f['serviceName'].errors" class="help-block">
                                 <div *ngIf="f['serviceName'].errors" style="color: #fd0000">
@@ -79,7 +79,7 @@
                         <div class="Servicepackage">
 
                             <div class="col-lg-6 col-md-12">
-                                <label>Main Category</label>
+                                <label>Main Category <i class="fa fa-asterisk" aria-hidden="true"></i></label>
                                 <select type="text" class="control-form mr-20 btn_border"
                                     formControlName="mainCategoryId" (change)="getServicesListByCategories()"
                                     (change)="getSubcategoryList(f['mainCategoryId'].value)">
@@ -108,7 +108,7 @@
 
                             <div class="col-lg-12 col-md-12">
                                 <div class="dropdown-scroll">
-                                    <label>Choose Services </label>
+                                    <label>Choose Services <i class="fa fa-asterisk" aria-hidden="true"></i></label>
                                     <!-- <select type="text" formcontrolname="discountType" class="control-form">
                                     <option  selected>Select</option>
                                     <option *ngFor="let item of productList">{{item.productName}}</option>
@@ -124,7 +124,7 @@
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-12 mb-20 ">
-                            <label>Base Price </label>
+                            <label>Base Price <i class="fa fa-asterisk" aria-hidden="true"></i></label>
                             <input type="text" class="form-control" formControlName="basePrice"  [(ngModel)]="basePrice"  (input)="calculateSellingPrice()" numbersOnly />
                             <div *ngIf="submitted && f['basePrice'].errors" class="help-block">
                                 <div *ngIf="f['basePrice'].errors" style="color: #fd0000">
@@ -142,7 +142,7 @@
                         </div>
 
                         <div class="col-lg-4 col-md-12">
-                            <label>Listing Price</label>
+                            <label>Listing Price <i class="fa fa-asterisk" aria-hidden="true"></i></label>
                             <input type="text" class="form-control" formControlName="listingPrice" [(ngModel)]="listingPrice"  [readOnly]="true"/>
 
                             <div *ngIf="submitted && f['listingPrice'].errors" class="help-block">
@@ -157,7 +157,7 @@
 
 
                         <div class="col-lg-6 col-md-12">
-                            <label>Age</label>
+                            <label>Age <i class="fa fa-asterisk" aria-hidden="true"></i></label>
                             <select type="text" class="control-form" formControlName="ageRestrictions">
                                 <option value="" selected>Select</option>
                                 <option>Kids</option>
@@ -172,7 +172,7 @@
                         </div>
 
                         <div class="col-lg-6 col-md-12">
-                            <label>Gender </label>
+                            <label>Gender <i class="fa fa-asterisk" aria-hidden="true"></i></label>
                             <select type="text" class="control-form" formControlName="genderPreferences">
                                 <option value="" selected>Choose Gender</option>
                                 <option>Male</option>
@@ -186,7 +186,7 @@
                         </div>
 
                         <div class="col-lg-6 col-md-12">
-                            <label>Duration In Minutes</label>
+                            <label>Duration In Minutes <i class="fa fa-asterisk" aria-hidden="true"></i></label>
                             <input type="tel" class="control-form" formControlName="durationInMinutes" OnlyNumbers />
                             <div *ngIf="submitted && f['durationInMinutes'].errors" class="help-block">
                                 <div *ngIf="f['durationInMinutes'].errors" style="color: #fd0000">
@@ -196,7 +196,7 @@
                         </div>
 
                         <div class="col-lg-6 col-md-12">
-                            <label>Total Count Per Duration</label>
+                            <label>Total Count Per Duration <i class="fa fa-asterisk" aria-hidden="true"></i></label>
                             <input formControlName="totalCountPerDuration" type="text" class="form-control" OnlyNumbers/>
 
                             <div *ngIf="submitted && f['totalCountPerDuration'].errors" class="help-block">
@@ -205,7 +205,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6 col-md-12">
+                        <!-- <div class="col-lg-6 col-md-12">
                             <label>Lock Time Start</label>
                             <input type="time" id="time" class="form-control" formControlName="lockTimeStart"
                                 />
@@ -214,13 +214,13 @@
                                     Start is required.
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
                         <div class="col-lg-6 col-md-12">
                             <label>Lock Time End</label>
                             <input type="time" class="form-control" formControlName="lockTimeEnd"
                                 />
-                            <div *ngIf="submitted && f['lockTimeEnd'].errors" class="help-block">
+                            <!-- <div *ngIf="submitted && f['lockTimeEnd'].errors" class="help-block">
                                 <div *ngIf="f['lockTimeEnd'].errors?.['required']" style="color: #fd0000">
                                     End is required.
                                 </div>
@@ -230,21 +230,24 @@
                                 <div *ngIf="form.hasError('timeOrder')" style="color: #fd0000">
                                     End time must be greater than start time.
                                 </div>
-                            </div>
+                            </div> -->
 
                         </div>
 
-                        <div class=" col-md-12 mt-20">
-                            <label>Description</label>
+                        <div class="col-md-12 mt-20">
+                            <label>Description <i class="fa fa-asterisk" aria-hidden="true"></i></label>
                             <textarea type="text" class="control-form" formControlName="serviceDescription" noSpacesAtStart appCapitalizeFirstLetter>
-                  </textarea>
-
-                            <div *ngIf="submitted && f['serviceDescription'].errors" class="help-block">
-                                <div *ngIf="f['serviceDescription'].errors" style="color: #fd0000">
-                                    Description is required.
-                                </div>
+                            </textarea>
+                            <!-- Maximum length error message -->
+                            <div *ngIf="form.get('serviceDescription')?.hasError('maxLengthExceeded')" style="color: #fd0000;">
+                              Maximum 160 characters for description.
                             </div>
-                        </div>
+                            <!-- Required error message -->
+                            <div *ngIf="submitted && form.get('serviceDescription')?.hasError('required')" class="help-block" style="color: #fd0000;">
+                              Description is required.
+                            </div>
+                          </div>
+                          
 
 
 

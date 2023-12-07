@@ -122,13 +122,24 @@ export class EditPackageComponent implements OnInit {
       durationInMinutes    : ['', [Validators.required]],
       lockTimeStart        : ['', [Validators.required]],
       lockTimeEnd          : ['', [Validators.required]],
-      serviceDescription   : ['', [Validators.required]],
+      serviceDescription   : ['', [Validators.required, this.maxLengthValidator(160)]],
       serviceId            : [],
       includeServiceId     : [],
 
 
     },{ validator: this.timeValidator });
 }
+
+maxLengthValidator(maxLength: number) {
+  return (control: { value: any; }) => {
+    const value = control.value;
+    if (value && value.length > maxLength) {
+      return { maxLengthExceeded: true };
+    }
+    return null;
+  };
+}
+
 timeValidator(control: AbstractControl): ValidationErrors | null {
   const startTime = control.get('lockTimeStart')?.value;
   const endTime = control.get('lockTimeEnd')?.value;
@@ -531,6 +542,7 @@ handleFileInput(event: any) {
 }
 
 fileChangeEvents() {
+  debugger
   let formData = new FormData();
   formData.append("salonServiceIconImage", this.imageFiles?.file);
   formData.append("serviceId", this.serviceIds);

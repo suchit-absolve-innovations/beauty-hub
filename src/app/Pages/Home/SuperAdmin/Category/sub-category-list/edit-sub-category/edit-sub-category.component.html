@@ -87,6 +87,9 @@
                             <label>Description</label>
                             <textarea type="text" class="control-form" formControlName="categoryDescription"
                                 noSpacesAtStart appCapitalizeFirstLetter></textarea>
+                                <div *ngIf="form.get('categoryDescription')?.hasError('maxLengthExceeded')"  style="color: #fd0000;">
+                                    Maximum 160 characters for description.
+                                  </div>
                         </div>
 
                         <div class="col-lg-12 col-md-12 mt-40 text-center">

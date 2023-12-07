@@ -77,7 +77,7 @@
                     <div class="row">
 
                         <div class="col-lg-6 col-md-12">
-                            <label>Service Name</label>
+                            <label>Service Name <i class="fa fa-asterisk" aria-hidden="true"></i></label>
                             <input type="text" class="control-form" formControlName="serviceName" noSpacesAtStart appCapitalizeFirstLetter/>
                             <div *ngIf="submitted && f['serviceName'].errors" class="help-block">
                                 <div *ngIf="f['serviceName'].errors" style="color: #fd0000">
@@ -87,7 +87,7 @@
                         </div>
 
                         <div class="col-lg-6 col-md-12">
-                            <label>Base Price </label>
+                            <label>Base Price <i class="fa fa-asterisk" aria-hidden="true"></i></label>
                             <input type="text" class="form-control" formControlName="basePrice"  [(ngModel)]="basePrice"  (input)="calculateSellingPrice()" OnlyNumbers />
                             <div *ngIf="submitted && f['basePrice'].errors" class="help-block">
                                 <div *ngIf="f['basePrice'].errors" style="color: #fd0000">
@@ -106,7 +106,7 @@
                         </div>
 
                         <div class="col-lg-6 col-md-12">
-                            <label>Listing Price</label>
+                            <label>Listing Price <i class="fa fa-asterisk" aria-hidden="true"></i></label>
                             <input type="text" class="form-control" formControlName="listingPrice" [(ngModel)]="listingPrice" OnlyNumbers [readOnly]="true"/>
 
                             <div *ngIf="submitted && f['listingPrice'].errors" class="help-block">
@@ -143,7 +143,7 @@
 
 
                         <div class="col-lg-6 col-md-12">
-                            <label>Age</label>
+                            <label>Age <i class="fa fa-asterisk" aria-hidden="true"></i></label>
                             <select type="text" class="control-form" formControlName="ageRestrictions">
                                 <option value="" selected>Select</option>
                                 <option>Kids</option>
@@ -158,7 +158,7 @@
                         </div>
 
                         <div class="col-lg-6 col-md-12">
-                            <label>Gender </label>
+                            <label>Gender <i class="fa fa-asterisk" aria-hidden="true"></i> </label>
                             <select type="text" class="control-form" formControlName="genderPreferences">
                                 <option value="" selected>Choose Gender</option>
                                 <option>Male</option>
@@ -172,7 +172,7 @@
                         </div>
 
                         <div class="col-lg-6 col-md-12">
-                            <label>Duration In Minutes</label>
+                            <label>Duration In Minutes <i class="fa fa-asterisk" aria-hidden="true"></i></label>
                             <input type="tel" class="control-form" formControlName="durationInMinutes" OnlyNumbers />
                             <div *ngIf="submitted && f['durationInMinutes'].errors" class="help-block">
                                 <div *ngIf="f['durationInMinutes'].errors" style="color: #fd0000">
@@ -182,7 +182,7 @@
                         </div>
 
                         <div class="col-lg-6 col-md-12">
-                            <label>Total Count Per Duration</label>
+                            <label>Total Count Per Duration <i class="fa fa-asterisk" aria-hidden="true"></i></label>
                             <input formControlName="totalCountPerDuration" type="text" class="form-control" OnlyNumbers />
 
                             <div *ngIf="submitted && f['totalCountPerDuration'].errors" class="help-block">
@@ -216,7 +216,7 @@
                         </div>
 
                         <div class=" col-md-12">
-                            <label>Description</label>
+                            <label>Description <i class="fa fa-asterisk" aria-hidden="true"></i></label>
                             <textarea type="text" class="control-form" formControlName="serviceDescription" noSpacesAtStart appCapitalizeFirstLetter>
                     </textarea>
 

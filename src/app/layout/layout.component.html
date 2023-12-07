@@ -103,7 +103,7 @@
                     <div class="notify-subbox dropdown-menu" id="myDIV5" aria-labelledby="dropdownMenuButton">
                         <div class="notify-header">
                             <h5>Notification</h5>
-                            <a class="clear-notify">Clear All</a>
+                            <a class="clear-notify" (click)="deleteAllNotification()">Clear All</a>
                         </div>
                         <div class="first-notifi" *ngFor="let item of notificationList">
                             <div class="notification-ist ">

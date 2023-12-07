@@ -52,6 +52,15 @@ export class AddEditCategoryComponent implements OnInit {
     this._location.back();
   }
 
+  maxLengthValidator(maxLength: number) {
+    return (control: { value: any; }) => {
+      const value = control.value;
+      if (value && value.length > maxLength) {
+        return { maxLengthExceeded: true };
+      }
+      return null;
+    };
+  }
 
   get f() {
     return this.form['controls'];
@@ -61,7 +70,7 @@ export class AddEditCategoryComponent implements OnInit {
   categoryForm() {
     this.form = this.formBuilder.group({
       categoryName: ['', [Validators.required]],
-      categoryDescription: [''],
+      categoryDescription: ['',[this.maxLengthValidator(160)]],
       categoryType: ['', [Validators.required]],
       bannerimage : ['',[Validators.required]]
     });

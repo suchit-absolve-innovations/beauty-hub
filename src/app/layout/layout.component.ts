@@ -191,20 +191,20 @@ export class LayoutComponent implements OnInit {
 
 
 
-  // deleteAllNotification() {
-  // this.spinner.show();
+  deleteAllNotification() {
+  this.spinner.show();
 
-  // this.auth.deleteNotification().subscribe(response => {
-  // if (response.isSuccess) {
-  // this.spinner.hide();
-  // this.ngZone.run(() => { this.getNotificationList(); })
-  // this.toaster.success(response.messages);
-  // } else {
-  // this.spinner.hide();
-  // this.toaster.error(response.messages)
-  // }
-  // });
-  // }
+  this.auth.deleteNotification().subscribe(response => {
+  if (response.isSuccess) {
+  this.spinner.hide();
+  this.ngZone.run(() => { this.getNotificationList(); })
+  this.toaster.success(response.messages);
+  } else {
+  this.spinner.hide();
+  this.toaster.error(response.messages)
+  }
+  });
+  }
 
 
   deleteSingleNotification(notificationSentId: any) {
