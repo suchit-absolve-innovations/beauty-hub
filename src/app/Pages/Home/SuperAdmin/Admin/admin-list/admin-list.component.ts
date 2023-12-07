@@ -98,4 +98,8 @@ delet(data:any){
       });
     }
 
+    addSpaceAfterText() {
+      this.searchText = this.searchText.trim();
+      }
+
 }

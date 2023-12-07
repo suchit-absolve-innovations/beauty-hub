@@ -225,6 +225,8 @@ this.spinner.hide();
     });
   }
 
-
+  addSpaceAfterText() {
+    this.searchText = this.searchText.trim();
+    }
 
 }

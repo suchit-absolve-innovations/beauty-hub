@@ -173,7 +173,9 @@ this.vendorId = data.vendorId;
     // [routerLink]="['/super-vendor-list/membership-plan-list']"
   }
 
-
+  addSpaceAfterText() {
+    this.searchText = this.searchText.trim();
+    }
   // check transiction id 
 
 //   checkTransactionId(){

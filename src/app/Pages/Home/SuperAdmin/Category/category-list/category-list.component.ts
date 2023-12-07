@@ -38,6 +38,7 @@ export class CategoryListComponent implements OnInit {
   mainCategoryId: any;
   subCategoryId :any;
   form: any;
+
   private refreshSubscription!: Subscription;
   constructor(private toaster: ToastrService,
     private spinner: NgxSpinnerService,
@@ -385,6 +386,9 @@ export class CategoryListComponent implements OnInit {
   //   })
   // }
 
-
+  addSpaceAfterText() {
+    this.searchText = this.searchText.trim();
+    }
+  
 
 }

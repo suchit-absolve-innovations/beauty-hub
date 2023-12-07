@@ -71,4 +71,9 @@ export class VendorNotificationListComponent implements OnInit {
 
   }
 
+
+  addSpaceAfterText() {
+    this.searchText = this.searchText.trim();
+    }
+
 }

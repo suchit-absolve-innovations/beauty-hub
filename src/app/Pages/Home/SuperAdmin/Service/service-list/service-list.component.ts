@@ -348,7 +348,9 @@ postUnActiveServiceStatus(data: any) {
 
 
   getSubcategoryList(MainCategoryId: any) {
-
+    if (!MainCategoryId) {
+    window.location.reload();
+    }
     this.content.SubCategory(MainCategoryId).subscribe(response => {
       if (response.isSuccess) {
         this.subCategoryList = response.data;
@@ -398,4 +400,14 @@ postUnActiveServiceStatus(data: any) {
       }
     });
   }
+
+
+  addSpaceAfterText() {
+    this.searchText = this.searchText.trim();
+    }
+
+    clear(){
+   
+      this.subCategoryList = []
+    }
 }

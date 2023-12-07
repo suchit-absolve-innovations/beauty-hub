@@ -123,6 +123,7 @@ updateToken(){
   let payload = {
     fcmToken : localStorage.getItem('token' )
   }
+  console.log(payload)
   // this.fcmToken = { 'fcmToken' : localStorage.getItem('token' )};
     this.auth.fcmToken(payload).subscribe((response:any) => {  
       if (response.status){

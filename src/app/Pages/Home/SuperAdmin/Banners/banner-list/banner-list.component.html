@@ -10,7 +10,7 @@
 
         <div class="admin_a form_dashbord">
         <div class="d-flex if_xs_btn mt-30">
-            <input type="text" placeholder="Search Here" class="btn_border search_here" noSpacesAtStart [(ngModel)]="searchText"
+            <input type="text" placeholder="Search Here" class="btn_border search_here" (input)="addSpaceAfterText()" [(ngModel)]="searchText"
             style="width:25%!important;">
 
             <a [routerLink]="['/banner-list/add-edit-banner']" class="btn_blue ml-auto">Add Banner </a>
