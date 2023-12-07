@@ -120,8 +120,8 @@ export class EditPackageComponent implements OnInit {
       genderPreferences    : ['', [Validators.required]],
       totalCountPerDuration: ['', [Validators.required]],
       durationInMinutes    : ['', [Validators.required]],
-      lockTimeStart        : ['', [Validators.required]],
-      lockTimeEnd          : ['', [Validators.required]],
+      lockTimeStart        : [''],
+      lockTimeEnd          : [''],
       serviceDescription   : ['', [Validators.required, this.maxLengthValidator(160)]],
       serviceId            : [],
       includeServiceId     : [],
@@ -145,7 +145,7 @@ timeValidator(control: AbstractControl): ValidationErrors | null {
   const endTime = control.get('lockTimeEnd')?.value;
 
   if (startTime && endTime) {
-    if (startTime >= endTime) {
+    if (startTime === endTime) {
       return { timeOrder: true };
     }
   }
@@ -370,8 +370,8 @@ imageConvert64() {
     genderPreferences    : this.form.value.genderPreferences,
     totalCountPerDuration: this.form.value.totalCountPerDuration,
     durationInMinutes    : this.form.value.durationInMinutes,
-    lockTimeStart        : this.form.value.lockTimeStart,
-    lockTimeEnd          : this.form.value.lockTimeEnd,
+    lockTimeStart        :  this.form.value.lockTimeStart || '',
+    lockTimeEnd          : this.form.value.lockTimeEnd || '',
     serviceDescription   : this.form.value.serviceDescription,
     status               : 1,
     includeServiceId     : selectedItemsString,

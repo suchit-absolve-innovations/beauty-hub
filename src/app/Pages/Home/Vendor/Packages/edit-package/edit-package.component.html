@@ -205,16 +205,16 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- <div class="col-lg-6 col-md-12">
+                        <div class="col-lg-6 col-md-12">
                             <label>Lock Time Start</label>
                             <input type="time" id="time" class="form-control" formControlName="lockTimeStart"
                                 />
-                            <div *ngIf="submitted && f['lockTimeStart'].errors" class="help-block">
+                            <!-- <div *ngIf="submitted && f['lockTimeStart'].errors" class="help-block">
                                 <div *ngIf="f['lockTimeStart'].errors?.['required']" style="color: #fd0000">
                                     Start is required.
                                 </div>
-                            </div>
-                        </div> -->
+                            </div> -->
+                        </div>
 
                         <div class="col-lg-6 col-md-12">
                             <label>Lock Time End</label>
@@ -225,12 +225,12 @@
                                     End is required.
                                 </div>
 
-                            </div>
+                            </div> -->
                             <div *ngIf="submitted && form.hasError('timeOrder')" class="help-block">
                                 <div *ngIf="form.hasError('timeOrder')" style="color: #fd0000">
-                                    End time must be greater than start time.
+                                    Start time and end time can't be same.
                                 </div>
-                            </div> -->
+                            </div>
 
                         </div>
 
