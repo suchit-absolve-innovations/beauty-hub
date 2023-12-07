@@ -82,13 +82,13 @@ export class AddServiceComponent implements OnInit {
       discount: ['', [Validators.required]],
       listingPrice: ['', [Validators.required]],
       mainCategoryId: ['', [Validators.required]],
-      subCategoryId: ['', [Validators.required]],
+      subCategoryId: [''],
       ageRestrictions: ['', [Validators.required]],
       genderPreferences: ['', [Validators.required]],
       totalCountPerDuration: ['', [Validators.required]],
       durationInMinutes: ['', [Validators.required]],
-      lockTimeStart: ['', [Validators.required]],
-      lockTimeEnd: ['', [Validators.required]],
+      lockTimeStart: [''],
+      lockTimeEnd: [''],
       serviceDescription: ['', [Validators.required]],
 
     }, { validator: this.timeValidator });

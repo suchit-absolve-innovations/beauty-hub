@@ -82,8 +82,8 @@ export class EditServiceComponent implements OnInit {
       duration: ['', [Validators.required]],
       totalCountPerDuration: ['', [Validators.required]],
       durationInMinutes: ['', [Validators.required]],
-      lockTimeStart: ['', [Validators.required]],
-      lockTimeEnd: ['', [Validators.required]],
+      lockTimeStart: [''],
+      lockTimeEnd: [''],
       serviceDescription: ['', [Validators.required]],
     });
   }
@@ -194,6 +194,10 @@ export class EditServiceComponent implements OnInit {
 
   updateService() {
     debugger
+    if (this.form.invalid) {
+      this.toasterService.error("Form Incomplete: Please fill in all the required fields correctly");
+      return;
+    }
     let payload = {
       serviceId: parseInt(this.serviceId.id2),
       salonId: parseInt(this.salonId.id),
@@ -222,8 +226,10 @@ export class EditServiceComponent implements OnInit {
         this.toaster.success(response.messages);
       this.both()
       } else {
+        this.spinner.hide();
         this.toaster.error(response.messages);
       }
+      
     });
   }
 

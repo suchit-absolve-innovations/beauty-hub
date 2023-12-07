@@ -91,7 +91,7 @@
 
                         <div class="col-lg-6 col-md-12">
                             <label>Base Price </label>
-                            <input type="text" class="form-control" formControlName="basePrice" [(ngModel)]="basePrice" (input)="calculateSellingPrice()" numbersOnly/>
+                            <input type="text" class="form-control" formControlName="basePrice" [(ngModel)]="basePrice" (input)="calculateSellingPrice()" OnlyNumbers/>
                             <div *ngIf="submitted && f['basePrice'].errors" class="help-block">
                                 <div *ngIf="f['basePrice'].errors" style="color: #fd0000">
                                     Base Price is required.</div>
@@ -100,7 +100,7 @@
 
                         <div class="col-lg-6 col-md-12">
                             <label>Discount</label>
-                            <input type="tel" class="control-form" formControlName="discount" numbersOnly  [(ngModel)]="discount" (input)="calculateSellingPrice()" (input)="resetDiscount()"/>
+                            <input type="tel" class="control-form" formControlName="discount" OnlyNumbers  [(ngModel)]="discount" (input)="calculateSellingPrice()" (input)="resetDiscount()"/>
                             <div *ngIf="submitted && f['discount'].errors" class="help-block">
                                 <div *ngIf="f['discount'].errors" style="color: #fd0000">
                                     Discount is required.
@@ -110,7 +110,7 @@
 
                         <div class="col-lg-6 col-md-12">
                             <label>Listing Price</label>
-                            <input type="text" class="form-control" formControlName="listingPrice" [(ngModel)]="listingPrice"  [readOnly]="true"/>
+                            <input type="text" class="form-control" formControlName="listingPrice" [(ngModel)]="listingPrice" OnlyNumbers  [readOnly]="true"/>
 
                             <div *ngIf="submitted && f['listingPrice'].errors" class="help-block">
                                 <div *ngIf="f['listingPrice'].errors" style="color: #fd0000">
@@ -154,11 +154,11 @@
                                 <option *ngFor="let item of subCategoryList" [ngValue]="item?.subCategoryId">
                                     {{item?.categoryName}}</option>
                             </select>
-                            <div *ngIf="submitted && f['subCategoryId'].errors" class="help-block">
+                            <!-- <div *ngIf="submitted && f['subCategoryId'].errors" class="help-block">
                                 <div *ngIf="f['subCategoryId'].errors" style="color: #fd0000">
                                     Sub Category is required.
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
 
 
@@ -195,23 +195,23 @@
                             <label>Lock Time Start</label>
                             <input type="time" id="time" class="form-control" formControlName="lockTimeStart"
                                 (input)="onTimeInputChange($event)" />
-                            <div *ngIf="submitted && f['lockTimeStart'].errors" class="help-block">
+                            <!-- <div *ngIf="submitted && f['lockTimeStart'].errors" class="help-block">
                                 <div *ngIf="f['lockTimeStart'].errors?.['required']" style="color: #fd0000">
                                     Start time is required.
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
 
                         <div class="col-lg-6 col-md-12 mb-20">
                             <label>Lock Time End</label>
                             <input type="time" class="form-control" formControlName="lockTimeEnd"
                                 (input)="onTimeInputChange2($event)" />
-                            <div *ngIf="submitted && f['lockTimeEnd'].errors" class="help-block">
+                            <!-- <div *ngIf="submitted && f['lockTimeEnd'].errors" class="help-block">
                                 <div *ngIf="f['lockTimeEnd'].errors?.['required']" style="color: #fd0000">
                                     End time is required.
                                 </div>
 
-                            </div>
+                            </div> -->
 
                             <div *ngIf="submitted && form.hasError('timeOrder')" class="help-block">
                                 <div *ngIf="form.hasError('timeOrder')" style="color: #fd0000">
@@ -233,7 +233,7 @@
 
                         <div class="col-lg-6 col-md-12">
                             <label>Total Count Per Duration</label>
-                            <input formControlName="totalCountPerDuration" type="text" class="form-control" numbersOnly/>
+                            <input formControlName="totalCountPerDuration" type="text" class="form-control" OnlyNumbers/>
 
                             <div *ngIf="submitted && f['totalCountPerDuration'].errors" class="help-block">
                                 <div *ngIf="f['totalCountPerDuration'].errors?.['required']" style="color: #fd0000">
