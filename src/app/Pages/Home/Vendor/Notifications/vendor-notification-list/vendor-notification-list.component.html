@@ -26,7 +26,7 @@
                     <th>Action</th>
                 </tr>
   
-                <tr *ngFor="let item of notificationList | filter:searchText ">
+                <tr *ngFor="let item of notificationList | filter:searchText | paginate: {itemsPerPage: 5, currentPage: page, totalItems: totalItems,id: '1' }  ">
                     <td>{{item.title}}</td>
                     <td class="checkbox-td notify-padding">{{item.description}}
                     </td>
@@ -68,5 +68,8 @@
               <img src="assets/img/NO DATA.png">
           </div>
         </div>
+        <pagination-controls *ngIf="notificationList?.length > 0" (pageChange)="((page = $event))" id="1"
+            (pageIndex)="page" class="paginate-doctor-list" queryParamsHandling="merge" (pageChange)="refresh()">
+        </pagination-controls>
     </div>
   </div>

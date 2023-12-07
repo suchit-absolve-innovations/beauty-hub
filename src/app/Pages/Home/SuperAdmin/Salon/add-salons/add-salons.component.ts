@@ -270,7 +270,7 @@ add() {
       return this.formBuilder.group({
         salonName: ['', [Validators.required]],
         salonType: ['',[Validators.required]],
-        salonDescription: ['', [Validators.required]],
+        salonDescription: ['', [Validators.required, this.maxLengthValidator(200)]],
         gstnumber: ['', [Validators.required,Validators.pattern("^[a-zA-Z0-9]{15}$")]],
         businessPAN: ['', [Validators.required,Validators.pattern("^[a-zA-Z0-9]{10}$")]],
         city: ['', [Validators.required]],
@@ -323,7 +323,15 @@ add() {
       }
     }
   
-  
+    maxLengthValidator(maxLength: number) {
+      return (control: { value: any; }) => {
+        const value = control.value;
+        if (value && value.length > maxLength) {
+          return { maxLengthExceeded: true };
+        }
+        return null;
+      };
+    }
     // myapp.directive('numbersOnly', function() {
     //   return {
     //     require: 'ngModel',
