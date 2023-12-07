@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, NgZone, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, ValidationErrors, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
@@ -16,7 +16,7 @@ import { Location } from '@angular/common';
 export class EditServiceComponent implements OnInit {
   rootUrl: any;
   serviceId: any;
-  submitted!: boolean;
+  submitted: boolean = false;
   form: any;
   image: any;
   subCategoryList: any;
@@ -41,8 +41,8 @@ export class EditServiceComponent implements OnInit {
   selectedImageData: any[] = [];
   imageFiles!: { link: any; file: any; name: any; type: any; };
   basePrice: any;
-  discount : any = 0 ;
-  listingPrice: any = 0 ;
+  discount: any = 0;
+  listingPrice: any = 0;
   maxDiscountValue: any;
 
   constructor(private router: Router,
@@ -76,10 +76,10 @@ export class EditServiceComponent implements OnInit {
       discount: ['', [Validators.required]],
       listingPrice: ['', [Validators.required]],
       mainCategoryId: ['', [Validators.required]],
-      subCategoryId: [''],
+      subCategoryId: [0],
       ageRestrictions: ['', [Validators.required]],
       genderPreferences: ['', [Validators.required]],
-      duration: ['', [Validators.required]],
+      // duration: ['', [Validators.required]],
       totalCountPerDuration: ['', [Validators.required]],
       durationInMinutes: ['', [Validators.required]],
       lockTimeStart: [''],
@@ -91,7 +91,18 @@ export class EditServiceComponent implements OnInit {
   get f() {
     return this.form.controls;
   }
+  timeValidator(control: AbstractControl): ValidationErrors | null {
+    const startTime = control.get('lockTimeStart')?.value;
+    const endTime = control.get('lockTimeEnd')?.value;
 
+    if (startTime && endTime) {
+      if (startTime === endTime) {
+        return { timeOrder: true };
+      }
+    }
+
+    return null;
+  }
   backClicked() {
     this._location.back();
   }
@@ -99,30 +110,30 @@ export class EditServiceComponent implements OnInit {
     const basePrice = parseFloat(this.basePrice);
     let discount = parseFloat(this.discount);
 
-      if (isNaN(discount)) {
-        discount = 0; // Set discount to 0 if it's NaN
-      } 
-        
-      if (isNaN(discount) || discount > basePrice) {
-        discount = 0; // Set discount to 0 if it's NaN
-      }
-      if (discount > basePrice || discount > this.maxDiscountValue) {
-        discount = Math.min(basePrice, this.maxDiscountValue);
-      }
-      this.listingPrice = basePrice - discount;
-      if (discount === basePrice) {
-        discount = 0;
+    if (isNaN(discount)) {
+      discount = 0; // Set discount to 0 if it's NaN
+    }
 
-      }
-    
+    if (isNaN(discount) || discount > basePrice) {
+      discount = 0; // Set discount to 0 if it's NaN
+    }
+    if (discount > basePrice || discount > this.maxDiscountValue) {
+      discount = Math.min(basePrice, this.maxDiscountValue);
+    }
+    this.listingPrice = basePrice - discount;
+    if (discount === basePrice) {
+      discount = 0;
+
+    }
+
     // Update the discount property with the validated discount value
     this.discount = discount;
   }
   resetDiscount() {
-  
-      this.listingPrice = this.basePrice - this.discount;
-    } 
- 
+
+    this.listingPrice = this.basePrice - this.discount;
+  }
+
 
   getcategoryList() {
 
@@ -130,7 +141,7 @@ export class EditServiceComponent implements OnInit {
     this.contentService.getcategory().subscribe(response => {
       if (response.isSuccess) {
         this.categoryList = response.data;
-
+        this.subCategoryList = [];
         //  this.spinner.hide();
       } else {
         // this.spinner.hide();
@@ -194,6 +205,7 @@ export class EditServiceComponent implements OnInit {
 
   updateService() {
     debugger
+    this.submitted = true;
     if (this.form.invalid) {
       this.toasterService.error("Form Incomplete: Please fill in all the required fields correctly");
       return;
@@ -211,8 +223,8 @@ export class EditServiceComponent implements OnInit {
       genderPreferences: this.form.value.genderPreferences,
       totalCountPerDuration: this.form.value.totalCountPerDuration,
       durationInMinutes: this.form.value.durationInMinutes,
-      lockTimeStart: this.form.value.lockTimeStart,
-      lockTimeEnd: this.form.value.lockTimeEnd,
+      lockTimeStart: this.form.value.lockTimeStart || '',
+      lockTimeEnd: this.form.value.lockTimeEnd || '',
       serviceDescription: this.form.value.serviceDescription
 
     }
@@ -224,12 +236,12 @@ export class EditServiceComponent implements OnInit {
       this.fileChangeEvents();
       if (response.isSuccess) {
         this.toaster.success(response.messages);
-      this.both()
+        this.both()
       } else {
         this.spinner.hide();
         this.toaster.error(response.messages);
       }
-      
+
     });
   }
 
@@ -260,30 +272,30 @@ export class EditServiceComponent implements OnInit {
   onselect(event: any) {
     const fileType = event.target.files[0].type;
     if ((fileType === 'image/jpeg' || fileType === 'image/png') && fileType !== 'image/jfif') {
-    const files = event.target.files;
-    this.errorMessages = ''; // Clear previous error messages
+      const files = event.target.files;
+      this.errorMessages = ''; // Clear previous error messages
 
-    for (let i = 0; i < files.length; i++) {
-      const file = files[i];
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
 
-      reader.onload = () => {
-        const image = new Image();
-        image.src = reader.result as string;
+        reader.onload = () => {
+          const image = new Image();
+          image.src = reader.result as string;
 
-        image.onload = () => {
-          if (image.width === 1280 && image.height === 720 && file.size / 1024 <= 1000) {
-            this.base64Image.push(image.src);
-          } else {
-            this.errorMessages;
-          }
-        };
+          image.onload = () => {
+            if (image.width === 1280 && image.height === 720 && file.size / 1024 <= 1000) {
+              this.base64Image.push(image.src);
+            } else {
+              this.errorMessages;
+            }
+          };
+        }
       }
+    } else {
+      this.errorMessage = 'Please select a valid JPEG or PNG image.';
     }
-  } else {
-    this.errorMessage = 'Please select a valid JPEG or PNG image.';
-      }
   }
   onBannerImageSelect(event: any) {
     debugger
@@ -335,27 +347,27 @@ export class EditServiceComponent implements OnInit {
     const file = event.target.files[0];
     const fileType = event.target.files[0].type;
     if ((fileType === 'image/jpeg' || fileType === 'image/png') && fileType !== 'image/jfif') {
-    if (file) {
-      const imageSize = file.size / 1024; // in KB
-      const image = new Image();
+      if (file) {
+        const imageSize = file.size / 1024; // in KB
+        const image = new Image();
 
-      image.src = URL.createObjectURL(file);
+        image.src = URL.createObjectURL(file);
 
-      image.onload = () => {
-        if (image.width === 512 && image.height === 512 && imageSize <= 512) {
-          this.errorMessage = '';
-          this.isValid = true;
-          this.previewImage = image.src;
-        } else {
-          this.errorMessage = 'Please select 512x512 pixels (width×height) image.';
-          this.isValid = false;
-          this.imageUrl = '';
-        }
-      };
-    }
-  } else {
-    this.errorMessage = 'Please select a valid JPEG or PNG image.';
+        image.onload = () => {
+          if (image.width === 512 && image.height === 512 && imageSize <= 512) {
+            this.errorMessage = '';
+            this.isValid = true;
+            this.previewImage = image.src;
+          } else {
+            this.errorMessage = 'Please select 512x512 pixels (width×height) image.';
+            this.isValid = false;
+            this.imageUrl = '';
+          }
+        };
       }
+    } else {
+      this.errorMessage = 'Please select a valid JPEG or PNG image.';
+    }
   }
 
   handleFileInput(event: any) {
@@ -390,7 +402,7 @@ export class EditServiceComponent implements OnInit {
   }
 
   fileChangeEvents() {
-debugger
+    debugger
     let formData = new FormData();
     formData.append("salonServiceIconImage", this.imageFiles?.file);
     formData.append("serviceId", this.serviceId.id2);

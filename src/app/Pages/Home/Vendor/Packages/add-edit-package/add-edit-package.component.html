@@ -17,7 +17,7 @@
                             <div class="upload_file text-center">
                                 <div class="imges-upload mb-0">
                                     <div class="imgUp m-auto">
-                                        <div class="imagePreview" style="background-image: url(&quot;undefined&quot;);" *ngIf="previewImage"  width="1280" height="720">
+                                        <div class="imagePreview" style="background-image: url(&quot;undefined&quot;);" *ngIf="previewImage" >
                                         </div>
                                         <label class="upload button btn btn-primary">
                                             Upload<input type="file" class="uploadFile img" name="bannerimage"
@@ -119,9 +119,6 @@
 
 
                         </div>
-
-
-
                         <div class="col-lg-4 col-md-12 mb-20 ">
                             <label>Base Price <i class="fa fa-asterisk" aria-hidden="true"></i></label>
                             <input type="text" class="form-control" formControlName="basePrice" [(ngModel)]="basePrice"  (input)="calculateSellingPrice()" OnlyNumbers />
@@ -150,11 +147,6 @@
                                 </div>
                             </div>
                         </div>
-
-
-
-
-
                         <div class="col-lg-6 col-md-12">
                             <label>Age <i class="fa fa-asterisk" aria-hidden="true"></i></label>
                             <select type="text" class="control-form" formControlName="ageRestrictions">
@@ -227,7 +219,7 @@
                             </div> -->
                             <div *ngIf="submitted && form.hasError('timeOrder')" class="help-block">
                                 <div *ngIf="form.hasError('timeOrder')" style="color: #fd0000">
-                                    End time must be greater than start time.
+                                    Start time and end time can't be same.
                                 </div>
                             </div>
 

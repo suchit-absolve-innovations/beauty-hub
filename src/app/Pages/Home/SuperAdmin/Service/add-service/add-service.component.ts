@@ -82,7 +82,7 @@ export class AddServiceComponent implements OnInit {
       discount: ['', [Validators.required]],
       listingPrice: ['', [Validators.required]],
       mainCategoryId: ['', [Validators.required]],
-      subCategoryId: [''],
+      subCategoryId: [0],
       ageRestrictions: ['', [Validators.required]],
       genderPreferences: ['', [Validators.required]],
       totalCountPerDuration: ['', [Validators.required]],
@@ -96,13 +96,13 @@ export class AddServiceComponent implements OnInit {
   timeValidator(control: AbstractControl): ValidationErrors | null {
     const startTime = control.get('lockTimeStart')?.value;
     const endTime = control.get('lockTimeEnd')?.value;
-
+  
     if (startTime && endTime) {
-      if (startTime >= endTime) {
+      if (startTime === endTime) {
         return { timeOrder: true };
       }
     }
-
+  
     return null;
   }
   onTimeInputChange(event: Event) {
@@ -196,7 +196,7 @@ export class AddServiceComponent implements OnInit {
     this.contentService.getcategory().subscribe(response => {
       if (response.isSuccess) {
         this.categoryList = response.data;
-
+        this.subCategoryList = [];
         //  this.spinner.hide();
       } else {
         // this.spinner.hide();
@@ -210,7 +210,6 @@ export class AddServiceComponent implements OnInit {
     this.contentService.SuperSubCategory(mainCategoryId).subscribe(response => {
       if (response.isSuccess) {
         this.subCategoryList = response.data;
-        // this.SubSubcategoryList = []
         this.spinner.hide();
       } else {
         this.subCategoryList = [];
@@ -402,6 +401,7 @@ export class AddServiceComponent implements OnInit {
         this.toaster.success(response.messages);
         this._location.back();
       } else {
+        this.spinner.hide()
         this.toaster.error(response.messages)
       }
     });
@@ -444,6 +444,7 @@ export class AddServiceComponent implements OnInit {
         this.toaster.success(response.messages);
         this._location.back();
       } else {
+        this.spinner.hide()
         this.toaster.error(response.messages)
       }
     });

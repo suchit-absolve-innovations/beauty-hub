@@ -130,7 +130,7 @@
                             <label>Main Category <i class="fa fa-asterisk" aria-hidden="true"></i></label>
                             <select type="text" class="control-form mr-20 btn_border" formControlName="mainCategoryId"
                                 (change)="getSubcategoryList(f['mainCategoryId'].value)">
-                                <option value="">Select </option>
+                                <option value="" disabled>Select </option>
                                 <option *ngFor="let item of categoryList" [ngValue]="item?.mainCategoryId">
                                     {{item?.categoryName}}</option>
 
@@ -157,7 +157,7 @@
                             <label>Sub Category</label>
 
                             <select type="text" class="control-form mr-20 btn_border" formControlName="subCategoryId">
-                                <option value="">Select </option>
+                                <option value="0">Select </option>
                                 <option *ngFor="let item of subCategoryList" [ngValue]="item?.subCategoryId">
                                     {{item?.categoryName}}</option>
                             </select>
@@ -194,7 +194,7 @@
                             </select>
                             <div *ngIf="submitted && f['genderPreferences'].errors" class="help-block">
                                 <div *ngIf="f['genderPreferences'].errors" style="color: #fd0000">
-                                    State is required.
+                                    Gender is required.
                                 </div>
                             </div>
                         </div>
@@ -222,10 +222,9 @@
 
                             <div *ngIf="submitted && form.hasError('timeOrder')" class="help-block">
                                 <div *ngIf="form.hasError('timeOrder')" style="color: #fd0000">
-                                    End time must be greater than start time.
+                                    Start time and end time can't be same.
                                 </div>
                             </div>
-
                         </div>
 
                         <div class="col-lg-6 col-md-12">

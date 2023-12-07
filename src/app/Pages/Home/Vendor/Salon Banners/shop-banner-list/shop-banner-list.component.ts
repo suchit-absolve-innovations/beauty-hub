@@ -118,23 +118,21 @@ clearAllCategories(){
 }
 
 clearSubCategories() {
+  this.form.get('subCategoryId').setValue('');  
   this.subCategoryList = [];
 }
 
 
   getSalonBannerList() {
-
     let payload = {
       salonId: localStorage.getItem('salonId'),
       salonBannerType: 'All'
     }
-    this.spinner.show();
+    // this.spinner.show();
     this.content.getShopBanner(payload).subscribe(response => {
       if (response.isSuccess) {
         this.shopBannerList = response.data;
-
-
-        this.spinner.hide();
+        // this.spinner.hide();
       }
     });
   }
@@ -142,12 +140,8 @@ clearSubCategories() {
 
 
   delet(data: any) {
-
     this.salonBannerId = data.salonBannerId;
-
-
   }
-
   deleteSalonBanners() {
     this.spinner.show();
 
@@ -174,7 +168,7 @@ clearSubCategories() {
         this.spinner.hide();
         this.clearSubCategories();
       } else {
-        // this.spinner.hide();
+        this.spinner.hide();
         this.toaster.error(response.messages);
       }
     });
@@ -196,7 +190,7 @@ clearSubCategories() {
   //   });
   // }
   getSubcategoryList(data: any) {
-    this.spinner.show();
+    // this.spinner.show();
     if (data === '') {
       this.clearSubCategories();
       this.filterAllBannersList(); 
@@ -204,11 +198,11 @@ clearSubCategories() {
       this.content.SubCategory(data).subscribe(response => {
         if (response.isSuccess) {
           this.subCategoryList = response.data;
-          this.spinner.hide();
+          // this.spinner.hide();
           this.filterAllBannersList(); 
         } else {
           this.subCategoryList = [];
-          this.spinner.hide();
+          // this.spinner.hide();
         }
       });
     }

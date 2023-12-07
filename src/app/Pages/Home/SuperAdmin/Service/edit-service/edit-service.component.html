@@ -120,7 +120,7 @@
                             <label>Main Category <i class="fa fa-asterisk" aria-hidden="true"></i></label>
                             <select type="text" class="control-form" formControlName="mainCategoryId"
                                 (change)="getSubcategoryList(f['mainCategoryId'].value)">
-                                <option value="">Select Main Category</option>
+                                <option value="" disabled>Select</option>
                                 <option *ngFor="let item of categoryList" [ngValue]="item?.mainCategoryId">
                                     {{item?.categoryName}}
                                 </option>
@@ -133,7 +133,7 @@
                         <div class="col-lg-6 col-md-12">
                             <label>Sub Category</label>
                             <select type="text" class="control-form" formControlName="subCategoryId">
-                                <option value="">Select Sub Category</option>
+                                <option value="0" >Select</option>
                                 <option *ngFor="let item of subCategoryList" [ngValue]="item?.subCategoryId">
                                     {{item?.categoryName}}
                                 </option>
@@ -166,7 +166,7 @@
                             </select>
                             <div *ngIf="submitted && f['genderPreferences'].errors" class="help-block">
                                 <div *ngIf="f['genderPreferences'].errors" style="color: #fd0000">
-                                    State is required.
+                                    Gender is required.
                                 </div>
                             </div>
                         </div>
@@ -176,7 +176,7 @@
                             <input type="tel" class="control-form" formControlName="durationInMinutes" OnlyNumbers />
                             <div *ngIf="submitted && f['durationInMinutes'].errors" class="help-block">
                                 <div *ngIf="f['durationInMinutes'].errors" style="color: #fd0000">
-                                    Dial is required.
+                                    Duration is required.
                                 </div>
                             </div>
                         </div>
@@ -184,7 +184,6 @@
                         <div class="col-lg-6 col-md-12">
                             <label>Total Count Per Duration <i class="fa fa-asterisk" aria-hidden="true"></i></label>
                             <input formControlName="totalCountPerDuration" type="text" class="form-control" OnlyNumbers />
-
                             <div *ngIf="submitted && f['totalCountPerDuration'].errors" class="help-block">
                                 <div *ngIf="f['totalCountPerDuration'].errors?.['required']" style="color: #fd0000">
                                     Total Count is required.
@@ -213,6 +212,11 @@
                                     Lock Time End is required.
                                 </div>
                             </div> -->
+                            <div *ngIf="submitted && form.hasError('timeOrder')" class="help-block">
+                                <div *ngIf="form.hasError('timeOrder')" style="color: #fd0000">
+                                    Start time and end time can't be same.
+                                </div>
+                            </div>
                         </div>
 
                         <div class=" col-md-12">

@@ -105,8 +105,8 @@ export class AddEditPackageComponent implements OnInit {
       genderPreferences    : ['', [Validators.required]],
       totalCountPerDuration: ['', [Validators.required]],
       durationInMinutes    : ['', [Validators.required]],
-      lockTimeStart        : ['', [Validators.required]],
-      lockTimeEnd          : ['', [Validators.required]],
+      lockTimeStart        : [''],
+      lockTimeEnd          : [''],
       serviceDescription: ['', [Validators.required, this.maxLengthValidator(160)]],
       serviceId            : [],
       includeServiceId     : []
@@ -128,7 +128,7 @@ timeValidator(control: AbstractControl): ValidationErrors | null {
   const endTime = control.get('lockTimeEnd')?.value;
 
   if (startTime && endTime) {
-    if (startTime >= endTime) {
+    if (startTime === endTime) {
       return { timeOrder: true };
     }
   }

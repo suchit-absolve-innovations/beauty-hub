@@ -824,6 +824,7 @@ add() {
           });
           if (this.vendorDetailPatch.upiResponses) {
             this.vendorDetailPatch.upiResponses.forEach((element: any) => {
+              this.clearFormArray(this.List1());
               var listGroup = this.upiDetails();
               listGroup.patchValue({
                 upiid: element.upiid, accountHolderName: element.accountHolderName,
