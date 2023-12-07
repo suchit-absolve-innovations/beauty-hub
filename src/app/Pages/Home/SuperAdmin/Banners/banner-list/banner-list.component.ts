@@ -83,4 +83,8 @@ this.deleteHomeBanners()
     });
   }
 
+
+  addSpaceAfterText() {
+    this.searchText = this.searchText.trim();
+    }
 }

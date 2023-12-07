@@ -238,7 +238,9 @@ clearSubCategories() {
   }
 
 
-
+  addSpaceAfterText() {
+    this.searchText = this.searchText.trim();
+    }
 
 
 }

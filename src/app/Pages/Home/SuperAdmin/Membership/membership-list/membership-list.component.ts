@@ -120,4 +120,8 @@ export class MembershipListComponent implements OnInit {
         }
       });
   }
+
+  addSpaceAfterText() {
+    this.searchText = this.searchText.trim();
+    }
 }

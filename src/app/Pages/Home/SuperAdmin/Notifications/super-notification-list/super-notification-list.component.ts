@@ -152,4 +152,8 @@ export class SuperNotificationListComponent implements OnInit {
 
   }
 
+  addSpaceAfterText() {
+    this.searchText = this.searchText.trim();
+    }
+
 }

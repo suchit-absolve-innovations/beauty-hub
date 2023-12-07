@@ -140,4 +140,8 @@ export class PackageListComponent implements OnInit {
       });
   }
 
+  addSpaceAfterText() {
+    this.searchText = this.searchText.trim();
+    }
+
 }

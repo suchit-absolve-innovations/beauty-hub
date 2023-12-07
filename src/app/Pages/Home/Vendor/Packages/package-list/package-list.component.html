@@ -4,7 +4,7 @@
 
         <div class="d-flex flex-wrap if_xs_btn mb-30">
             <input type="text" placeholder="Search Here" class="btn_border search_here"
-            noSpacesAtStart  [(ngModel)]="searchText">
+            (input)="addSpaceAfterText()"  [(ngModel)]="searchText">
 
             <a [routerLink]="['/package-list/add-edit-package']" class="btn_blue ml-auto">Add New Package</a>
 
