@@ -446,7 +446,7 @@ onImageSelect(event: any) {
       if (image.width === 512 && image.height === 512 && imageSize <= 512) {
         this.errorMessage = '';
         this.isValid = true;
-        this.previewImage = image.src;
+        //this.previewImage = image.src;
       } else {
         this.errorMessage = 'Please select 512x512 pixels (width×height) image.';
         this.isValid = false;
