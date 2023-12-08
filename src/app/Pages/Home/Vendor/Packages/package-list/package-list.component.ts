@@ -36,6 +36,19 @@ export class PackageListComponent implements OnInit {
   ngOnInit(): void {
     this.rootUrl = environment.rootPathUrl;
     this.getPackagesList()
+    this.route.queryParams.subscribe(params => {
+      this.page = +params['page'] || 0; // Use the 'page' query parameter value, or default to 1
+    });
+  }
+  refresh(): void {
+    // Perform refresh actions
+    // Update the query parameter with the current page index
+
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { page: this.page },
+      queryParamsHandling: 'merge'
+    });
   }
 
 

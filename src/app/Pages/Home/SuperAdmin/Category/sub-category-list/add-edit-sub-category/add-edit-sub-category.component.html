@@ -29,10 +29,15 @@
                                         <!-- {{imageFile}}/ -->
                                         <label class="upload button btn btn-primary">
                                             <!-- <input value="rootUrl + homeServicesData.imagePath" name="bannerHidden" type="hidden"> -->
-                                            Upload<input type="file" class="uploadFile img" name="bannerimage"
+                                            Upload<input type="file" class="uploadFile img" name="bannerimage"formControlName="bannerimage"
                                                 style="width: 0px;height: 0px;overflow: file; border-style: none;"
                                                 id="bannerimage" (change)="imagesUpload($event)">
                                         </label>
+                                        <div *ngIf="submitted && f['bannerimage'].errors" class="help-block">
+                                            <div *ngIf="f['bannerimage'].errors['required']" style="color: #fd0000;">Category Image
+                                                is
+                                                required</div>
+                                        </div>
                                         <div *ngIf="errorMessage" class="help-block" style="color: #fd0000">{{
                                             errorMessage }}</div>
                                         <div>

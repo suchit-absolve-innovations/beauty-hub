@@ -65,8 +65,6 @@ export class AddEditCategoryComponent implements OnInit {
   get f() {
     return this.form['controls'];
   }
-
-
   categoryForm() {
     this.form = this.formBuilder.group({
       categoryName: ['', [Validators.required]],

@@ -19,10 +19,11 @@
                             <div class="upload_file text-center">
                                 <div class="imges-upload mb-0">
                                     <div class="imgUp m-auto">
-                                        <div *ngIf="isValid" class="imagePreview">
-                                            <img [src]="imageFile.link" alt="Image Preview">
-                                        </div>
-
+                                        <div>
+                                            <div *ngIf="!isValid "class="imagePreview"><img src="{{editImages}}"></div>
+        
+                                            <div *ngIf="isValid" class="imagePreview" [style.background-image]="'url(' + previewImage + ')'"></div>
+                                          </div>
                                         <label class="upload button btn btn-primary">
                                             <!-- <input value="rootUrl + homeServicesData.imagePath" name="bannerHidden" type="hidden"> -->
                                             Upload<input type="file" class="uploadFile img" name="bannerimage"
@@ -30,7 +31,6 @@
                                                 id="bannerimage" (change)="imagesUpload($event)">
                                         </label>
                                         <div *ngIf="errorMessage" class="help-block" style="color: #fd0000">{{errorMessage }}</div>
-                               
                                 </div>
                                 <br>
                                 <br>
@@ -69,7 +69,7 @@
                                 <label>Sub Category</label>
                                 <select type="text" class="control-form mr-20 btn_border"
                                     formControlName="subCategoryId">
-                                    <option value="">Select </option>
+                                    <option value=""selected>Select </option>
                                     <option *ngFor="let item of subCategoryList" [ngValue]="item?.subCategoryId">
                                         {{item?.categoryName}}</option>
                                 </select>
