@@ -324,7 +324,7 @@ export class AddServiceComponent implements OnInit {
             const imageDataUrl = reader.result as string;
             this.errorMessage = '';
             this.isValid = true;
-            this.previewImage = image.src;
+         //   this.previewImage = image.src;
             this.urls1.push(imageDataUrl);
           } else {
             // Set as invalid if criteria not met
