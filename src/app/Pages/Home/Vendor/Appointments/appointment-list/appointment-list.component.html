@@ -2,8 +2,9 @@
     <form [formGroup]="form">
         <div class="admin_a">
             <div class="media mb-5">
-                <img class="align-self-center mr-3 welcome-image" [src]="rootUrl + salonImage" alt="user">
-                <img *ngIf="salonImage == null" class="align-self-center mr-3 welcome-image" src="assets\images\858.jpg" alt="user">
+                <img class="align-self-center mr-3 welcome-image"  [src]="(rootUrl + salonImage) || './assets/images/858.jpg'" alt="user">
+                <!-- <img *ngIf="salonImage" [src]="rootUrl + salonImage" alt="Salon Image">
+                <img *ngIf="!salonImage" src="./assets/images/858.jpg" alt="Alternative Image"> -->
                 <div class="media-body align-self-center">
                     <p class="heading" *ngIf="'Vendor' == role">Welcome, <span>{{salonName}}</span></p>
                 </div>
