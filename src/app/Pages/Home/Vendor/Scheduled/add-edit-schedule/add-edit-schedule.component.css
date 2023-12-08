@@ -1,0 +1,7 @@
+.close-icon {
+    position: absolute;
+    top: 5px; /* Adjust as needed */
+    right: 5px; /* Adjust as needed */
+    cursor: pointer;
+    color: #888; /* Adjust the color as needed */
+}
