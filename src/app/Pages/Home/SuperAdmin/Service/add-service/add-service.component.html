@@ -157,7 +157,7 @@
                             <label>Sub Category</label>
 
                             <select type="text" class="control-form mr-20 btn_border" formControlName="subCategoryId">
-                                <option value="0">Select </option>
+                                <option value = 0 >Select </option>
                                 <option *ngFor="let item of subCategoryList" [ngValue]="item?.subCategoryId">
                                     {{item?.categoryName}}</option>
                             </select>

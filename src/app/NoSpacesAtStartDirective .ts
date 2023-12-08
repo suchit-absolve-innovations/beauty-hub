@@ -8,10 +8,21 @@ export class NoSpacesAtStartDirective {
 
   @HostListener('input', ['$event']) onInput(event: InputEvent): void {
     const input = this.el.nativeElement as HTMLInputElement;
-    const inputValue = input.value;
+    let inputValue = input.value;
+
+    // Trim spaces at the beginning
     if (/^\s/.test(inputValue)) {
-      // If the input starts with a space, remove it
-      input.value = inputValue.trim();
+      inputValue = inputValue.trim();
+    }
+
+    // Prevent spaces from being entered
+    input.value = inputValue.replace(/\s/g, '');
+  }
+
+  @HostListener('keydown', ['$event']) onKeyDown(event: KeyboardEvent): void {
+    // Prevent the default behavior for the space key
+    if (event.key === ' ') {
+      event.preventDefault();
     }
   }
 }

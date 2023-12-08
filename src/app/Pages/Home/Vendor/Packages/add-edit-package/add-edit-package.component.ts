@@ -100,7 +100,7 @@ export class AddEditPackageComponent implements OnInit {
       discount             : [0 , [Validators.required]],
       listingPrice         : ['', [Validators.required]],
       mainCategoryId       : [''],
-      subCategoryId        : [''],
+      subCategoryId        : [0],
       ageRestrictions      : ['', [Validators.required]],
       genderPreferences    : ['', [Validators.required]],
       totalCountPerDuration: ['', [Validators.required]],
