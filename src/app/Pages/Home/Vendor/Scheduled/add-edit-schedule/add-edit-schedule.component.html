@@ -2,12 +2,31 @@
 
     <div class="admin_a form_dashbord">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-4">
                     <div class="heading">
                         <h2> Schedule</h2>
                         <p>Schedule your work timings</p>
+
+                    
                     </div>
                 </div>
+                <div class="col-md-4">
+                <div class="selecotr-item">
+                    <input type="checkbox"  name="selector" class="selector-item_radio" >
+                    <label  class="selector-item_label" style="background-color: #ffd7ea;">  <i class="fa fa-close"></i></label>
+               
+                </div>
+
+                <div class="selecotr-item">
+                    <input type="checkbox"  name="selector" class="selector-item_radio" >
+                    <label  class="selector-item_label" style="background-color: white;">  <i class="fa fa-check"></i></label>
+               
+                </div>
+             </div>
+
+             
+             
+          
             </div>
 
             <form [formGroup]="Form" >
@@ -28,9 +47,9 @@
                             <label for="radio308" class="selector-item_label">Tue </label>
                         </div>
                         <div class="selecotr-item">
-                            <input type="checkbox" formControlName="wednesday" name="selector"
-                                class="selector-item_radio" id="radio301" (change)='planWednesday($event)'>
-                            <label for="radio301" class="selector-item_label">Wed </label>
+                            <input type="checkbox" formControlName="wednesday" name="selector" class="selector-item_radio" id="radio301" (change)='planWednesday($event)'>
+                            <label for="radio301" class="selector-item_label">Wed</label>
+                       
                         </div>
                         <div class="selecotr-item">
                             <input type="checkbox" formControlName="thursday" name="selector"

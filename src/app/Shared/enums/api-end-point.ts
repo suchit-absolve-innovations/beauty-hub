@@ -24,7 +24,7 @@ export enum ApiEndPoint {
   updatePlan = "/api/Admin/addUpdateMembershipPlan",
   superProfile = "UpdateSuperAdminDetail",
   superProfileDetail = "api/Admin/GetSuperAdminDetail",
-  postSuperAdmimProfile = "/api/Admin/UpdateSuperAdminDetail",
+  postSuperAdmimProfile = "api/Admin/UpdateSuperAdminDetail",
   buyMemberShipPlan = "api/Vendor/buyMembershipPlan",
   vendorDetail = "api/Admin/GetVendorDetail",
   getcategoryList = "api/Category/GetCategoryList",

@@ -54,6 +54,10 @@ export class ServiceListComponent implements OnInit {
     this.getList();
     this.getcategoryList();
     this.filterListForm();
+    this.form.get('mainCategoryId').valueChanges.subscribe(() => {
+      // Reset subCategoryId when mainCategoryId changes
+      this.form.get('subCategoryId').setValue('');
+    });
   }
 
   backClicked() {
@@ -348,8 +352,10 @@ postUnActiveServiceStatus(data: any) {
 
 
   getSubcategoryList(MainCategoryId: any) {
+    this.details
     if (!MainCategoryId) {
     window.location.reload();
+    
     }
     this.content.SubCategory(MainCategoryId).subscribe(response => {
       if (response.isSuccess) {
@@ -365,7 +371,9 @@ postUnActiveServiceStatus(data: any) {
   }
 
   serviceListFilter() {
+    debugger
     this.spinner.show();
+// this.form.value.subCategoryId = []
     let payload;
     if (this.role === 'Vendor') {
       payload = {

@@ -63,7 +63,7 @@ export class SuperAdminProfileComponent implements OnInit {
       countryId: [101],
       stateId: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")]],
-
+      upiDetail: null,
       bankDetail: this.formBuilder.array([
         this.bankDetails(),
       ]),
@@ -267,7 +267,7 @@ export class SuperAdminProfileComponent implements OnInit {
       this.contentService.getSuperAdminDetail().subscribe(response => {
         if (response.isSuccess) {
           this.spinner.hide();
-          this.clearFormArray(this.List1());
+       //   this.clearFormArray(this.List1());
           this.superAdminDetailPatch = response.data
           this.superAdminId = response.data.id
           this.bankDetailPatch = this.superAdminDetailPatch.bankResponses
@@ -297,11 +297,11 @@ export class SuperAdminProfileComponent implements OnInit {
         }
       });
     }
-    clearFormArray = (formArray: FormArray) => {
-      while (formArray.length !== 0) {
-        formArray.removeAt(0)
-      }
-    }
+    // clearFormArray = (formArray: FormArray) => {
+    //   while (formArray.length !== 0) {
+    //     formArray.removeAt(0)
+    //   }
+    // }
 
 
 
@@ -351,11 +351,11 @@ export class SuperAdminProfileComponent implements OnInit {
       }
     }
   postSuperAdmimProfile() {
-    
+    debugger
     this.submitted = true;
-    if (this.form.invalid) {
+    if (this.form.invalid && this.form.get('upidetail')?.value !== null) {
       return;
-    }
+  }
    
     let checkStatus: any;
     if (this.isActive == true) {
@@ -393,6 +393,7 @@ export class SuperAdminProfileComponent implements OnInit {
           bankId: this.bankDetailPatch[0]?.bankId,
 
         }],
+        upiDetail : null
         // upiDetail: [{
         //   // upidetailId :this.form.value.upiDetail[0].upidetailId,
         //   upiid: this.form.value.upiDetail[0]?.upiid,
