@@ -89,9 +89,18 @@ export class AddServiceComponent implements OnInit {
       durationInMinutes: ['', [Validators.required]],
       lockTimeStart: [''],
       lockTimeEnd: [''],
-      serviceDescription: ['', [Validators.required]],
+      serviceDescription: ['', [Validators.required, this.maxLengthValidator(160)]],
 
     }, { validator: this.timeValidator });
+  }
+  maxLengthValidator(maxLength: number) {
+    return (control: { value: any; }) => {
+      const value = control.value;
+      if (value && value.length > maxLength) {
+        return { maxLengthExceeded: true };
+      }
+      return null;
+    };
   }
   timeValidator(control: AbstractControl): ValidationErrors | null {
     const startTime = control.get('lockTimeStart')?.value;

@@ -341,10 +341,12 @@ postUnActiveServiceStatus(data: any) {
     this.content.getcategory().subscribe(response => {
       if (response.isSuccess) {
         this.categoryList = response.data;
+        this.subCategoryList = [];
 
         //  this.spinner.hide();
       } else {
         // this.spinner.hide();
+        this.subCategoryList = [];
         this.toaster.error(response.messages);
       }
     });

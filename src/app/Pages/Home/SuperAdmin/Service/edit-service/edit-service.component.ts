@@ -84,10 +84,18 @@ export class EditServiceComponent implements OnInit {
       durationInMinutes: ['', [Validators.required]],
       lockTimeStart: [''],
       lockTimeEnd: [''],
-      serviceDescription: ['', [Validators.required]],
+      serviceDescription: ['', [Validators.required, this.maxLengthValidator(160)]],
     });
   }
-
+  maxLengthValidator(maxLength: number) {
+    return (control: { value: any; }) => {
+      const value = control.value;
+      if (value && value.length > maxLength) {
+        return { maxLengthExceeded: true };
+      }
+      return null;
+    };
+  }
   get f() {
     return this.form.controls;
   }

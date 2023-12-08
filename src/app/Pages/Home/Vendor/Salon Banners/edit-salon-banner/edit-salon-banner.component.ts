@@ -76,7 +76,7 @@ export class EditSalonBannerComponent implements OnInit {
     this._location.back();
   }
 
- 
+
 
   getSalonBannerDetail() {
 
@@ -85,9 +85,9 @@ export class EditSalonBannerComponent implements OnInit {
       if (response.isSuccess) {
         this.spinner.hide();
         this.ShopBannerdetail = response.data;
-        this.editImages = this.rootUrl + this.ShopBannerdetail?.bannerImage;      
+        this.editImages = this.rootUrl + this.ShopBannerdetail?.bannerImage;
         this.getSubcategoryList(this.ShopBannerdetail?.mainCategoryId);
-        
+
         this.form.patchValue({
           bannerType: this.ShopBannerdetail.bannerType,
           mainCategoryId: this.ShopBannerdetail.mainCategoryId,
@@ -115,7 +115,7 @@ export class EditSalonBannerComponent implements OnInit {
   getSubcategoryList(data: any) {
     this.content.SubCategory(data).subscribe(response => {
       if (response.isSuccess) {
-        
+
         this.subCategoryList = response.data;
 
         this.spinner.hide();
@@ -126,48 +126,85 @@ export class EditSalonBannerComponent implements OnInit {
     });
   }
 
-
-
-
-
   imagesUpload(event: any) {
+    debugger
     const fileType = event.target.files[0].type;
     if ((fileType === 'image/jpeg' || fileType === 'image/png') && fileType !== 'image/jfif') {
-    if (event.target.files && event.target.files[0]) {
-      const file = event.target.files[0];
-      const imageSize = file.size / 1024; // in KB
-  
-      const reader = new FileReader();
-      reader.onload = (_event: any) => {
-        const image = new Image();
-        image.src = _event.target.result as string;
-        image.onload = () => {
-          if (image.width === 1280 && image.height === 720 && imageSize <= 1024) {
-            this.imageFile = {
-              link: _event.target.result,
-              file: file,
-              name: file.name,
-              type: file.type
-            };
-            this.isValid = true;
-            this.errorMessage = ''; // No error message if the image meets criteria
-          } else {
-            this.isValid = false;
-            this.errorMessage = 'Please select a 1280x720 pixels (width×height) image .'; // Error message for invalid image
-            // You can add further handling if needed for invalid images
-          }
+      if (event.target.files && event.target.files[0]) {
+        const file = event.target.files[0];
+        const imageSize = file.size / 1024; // in KB
+        const reader = new FileReader();
+        reader.onload = (_event: any) => {
+          const image = new Image();
+          image.src = _event.target.result as string;
+          image.onload = () => {
+
+            if (image.width === 1280 && image.height === 720 && imageSize <= 1024) {
+              const imageDataUrl = reader.result as string;
+              this.imageFile = {
+                link: _event.target.result,
+                file: file,
+                name: file.name,
+                type: file.type,
+
+              };
+              this.previewImage = imageDataUrl;
+              this.urls1.push(imageDataUrl);
+              this.isValid = true;
+              this.errorMessage = ''; // No error message if the image meets criteria
+            } else {
+              this.isValid = false;
+              this.errorMessage = 'Please select a 1280x720 pixels (width×height) image .'; // Error message for invalid image
+              // You can add further handling if needed for invalid images
+            }
+          };
         };
-      };
-      reader.readAsDataURL(file);
-    }
-  } else {
-    this.errorMessage = 'Please select a valid JPEG or PNG image.';
+        reader.readAsDataURL(file);
       }
-}
+    } else {
+      this.errorMessage = 'Please select a valid JPEG or PNG image.';
+    }
+  }
+
+
+  //   imagesUpload(event: any) {
+  //     const fileType = event.target.files[0].type;
+  //     if ((fileType === 'image/jpeg' || fileType === 'image/png') && fileType !== 'image/jfif') {
+  //     if (event.target.files && event.target.files[0]) {
+  //       const file = event.target.files[0];
+  //       const imageSize = file.size / 1024; // in KB
+
+  //       const reader = new FileReader();
+  //       reader.onload = (_event: any) => {
+  //         const image = new Image();
+  //         image.src = _event.target.result as string;
+  //         image.onload = () => {
+  //           if (image.width === 1280 && image.height === 720 && imageSize <= 1024) {
+  //             this.imageFile = {
+  //               link: _event.target.result,
+  //               file: file,
+  //               name: file.name,
+  //               type: file.type
+  //             };
+  //             this.isValid = true;
+  //             this.errorMessage = ''; // No error message if the image meets criteria
+  //           } else {
+  //             this.isValid = false;
+  //             this.errorMessage = 'Please select a 1280x720 pixels (width×height) image .'; // Error message for invalid image
+  //             // You can add further handling if needed for invalid images
+  //           }
+  //         };
+  //       };
+  //       reader.readAsDataURL(file);
+  //     }
+  //   } else {
+  //     this.errorMessage = 'Please select a valid JPEG or PNG image.';
+  //       }
+  // }
 
 
   fileChangeEvent() {
-    
+
     this.spinner.show();
     let formData = new FormData();
     formData.append("salonBannerId", this.salonBannerId);
@@ -200,9 +237,9 @@ export class EditSalonBannerComponent implements OnInit {
   onBannerTypeChange(selectedValue: string) {
     this.showBrandDiv = selectedValue === 'SalonCategoryBanner';
     // this.Brandlistshow = selectedValue === 'BrandBanner';
-    this.selectedFilter = selectedValue === 'SalonCategoryBanner' ;
-                          selectedValue === 'SalonCategoryBanner' ;
-                       
+    this.selectedFilter = selectedValue === 'SalonCategoryBanner';
+    selectedValue === 'SalonCategoryBanner';
+
   }
   // onclick(data: any) {
   //   this.visible = !this.visible

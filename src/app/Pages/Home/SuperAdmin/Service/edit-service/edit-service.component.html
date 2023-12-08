@@ -219,17 +219,20 @@
                             </div>
                         </div>
 
-                        <div class=" col-md-12">
+                        <div class="col-md-12 ">
                             <label>Description <i class="fa fa-asterisk" aria-hidden="true"></i></label>
                             <textarea type="text" class="control-form" formControlName="serviceDescription" noSpacesAtStart appCapitalizeFirstLetter>
-                    </textarea>
-
-                            <div *ngIf="submitted && f['serviceDescription'].errors" class="help-block">
-                                <div *ngIf="f['serviceDescription'].errors" style="color: #fd0000">
-                                    Description is required.
-                                </div>
+                            </textarea>
+                            <!-- Maximum length error message -->
+                            <div *ngIf="form.get('serviceDescription')?.hasError('maxLengthExceeded')" style="color: #fd0000;">
+                              Maximum 160 characters for description.
                             </div>
-                        </div>
+                            <!-- Required error message -->
+                            <div *ngIf="submitted && form.get('serviceDescription')?.hasError('required')" class="help-block" style="color: #fd0000;">
+                              Description is required.
+                            </div>
+                          </div>
+
 
                         <div class="col-lg-12 col-md-12 mb-20">
                             <label>Service Image</label>

@@ -67,7 +67,7 @@ export class EditCategoryComponent implements OnInit {
   categoryForm() {
     this.form = this.formBuilder.group({
       categoryName: ['', [Validators.required]],
-      categoryDescription: ['',[this.maxLengthValidator(160)]],
+      categoryDescription: ['', [this.maxLengthValidator(160)]],
       categoryType: ['', [Validators.required]]
     });
   }
@@ -87,7 +87,7 @@ export class EditCategoryComponent implements OnInit {
     if (this.form.invalid) {
       return;
     }
-    
+
     if (this.detail) {
       let payload = {
         mainCategoryId: this.detail.mainCategoryId,
@@ -101,7 +101,7 @@ export class EditCategoryComponent implements OnInit {
         this.afterResponse(response);
 
       });
-    } 
+    }
   }
 
 
@@ -120,8 +120,8 @@ export class EditCategoryComponent implements OnInit {
         }
         else if (this.login == 'Admin')
           this.showModal();
-          
-      }  
+
+      }
       else {
         this.toasterService.error(response.messages);
       }
@@ -141,7 +141,7 @@ export class EditCategoryComponent implements OnInit {
   }
 
 
-                  
+
   getCategoryDetail(id: string) {
     this.contentService.categoryDetail(id).subscribe(response => {
       if (response.isSuccess) {
@@ -160,39 +160,44 @@ export class EditCategoryComponent implements OnInit {
   }
   imagesUpload(event: any) {
     debugger
-    if (event.target.files && event.target.files[0]) {
-      const file = event.target.files[0];
-      const imageSize = file.size / 1024; // in KB
-      const reader = new FileReader();
-      reader.onload = (_event: any) => {
-        const image = new Image();
-        image.src = _event.target.result as string;
-        image.onload = () => {
-       
-          if (image.width === 512 && image.height === 512 && imageSize <= 1024) {
-            const imageDataUrl = reader.result as string;
-            this.imageFile = {
-              link: _event.target.result,
-              file: file,
-              name: file.name,
-              type: file.type,
-              
-            };
-            this.previewImage = imageDataUrl;
-            this.urls1.push(imageDataUrl);
-            this.isValid = true;
-            this.errorMessage = ''; // No error message if the image meets criteria
-          } else {
-            this.isValid = false;
-            this.errorMessage = 'Please select a 512x512 pixels (width×height) image .'; // Error message for invalid image
-            // You can add further handling if needed for invalid images
-          }
+    const fileType = event.target.files[0].type;
+    if ((fileType === 'image/jpeg' || fileType === 'image/png') && fileType !== 'image/jfif') {
+      if (event.target.files && event.target.files[0]) {
+        const file = event.target.files[0];
+        const imageSize = file.size / 1024; // in KB
+        const reader = new FileReader();
+        reader.onload = (_event: any) => {
+          const image = new Image();
+          image.src = _event.target.result as string;
+          image.onload = () => {
+
+            if (image.width === 512 && image.height === 512 && imageSize <= 500) {
+              const imageDataUrl = reader.result as string;
+              this.imageFile = {
+                link: _event.target.result,
+                file: file,
+                name: file.name,
+                type: file.type,
+
+              };
+              this.previewImage = imageDataUrl;
+              this.urls1.push(imageDataUrl);
+              this.isValid = true;
+              this.errorMessage = ''; // No error message if the image meets criteria
+            } else {
+              this.isValid = false;
+              this.errorMessage = 'Please select a 512x512 pixels (width×height) image .'; // Error message for invalid image
+              // You can add further handling if needed for invalid images
+            }
+          };
         };
-      };
-      reader.readAsDataURL(file);
+        reader.readAsDataURL(file);
+      }
+    } else {
+      this.errorMessage = 'Please select a valid JPEG or PNG image.';
     }
   }
- 
+
 
   fileChangeEvent() {
 
