@@ -15,13 +15,14 @@ export class NoSpacesAtStartDirective {
       inputValue = inputValue.trim();
     }
 
-    // Prevent spaces from being entered
-    input.value = inputValue.replace(/\s/g, '');
+    // Update the input value
+    input.value = inputValue;
   }
 
   @HostListener('keydown', ['$event']) onKeyDown(event: KeyboardEvent): void {
-    // Prevent the default behavior for the space key
-    if (event.key === ' ') {
+    // Prevent the default behavior for the space key only if the input starts with a space
+    const input = this.el.nativeElement as HTMLInputElement;
+    if (event.key === ' ' && input.value.trim() === '') {
       event.preventDefault();
     }
   }
