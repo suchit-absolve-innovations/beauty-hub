@@ -364,7 +364,7 @@ export class EditServiceComponent implements OnInit {
           if (image.width === 512 && image.height === 512 && imageSize <= 512) {
             this.errorMessage = '';
             this.isValid = true;
-            this.previewImage = image.src;
+            this.imageUrl = image.src;
           } else {
             this.errorMessage = 'Please select 512x512 pixels (width×height) image.';
             this.isValid = false;

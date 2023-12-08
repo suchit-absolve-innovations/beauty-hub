@@ -15,11 +15,11 @@ import { Location } from '@angular/common';
   styleUrls: ['./add-edit-package.component.css']
 })
 export class AddEditPackageComponent implements OnInit {
-  form!: FormGroup;
+  // form!: FormGroup;
   submitted!: boolean
   rootUrl: any;
   id: any;
-
+form:any;
   subCategoryList: any;
   categoryList: any;
   salonBannerId: any;
@@ -85,7 +85,10 @@ export class AddEditPackageComponent implements OnInit {
       idField: 'item_id',
       textField: 'item_text',
     };
-
+    this.form.get('mainCategoryId').valueChanges.subscribe(() => {
+      // Reset subCategoryId when mainCategoryId changes
+      this.form.get('subCategoryId').setValue('');
+    });
   }
 
   onItemSelect(item: any) { }

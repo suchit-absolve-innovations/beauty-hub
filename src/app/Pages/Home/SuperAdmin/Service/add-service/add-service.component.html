@@ -291,7 +291,7 @@
                             <br>
                             <input name="bannerimage" type="file" class="uploadFile img" #image1
                                 (change)="handleImageInput($event)">
-                            <label *ngIf="previewImage" data-toggle="modal" data-target="#myModal3"
+                            <label *ngIf="previewImages" data-toggle="modal" data-target="#myModal3"
                                 class="preview-butn">preview</label>
                             <div *ngIf="errorMessage" class="help-block" style="color: #fd0000">{{ errorMessage }}</div>
                         </div>
@@ -346,7 +346,7 @@
             </button>
             <div class="modal-body text-center">
                 <div class="imagePreview vendor-preview">
-                    <img class="image" [src]="previewImage">
+                    <img class="image" [src]="previewImages">
                 </div>
 
 

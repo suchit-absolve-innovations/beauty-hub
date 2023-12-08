@@ -56,7 +56,7 @@
 
                         <div class="col-lg-6 col-md-12">
                             <label>Package Name <i class="fa fa-asterisk" aria-hidden="true"></i></label>
-                            <input type="text" class="control-form" formControlName="serviceName" noSpacesAtStart appCapitalizeFirstLetter/>
+                            <input name="iconimage" type="text" class="control-form" formControlName="serviceName" noSpacesAtStart appCapitalizeFirstLetter/>
                             <div *ngIf="submitted && f['serviceName'].errors" class="help-block">
                                 <div *ngIf="f['serviceName'].errors" style="color: #fd0000">
                                     Package name is required.
@@ -66,7 +66,7 @@
                         <div class="col-lg-6 col-md-12 mb-20">
                             <label>Package Image</label>
                             <br>
-                            <input name="iconimage" type="file" class="uploadFile img" #image1
+                            <input type="file" class="uploadFile img" #image1
                                 (change)="handleFileInput($event)" (change)="onImageSelect($event)">
                             <label *ngIf="imageUrl" width="512" height="512" data-toggle="modal" data-target="#myModal3"
                                 class="preview-butn">preview</label>

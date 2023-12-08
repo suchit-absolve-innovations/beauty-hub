@@ -65,7 +65,6 @@ form:any;
   discount : any = 0 ;
   listingPrice: any = 0 ;
   maxDiscountValue: any;
-  selectedMainCategory: any;
 
   constructor(private router: Router,
     private formBuilder: FormBuilder,
@@ -100,7 +99,10 @@ form:any;
       idField: 'item_id',
       textField: 'item_text',
     };
-
+    this.form.get('mainCategoryId').valueChanges.subscribe(() => {
+      // Reset subCategoryId when mainCategoryId changes
+      this.form.get('subCategoryId').setValue('');
+    });
   }
 
   onItemSelect(item: any) { }
@@ -194,14 +196,10 @@ timeValidator(control: AbstractControl): ValidationErrors | null {
       this.contentService.getcategory().subscribe(response => {
         if (response.isSuccess) {
           this.categoryList = response.data;
-          // this.form.get('mainCategoryId').setValue('');  
-          this.form.get('subCategoryId').setValue('');  
           this.subCategoryList = [];
          this.spinner.hide();
         } else {
           this.spinner.hide();
-          this.form.get('subCategoryId').setValue('');  
-          this.subCategoryList = [];
           this.toaster.error(response.messages);
         }
       });
@@ -212,9 +210,6 @@ timeValidator(control: AbstractControl): ValidationErrors | null {
    this.contentService.SuperSubCategory(mainCategoryId).subscribe(response => {
      if (response.isSuccess) {
        this.subCategoryList = response.data;
-       this.selectedMainCategory = mainCategoryId;
-       this.form.get('subCategoryId').setValue('');
-       // this.SubSubcategoryList = []
        this.spinner.hide();
      } else {
        this.subCategoryList = [];
@@ -499,7 +494,7 @@ onImageSelect(event: any) {
       if (image.width === 512 && image.height === 512 && imageSize <= 512) {
         this.errorMessage = '';
         this.isValid = true;
-        this.previewImage = image.src;
+        // this.previewImage = image.src;
       } else {
         this.errorMessage = 'Please select 512x512 pixels (width×height) image.';
         this.isValid = false;

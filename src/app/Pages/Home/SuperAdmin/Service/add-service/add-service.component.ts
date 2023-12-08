@@ -45,6 +45,7 @@ export class AddServiceComponent implements OnInit {
   errorMessages: string = '';
   isValid: boolean = false;
   previewImage: string = '';
+  previewImages: string = '';
   basePrice: any;
   discount: any = 0;
   listingPrice: any = 0;
@@ -325,13 +326,13 @@ export class AddServiceComponent implements OnInit {
             const imageDataUrl = reader.result as string;
             this.errorMessage = '';
             this.isValid = true;
-         //   this.previewImage = image.src;
+           this.previewImages = image.src;
             this.urls1.push(imageDataUrl);
           } else {
             // Set as invalid if criteria not met
             this.errorMessage = 'Please select 512x512 pixels (width×height) image.';
             this.isValid = false;
-            this.previewImage = '';
+            this.previewImages = '';
           }
         };
       };
