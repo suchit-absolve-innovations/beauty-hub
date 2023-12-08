@@ -75,10 +75,13 @@ export class AppointmentDetailComponent implements OnInit {
   }
 
   appointmentStatus(){
+    this.spinner.show();
     this.postAppointmentStatus = this.form.value.appointmentStatus
+
   }
 
   setSelectedStatus(data:any) {
+    this.spinner.show();
     let payload = {
       appointmentId    : data.appointmentId,
       appointmentStatus: this.postAppointmentStatus,
@@ -88,6 +91,7 @@ export class AppointmentDetailComponent implements OnInit {
     this.content.postStatus(payload).subscribe(response => {
       if (response.isSuccess) {
         this.toaster.success(response.messages);
+        
       }
       else {
         this.toaster.error(response.messages)}

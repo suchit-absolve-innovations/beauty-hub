@@ -164,7 +164,6 @@ export class EditServiceComponent implements OnInit {
       if (response.isSuccess) {
         this.subCategoryList = response.data;
 
-        // this.SubSubcategoryList = []
         var categoryListData = this.subCategoryList?.find((y: { subCategoryId: any; }) => y.subCategoryId == this.serviceDetailPatch.subCategoryId);
         this.form.patchValue({
           subCategoryId: categoryListData?.subCategoryId,

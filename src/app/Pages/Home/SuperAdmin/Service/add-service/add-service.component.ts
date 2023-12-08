@@ -201,14 +201,15 @@ export class AddServiceComponent implements OnInit {
   }
 
   getcategoryList() {
-    // this.spinner.show();
+    this.spinner.show();
     this.contentService.getcategory().subscribe(response => {
       if (response.isSuccess) {
         this.categoryList = response.data;
         this.subCategoryList = [];
-        //  this.spinner.hide();
+         this.spinner.hide();
       } else {
-        // this.spinner.hide();
+        this.categoryList = [];
+        this.spinner.hide();
         this.toaster.error(response.messages);
       }
     });

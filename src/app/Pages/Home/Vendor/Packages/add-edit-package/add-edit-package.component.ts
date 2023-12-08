@@ -176,7 +176,7 @@ timeValidator(control: AbstractControl): ValidationErrors | null {
       this.contentService.getcategory().subscribe(response => {
         if (response.isSuccess) {
           this.categoryList = response.data;
-        
+          this.subCategoryList = [];
         //  this.spinner.hide();
         } else {
           // this.spinner.hide();

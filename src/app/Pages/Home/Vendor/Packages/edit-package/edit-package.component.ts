@@ -18,10 +18,10 @@ import { HttpClient } from '@angular/common/http';
 })
 export class EditPackageComponent implements OnInit {
   rootUrl: any;
-  form!: FormGroup;
+  // form!: FormGroup;
   submitted!: boolean
   id: any;
-
+form:any;
   subCategoryList: any;
   categoryList: any;
   salonBannerId: any;
@@ -65,7 +65,7 @@ export class EditPackageComponent implements OnInit {
   discount : any = 0 ;
   listingPrice: any = 0 ;
   maxDiscountValue: any;
-
+  selectedMainCategory: any;
 
   constructor(private router: Router,
     private formBuilder: FormBuilder,
@@ -114,8 +114,8 @@ export class EditPackageComponent implements OnInit {
       basePrice            : ['', [Validators.required]],
       discount             : ['', [Validators.required]],
       listingPrice         : ['', [Validators.required]],
-      // mainCategoryId       : [''],
-      // subCategoryId        : [''],
+      mainCategoryId       : [''],
+      subCategoryId        : [''],
       ageRestrictions      : ['', [Validators.required]],
       genderPreferences    : ['', [Validators.required]],
       totalCountPerDuration: ['', [Validators.required]],
@@ -190,14 +190,18 @@ timeValidator(control: AbstractControl): ValidationErrors | null {
     } 
 
   getcategoryList(){
-    // this.spinner.show();
+    this.spinner.show();
       this.contentService.getcategory().subscribe(response => {
         if (response.isSuccess) {
           this.categoryList = response.data;
-        
-        //  this.spinner.hide();
+          // this.form.get('mainCategoryId').setValue('');  
+          this.form.get('subCategoryId').setValue('');  
+          this.subCategoryList = [];
+         this.spinner.hide();
         } else {
-          // this.spinner.hide();
+          this.spinner.hide();
+          this.form.get('subCategoryId').setValue('');  
+          this.subCategoryList = [];
           this.toaster.error(response.messages);
         }
       });
@@ -208,7 +212,8 @@ timeValidator(control: AbstractControl): ValidationErrors | null {
    this.contentService.SuperSubCategory(mainCategoryId).subscribe(response => {
      if (response.isSuccess) {
        this.subCategoryList = response.data;
-     
+       this.selectedMainCategory = mainCategoryId;
+       this.form.get('subCategoryId').setValue('');
        // this.SubSubcategoryList = []
        this.spinner.hide();
      } else {
