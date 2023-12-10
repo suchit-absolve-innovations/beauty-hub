@@ -51,7 +51,7 @@ export class EditSalonBannerComponent implements OnInit {
     this.salonId = this.route.snapshot.paramMap.get('id2');
     this.getSalonBannerDetail();
     this.getcategoryList();
-
+    this.onBannerTypeChange('SalonCategoryBanner'); 
     this.form = this.formBuilder.group({
       bannerType: [''],
       mainCategoryId: [''],
@@ -103,6 +103,8 @@ export class EditSalonBannerComponent implements OnInit {
     this.content.getcategory().subscribe(response => {
       if (response.isSuccess) {
         this.categoryList = response.data;
+        
+
       } else {
         this.toaster.error(response.messages);
       }
@@ -165,7 +167,6 @@ export class EditSalonBannerComponent implements OnInit {
       this.errorMessage = 'Please select a valid JPEG or PNG image.';
     }
   }
-
 
   //   imagesUpload(event: any) {
   //     const fileType = event.target.files[0].type;
@@ -232,17 +233,22 @@ export class EditSalonBannerComponent implements OnInit {
     this.fileChangeEvent();
   }
 
-
-  //onclick toggling both
   onBannerTypeChange(selectedValue: string) {
     this.showBrandDiv = selectedValue === 'SalonCategoryBanner';
-    // this.Brandlistshow = selectedValue === 'BrandBanner';
     this.selectedFilter = selectedValue === 'SalonCategoryBanner';
-    selectedValue === 'SalonCategoryBanner';
-
+    // Perform any other actions based on the selected value
   }
+}
+  //onclick toggling both
+  // onBannerTypeChange(selectedValue: string) {
+  //   this.showBrandDiv = selectedValue === 'SalonCategoryBanner';
+  //   // this.Brandlistshow = selectedValue === 'BrandBanner';
+  //   this.selectedFilter = selectedValue === 'SalonCategoryBanner';
+  //   selectedValue === 'SalonCategoryBanner';
+
+  // }
   // onclick(data: any) {
   //   this.visible = !this.visible
   // }
 
-}
+

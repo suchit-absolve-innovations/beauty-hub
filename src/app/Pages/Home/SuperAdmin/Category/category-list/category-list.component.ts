@@ -25,7 +25,6 @@ export class CategoryListComponent implements OnInit {
   itemsPerPage!: number;
   totalItems!: number;
   categoryList: any;
-
   rootUrl: any;
   login = localStorage.getItem('role');
 
@@ -215,7 +214,7 @@ export class CategoryListComponent implements OnInit {
 
   filterListForm() {
     this.form = this.formBuilder.group({
-      CategoryType: [''],
+      CategoryType: ['0'],
     });
   }
 
