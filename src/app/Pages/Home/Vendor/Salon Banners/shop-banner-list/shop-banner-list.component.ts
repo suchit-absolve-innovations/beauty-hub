@@ -54,10 +54,7 @@ export class ShopBannerListComponent implements OnInit {
       subCategoryId  : [''],
       salonBannerType: ['']
       //  brandId       : [''],
-
-
     });
-
   }
 
   get f() {
@@ -71,6 +68,7 @@ export class ShopBannerListComponent implements OnInit {
   get fb() {
     return this.form['controls'];
   }
+
   get ssb() {
     return this.form['controls'];
   }
@@ -97,6 +95,9 @@ export class ShopBannerListComponent implements OnInit {
 
   onBannerTypeChange(selectedValue: string) {
     debugger
+    if(selectedValue == ''){
+      window.location.reload();
+    }
     this.showBrandDiv = selectedValue === 'SalonCategoryBanner';
     this.selectedFilter = selectedValue === 'SalonCategoryBanner' ? 'Main' : selectedValue === 'SalonCategoryBanner' ? 'Sub' :  '';
     this.filterAllBannersList(); 
@@ -114,7 +115,6 @@ clearAllCategories(){
   this.form.get('mainCategoryId').setValue('');  
   this.form.get('subCategoryId').setValue('');  
   this.subCategoryList = [];
- 
 }
 
 clearSubCategories() {

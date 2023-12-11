@@ -31,7 +31,6 @@ export class AddEditScheduleComponent implements OnInit {
     private formBuilder: FormBuilder,
     private contentService: ContentService,
     private router: Router,
-
     private spinner: NgxSpinnerService,
     private toasterService: ToastrService,
   ) { }
@@ -40,7 +39,6 @@ export class AddEditScheduleComponent implements OnInit {
     this.scheduleform();
     this.salonId = localStorage.getItem('salonId');
     this.getScheduleDayTime();
-
   }
 
 

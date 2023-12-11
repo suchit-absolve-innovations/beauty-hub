@@ -96,7 +96,7 @@ export class SuperAdminDashboardComponent implements OnInit {
 
 
   vendorStatusAccept(data: any) {
-    ;
+    
     let payload = {
       vendorId: data.vendorId,
       salonId: data.salonId,
