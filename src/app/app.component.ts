@@ -23,9 +23,14 @@ export class AppComponent {
         // tslint:disable-next-line: max-line-length
         if (defaultpage.url === '/login') {
           localStorage.removeItem('currentUser');
+          this.disableBackButton();
+        }else {
+          // Enable back button on other pages
+          this.enableBackButton();
         }
       }
     });
+   
     this.messagingService.receiveMessaging();
     this.messagingService.requestPermission();
     this.message = this.messagingService.currentMessage
@@ -46,6 +51,14 @@ export class AppComponent {
     // Update isOffline based on the current online status
     this.isOffline = !navigator.onLine;
   }
+  disableBackButton() {
+    window.history.pushState(null, '', window.location.href);
+    window.onpopstate = function () {
+      window.history.pushState(null, '', window.location.href);
+    };
  
-  
+  }
+  enableBackButton() {
+    window.onpopstate = null;
+  }
 }
