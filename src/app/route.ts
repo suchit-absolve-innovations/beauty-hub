@@ -25,9 +25,9 @@ export const RoleRoutes = {
     // {
     //   name: "Brand", value: "MANAGE_ReI", isEnabled: false, routerLink: "brand-list", acl: 'dashboard', subRoutes: []
     // },
-    {
-      name: "Banners", value: "MANAGE_ReI", isEnabled: false, routerLink: "banner-list", acl: 'dashboard', subRoutes: []
-    },
+    // {
+    //   name: "Banners", value: "MANAGE_ReI", isEnabled: false, routerLink: "banner-list", acl: 'dashboard', subRoutes: []
+    // },
     {
       name: "Membership Plans", value: "MANAGE_ReI", isEnabled: false, routerLink: "plan-list", acl: 'dashboard', subRoutes: []
     },

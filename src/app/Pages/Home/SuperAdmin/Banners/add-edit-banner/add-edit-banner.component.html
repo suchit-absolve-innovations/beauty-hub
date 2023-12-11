@@ -20,9 +20,11 @@
                             <div class="imges-upload mb-0">
                                 <div class="imgUp m-auto">
                                   
-                                    <div *ngIf="isValid" class="imagePreview">
-                                        <img [src]="imageFile.link" alt="Image Preview">
-                                    </div>
+                                    <div>
+                                        <div *ngIf="!isValid "class="imagePreview"><img src="{{editImages}}"></div>
+    
+                                        <div *ngIf="isValid" class="imagePreview" [style.background-image]="'url(' + previewImage + ')'"></div>
+                                      </div>
 
                                     <label class="upload button btn btn-primary">
                                         <!-- <input value="rootUrl + homeServicesData.imagePath" name="bannerHidden" type="hidden"> -->

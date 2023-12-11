@@ -70,6 +70,10 @@ export class AppointmentListComponent implements OnInit {
     });
   }
 
+  clearDate(){
+    window.location.reload()
+  }
+
   ngOnDestroy() {
     if (this.refreshSubscription) {
       this.refreshSubscription.unsubscribe();

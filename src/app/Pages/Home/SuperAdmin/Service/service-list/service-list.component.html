@@ -6,15 +6,16 @@
     <div class="admin_a form_dashbord">
         <div class="top-head" *ngIf="login == 'SuperAdmin'">
             <img (click)="backClicked()" src="assets\img\backimage.svg" class="backimage-butn">
-          <h2>Services</h2>
-          </div>
+            <h2>Services</h2>
+        </div>
         <!-- <div class="text-center d-table">
             <img src="https://dummyimage.com/100x100/ddd/fff" class="img-responsive rounded-circle">
             <h3>James Walter</h3>
         </div> -->
 
         <div class="d-flex if_xs_btn mt-30">
-            <input type="text" placeholder="Search Here" class="btn_border search_here" (input)="addSpaceAfterText()"  [(ngModel)]="searchText"(click)="performSearch()" style="width:25%!important;">
+            <input type="text" placeholder="Search Here" class="btn_border search_here" (input)="addSpaceAfterText()"
+                [(ngModel)]="searchText" (click)="performSearch()" style="width:25%!important;">
             <!-- <a class="btn_blue ml-auto" data-toggle="modal" data-target="#myModalpurchase-membership">Add Salon</a> -->
 
             <a (click)="passId()" class="btn_blue ml-auto">Add Service </a>
@@ -24,49 +25,55 @@
 
         <form [formGroup]="form">
             <div class="d-flex flex-wrap if_xs_btn mb-30" style="gap: 10px;">
-              
-        
-    
-                <div class="cate-align">
-                <label>Main Category</label>
-                <!-- (change)="getSubcategoryList(f['countryId'].value)" -->
-                <!-- (change)="getSubcategoryList(f['mainProductCategoryId'].value)" -->
-                <select type="text" class="control-form mr-20 btn_border" formControlName="mainCategoryId" (click)="performSearch()" (change)="serviceListFilter()" (change)="getSubcategoryList(f['mainCategoryId'].value)">
-                    <option value="" >Select </option>
-                    <option   *ngFor="let item of categoryList"   [ngValue]="item?.mainCategoryId"
-                   >{{item?.categoryName}}</option>
-    
-                </select>	
-            </div>
-    
-    
-            <div class="cate-align">
-                <label>Sub Category</label>
-                <select type="text" class="control-form mr-20 btn_border" formControlName="subCategoryId" (change)="serviceListFilter()">
-                    <option value="" >Select </option>
-                    <option *ngFor="let item of subCategoryList"  [ngValue]="item?.subCategoryId" >{{item?.categoryName}}</option>
-                </select>	
-            </div>
 
-            <div class="cate-align">
-                <label>Age</label>
-                <select type="text" class="control-form mr-20 btn_border" formControlName="ageRestrictions"  (change)="serviceListFilter()">
-                    <option value="">Select </option>
-                    <option value="Kids">Kids</option>
-                    <option value="Adult">Adult</option>
-                </select>	
-            </div>
-    
-            <div class="cate-align">
-                <label>Gender Preferences</label>
-                <select type="text" class="control-form mr-20 btn_border" formControlName="genderPreferences"  (change)="serviceListFilter()" (click)="performSearch()">
-                    <option value="">Select </option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                </select>	
-            </div>
+
+
+                <div class="cate-align">
+                    <label>Main Category</label>
+                    <!-- (change)="getSubcategoryList(f['countryId'].value)" -->
+                    <!-- (change)="getSubcategoryList(f['mainProductCategoryId'].value)" -->
+                    <select type="text" class="control-form mr-20 btn_border" formControlName="mainCategoryId"
+                        (click)="performSearch()" (change)="serviceListFilter()"
+                        (change)="getSubcategoryList(f['mainCategoryId'].value)">
+                        <option value="">Select </option>
+                        <option *ngFor="let item of categoryList" [ngValue]="item?.mainCategoryId">
+                            {{item?.categoryName}}</option>
+
+                    </select>
                 </div>
-            </form>
+
+
+                <div class="cate-align">
+                    <label>Sub Category</label>
+                    <select type="text" class="control-form mr-20 btn_border" formControlName="subCategoryId"
+                        (change)="serviceListFilter()">
+                        <option value="">Select </option>
+                        <option *ngFor="let item of subCategoryList" [ngValue]="item?.subCategoryId">
+                            {{item?.categoryName}}</option>
+                    </select>
+                </div>
+
+                <div class="cate-align">
+                    <label>Age</label>
+                    <select type="text" class="control-form mr-20 btn_border" formControlName="ageRestrictions"
+                        (change)="serviceListFilter()">
+                        <option value="">Select </option>
+                        <option value="Kids">Kids</option>
+                        <option value="Adult">Adult</option>
+                    </select>
+                </div>
+
+                <div class="cate-align">
+                    <label>Gender Preferences</label>
+                    <select type="text" class="control-form mr-20 btn_border" formControlName="genderPreferences"
+                        (change)="serviceListFilter()" (click)="performSearch()">
+                        <option value="">Select </option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+                </div>
+            </div>
+        </form>
 
         <div class="table-responsive">
             <table class="table admin_table">
@@ -110,12 +117,17 @@
                             <!-- <p>UnActive</p> -->
                         </label>
                     </td>
-              
+
                     <td>
-                        <a (click)="details(item)"><i style="background:#e6629f; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;" class="fa fa-eye"></i></a>
-                        <a (click)="edit(item)"><i style="background:#9f2d61; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;" class="fa fa-pencil"></i></a>
+                        <a (click)="details(item)"><i
+                                style="background:#e6629f; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;"
+                                class="fa fa-eye"></i></a>
+                        <a (click)="edit(item)"><i
+                                style="background:#9f2d61; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;"
+                                class="fa fa-pencil"></i></a>
                         <a data-toggle="modal" data-target="#list-cross-mess" (click)="delet(item)">
-                            <i style="background:#9f0a2a; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;" class="fa fa-times"></i>
+                            <i style="background:#9f0a2a; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;"
+                                class="fa fa-times"></i>
                         </a>
                     </td>
                     <!-- Modal Delete Vendor-->
@@ -151,14 +163,14 @@
 
         </div>
         <pagination-controls (pageChange)="((page = $event))" id="1" (pageIndex)="page" class="paginate-doctor-list"
-        queryParamsHandling="merge" (pageChange)="refresh()">
+            queryParamsHandling="merge" (pageChange)="refresh()">
         </pagination-controls>
     </div>
- 
-</div>
-    <!-- modal -->
 
-    <div class="modal fade" id="myModalpurchase-membership" tabindex="-1" role="dialog"
+</div>
+<!-- modal -->
+
+<div class="modal fade" id="myModalpurchase-membership" tabindex="-1" role="dialog"
     aria-labelledby="exampleModalLongTitle" aria-hidden="true">
     <div class="modal-dialog max_sf modal-dialog-centered" role="document"
         style="border-radius:15px; overflow:hidden; border:none;">
@@ -173,8 +185,7 @@
                 <div class="modal-body vendor-form pb-0 ">
                     <div class="">
                         <label>Select Filter</label>
-                        <select type="text" class="control-form mb-0 btn_border"
-                            formControlName="genderPreferences">
+                        <select type="text" class="control-form mb-0 btn_border" formControlName="genderPreferences">
                             <!-- <option value="">Select </option> -->
                             <option value="0">All</option>
                             <option value="Male">Male</option>
