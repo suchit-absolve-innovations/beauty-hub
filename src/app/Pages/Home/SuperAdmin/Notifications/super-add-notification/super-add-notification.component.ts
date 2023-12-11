@@ -13,7 +13,7 @@ import { Location } from '@angular/common';
 })
 export class SuperAddNotificationComponent implements OnInit {
   form!: FormGroup;
-
+  submitted = false;
   constructor(private router: Router,
     private formBuilder: FormBuilder,
     private spinner: NgxSpinnerService,
@@ -36,6 +36,11 @@ export class SuperAddNotificationComponent implements OnInit {
   }
 
   postNotification() {
+    this.submitted = true;
+    if (this.form.invalid) {
+      this.toasterService.error("Form Incomplete: Please fill in all the required fields correctly");
+      return;
+    }
     this.contentService.postBroadNotification(this.form.value).subscribe(response => {
       if (response.isSuccess) {
         this.toasterService.success(response.messages)

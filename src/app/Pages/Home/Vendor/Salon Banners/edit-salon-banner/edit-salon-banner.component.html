@@ -56,7 +56,7 @@
                                 <label>Main Category</label>
                                 <select type="text" class="control-form btn_border" formControlName="mainCategoryId"
                                     (change)="getSubcategoryList(f['mainCategoryId'].value)">
-                                    <option value="" selected>Select </option>
+                                    <option value="" >Select </option>
                                     <option *ngFor="let item of categoryList" [ngValue]="item.mainCategoryId">
                                         {{item.categoryName}}</option>
 
@@ -69,7 +69,7 @@
                                 <label>Sub Category</label>
                                 <select type="text" class="control-form mr-20 btn_border"
                                     formControlName="subCategoryId">
-                                    <option value=""selected>Select </option>
+                                    <option value="">Select </option>
                                     <option *ngFor="let item of subCategoryList" [ngValue]="item?.subCategoryId">
                                         {{item?.categoryName}}</option>
                                 </select>
