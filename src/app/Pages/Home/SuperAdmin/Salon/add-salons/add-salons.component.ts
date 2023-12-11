@@ -91,6 +91,11 @@ export class AddSalonsComponent implements OnInit {
     }
 
     ngOnInit(): void {
+      this.route.queryParams.subscribe((params: any) => {
+        if (params.id) {
+          this.getVendorDetail(params.id);
+        }
+      });
       this.role = localStorage.getItem('user')
       
       this.membershipRecordId = localStorage.getItem('membershipRecordId');
@@ -126,11 +131,7 @@ export class AddSalonsComponent implements OnInit {
       this.vendorForm();
       this.getCountry();
       this.rootUrl = environment.rootPathUrl;
-      this.route.queryParams.subscribe((params: any) => {
-        if (params.id) {
-          this.getVendorDetail(params.id);
-        }
-      });
+    
       this.getCountriesList();
     }
     backClicked() {
@@ -519,6 +520,7 @@ add() {
         }
         this.contentService.editVendor(payload).subscribe(response => {
           if (response.isSuccess) {
+            this.deleteUploadedImage
             this.imageId = this.vendorDetailPatch.vendorId;
             this.Salon = response.data.salonResponses;
             this.SalonId = this.Salon[0];
@@ -627,6 +629,7 @@ add() {
   
     fileChangeEvents() {
       // let formData = new FormData();
+      debugger
       const formData = new FormData();
       for (let i = 0; i < this.urls.length; i++) {
         const imageDataUrl = this.urls[i];
@@ -798,12 +801,12 @@ add() {
 
 
     getVendorDetail(id: string) {
-      // this.spinner.show();
+     this.spinner.show();
       
       this.contentService.getVendorDetail(id).subscribe(response => {
         if (response.isSuccess) {
           this.spinner.hide();
-       //   this.clearFormArray(this.List1());
+         this.clearFormArray(this.List1());
           this.vendorDetailPatch = response.data
           this.imageId = response.data.vendorId
           this.shopDetailPatch = this.vendorDetailPatch.salonResponses

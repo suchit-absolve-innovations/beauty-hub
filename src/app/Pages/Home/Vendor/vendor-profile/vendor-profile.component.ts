@@ -584,7 +584,7 @@ debugger
           }]
   
         }
-        this.spinner.show()
+        this.spinner.show();
         this.contentService.updateVendorProfile(payload).subscribe(response => {
 
          
