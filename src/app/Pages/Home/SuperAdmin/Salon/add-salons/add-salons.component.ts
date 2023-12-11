@@ -178,19 +178,26 @@ export class AddSalonsComponent implements OnInit {
   
   
     getAddress(addressLat: number, addressLong: number) {
-      debugger
+      debugger;
       this.geoCoder.geocode({ 'location': { lat: addressLat, lng: addressLong } }, (results, status) => {
-  
+        console.log(results);
         if (status === 'OK') {
           if (results[0]) {
-  
             this.zoom = 12;
-  
-            this.addressStreet = results[0]?.formatted_address;
-            this.addressCountry = results[13]?.formatted_address;
-  
+    
+            // Get the address components
+            const addressComponents = results[0].address_components;
+    
+            // Filter out components you want to exclude (e.g., postal code and country)
+            const filteredAddressComponents = addressComponents.filter(component =>
+              !['postal_code', 'country'].includes(component.types[0])
+            );
+    
+            // Concatenate the formatted parts
+            this.addressStreet = filteredAddressComponents.map(component => component.long_name).join(', ');
+    
+            console.log(this.addressStreet);
           } else {
-  
             window.alert('No results found');
           }
         } else {
@@ -198,6 +205,7 @@ export class AddSalonsComponent implements OnInit {
         }
       });
     }
+    
   
 
     vendorForm() {
