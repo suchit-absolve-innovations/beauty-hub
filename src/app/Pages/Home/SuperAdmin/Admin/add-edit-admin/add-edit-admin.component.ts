@@ -163,6 +163,7 @@ export class AddEditAdminComponent implements OnInit {
         this.id = response.data?.id;
         this.fileChangeEvent();
         this.afterResponse(response);
+        
       });
 
     } else {
@@ -192,10 +193,10 @@ export class AddEditAdminComponent implements OnInit {
       if (response.isSuccess) {
         this.form.reset();
         this.toasterService.success(response.messages);
-        this.router.navigate(['/admin-list'])
-        .then(() => {
+        this._location.back();
+        setTimeout(() => {
           window.location.reload();
-        });
+        }, 500); 
       }
       else {
         this.toasterService.error(response.messages);

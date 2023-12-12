@@ -332,8 +332,6 @@ getServiceDetail() {
       });
     
       // this.getSubcategoryList(this.packageDetailPatch?.mainCategoryId);
-   
-
     }
   });
   this.spinner.hide();
@@ -387,6 +385,9 @@ imageConvert64() {
     if (response.isSuccess) {
       this.toaster.success(response.messages);
        this._location.back();
+        setTimeout(() => {
+          window.location.reload();
+        }, 500); 
     } else {
       this.toaster.error(response.messages)
     }
@@ -400,7 +401,7 @@ fileChangeEvent() {
     const imageDataUrl = this.base64Image[i];
     const blob = this.dataURItoBlob(imageDataUrl);
     formData.append('salonServiceImage', blob, `image_${i}.png`);
-    formData.append('salonServiceImage', imageDataUrl);
+    // formData.append('salonServiceImage', imageDataUrl);
   }
   formData.append('serviceId', this.serviceIds);
   this.contentService.uploadServiceImage(formData).subscribe(response => {
@@ -561,11 +562,19 @@ private dataURItoBlob(dataURI: string): Blob {
   }
   return new Blob([ab], { type: mimeString });
 }
-removeImage(index: any) {
-  this.selectedImageData.splice(index, 1);
-  this.base64Image.splice(index, 1);
+// removeImage(index: any) {
+//   this.selectedImageData.splice(index, 1);
+//   this.base64Image.splice(index, 1);
+// }
+removeImage(index: number) {
+  if (index >= 0 && index < this.base64Image.length) {
+      this.base64Image.splice(index, 1);
+      // Check and remove from selectedImageData if necessary
+      if (index < this.selectedImageData.length) {
+          this.selectedImageData.splice(index, 1);
+      }
+  }
 }
-
 cancel(){
   this.router.navigateByUrl('/package-list')
   .then(() => {

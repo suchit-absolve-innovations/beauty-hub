@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ContentService } from 'src/app/Shared/service/content.service';
 import { environment } from 'src/environments/environment';
 import { Location } from '@angular/common';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-edit-service',
@@ -35,9 +36,9 @@ export class EditServiceComponent implements OnInit {
   errorMessage: string = '';
   isValid: boolean = false;
   previewImage: string = '';
-  errorMessages: any;
+  errorMessages: string = '';
   salonId: any;
-  base64Image: any;
+  base64Image: string[] = [];
   selectedImageData: any[] = [];
   imageFiles!: { link: any; file: any; name: any; type: any; };
   basePrice: any;
@@ -60,8 +61,7 @@ export class EditServiceComponent implements OnInit {
     this.rootUrl = environment.rootPathUrl;
     this.role = localStorage.getItem('user')
     this.serviceId = this.route.snapshot.queryParams;
-    // this.serviceIds = this.route.snapshot.paramMap.get('id2');
-
+   
     this.salonId = this.route.snapshot.queryParams;
     this.serviceForm();
     this.getcategoryList();
@@ -85,7 +85,8 @@ export class EditServiceComponent implements OnInit {
       lockTimeStart: [''],
       lockTimeEnd: [''],
       serviceDescription: ['', [Validators.required, this.maxLengthValidator(160)]],
-    });
+    }
+    , { validator: this.timeValidator });
   }
   maxLengthValidator(maxLength: number) {
     return (control: { value: any; }) => {
@@ -102,15 +103,16 @@ export class EditServiceComponent implements OnInit {
   timeValidator(control: AbstractControl): ValidationErrors | null {
     const startTime = control.get('lockTimeStart')?.value;
     const endTime = control.get('lockTimeEnd')?.value;
-
+  
     if (startTime && endTime) {
       if (startTime === endTime) {
         return { timeOrder: true };
       }
     }
-
+  
     return null;
   }
+  
   backClicked() {
     this._location.back();
   }
@@ -243,13 +245,18 @@ export class EditServiceComponent implements OnInit {
       this.fileChangeEvents();
       if (response.isSuccess) {
         this.toaster.success(response.messages);
-        this.both()
+        this._location.back();
+        setTimeout(() => {
+          window.location.reload();
+        }, 500); 
       } else {
         this.spinner.hide();
         this.toaster.error(response.messages);
       }
 
-    });
+    }) 
+   
+    
   }
 
   imageConvert64() {
@@ -260,23 +267,34 @@ export class EditServiceComponent implements OnInit {
       }
     });
   }
-
+ 
   fileChangeEvent() {
-
+debugger
     const formData = new FormData();
     for (let i = 0; i < this.base64Image.length; i++) {
       const imageDataUrl = this.base64Image[i];
       const blob = this.dataURItoBlob(imageDataUrl);
       formData.append('salonServiceImage', blob, `image_${i}.png`);
-      formData.append('salonServiceImage', imageDataUrl);
+      // formData.append('salonServiceImage', imageDataUrl);
     }
     formData.append('serviceId', this.serviceId.id2);
     this.contentService.uploadServiceImage(formData).subscribe(response => {
       var a = response;
     });
   }
-
+  private dataURItoBlob(dataURI: string): Blob {
+    const byteString = atob(dataURI.split(',')[1]);
+    const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+    const ab = new ArrayBuffer(byteString.length);
+    const ia = new Uint8Array(ab);
+    for (let i = 0; i < byteString.length; i++) {
+      ia[i] = byteString.charCodeAt(i);
+    }
+    return new Blob([ab], { type: mimeString });
+  }
   onselect(event: any) {
+
+    debugger
     const fileType = event.target.files[0].type;
     if ((fileType === 'image/jpeg' || fileType === 'image/png') && fileType !== 'image/jfif') {
       const files = event.target.files;
@@ -307,26 +325,32 @@ export class EditServiceComponent implements OnInit {
   onBannerImageSelect(event: any) {
     debugger
     const file = event.target.files[0];
-
+    const fileType = event.target.files[0].type;
+    if ((fileType === 'image/jpeg' || fileType === 'image/png') && fileType !== 'image/jfif') {
     if (file) {
       const imageSize = file.size / 1024; // in KB
       const image = new Image();
-
+  
       image.src = URL.createObjectURL(file);
-
+  
       image.onload = () => {
         if (image.width === 1280 && image.height === 720 && imageSize <= 1020) {
           this.errorMessages = '';
-          this.isValid = true;
+          // this.isValid = true;
           this.previewImage = image.src;
         } else {
           this.errorMessages = 'Please select 1280x720 pixels (width×height) image.';
-          this.isValid = false;
+          // this.isValid = false;
           this.previewImage = '';
         }
       };
     }
+  } else {
+    this.errorMessage = 'Please select a valid JPEG or PNG image.';
+      }
   }
+  
+  
 
   convertImageToBase64(url: string): Promise<string> {
     return new Promise<string>((resolve, reject) => {
@@ -417,22 +441,23 @@ export class EditServiceComponent implements OnInit {
     });
   }
 
-  private dataURItoBlob(dataURI: string): Blob {
-    const byteString = atob(dataURI.split(',')[1]);
-    const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
-    const ab = new ArrayBuffer(byteString.length);
-    const ia = new Uint8Array(ab);
-    for (let i = 0; i < byteString.length; i++) {
-      ia[i] = byteString.charCodeAt(i);
+ 
+  removeImage(index: number) {
+    if (index >= 0 && index < this.base64Image.length) {
+        this.base64Image.splice(index, 1);
+        // Check and remove from selectedImageData if necessary
+        if (index < this.selectedImageData.length) {
+            this.selectedImageData.splice(index, 1);
+        }
     }
-    return new Blob([ab], { type: mimeString });
-  }
+}
 
-
-  removeImage(index: any) {
-    this.selectedImageData.splice(index, 1);
-    this.base64Image.splice(index, 1);
-  }
+  
+  // removeImage(index: any) {
+  //   debugger
+  //   this.selectedImageData.splice(index, 1);
+  //   this.base64Image.splice(index, 1);
+  // }
 
   cancel() {
     if (this.role == 'SuperAdmin') {
@@ -447,17 +472,17 @@ export class EditServiceComponent implements OnInit {
         });
     }
   }
-  both() {
-    if (this.role == 'SuperAdmin') {
-      this.router.navigateByUrl('/salon-list')
-        .then(() => {
-          window.location.reload();
-        });
-    } else if (this.role == 'Vendor') {
-      this.router.navigateByUrl('/vendor-service-list')
-        .then(() => {
-          window.location.reload();
-        });
-    }
-  }
+  // both() {
+  //   if (this.role == 'SuperAdmin') {
+  //     this.router.navigateByUrl('/salon-list')
+  //       .then(() => {
+  //         window.location.reload();
+  //       });
+  //   } else if (this.role == 'Vendor') {
+  //     this.router.navigateByUrl('/vendor-service-list')
+  //       .then(() => {
+  //         window.location.reload();
+  //       });
+  //   }
+  // }
 }

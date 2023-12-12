@@ -168,40 +168,6 @@ export class EditSalonBannerComponent implements OnInit {
     }
   }
 
-  //   imagesUpload(event: any) {
-  //     const fileType = event.target.files[0].type;
-  //     if ((fileType === 'image/jpeg' || fileType === 'image/png') && fileType !== 'image/jfif') {
-  //     if (event.target.files && event.target.files[0]) {
-  //       const file = event.target.files[0];
-  //       const imageSize = file.size / 1024; // in KB
-
-  //       const reader = new FileReader();
-  //       reader.onload = (_event: any) => {
-  //         const image = new Image();
-  //         image.src = _event.target.result as string;
-  //         image.onload = () => {
-  //           if (image.width === 1280 && image.height === 720 && imageSize <= 1024) {
-  //             this.imageFile = {
-  //               link: _event.target.result,
-  //               file: file,
-  //               name: file.name,
-  //               type: file.type
-  //             };
-  //             this.isValid = true;
-  //             this.errorMessage = ''; // No error message if the image meets criteria
-  //           } else {
-  //             this.isValid = false;
-  //             this.errorMessage = 'Please select a 1280x720 pixels (width×height) image .'; // Error message for invalid image
-  //             // You can add further handling if needed for invalid images
-  //           }
-  //         };
-  //       };
-  //       reader.readAsDataURL(file);
-  //     }
-  //   } else {
-  //     this.errorMessage = 'Please select a valid JPEG or PNG image.';
-  //       }
-  // }
 
 
   fileChangeEvent() {
@@ -220,6 +186,9 @@ export class EditSalonBannerComponent implements OnInit {
         this.spinner.hide();
         this.toaster.success(response.messages)
         this.router.navigateByUrl('/salon-banner-list')
+        setTimeout(() => {
+          window.location.reload();
+        }, 500); 
       } else {
         this.spinner.hide();
         this.toaster.error(response.messages)

@@ -237,11 +237,12 @@
                         <div class="col-lg-12 col-md-12 mb-20">
                             <label>Service Image</label>
                             <br>
-                            <input name="bannerimage" type="file" class="uploadFile  img" #image1
+                            <input  type="file" class="uploadFile  img" #image1
                                 (change)="handleFileInput($event)" (change)="onImageSelect($event)">
-                                <div *ngIf="errorMessage" class="error-message" style="color: #fd0000">{{ errorMessage }}</div>
+                              
                                 <label *ngIf="imageUrl"  width="512" height="512" data-toggle="modal" data-target="#myModal" class="preview-butn">preview</label>
-                        </div>
+                                <div *ngIf="errorMessage"  class="help-block"  style="color: #fd0000">{{ errorMessage }}</div>
+                            </div>
 
                         <div class="col-lg-12 col-md-12 mt-40 text-center btn_margin">
                             <button class="border-btn" type="submit" value="" data-toggle="modal"
