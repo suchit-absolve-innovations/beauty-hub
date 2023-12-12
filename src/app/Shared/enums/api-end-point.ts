@@ -77,6 +77,7 @@ export enum ApiEndPoint {
   getAppointmentsList = 'api/Vendor/GetVendorAppointmentList',
   getAppointmentDetail = 'api/Vendor/GetVendorAppointmentDetail',
   postAppointmentsStatus = 'api/Vendor/SetAppointmentStatus',
+  getReadAppointmentStatus = 'api/Vendor/MarkAppointmentAsRead',
   postPaymentStatus = 'api/Vendor/SetPaymentStatus',
   getPackagesList = "api/Service/GetSalonServiceList",
   postServiceStatus = "api/Service/SetServiceStatus",

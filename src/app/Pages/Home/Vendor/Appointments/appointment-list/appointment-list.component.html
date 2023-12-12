@@ -115,8 +115,19 @@
                             </tr>
 
                             <tr
-                                *ngFor="let item of appointmentsList | filter:searchText | paginate: {itemsPerPage: 5, currentPage: page, totalItems: totalItems,id: '1' }  ">
-                                <td>{{item.appointmentId}}</td>
+                                *ngFor="let item of appointmentsList | filter:searchText | paginate: {itemsPerPage: 5, currentPage: page, totalItems: totalItems,id: '1' }  "
+                                (click)="read(item)">
+                                <td style="position: relative;" colspan="0"><label style="    margin: 0;
+                                    padding: 0;
+                                    position: absolute;
+                                    top: 0;
+                                    left: 5px;
+                                " *ngIf="item.isUpdated == true"
+                                        [ngClass]="{ 'updated-item': item.isUpdated == true }">
+                                        <i class="fa fa-circle" aria-hidden="true"
+                                            style="padding: 0;font-size: 10px !important;"></i>
+                                    </label> {{item?.appointmentId}} </td>
+                                <!-- <td>{{item.appointmentId}}</td> -->
                                 <td>{{item.customerFirstName}} {{item.customerLastName}}</td>
                                 <td>{{item.createDate}}</td>
                                 <td>{{item.appointmentDate}}</td>

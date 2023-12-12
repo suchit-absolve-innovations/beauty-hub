@@ -9,7 +9,7 @@
   
         <div class="d-flex if_xs_btn mt-30 mb-30">
             <div class="broad-search top-head">
-                <input type="text" placeholder="Search Here" class="btn_border search_here"  [(ngModel)]="searchText" (input)="addSpaceAfterText()">
+                <input type="text" placeholder="Search Here" class="btn_border search_here"  [(ngModel)]="searchText" (input)="addSpaceAfterText()" (click)="onSearch(search)" (click)="performSearch()">
                 <!-- <a data-toggle="modal" data-target="#myModalpurchase-membership" class="btn_blue ml-3 mb-0">Filter</a> -->
             </div>
             <a [routerLink]="['/vendor-notification-list/add-notification']" class="btn_blue ml-auto mb-0 add-notify"> Add
@@ -69,7 +69,7 @@
           </div>
         </div>
         <pagination-controls *ngIf="notificationList?.length > 0" (pageChange)="((page = $event))" id="1"
-            (pageIndex)="page" class="paginate-doctor-list" queryParamsHandling="merge" (pageChange)="refresh()">
+            (pageIndex)="page" class="paginate-doctor-list" queryParamsHandling="merge" (pageChange)="onPageChange($event)">
         </pagination-controls>
     </div>
   </div>

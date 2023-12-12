@@ -11,7 +11,7 @@
         </div> -->
 
         <div class="d-flex if_xs_btn mt-30">
-            <input type="text" placeholder="Search Here" class="btn_border search_here"  (input)="addSpaceAfterText()" [(ngModel)]="searchText" (click)="performSearch()" style="width:25%!important;">
+            <input type="text" placeholder="Search Here" class="btn_border search_here"  (input)="addSpaceAfterText()" (click)="onSearch(search)" (click)="performSearch()" [(ngModel)]="searchText"  style="width:25%!important;">
             <!-- <a class="btn_blue ml-auto" data-toggle="modal" data-target="#myModalpurchase-membership">Add Salon</a> -->
 
             <a [routerLink]="['/salon-list/buy-membership-plan']" class="btn_blue ml-auto">Add Salon </a>
@@ -96,7 +96,7 @@
 
         </div>
         <pagination-controls (pageChange)="((page = $event))" id="1" (pageIndex)="page" class="paginate-doctor-list"
-            queryParamsHandling="merge" (pageChange)="refresh()">
+            queryParamsHandling="merge" (pageChange)="onPageChange($event)">
         </pagination-controls>
     </div>
 </div>

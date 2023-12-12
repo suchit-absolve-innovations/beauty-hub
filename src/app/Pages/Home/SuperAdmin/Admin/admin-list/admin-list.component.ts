@@ -5,6 +5,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { ContentService } from 'src/app/Shared/service/content.service';
 import { environment } from 'src/environments/environment';
+declare var $: any;
 
 @Component({
   selector: 'app-admin-list',
@@ -28,9 +29,11 @@ export class AdminListComponent implements OnInit {
   vendorId: any;
   membershipRecordId: any;
   adminId: any;
+  itemToDelete: any;
+  search: any;
 
   constructor(
-    private toaster: ToastrService,
+    private toasterService: ToastrService,
     private spinner: NgxSpinnerService,
     private content: ContentService,
     private router: Router,
@@ -43,13 +46,41 @@ export class AdminListComponent implements OnInit {
 
   ngOnInit(): void {
     this.rootUrl = environment.rootPathUrl;
-    this.route.queryParams.subscribe(params => {
-      this.page = +params['page'] || 0; // Use the 'page' query parameter value, or default to 1
-    });
+   
      this.getAdminUserLists();
+     this.route.queryParams.subscribe((params) => {
+      this.search = params['search'] || '';
+      this.page = params['page'] ? parseInt(params['page'], 10) : 1;
+      this.getAdminUserLists();
+    });
 
     this.form = this.formBuilder.group({
       transactionId: ['']
+    });
+  }
+
+  onSearch(searchTerm: string): void {
+    // Update query parameters for search
+    this.router.navigate([], {
+      queryParams: { search: searchTerm, page: 1 }, // Reset to the first page when searching
+      queryParamsHandling: 'merge',
+    });
+  }
+
+  onPageChange(page: number): void {
+    // Update query parameters for pagination
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { page: page },
+      queryParamsHandling: 'merge',
+    });
+  }
+  performSearch() {
+
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { page: null },
+      queryParamsHandling: 'merge'
     });
   }
 
@@ -76,27 +107,38 @@ export class AdminListComponent implements OnInit {
 });
 }
 
-delet(data:any){
+// delet1(data:any){
     
-  this.adminId = data.id;
+//   this.adminId = data.id;
   
+//     }
+    delet(data: any) {
+
+      this.itemToDelete = data;
+      $('#list-cross-mess').modal('show');
     }
   
     deleteUser() {
+ 
       this.spinner.show();
+      if (this.itemToDelete) {
+        const itemId = this.itemToDelete.id;
       
-      this.content.deleteAdminUser(this.adminId).subscribe(response => {
+      this.content.deleteAdminUser(itemId).subscribe(response => {
         if (response.isSuccess) {
           this.spinner.hide();
-          this.ngZone.run(() => { this.getAdminUserLists(); })
-          this.toaster.success(response.messages);
-            window.location.reload();
+          // Remove the deleted item from the local list
+          this.adminList = this.adminList.filter((item: { id: any; }) => item.id !== itemId);
+          // Close the modal
+          $('#list-cross-mess').modal('hide');
+          this.toasterService.success(response.messages);
         } else {
           this.spinner.hide();
-          this.toaster.error(response.messages)
+          this.toasterService.error(response.messages);
         }
       });
     }
+  }
 
     addSpaceAfterText() {
       this.searchText = this.searchText.trim();

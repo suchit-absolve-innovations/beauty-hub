@@ -61,4 +61,5 @@ export class AppComponent {
   enableBackButton() {
     window.onpopstate = null;
   }
+  
 }

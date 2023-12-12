@@ -5,6 +5,7 @@ import { ContentService } from 'src/app/Shared/service/content.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { environment } from 'src/environments/environment';
+declare var $: any;
 
 @Component({
   selector: 'app-salon-list',
@@ -26,6 +27,8 @@ export class SalonListComponent implements OnInit {
    value = localStorage.getItem('user');
   vendorId: any;
   membershipRecordId: any;
+  search: any;
+  itemToDelete: any;
 
   constructor(private toaster: ToastrService,
     private spinner: NgxSpinnerService,
@@ -37,31 +40,42 @@ export class SalonListComponent implements OnInit {
 
   ngOnInit(): void {
     this.rootUrl = environment.rootPathUrl;
-    this.route.queryParams.subscribe(params => {
-      this.page = +params['page'] || 0; // Use the 'page' query parameter value, or default to 1
-    });
+   
      this.getVendorList();
+     this.route.queryParams.subscribe((params) => {
+      this.search = params['search'] || '';
+      this.page = params['page'] ? parseInt(params['page'], 10) : 1;
+      // Fetch data based on the search term and page
+      this.getVendorList();
+    });
+
 
     this.form = this.formBuilder.group({
       transactionId: ['']
     });
   }
 
+  onSearch(searchTerm: string): void {
+    // Update query parameters for search
+    this.router.navigate([], {
+      queryParams: { search: searchTerm, page: 1 }, // Reset to the first page when searching
+      queryParamsHandling: 'merge',
+    });
+  }
+
+  onPageChange(page: number): void {
+    // Update query parameters for pagination
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { page: page },
+      queryParamsHandling: 'merge',
+    });
+  }
   performSearch() {
- 
+
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: { page: null },
-      queryParamsHandling: 'merge'
-    });
-  }
-  refresh(): void {
-    // Perform refresh actions
-    // Update the query parameter with the current page index
-    
-    this.router.navigate([], {
-      relativeTo: this.route,
-      queryParams: { page: this.page },
       queryParamsHandling: 'merge'
     });
   }
@@ -138,26 +152,35 @@ export class SalonListComponent implements OnInit {
     }
 
   /*** Delete Vendor  ***/
-  delet(data:any){
+//   delet(data:any){
     
-this.vendorId = data.vendorId;
+// this.vendorId = data.vendorId;
 
-  }
+//   }
+delet(data: any) {
+  this.itemToDelete = data;
+  $('#list-cross-mess').modal('show');
+}
+
 
   deleteVendor() {
     this.spinner.show();
-    this.content.deleteVendor(this.vendorId).subscribe(response => {
+    if (this.itemToDelete) {
+      const itemId = this.itemToDelete.vendorId;
+    this.content.deleteVendor(itemId).subscribe(response => {
       if (response.isSuccess) {
         this.spinner.hide();
-        // this.ngZone.run(() => { this.getVendorList(); })
+        // Remove the deleted item from the local list
+        this.vendorList = this.vendorList.filter((item: { vendorId: any; }) => item.vendorId !== itemId);
+        // Close the modal
+        $('#list-cross-mess').modal('hide');
         this.toaster.success(response.messages);
-        window.location.reload();
-
       } else {
         this.spinner.hide();
-        this.toaster.error(response.messages)
+        this.toaster.error(response.messages);
       }
     });
+  }
   }
 
   purchaseMembershipRoute(data:any){

@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { FormBuilder } from '@angular/forms';
 import { Location } from '@angular/common';
+declare var $: any;
 
 @Component({
   selector: 'app-service-list',
@@ -31,6 +32,9 @@ export class ServiceListComponent implements OnInit {
   categoryList: any;
   isActive: boolean = true;
   unActive: boolean = false;
+  itemToDelete: any;
+  search: any;
+  currentPage: any;
  
   constructor(private toaster: ToastrService,
     private spinner: NgxSpinnerService,
@@ -39,14 +43,25 @@ export class ServiceListComponent implements OnInit {
     private ngZone: NgZone,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private _location: Location) { }
+    private _location: Location) {
+  
+
+
+     }
 
   ngOnInit(): void {
     this.rootUrl = environment.rootPathUrl;
     this.id = localStorage.getItem('salonId');
     this.role = localStorage.getItem('user');
-    this.route.queryParams.subscribe(params => {
-      this.page = +params['page'] || 0; // Use the 'page' query parameter value, or default to 1
+    // this.route.queryParams.subscribe(params => {
+    //   this.page = +params['page'] || 0; // Use the 'page' query parameter value, or default to 1
+    // });
+    this.route.queryParams.subscribe((params) => {
+      this.search = params['search'] || '';
+      this.page = params['page'] ? parseInt(params['page'], 10) : 1;
+
+      // Fetch data based on the search term and page
+      this.getList();
     });
 
     this.salonId = this.route.snapshot.queryParams
@@ -60,9 +75,27 @@ export class ServiceListComponent implements OnInit {
     });
   }
 
+  onSearch(searchTerm: string): void {
+    // Update query parameters for search
+    this.router.navigate([], {
+      queryParams: { search: searchTerm, page: 1 }, // Reset to the first page when searching
+      queryParamsHandling: 'merge',
+    });
+  }
+
+  onPageChange(page: number): void {
+    // Update query parameters for pagination
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { page: page },
+      queryParamsHandling: 'merge',
+    });
+  }
+
   backClicked() {
     this._location.back();
   }
+  
 
   performSearch() {
 
@@ -72,18 +105,7 @@ export class ServiceListComponent implements OnInit {
       queryParamsHandling: 'merge'
     });
   }
-  refresh(): void {
-    // Perform refresh actions
-    // Update the query parameter with the current page index
-
-    this.router.navigate([], {
-      relativeTo: this.route,
-      queryParams: { page: this.page },
-      queryParamsHandling: 'merge'
-    });
-  }
-
-  
+ 
 
 
   postActiveStatus(data: any) {
@@ -261,24 +283,35 @@ postUnActiveServiceStatus(data: any) {
 
   delet(data: any) {
 
-    this.serviceId = data.serviceId;
+    this.itemToDelete = data;
+
+    $('#list-cross-mess').modal('show');
+    
 
   }
+
+
   serviceDelete() {
     this.spinner.show();
-    this.content.deleteService(this.serviceId).subscribe(response => {
-      if (response.isSuccess) {
-        this.spinner.hide();
-        this.ngZone.run(() => { this.getServiceList(); })
-        this.toaster.success(response.messages);
-        window.location.reload();
-      } else {
-        this.spinner.hide();
-        this.toaster.error(response.messages);
-      }
-    });
+    if (this.itemToDelete) {
+      const itemId = this.itemToDelete.serviceId;
+      this.content.deleteService(itemId).subscribe(response => {
+        if (response.isSuccess) {
+          this.spinner.hide();
+          // Remove the deleted item from the local list
+          this.list = this.list.filter((item: { serviceId: any; }) => item.serviceId !== itemId);
+          // Close the modal
+          $('#list-cross-mess').modal('hide');
+          this.toaster.success(response.messages);
+        } else {
+          this.spinner.hide();
+          this.toaster.error(response.messages);
+        }
+      });
+    }
   }
-
+  
+ 
   backClickedreload() {
     this.router.navigateByUrl('/category-list')
       .then(() => {

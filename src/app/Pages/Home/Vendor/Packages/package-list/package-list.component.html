@@ -4,7 +4,7 @@
 
         <div class="d-flex flex-wrap if_xs_btn mb-30">
             <input type="text" placeholder="Search Here" class="btn_border search_here"
-            (input)="addSpaceAfterText()"  [(ngModel)]="searchText">
+            (input)="addSpaceAfterText()" (click)="onSearch(search)" (click)="performSearch()" [(ngModel)]="searchText">
 
             <a [routerLink]="['/package-list/add-edit-package']" class="btn_blue ml-auto">Add New Package</a>
 
@@ -92,7 +92,7 @@
                 <img src="assets/img/NO DATA.png">
             </div>
             <pagination-controls (pageChange)="((page = $event))" id="1" (pageIndex)="page"
-                class="paginate-doctor-list"  queryParamsHandling="merge" (pageChange)="refresh()">
+                class="paginate-doctor-list"  queryParamsHandling="merge" (pageChange)="onPageChange($event)">
             </pagination-controls>
         </div>
 

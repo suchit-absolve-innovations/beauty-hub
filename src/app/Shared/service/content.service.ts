@@ -478,6 +478,9 @@ export class ContentService {
     return this.http.get<any>(environment.apiUrl + ApiEndPoint.getAppointmentsList + '?pageNumber=' + data.pageNumber + '&pageSize=' + data.pageSize + '&salonId=' + data.salonId + '&paymentStatus=' + data.paymentStatus + '&appointmentStatus=' + data.appointmentStatus
       + '&fromDate=' + data.fromDate + '&toDate=' + data.toDate + '&sortDateBy=' + data.sortDateBy)
   }
+  comaningAppointmentStatus(data: any) {
+    return this.http.post<any>(environment.apiUrl + ApiEndPoint.getReadAppointmentStatus, data)
+  }
 
   postStatus(data: any) {
     return this.http.post<any>(environment.apiUrl + ApiEndPoint.postAppointmentsStatus, data)

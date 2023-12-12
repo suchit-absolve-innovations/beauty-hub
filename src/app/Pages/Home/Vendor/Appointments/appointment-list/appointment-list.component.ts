@@ -136,6 +136,17 @@ export class AppointmentListComponent implements OnInit {
       }
     });
   }
+    // read status 
+    read(data: any) {
+      let payload = {
+        appointmentId: data.appointmentId,
+      }
+      this.content.comaningAppointmentStatus(payload).subscribe(response => {
+        if (response.isSuccess) {
+  
+        }
+      });
+    }
 
   handleSelectChange(item: any) {
     if (item.totalServices == '1') {

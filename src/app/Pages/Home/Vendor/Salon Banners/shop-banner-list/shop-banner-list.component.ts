@@ -5,6 +5,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { ContentService } from 'src/app/Shared/service/content.service';
 import { environment } from 'src/environments/environment';
+declare var $: any;
 
 @Component({
   selector: 'app-shop-banner-list',
@@ -30,6 +31,8 @@ export class ShopBannerListComponent implements OnInit {
   salonBannerId: any;
   selectedFilter: any;
   showBrandDiv: boolean = false;
+  search: any;
+  itemToDelete: any;
 
 
   constructor(private toaster: ToastrService,
@@ -46,8 +49,12 @@ export class ShopBannerListComponent implements OnInit {
 
     this.getSalonBannerList();
     this.getcategoryList();
-    this.route.queryParams.subscribe(params => {
-      this.page = +params['page'] || 0; // Use the 'page' query parameter value, or default to 1
+    this.route.queryParams.subscribe((params) => {
+      this.search = params['search'] || '';
+      this.page = params['page'] ? parseInt(params['page'], 10) : 1;
+
+      // Fetch data based on the search term and page
+      this.getSalonBannerList();
     });
     this.form = this.formBuilder.group({
       mainCategoryId : [''],
@@ -73,14 +80,20 @@ export class ShopBannerListComponent implements OnInit {
     return this.form['controls'];
   }
 
-  refresh(): void {
-    // Perform refresh actions
-    // Update the query parameter with the current page index
+  onSearch(searchTerm: string): void {
+    // Update query parameters for search
+    this.router.navigate([], {
+      queryParams: { search: searchTerm, page: 1 }, // Reset to the first page when searching
+      queryParamsHandling: 'merge',
+    });
+  }
 
+  onPageChange(page: number): void {
+    // Update query parameters for pagination
     this.router.navigate([], {
       relativeTo: this.route,
-      queryParams: { page: this.page },
-      queryParamsHandling: 'merge'
+      queryParams: { page: page },
+      queryParamsHandling: 'merge',
     });
   }
   performSearch() {
@@ -140,22 +153,29 @@ clearSubCategories() {
 
 
   delet(data: any) {
-    this.salonBannerId = data.salonBannerId;
+    this.itemToDelete = data;
+    $('#list-cross-mess').modal('show');
   }
+  
   deleteSalonBanners() {
     this.spinner.show();
+    if (this.itemToDelete) {
+      const itemId = this.itemToDelete.salonBannerId;
 
-    this.content.deleteSalonBanner(this.salonBannerId).subscribe(response => {
+    this.content.deleteSalonBanner(itemId).subscribe(response=> {
       if (response.isSuccess) {
         this.spinner.hide();
-        window.location.reload();
-        // this.ngZone.run(() => { this.getShopBannerList(); })
+        // Remove the deleted item from the local list
+        this.shopBannerList = this.shopBannerList.filter((item: { salonBannerId: any; }) => item.salonBannerId !== itemId);
+        // Close the modal
+        $('#list-cross-mess').modal('hide');
         this.toaster.success(response.messages);
       } else {
         this.spinner.hide();
-        this.toaster.error(response.messages)
+        this.toaster.error(response.messages);
       }
     });
+  }
   }
 
 

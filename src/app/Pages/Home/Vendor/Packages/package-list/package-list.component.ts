@@ -4,6 +4,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { ContentService } from 'src/app/Shared/service/content.service';
 import { environment } from 'src/environments/environment';
+declare var $: any;
+
 
 
 @Component({
@@ -23,9 +25,11 @@ export class PackageListComponent implements OnInit {
   isActive: boolean = true;
   unActive: boolean = false;
   serviceId: any;
+  search: any;
+  itemToDelete: any;
 
   constructor(
-    private toaster: ToastrService,
+    private toasterService: ToastrService,
     private spinner: NgxSpinnerService,
     private content: ContentService,
     private router: Router,
@@ -36,21 +40,38 @@ export class PackageListComponent implements OnInit {
   ngOnInit(): void {
     this.rootUrl = environment.rootPathUrl;
     this.getPackagesList()
-    this.route.queryParams.subscribe(params => {
-      this.page = +params['page'] || 0; // Use the 'page' query parameter value, or default to 1
+    this.route.queryParams.subscribe((params) => {
+      this.search = params['search'] || '';
+      this.page = params['page'] ? parseInt(params['page'], 10) : 1;
+
+      // Fetch data based on the search term and page
+      this.getPackagesList();
     });
   }
-  refresh(): void {
-    // Perform refresh actions
-    // Update the query parameter with the current page index
+  onSearch(searchTerm: string): void {
+    // Update query parameters for search
+    this.router.navigate([], {
+      queryParams: { search: searchTerm, page: 1 }, // Reset to the first page when searching
+      queryParamsHandling: 'merge',
+    });
+  }
+
+  onPageChange(page: number): void {
+    // Update query parameters for pagination
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { page: page },
+      queryParamsHandling: 'merge',
+    });
+  }
+  performSearch() {
 
     this.router.navigate([], {
       relativeTo: this.route,
-      queryParams: { page: this.page },
+      queryParams: { page: null },
       queryParamsHandling: 'merge'
     });
   }
-
 
   getPackagesList(){
     let payload = {
@@ -116,29 +137,30 @@ export class PackageListComponent implements OnInit {
 
 
 
-  /*** Delete Package  ***/
-
   delet(data: any) {
-
-    this.serviceId = data.serviceId;
-
+    this.itemToDelete = data;
+    $('#list-cross-mess').modal('show');
   }
+  
 
   deletePackageService() {
-
     this.spinner.show();
-
-    this.content.deleteService(this.serviceId).subscribe(response => {
+    if (this.itemToDelete) {
+      const itemId = this.itemToDelete.serviceId;
+    this.content.deleteService(itemId).subscribe(response => {
       if (response.isSuccess) {
         this.spinner.hide();
-        this.ngZone.run(() => { this.getPackagesList(); })
-        this.toaster.success(response.messages);
-        window.location.reload();
+        // Remove the deleted item from the local list
+        this.packagesList = this.packagesList.filter((item: { serviceId: any; }) => item.serviceId !== itemId);
+        // Close the modal
+        $('#list-cross-mess').modal('hide');
+        this.toasterService.success(response.messages);
       } else {
         this.spinner.hide();
-        this.toaster.error(response.messages)
+        this.toasterService.error(response.messages);
       }
     });
+  }
   }
 
   // edit user 

@@ -8,7 +8,7 @@
 
         <div class="admin_a form_dashbord">
             <div class="d-flex if_xs_btn mt-30">
-                <input type="text" placeholder="Search Here" class="btn_border search_here" (input)="addSpaceAfterText()" [(ngModel)]="searchText"
+                <input type="text" placeholder="Search Here" class="btn_border search_here" (input)="addSpaceAfterText()"(click)="onSearch(search)" (click)="performSearch()" [(ngModel)]="searchText"
                     style="width:25%!important;">
 
                 <a [routerLink]="['/admin-list/add-edit-admin']" class="btn_blue ml-auto">Add Admin </a>
@@ -85,7 +85,8 @@
     
             </div>
     
-            <pagination-controls (pageChange)="((page = $event))" id="1" (pageIndex)="page" class="paginate-doctor-list">
+            <pagination-controls *ngIf="adminList?.length > 0" (pageChange)="((page = $event))" id="1"
+                (pageIndex)="page" class="paginate-doctor-list" queryParamsHandling="merge" (pageChange)="onPageChange($event)">
             </pagination-controls>
     
         </div>

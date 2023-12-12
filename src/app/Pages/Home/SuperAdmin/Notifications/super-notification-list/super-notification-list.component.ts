@@ -7,6 +7,7 @@ import { ContentService } from 'src/app/Shared/service/content.service';
 import {  FormBuilder, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
 import { Renderer2 } from '@angular/core';
+declare var $: any;
 @Component({
   selector: 'app-super-notification-list',
   templateUrl: './super-notification-list.component.html',
@@ -20,7 +21,11 @@ export class SuperNotificationListComponent implements OnInit {
   selectControl: any;
   form: any;
   notificationId: any;
-  page: number = 0;
+  search: any;
+  itemToDelete: any;
+  itemsPerPage!        : number;
+  totalItems!          : number;
+  page                 : number = 0;
   
  
 
@@ -37,6 +42,13 @@ export class SuperNotificationListComponent implements OnInit {
   ngOnInit(): void {
     this.getBroadList();
     this.notification();
+    this.route.queryParams.subscribe((params) => {
+      this.search = params['search'] || '';
+      this.page = params['page'] ? parseInt(params['page'], 10) : 1;
+
+      // Fetch data based on the search term and page
+      this.getBroadList();
+    });
   }
 
   notification() {
@@ -44,17 +56,31 @@ export class SuperNotificationListComponent implements OnInit {
       data: ['', [Validators.required]],
     });
   }
-  refresh(): void {
-    // Perform refresh actions
+  onSearch(searchTerm: string): void {
+    // Update query parameters for search
+    this.router.navigate([], {
+      queryParams: { search: searchTerm, page: 1 }, // Reset to the first page when searching
+      queryParamsHandling: 'merge',
+    });
+  }
 
-    // Update the query parameter with the current page index
-    
+  onPageChange(page: number): void {
+    // Update query parameters for pagination
     this.router.navigate([], {
       relativeTo: this.route,
-      queryParams: { page: this.page },
+      queryParams: { page: page },
+      queryParamsHandling: 'merge',
+    });
+  }
+  performSearch() {
+
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { page: null },
       queryParamsHandling: 'merge'
     });
   }
+
   getBroadList() {
     
     let payload = {
@@ -96,27 +122,7 @@ export class SuperNotificationListComponent implements OnInit {
       }
     });
   }
-  // showFilterModal() {
-  //   const modalElement = document.getElementById('myModalpurchase-membership');
-  //   this.renderer.addClass(modalElement, 'show');
-  // }
-  // hideFilterModal() {
-  //   debugger
-  //   const modalElement = document.getElementById('myModalpurchase-membership');
-
-  //   if (modalElement) {
-  //     this.renderer.removeClass(modalElement, 'show'); 
-  //     // Change the z-index to hide the modal
-  //     modalElement.style.zIndex = '-1 !important' ;  // Set z-index to a value that hides it
-  //   }
-
-  // }
   
-  // hideFilterModal() {
-  //   const modalElement = document.getElementById('myModalpurchase-membership');
-  //   this.renderer.removeClass(modalElement, 'show')
-  //   modalElement.style.zIndex = '-1';
-  // }
 
  
 
@@ -128,28 +134,37 @@ export class SuperNotificationListComponent implements OnInit {
   }
 
   // delete notification 
-  delet(data:any){
+  // delet(data:any){
     
-    this.notificationId = data.notificationId;
+  //   this.notificationId = data.notificationId;
   
     
-      }
+  //     }
+  delet(data: any) {
+    this.itemToDelete = data;
+    $('#list-cross-mess').modal('show');
+  }
+  
 
   deleteNotification() {
-    
     this.spinner.show();
-    this.content.deleteNotification( this.notificationId).subscribe(response => {
+    if (this.itemToDelete) {
+      const itemId = this.itemToDelete.notificationId;
+    this.spinner.show();
+    this.content.deleteNotification( itemId).subscribe(response => {
       if (response.isSuccess) {
         this.spinner.hide();
+        // Remove the deleted item from the local list
+        this.notificationList = this.notificationList.filter((item: { notificationId: any; }) => item.notificationId !== itemId);
+        // Close the modal
+        $('#list-cross-mess').modal('hide');
         this.toasterService.success(response.messages);
-        window.location.reload();      
       } else {
         this.spinner.hide();
-        this.toasterService.error(response.messages)
-
+        this.toasterService.error(response.messages);
       }
-    })
-
+    });
+  }
   }
 
   addSpaceAfterText() {

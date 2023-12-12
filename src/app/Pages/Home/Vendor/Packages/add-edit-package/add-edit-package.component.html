@@ -108,11 +108,13 @@
                 <option  selected>Select</option>
                 <option *ngFor="let item of productList">{{item.productName}}</option>
             </select> -->
-                                    <ng-multiselect-dropdown [(ngModel)]="selectedItems" [settings]="dropdownSettings"
-                                    noSpacesAtStart appCapitalizeFirstLetter
-                                        [data]="bindServiceList" formControlName="serviceId"
-                                        (onDeSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
-                                    </ng-multiselect-dropdown>
+            <ng-multiselect-dropdown [settings]="dropdownSettings" [data]="bindServiceList"
+            [(ngModel)]="selectedItems" formControlName="includeServiceId"
+            (onDeSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
+            <option *ngFor="let serviceId of serviceList" [value]="serviceId.serviceId">
+                {{serviceId.serviceName}}
+            </option>
+        </ng-multiselect-dropdown>
                                 </div>
 
 

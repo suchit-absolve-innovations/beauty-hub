@@ -4,6 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { ContentService } from 'src/app/Shared/service/content.service';
+declare var $: any;
+
 
 
 @Component({
@@ -19,6 +21,8 @@ export class VendorNotificationListComponent implements OnInit {
   totalItems!          : number;
   page                 : number = 0;
   notificationId: any;
+  search: any;
+  itemToDelete: any;
   constructor(
     private toasterService: ToastrService,
     private spinner: NgxSpinnerService,
@@ -31,16 +35,36 @@ export class VendorNotificationListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getBroadList();
-    this.route.queryParams.subscribe(params => {
-      this.page = +params['page'] || 0; // Use the 'page' query parameter value, or default to 1
+    this.route.queryParams.subscribe((params) => {
+      this.search = params['search'] || '';
+      this.page = params['page'] ? parseInt(params['page'], 10) : 1;
+
+      // Fetch data based on the search term and page
+      this.getBroadList();
     });
   }
-  refresh(): void {
-    // Perform refresh actions
-    // Update the query parameter with the current page index
+
+  onSearch(searchTerm: string): void {
+    // Update query parameters for search
     this.router.navigate([], {
-      relativeTo         : this.route,
-      queryParams        : { page: this.page },
+      queryParams: { search: searchTerm, page: 1 }, // Reset to the first page when searching
+      queryParamsHandling: 'merge',
+    });
+  }
+
+  onPageChange(page: number): void {
+    // Update query parameters for pagination
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { page: page },
+      queryParamsHandling: 'merge',
+    });
+  }
+  performSearch() {
+
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { page: null },
       queryParamsHandling: 'merge'
     });
   }
@@ -64,27 +88,30 @@ export class VendorNotificationListComponent implements OnInit {
     });
   }
   // delete notification 
-  delet(data:any){
-    
-    this.notificationId = data.notificationId;
-    
-      }
+  delet(data: any) {
+    this.itemToDelete = data;
+    $('#list-cross-mess').modal('show');
+  }
+  
 
   deleteNotification() {
-    
     this.spinner.show();
-    this.content.deleteNotification(this.notificationId).subscribe(response => {
+    if (this.itemToDelete) {
+      const itemId = this.itemToDelete.notificationId;
+    this.content.deleteNotification(itemId).subscribe(response =>  {
       if (response.isSuccess) {
         this.spinner.hide();
+        // Remove the deleted item from the local list
+        this.notificationList = this.notificationList.filter((item: { notificationId: any; }) => item.notificationId !== itemId);
+        // Close the modal
+        $('#list-cross-mess').modal('hide');
         this.toasterService.success(response.messages);
-        window.location.reload();      
       } else {
         this.spinner.hide();
-        this.toasterService.error(response.messages)
-
+        this.toasterService.error(response.messages);
       }
-    })
-
+    });
+  }
   }
 
 

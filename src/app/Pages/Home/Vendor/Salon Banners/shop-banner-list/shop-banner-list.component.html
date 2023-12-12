@@ -7,7 +7,7 @@
         </div> -->
 
         <div class="d-flex if_xs_btn mt-30">
-            <input type="text" placeholder="Search Here" class="btn_border search_here" [(ngModel)]="searchText" (input)="addSpaceAfterText()"  (click)="performSearch()">
+            <input type="text" placeholder="Search Here" class="btn_border search_here" [(ngModel)]="searchText" (input)="addSpaceAfterText()" (click)="onSearch(search)"  (click)="performSearch()">
             <a [routerLink]="['/salon-banner-list/add-salon-banner']" class="btn_blue ml-auto">Add New Banner</a>
             <!-- [routerLink]="['/banner-list/banner-detail/'] + item?.bannerId " -->
         </div>
@@ -94,7 +94,7 @@
 
                     </td>
                      <!-- Modal -->
-                     <div class="modal fade" id="confirm-mess" tabindex="-1" role="dialog"
+                     <div class="modal fade" id="list-cross-mess"  tabindex="-1" role="dialog"
                      aria-labelledby="confirm-messLabel" aria-hidden="true">
                      <div class="modal-dialog" role="document">
                          <div class="modal-content warning-content">
@@ -124,7 +124,7 @@
 
         </div>
         <pagination-controls (pageChange)="((page = $event))" id="1" (pageIndex)="page" class="paginate-doctor-list"
-        queryParamsHandling="merge" (pageChange)="refresh()">
+        queryParamsHandling="merge" (pageChange)="onPageChange($event)">
         </pagination-controls>
     </div>
 </div>
