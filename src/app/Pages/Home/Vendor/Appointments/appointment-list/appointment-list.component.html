@@ -130,8 +130,8 @@
                                 <!-- <td>{{item.appointmentId}}</td> -->
                                 <td>{{item.customerFirstName}} {{item.customerLastName}}</td>
                                 <td>{{item.createDate}}</td>
-                                <td>{{item.appointmentDate}}</td>
-                                <td>{{item.totalServices}}</td>
+                                <td >{{item.appointmentDate}}</td>
+                                <td style="text-align: center;">{{item.totalServices}}</td>
                                 <td class="td-dropdown">
                                     <select type="text" class="control-form btn_border"
                                         formControlName="appointmentStatus" (change)="handleSelectChange(item)">
@@ -151,7 +151,7 @@
                                 </td>
                                 <td>{{item.phoneNumber}}</td>
                                 <td>{{item.finalPrice}}</td>
-                                <td>{{item.paymentMethod}}</td>
+                                <td style="text-align: center;">{{item.paymentMethod}}</td>
                                 <td class="td-dropdown">
                                     <select type="text" class="control-form btn_border" formControlName="paymentStatus"
                                         (change)="paymentsStatus()" (change)="postPaymentStatus(item)">
