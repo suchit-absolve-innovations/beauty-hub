@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, NgZone, OnInit } from '@angular/core';
+import { Component, ElementRef, NgZone, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
@@ -15,7 +15,6 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./appointment-list.component.css']
 })
 export class AppointmentListComponent implements OnInit {
-
   appointmentsList     : any; 
   minToDate            : any;
   page                 : number = 0;
@@ -42,6 +41,7 @@ export class AppointmentListComponent implements OnInit {
     private route      : ActivatedRoute,
     private formBuilder: FormBuilder,
     private ngZone     : NgZone,
+    private el: ElementRef,
     public datepipe    : DatePipe) {
       this.datePickerConfig = Object.assign(
         { }
@@ -68,6 +68,13 @@ export class AppointmentListComponent implements OnInit {
       sortDateBy       : ['1'],
 
     });
+  }
+  setScrollPosition() {
+    // Get the bottom offset of the clicked row
+    const bottomOffset = this.el.nativeElement.offsetTop + this.el.nativeElement.offsetHeight;
+  
+    // Scroll to the bottom of the clicked row without smooth animation
+    window.scrollTo({ top: bottomOffset, behavior: 'auto' });
   }
 
   clearDate(){

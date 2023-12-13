@@ -97,7 +97,7 @@
             </div>
 
             <div class="row">
-                <div class="col-lg-12">
+                <div class="col-lg-12" >
                     <div class="admin_table table-responsive order-list-table">
                         <table class="table ">
                             <tr>
@@ -108,7 +108,7 @@
                                 <th>Total Services</th>
                                 <th>Appointment Status</th>
                                 <th>Phone No.</th>
-                                <th>Price</th>
+                                <th>Price</th> 
                                 <th>Payment Method</th>
                                 <th>Payment Status</th>
                                 <th>Action</th>
@@ -116,7 +116,7 @@
 
                             <tr
                                 *ngFor="let item of appointmentsList | filter:searchText | paginate: {itemsPerPage: 5, currentPage: page, totalItems: totalItems,id: '1' }  "
-                                (click)="read(item)">
+                                (click)="read(item)"  >
                                 <td style="position: relative;" colspan="0"><label style="    margin: 0;
                                     padding: 0;
                                     position: absolute;
@@ -184,7 +184,7 @@
                 </div>
             </div>
             <pagination-controls *ngIf="appointmentsList?.length > 0" (pageChange)="((page = $event))" id="1"
-                (pageIndex)="page" class="paginate-doctor-list" queryParamsHandling="merge" (pageChange)="refresh()">
+                (pageIndex)="page" class="paginate-doctor-list" queryParamsHandling="merge" (pageChange)="refresh()" (click)="setScrollPosition()">
             </pagination-controls>
 
         </div>
