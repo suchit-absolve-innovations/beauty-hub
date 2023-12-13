@@ -5,7 +5,7 @@
             <div class="d-flex if_xs_btn mt-30">
                 <input type="text" placeholder="Search Here" class="btn_border search_here"  [(ngModel)]="searchText"   (input)="addSpaceAfterText()"
                     (click)="performSearch()">
-                <!-- <a data-toggle="modal" data-target="#myModalpurchase-membership" class="btn_blue ml-3 mb-0">Filter</a>         -->
+                    <a data-toggle="modal" data-target="#myModalpurchase-membership" class="btn_blue ml-3 mb-0">Filter</a>
                 <a [routerLink]="['/category-list/add-edit-category']" class="btn_blue ml-auto">Add New Category</a>
             </div>
 
@@ -91,6 +91,7 @@
                     initialPage="page3"></pagination-controls>
                    
             </div>
+
         </div>
 
 
@@ -392,7 +393,7 @@
 
                 </div>
             </div>
-
+        </div>
             <!-- modal -->
 
             <div class="modal fade" id="myModalpurchase-membership" tabindex="-1" role="dialog"
@@ -432,7 +433,6 @@
             </div>
 
 
-        </div>
 
 
 

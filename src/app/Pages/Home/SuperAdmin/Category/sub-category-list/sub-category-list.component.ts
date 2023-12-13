@@ -167,7 +167,7 @@ this.spinner.hide();
 
       filterSubListForm() {
         this.form = this.formBuilder.group({
-          CategoryType: [''],
+          CategoryType: ['0'],
         });
       }
       getSubCategoryListFilter() {

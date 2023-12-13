@@ -14,7 +14,7 @@ import { Location } from '@angular/common';
   styleUrls: ['./add-service.component.css']
 })
 export class AddServiceComponent implements OnInit {
-  form!: FormGroup;
+  form: any;
   submitted!: boolean
   rootUrl: any;
   id: any;
@@ -72,7 +72,12 @@ export class AddServiceComponent implements OnInit {
     this.rootUrl = environment.rootPathUrl;
     this.serviceForm();
     this.getcategoryList();
-    this.salonId = this.route.snapshot.queryParams
+    this.salonId = this.route.snapshot.queryParams;
+    this.form.get('mainCategoryId').valueChanges.subscribe(() => {
+      // Reset subCategoryId when mainCategoryId changes
+      this.form.get('subCategoryId').setValue('');
+    this.subCategoryList= ['select'];
+    });
 
   }
 

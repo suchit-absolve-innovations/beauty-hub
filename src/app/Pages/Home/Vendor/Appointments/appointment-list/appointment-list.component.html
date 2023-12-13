@@ -1,7 +1,7 @@
 <div class="app-main__outer">
     <form [formGroup]="form">
         <div class="admin_a">
-            <div class="media mb-5">
+            <div class="media mb-30">
                 <img class="align-self-center mr-3 welcome-image"
                     [src]="(rootUrl + salonImage) || './assets/images/858.jpg'" alt="user">
                 <!-- <img *ngIf="salonImage" [src]="rootUrl + salonImage" alt="Salon Image">
@@ -28,6 +28,7 @@
                                         style="background-color: #fff;" bsDatepicker
                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [minDate]="minToDate"
                                         [readonly]="true"></div>
+                                        
                                 <i class="col-lg-1" class="fa fa-refresh" aria-hidden="true" (click)="clearDate()"></i>
 
                                 <div class="col-lg-1" style="position: relative; top:-8px;"><button type="submit"
@@ -59,10 +60,10 @@
             </div> -->
             </div>
 
-            <div class="row mt-40">
+            <div class="row mt-9">
                 <div class="col-lg-12">
 
-                    <div class="d-flex flex-wrap if_xs_btn mb-30 justify-content-between">
+                    <div class="d-flex flex-wrap if_xs_btn mb-3 justify-content-between">
                         <div class="cate-align">
                             <label>Payment Method </label>
                             <select type="text" formControlName="paymentMethod" class="control-form mr-20 btn_border"

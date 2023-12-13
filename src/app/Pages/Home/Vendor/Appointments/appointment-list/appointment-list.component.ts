@@ -136,6 +136,7 @@ export class AppointmentListComponent implements OnInit {
   
   setToDateMinDate(event: Date) {
     this.minToDate = event; // Set the minimum date for the "toDate" field
+    
 }
 
   getAppointmentsList() {

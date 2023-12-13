@@ -17,7 +17,7 @@ import { Location } from '@angular/common';
 export class EditSalonBannerComponent implements OnInit {
   ShopBannerdetail: any;
   salonBannerId: any;
-  form!: FormGroup;
+  form: any;
   categoryList: any;
   subCategoryList: any;
   SubSubcategoryList: any;
@@ -58,6 +58,10 @@ export class EditSalonBannerComponent implements OnInit {
       subCategoryId: [''],
       bannerImage: ['']
 
+    })
+    this.form.get('mainCategoryId').valueChanges.subscribe(() => {
+      // Reset subCategoryId when mainCategoryId changes
+      this.form.get('subCategoryId').setValue('');
     });
   }
   get d() {
@@ -103,9 +107,11 @@ export class EditSalonBannerComponent implements OnInit {
     this.content.getcategory().subscribe(response => {
       if (response.isSuccess) {
         this.categoryList = response.data;
-        
+        this.subCategoryList = [];
 
       } else {
+        this.categoryList = [];
+        this.subCategoryList = [];
         this.toaster.error(response.messages);
       }
     });
