@@ -1,11 +1,11 @@
 import { DatePipe } from '@angular/common';
 import { Component, ElementRef, NgZone, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { AbstractControl, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
-import { EMPTY, Observable, Subscription, interval } from 'rxjs';
+import { EMPTY, Observable, Subscription, debounceTime, distinctUntilChanged, interval } from 'rxjs';
 import { ContentService } from 'src/app/Shared/service/content.service';
 import { environment } from 'src/environments/environment';
 
@@ -31,6 +31,7 @@ export class AppointmentListComponent implements OnInit {
   salonName            : any;
   datePickerConfig     : Partial<BsDatepickerConfig>;
   private refreshSubscription!: Subscription;
+  isToDateEnabled = false;
   
 
   constructor(
@@ -58,17 +59,43 @@ export class AppointmentListComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.page = +params['page'] || 0; // Use the 'page' query parameter value, or default to 1
     });
+    
     this.form = this.formBuilder.group({
       // deliveryType: [''],
       paymentStatus    : [''],
       fromDate         : [''],
-      toDate           : [''],
+      toDate           : [{ value: '', disabled: true }],
       paymentMethod    : [''],
       appointmentStatus: [''],
       sortDateBy       : ['1'],
 
     });
+    this.watchFromDateChanges();
   }
+
+  private watchFromDateChanges() {
+    const fromDateControl: AbstractControl | null = this.form.get('fromDate');
+
+    if (fromDateControl) {
+      fromDateControl.valueChanges
+        .pipe(
+          debounceTime(200),
+          distinctUntilChanged()
+        )
+        .subscribe((fromDateValue) => {
+          // Enable or disable "To Date" based on "From Date" selection
+          const toDateControl: AbstractControl | null = this.form.get('toDate');
+          if (toDateControl) {
+            if (fromDateValue) {
+              toDateControl.enable();
+            } else {
+              toDateControl.disable();
+            }
+          }
+        });
+    }
+  }
+  
   setScrollPosition() {
     // Get the bottom offset of the clicked row
     const bottomOffset = this.el.nativeElement.offsetTop + this.el.nativeElement.offsetHeight;
