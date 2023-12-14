@@ -54,9 +54,7 @@ export class AddEditScheduleComponent implements OnInit {
       sunday: [true, [Validators.required]],
       fromTime: ['00:00', [Validators.required]],
       toTime: ['00:00', [Validators.required]],
-
     });
-
   }
 
 
@@ -131,7 +129,6 @@ export class AddEditScheduleComponent implements OnInit {
     } else {
       this.thursday = true;
     }
-
   }
 
   // friday value select true and false 
@@ -142,7 +139,6 @@ export class AddEditScheduleComponent implements OnInit {
     } else {
       this.friday = true;
     }
-
   }
 
 
@@ -154,7 +150,6 @@ export class AddEditScheduleComponent implements OnInit {
     } else {
       this.saturday = true;
     }
-
   }
 
 

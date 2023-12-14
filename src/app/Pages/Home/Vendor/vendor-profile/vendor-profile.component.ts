@@ -410,7 +410,7 @@ debugger
         this.bankDetailPatch = this.vendorDetailPatch.bankResponses
         this.upiDetailPatch = this.vendorDetailPatch.upiResponses
         this.editImages = this.rootUrl + this.vendorDetailPatch?.profilePic;
-        this.imageUrl = this.rootUrl + this.shopDetailPatch[0]?.salonImage
+        this.imageUrl = this.rootUrl + this.shopDetailPatch[0]?.salonImage;
         this.QrimageUrl = this.rootUrl + this.upiDetailPatch[0]?.qrcode;
         this.lati = this.shopDetailPatch[0].addressLatitude
         this.long = this.shopDetailPatch[0].addressLongitude
@@ -427,7 +427,6 @@ debugger
           phoneNumber: this.vendorDetailPatch.phoneNumber,
           countryName: this.vendorDetailPatch.countryName,
           email: this.vendorDetailPatch.email,
-
         });
         if (this.vendorDetailPatch.upiResponses) {
               this.clearFormArray(this.List1());
