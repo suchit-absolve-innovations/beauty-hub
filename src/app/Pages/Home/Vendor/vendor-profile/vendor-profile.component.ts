@@ -210,10 +210,10 @@ export class VendorProfileComponent implements OnInit {
   add() {
     this.List1().push(this.upiDetails());
   }
+  
   deleteHomeData(data: any, id: any )   {
     this.List1().removeAt(id)
     this.uploadedImages.splice(1);
-
   }
 
   deleteUploadedImage(index: number) {
@@ -477,10 +477,7 @@ export class VendorProfileComponent implements OnInit {
       }]
     }
     this.form.patchValue(data)
-  }
-
-
- 
+  } 
 
 
   checkStatus(event: any) {
@@ -553,7 +550,6 @@ export class VendorProfileComponent implements OnInit {
             salonId: this.shopDetailPatch[0]?.salonId,
             addressLatitude: this.addressLat.toString(),
             addressLongitude: this.addressLong.toString(),
-  
           }],
           bankDetail: [{
             bankName: this.form.value.bankDetail[0]?.bankName,
@@ -569,10 +565,8 @@ export class VendorProfileComponent implements OnInit {
             upiid: this.form.value.upiDetail[0]?.upiid,
             bankName: this.form.value.upiDetail[0]?.bankName,
             accountHolderName: this.form.value.upiDetail[0]?.accountHolderName,
-            isActive: data1.status
-  
-          }]
-  
+            isActive: data1.status  
+          }]  
         }
         this.spinner.show();
         this.contentService.updateVendorProfile(payload).subscribe(response => {

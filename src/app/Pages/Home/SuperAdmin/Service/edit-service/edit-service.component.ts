@@ -219,6 +219,7 @@ export class EditServiceComponent implements OnInit {
       this.toasterService.error("Form Incomplete: Please fill in all the required fields correctly");
       return;
     }
+
     let payload = {
       serviceId: parseInt(this.serviceId.id2),
       salonId: parseInt(this.salonId.id),
@@ -279,7 +280,7 @@ debugger
     }
     formData.append('serviceId', this.serviceId.id2);
     this.contentService.uploadServiceImage(formData).subscribe(response => {
-      var a = response;
+     
     });
   }
   private dataURItoBlob(dataURI: string): Blob {
@@ -293,35 +294,56 @@ debugger
     return new Blob([ab], { type: mimeString });
   }
   onselect(event: any) {
-
-    debugger
-    const fileType = event.target.files[0].type;
-    if ((fileType === 'image/jpeg' || fileType === 'image/png') && fileType !== 'image/jfif') {
-      const files = event.target.files;
-      this.errorMessages = ''; // Clear previous error messages
-
-      for (let i = 0; i < files.length; i++) {
-        const file = files[i];
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-
-        reader.onload = () => {
-          const image = new Image();
-          image.src = reader.result as string;
-
-          image.onload = () => {
-            if (image.width === 1280 && image.height === 720 && file.size / 1024 <= 1000) {
-              this.base64Image.push(image.src);
-            } else {
-              this.errorMessages;
-            }
-          };
-        }
+    const files = event.target.files;
+    this.errorMessages = ''; // Clear previous error messages
+  
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      const fileType = file.type;
+  
+      if ((fileType === 'image/jpeg' || fileType === 'image/png') && fileType !== 'image/jfif') {
+        this.handleValidImage(file);
+      } else if (fileType === 'image/jfif') {
+        // Handle JFIF image by converting it to JPEG
+        this.convertJfifToJpeg(file);
+      } else {
+        this.errorMessage = 'Please select a valid JPEG, PNG, or JFIF image.';
       }
-    } else {
-      this.errorMessage = 'Please select a valid JPEG or PNG image.';
     }
   }
+  
+  handleValidImage(file: File) {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+  
+    reader.onload = () => {
+      const image = new Image();
+      image.src = reader.result as string;
+  
+      image.onload = () => {
+        if (image.width === 1280 && image.height === 720 && file.size / 1024 <= 1000) {
+          this.base64Image.push(image.src);
+        } else {
+          this.errorMessages;
+        }
+      };
+    };
+  }
+  
+  convertJfifToJpeg(file: File) {
+    const reader = new FileReader();
+    reader.readAsArrayBuffer(file);
+  
+    reader.onload = () => {
+      const uint8Array = new Uint8Array(reader.result as ArrayBuffer);
+      const blob = new Blob([uint8Array], { type: 'image/jpeg' });
+      const convertedFile = new File([blob], file.name, { type: 'image/jpeg' });
+  
+      // Handle the converted JFIF file
+      this.handleValidImage(convertedFile);
+    };
+  }
+  
   onBannerImageSelect(event: any) {
     debugger
     const file = event.target.files[0];

@@ -21,15 +21,16 @@
                                         formControlName="fromDate" placeholder="From Date" class="form-control"
                                         style="background-color: #fff;" (click)="performSearch()" bsDatepicker
                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
-                                        (bsValueChange)="setToDateMinDate($event)"
-                                        [readonly]="true"></div>
+                                        (bsValueChange)="setToDateMinDate($event)" [readonly]="true"></div>
                                 <div class="col-lg-3" style="position: relative; top:-8px;">
-                                    <div *ngIf="!isFromDateSelected" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;" (click)="onToDateClick()"></div>                                 <input  type="text"
-                                        formControlName="toDate" placeholder="To Date" class="form-control"
-                                        style="background-color: #fff;" bsDatepicker
-                                        [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [minDate]="minToDate"
-                                        [readonly]="true" ></div>
-                                        
+                                    <div *ngIf="!isFromDateSelected"
+                                        style="position: absolute; top: 3px; left: 18px; width: 86%; height: 51%; z-index: 1;"
+                                        (click)="onToDateClick()"></div> <input type="text" formControlName="toDate"
+                                        placeholder="To Date" class="form-control" style="background-color: #fff;"
+                                        bsDatepicker [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
+                                        [minDate]="minToDate" [readonly]="true">
+                                </div>
+
                                 <i class="col-lg-1" class="fa fa-refresh" aria-hidden="true" (click)="clearDate()"></i>
 
                                 <div class="col-lg-1" style="position: relative; top:-8px;"><button type="submit"
@@ -100,7 +101,7 @@
             </div>
 
             <div class="row">
-                <div class="col-lg-12" >
+                <div class="col-lg-12">
                     <div class="admin_table table-responsive order-list-table">
                         <table class="table ">
                             <tr>
@@ -111,15 +112,14 @@
                                 <th>Total Services</th>
                                 <th>Appointment Status</th>
                                 <th>Phone No.</th>
-                                <th>Price</th> 
+                                <th>Price</th>
                                 <th>Payment Method</th>
                                 <th>Payment Status</th>
                                 <th>Action</th>
                             </tr>
 
-                            <tr
-                                *ngFor="let item of appointmentsList | filter:searchText | paginate: {itemsPerPage: 5, currentPage: page, totalItems: totalItems,id: '1' }  "
-                                (click)="read(item)"  >
+                            <tr *ngFor="let item of appointmentsList | filter:searchText | paginate: {itemsPerPage: 5, currentPage: page, totalItems: totalItems,id: '1' }  "
+                                (click)="read(item)">
                                 <td style="position: relative;" colspan="0"><label style="    margin: 0;
                                     padding: 0;
                                     position: absolute;
@@ -133,7 +133,7 @@
                                 <!-- <td>{{item.appointmentId}}</td> -->
                                 <td>{{item.customerFirstName}} {{item.customerLastName}}</td>
                                 <td>{{item.createDate}}</td>
-                                <td >{{item.appointmentDate}}</td>
+                                <td>{{item.appointmentDate}}</td>
                                 <td style="text-align: center;">{{item.totalServices}}</td>
                                 <td class="td-dropdown">
                                     <select type="text" class="control-form btn_border"
@@ -187,7 +187,8 @@
                 </div>
             </div>
             <pagination-controls *ngIf="appointmentsList?.length > 0" (pageChange)="((page = $event))" id="1"
-                (pageIndex)="page" class="paginate-doctor-list" queryParamsHandling="merge" (pageChange)="refresh()" (click)="setScrollPosition()">
+                (pageIndex)="page" class="paginate-doctor-list" queryParamsHandling="merge" (pageChange)="refresh()"
+                (click)="setScrollPosition()">
             </pagination-controls>
 
         </div>
