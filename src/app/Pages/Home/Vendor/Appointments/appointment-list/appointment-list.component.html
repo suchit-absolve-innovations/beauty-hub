@@ -23,11 +23,12 @@
                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }"
                                         (bsValueChange)="setToDateMinDate($event)"
                                         [readonly]="true"></div>
-                                <div class="col-lg-3" style="position: relative; top:-8px;"> <input  type="text"
+                                <div class="col-lg-3" style="position: relative; top:-8px;">
+                                    <div *ngIf="!isFromDateSelected" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1;" (click)="onToDateClick()"></div>                                 <input  type="text"
                                         formControlName="toDate" placeholder="To Date" class="form-control"
                                         style="background-color: #fff;" bsDatepicker
                                         [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [minDate]="minToDate"
-                                        [readonly]="true"></div>
+                                        [readonly]="true" ></div>
                                         
                                 <i class="col-lg-1" class="fa fa-refresh" aria-hidden="true" (click)="clearDate()"></i>
 

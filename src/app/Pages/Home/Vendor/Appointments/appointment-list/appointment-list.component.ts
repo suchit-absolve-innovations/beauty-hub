@@ -32,6 +32,9 @@ export class AppointmentListComponent implements OnInit {
   datePickerConfig     : Partial<BsDatepickerConfig>;
   private refreshSubscription!: Subscription;
   isToDateEnabled = false;
+  // Inside your component class
+  public isFromDateSelected = false;
+
   
 
   constructor(
@@ -72,28 +75,42 @@ export class AppointmentListComponent implements OnInit {
     });
     this.watchFromDateChanges();
   }
-
   private watchFromDateChanges() {
     const fromDateControl: AbstractControl | null = this.form.get('fromDate');
-
-    if (fromDateControl) {
+    const toDateControl: AbstractControl | null = this.form.get('toDate');
+  
+    if (fromDateControl && toDateControl) {
       fromDateControl.valueChanges
         .pipe(
           debounceTime(200),
           distinctUntilChanged()
         )
         .subscribe((fromDateValue) => {
-          // Enable or disable "To Date" based on "From Date" selection
-          const toDateControl: AbstractControl | null = this.form.get('toDate');
-          if (toDateControl) {
-            if (fromDateValue) {
-              toDateControl.enable();
-            } else {
-              toDateControl.disable();
-            }
+          this.isFromDateSelected = !!fromDateValue;
+  
+          if (fromDateValue) {
+            toDateControl.enable();
+          } else {
+            toDateControl.disable();
           }
         });
     }
+  }
+  
+  onToDateClick() {
+    if (!this.isFromDateSelected) {
+      this.showToastrMessage();
+      return;
+    }
+  
+    const toDateControl: AbstractControl | null = this.form.get('toDate');
+    if (toDateControl) {
+      toDateControl.enable();
+    }
+  }
+  
+  private showToastrMessage() {
+    this.toaster.info('Please select "From Date" first.');
   }
   
   setScrollPosition() {
