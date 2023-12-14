@@ -101,7 +101,6 @@ export class EditSubCategoryComponent implements OnInit {
   // }
 
   postCategory(){
-    debugger
     this.submitted = true;
     if (this.form.invalid) {
       return;
@@ -129,7 +128,6 @@ export class EditSubCategoryComponent implements OnInit {
 
 
 afterResponse(response: any) {
-  debugger
 if (response && response.statusCode == 200) {
   if(this.login == 'SuperAdmin'){
 
@@ -193,7 +191,6 @@ showModal() {
 
   /*** Image Upload ***/
   imagesUpload(event: any) {
-    debugger
     if (event.target.files && event.target.files[0]) {
       const file = event.target.files[0];
       const imageSize = file.size / 1024; // in KB
@@ -228,7 +225,6 @@ showModal() {
   }
 
 fileChangeEvent() {
-  debugger
   let formData = new FormData();
   formData.append("categoryImage", this.imageFile?.file);
   formData.append("subCategoryId", this.subId);

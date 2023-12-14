@@ -107,7 +107,6 @@ export class EditCategoryComponent implements OnInit {
 
 
   afterResponse(response: any) {
-    debugger
     if (response && response.statusCode == 200) {
       if (response.isSuccess) {
         if (this.login == 'SuperAdmin') {
@@ -162,7 +161,6 @@ export class EditCategoryComponent implements OnInit {
     });
   }
   imagesUpload(event: any) {
-    debugger
     const fileType = event.target.files[0].type;
     if ((fileType === 'image/jpeg' || fileType === 'image/png') && fileType !== 'image/jfif') {
       if (event.target.files && event.target.files[0]) {

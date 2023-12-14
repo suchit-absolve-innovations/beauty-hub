@@ -351,7 +351,6 @@ export class SuperAdminProfileComponent implements OnInit {
       }
     }
   postSuperAdmimProfile() {
-    debugger
     this.submitted = true;
     if (this.form.invalid && this.form.get('upidetail')?.value !== null) {
       return;

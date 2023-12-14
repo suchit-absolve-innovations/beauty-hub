@@ -275,7 +275,6 @@ getServicesListByCategories() {
   
 
 convertSelectedItemsToString(): string {
-  debugger
   return this.selectedItems.map(item => item.item_id).join(',');
   
 }
@@ -310,7 +309,7 @@ getServiceDetail() {
       //   })
       // });
       
-      debugger
+
      // this.packageDetailPatch.includeService.map((service: any) => service.serviceName, ),
       this.form.patchValue({
         serviceName: this.packageDetailPatch.serviceName,
@@ -347,13 +346,11 @@ imageConvert64() {
 
  // submit 
  postSubmit() {
-  debugger
   this.submitted = true;
   if (this.form.invalid) {
     this.toasterService.error("Form Incomplete: Please fill in all the required fields correctly");
     return;
   }
-  debugger
   const selectedItemsString = this.convertSelectedItemsToString();
   let payload = {
     serviceId            : this.serviceId.id,
@@ -543,7 +540,6 @@ handleFileInput(event: any) {
 }
 
 fileChangeEvents() {
-  debugger
   let formData = new FormData();
   formData.append("salonServiceIconImage", this.imageFiles?.file);
   formData.append("serviceId", this.serviceIds);

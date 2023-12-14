@@ -102,7 +102,6 @@ export class SuperNotificationListComponent implements OnInit {
   // filterBroad list
 
   filterBroadList() {
-    debugger
     let payload = {
       pageNumber: 1,
       pageSize: 1000,

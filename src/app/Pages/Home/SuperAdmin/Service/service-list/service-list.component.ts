@@ -406,7 +406,6 @@ postUnActiveServiceStatus(data: any) {
   }
 
   serviceListFilter() {
-    debugger
     this.spinner.show();
 // this.form.value.subCategoryId = []
     let payload;

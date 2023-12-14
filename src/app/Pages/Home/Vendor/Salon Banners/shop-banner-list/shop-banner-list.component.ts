@@ -107,7 +107,6 @@ export class ShopBannerListComponent implements OnInit {
 
 
   onBannerTypeChange(selectedValue: string) {
-    debugger
     if(selectedValue == ''){
       window.location.reload();
     }
@@ -230,7 +229,6 @@ clearSubCategories() {
 
 
   filterAllBannersList() {
-    debugger
     let payload = {
       salonId: localStorage.getItem('salonId'),
       mainCategoryId: this.form.value.mainCategoryId ? this.form.value.mainCategoryId : '',

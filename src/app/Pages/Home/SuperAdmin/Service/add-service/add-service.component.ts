@@ -236,7 +236,6 @@ export class AddServiceComponent implements OnInit {
 
   //banner image upload//
   onFileSelected(event: any) {
-    debugger
     const file = event.target.files[0];
 
     if (file) {
@@ -261,7 +260,6 @@ export class AddServiceComponent implements OnInit {
     }
   }
   onselect(event: any) {
-    debugger
     const files = event.target.files;
     const fileType = event.target.files[0].type;
     if ((fileType === 'image/jpeg' || fileType === 'image/png') && fileType !== 'image/jfif') {
@@ -347,7 +345,6 @@ export class AddServiceComponent implements OnInit {
       }
   }
   fileChangeEvents() {
-    debugger
     const formData = new FormData();
     for (let e = 0; e < this.urls1.length; e++) {
       const imageDataUrl1 = this.urls1[e];
@@ -370,7 +367,6 @@ export class AddServiceComponent implements OnInit {
     return new Blob([ab], { type: mimeString });
   }
   removeImage(index: any) {
-    debugger
     this.urls.splice(index, 1);
   }
   // submit 
@@ -424,7 +420,6 @@ export class AddServiceComponent implements OnInit {
   }
 
   submitVendor() {
-    debugger
     this.submitted = true;
     if (this.form.invalid) {
       this.toasterService.error("Form Incomplete: Please fill in all the required fields correctly");

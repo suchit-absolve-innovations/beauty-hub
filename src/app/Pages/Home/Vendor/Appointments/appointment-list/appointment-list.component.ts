@@ -218,7 +218,6 @@ export class AppointmentListComponent implements OnInit {
   }
 
   // appointmentStatus() {
-  //   debugger
   //   this.postAppointmentStatus = this.form.value.appointmentStatus
   // }
 
@@ -245,7 +244,6 @@ export class AppointmentListComponent implements OnInit {
   }
 
   postAppointmentsStatus(data: any) {
-    debugger
     let payload = {
       appointmentId    : data.appointmentId,
       appointmentStatus: this.form.value.appointmentStatus,
@@ -285,7 +283,6 @@ export class AppointmentListComponent implements OnInit {
 
   // list all filter 
   filterAllList() {
-    debugger
     if (this.refreshSubscription) {
       this.refreshSubscription.unsubscribe();
     }

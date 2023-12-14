@@ -265,7 +265,6 @@ convertSelectedItemsToString(): string {
 
  // submit 
 postSubmit() {
-  debugger
   this.submitted = true;
   if (this.form.invalid) {
     this.toasterService.error("Form Incomplete: Please fill in all the required fields correctly");

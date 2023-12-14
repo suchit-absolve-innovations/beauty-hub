@@ -2953,7 +2953,7 @@ label.invalid-formdata {
 }
 
 #myDIV5 a.clear-notify:not([href]) {
-    color: #007bff;
+     color: #85214f !important;
 }
 
 .notify-box {
@@ -2974,7 +2974,7 @@ div#myDIV5 {
     max-height: 385px;
     position: absolute;
     background: #fff;
-    padding: 20px;
+    /* padding: 20px; */
     overflow: auto;
     border-radius: 5px;
 }
@@ -2982,6 +2982,7 @@ div#myDIV5 {
 a.clear-notify {
     padding-right: 10px;
     font-size: 14px;
+    
     text-decoration: none;
 }
 
@@ -3003,7 +3004,7 @@ a.clear-notify {
 .notify-header {
     width: 100%;
     text-align: left;
-    padding: 13px 10px;
+    padding: 13px 10px 12px 19px;
     background: #e9e9e9;
     display: flex;
     justify-content: space-between;
@@ -3011,14 +3012,18 @@ a.clear-notify {
     margin-bottom: 15px;
 }
 
-.notify-header h5,
+.notify-header h5{
+    font-size: 20px;
+    line-height: 24px;
+    font-weight: bold;
+}
 .flexi-data h6 {
     margin: 0;
     font-weight: bold;
 }
 
 .notification-ist {
-    padding: 5px 10px;
+    padding: 5px 20px 0px 20px;
 }
 
 .first-notifi::after {
@@ -3044,13 +3049,13 @@ a.clear-notify {
     font-size: 14px;
     text-decoration: none;
     font-weight: 500;
-    color: #007bff;
+    color: #85214f !important;
 }
 
 .notification-ist a.dismiss:hover,
 a.clear-notify:hover {
     text-decoration: underline !important;
-    color: #007bff;
+    color:  #85214f !important;
 }
 
 .notification:active {

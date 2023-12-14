@@ -135,7 +135,6 @@ export class EditSalonBannerComponent implements OnInit {
   }
 
   imagesUpload(event: any) {
-    debugger
     const fileType = event.target.files[0].type;
     if ((fileType === 'image/jpeg' || fileType === 'image/png') && fileType !== 'image/jfif') {
       if (event.target.files && event.target.files[0]) {

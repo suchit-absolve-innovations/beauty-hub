@@ -104,7 +104,6 @@ export class AddEditCategoryComponent implements OnInit {
 
 
   afterResponse(response: any) {
-    debugger
     if (response && response.statusCode == 200) {
       if (response.isSuccess) {
         if (this.login == 'SuperAdmin') {
@@ -138,7 +137,6 @@ export class AddEditCategoryComponent implements OnInit {
   }
 
   imagesUpload(event: any) {
-    debugger
     const fileType = event.target.files[0].type;
     if ((fileType === 'image/jpeg' || fileType === 'image/png') && fileType !== 'image/jfif') {
       // Valid image type, you can proceed with further checks

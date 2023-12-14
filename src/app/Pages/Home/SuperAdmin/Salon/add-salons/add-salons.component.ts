@@ -179,7 +179,6 @@ export class AddSalonsComponent implements OnInit {
   
   
     getAddress(addressLat: number, addressLong: number) {
-      debugger;
       this.geoCoder.geocode({ 'location': { lat: addressLat, lng: addressLong } }, (results, status) => {
         console.log(results);
         if (status === 'OK') {
@@ -635,7 +634,6 @@ add() {
   
     fileChangeEvents() {
       // let formData = new FormData();
-      debugger
       const formData = new FormData();
       for (let i = 0; i < this.urls.length; i++) {
         const imageDataUrl = this.urls[i];

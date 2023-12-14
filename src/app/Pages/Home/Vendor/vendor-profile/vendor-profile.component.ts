@@ -84,7 +84,6 @@ export class VendorProfileComponent implements OnInit {
   ngOnInit(): void {
         this.getVendorDetails();
         //map
-        debugger
         this.mapsAPILoader.load().then(() => {
                this.setCurrentLocation();
     
@@ -304,21 +303,18 @@ export class VendorProfileComponent implements OnInit {
     /** Disable Input cut Copy Paste  **/
 
     DisableCut(event: any) {
-      debugger
       event.preventDefault();
     }
     DisableCopy(event: any) {
-      debugger
       event.preventDefault();
     }
     DisablePaste(event: any) {
-      debugger
       event.preventDefault();
     }
 
  
     onMarkerDragEnd(event: any) {
-      debugger
+
       this.addressLat = event.coords.lat;
       this.addressLong = event.coords.lng;
   
@@ -327,7 +323,6 @@ export class VendorProfileComponent implements OnInit {
   }
   // for map
   mapReady(map: any) {
-debugger
     map.setOptions({
       zoomControl: "true",
       zoomControlOptions: {
@@ -344,7 +339,6 @@ debugger
   }
 
   getlocation() {
-    debugger
     // Assuming this.lati and this.long are strings, convert them to numbers
     this.addressLat = parseFloat(this.lati);
     this.addressLong = parseFloat(this.long);
@@ -354,7 +348,6 @@ debugger
   }
 
   setCurrentLocation() {
-    debugger
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
         this.addressLat = position.coords.latitude;
@@ -366,7 +359,6 @@ debugger
   }
 
   getAddress(addressLat: number, addressLong: number) {
-    debugger;
     this.geoCoder.geocode({ 'location': { lat: addressLat, lng: addressLong } }, (results, status) => {
       console.log(results);
       if (status === 'OK') {
@@ -515,7 +507,6 @@ debugger
 
 
     postVendor() {
-      debugger
       this.submitted = false;
       if (this.form.invalid) {
         this.toaster.error("Form Incomplete: Please fill in all the required fields correctly");

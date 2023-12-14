@@ -102,7 +102,6 @@ export class AddEditSubCategoryComponent implements OnInit {
   // }
 
   postCategory() {
-    debugger
     this.submitted = true;
     if (this.form.invalid) {
       return;
@@ -133,7 +132,6 @@ export class AddEditSubCategoryComponent implements OnInit {
 
 
   afterResponse(response: any) {
-    debugger
     if (response && response.statusCode == 200) {
       if (this.login == 'SuperAdmin') {
 
@@ -170,7 +168,6 @@ export class AddEditSubCategoryComponent implements OnInit {
 
   /*** Image Upload ***/
   imagesUpload(event: any) {
-    debugger
     const fileType = event.target.files[0].type;
     if ((fileType === 'image/jpeg' || fileType === 'image/png') && fileType !== 'image/jfif') {
     if (event.target.files && event.target.files[0]) {
@@ -211,7 +208,6 @@ export class AddEditSubCategoryComponent implements OnInit {
   }
 
   fileChangeEvent() {
-    debugger
     let formData = new FormData();
     formData.append("categoryImage", this.imageFile?.file);
     formData.append("subCategoryId", this.subId);
