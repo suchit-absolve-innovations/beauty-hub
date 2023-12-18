@@ -171,10 +171,14 @@ this.spinner.hide();
         });
       }
       getSubCategoryListFilter() {
-        
-        this.spinner.show();
-     
-        this.content.getFilterCategoryList(this.form.value.CategoryType).subscribe(response => {
+
+        // this.spinner.show();
+          let payload = {
+          mainCategoryId: parseInt(this.Id),
+          salonId: this.salonId,
+          CategoryType:this.form.value.CategoryType
+        } 
+        this.content.getFilterCategoryList(payload).subscribe(response => {
           if (response.isSuccess) {
             this.categoryList = response.data;
             this.toaster.success(response.messages);

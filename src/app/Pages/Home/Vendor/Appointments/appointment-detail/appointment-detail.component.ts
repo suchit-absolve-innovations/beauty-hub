@@ -24,12 +24,14 @@ export class AppointmentDetailComponent implements OnInit {
   services             : any;
   form                 : any
   postAppointmentStatus: any;
+  searchTerm! : string;
 
   constructor(
     private spinner    : NgxSpinnerService,
     private content    : ContentService,
     private toaster    : ToastrService,
     private route      : ActivatedRoute,
+    private router     : Router,
     private formBuilder: FormBuilder,
     private _location  : Location,
    ) { }
@@ -47,7 +49,19 @@ export class AppointmentDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.rootUrl       = environment.rootPathUrl;
-    this.appointmentId = this.route.snapshot.paramMap.get('id');
+    this.route.paramMap.subscribe((params) => {
+      this.appointmentId = params.get('id');
+    });
+    this.route.queryParams.subscribe((params) => {
+      this.searchTerm = params['searchTerm'];
+      
+
+      // Use the retrieved parameters as needed
+      console.log('Search Term:', this.searchTerm);
+      
+    });
+    // this.appointmentId = this.route.snapshot.paramMap.get('id');
+
     this.getApointmentDetail();
     this.form = this.formBuilder.group({
       appointmentStatus: [''],
@@ -55,7 +69,9 @@ export class AppointmentDetailComponent implements OnInit {
   }
   
   backClicked() {
-    this._location.back();
+    this.router.navigate(['/appointment-list'], {
+      queryParamsHandling: 'preserve'
+    });
   }
 
   getApointmentDetail() {  
@@ -75,13 +91,11 @@ export class AppointmentDetailComponent implements OnInit {
   }
 
   appointmentStatus(){
-    this.spinner.show();
     this.postAppointmentStatus = this.form.value.appointmentStatus
 
   }
 
   setSelectedStatus(data:any) {
-    this.spinner.show();
     let payload = {
       appointmentId    : data.appointmentId,
       appointmentStatus: this.postAppointmentStatus,
@@ -91,7 +105,9 @@ export class AppointmentDetailComponent implements OnInit {
     this.content.postStatus(payload).subscribe(response => {
       if (response.isSuccess) {
         this.toaster.success(response.messages);
-        
+        setTimeout(() => {
+          window.location.reload();
+        }, 500); 
       }
       else {
         this.toaster.error(response.messages)}

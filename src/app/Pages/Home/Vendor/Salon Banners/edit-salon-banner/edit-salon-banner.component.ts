@@ -211,6 +211,7 @@ export class EditSalonBannerComponent implements OnInit {
     this.showBrandDiv = selectedValue === 'SalonCategoryBanner';
     this.selectedFilter = selectedValue === 'SalonCategoryBanner';
     // Perform any other actions based on the selected value
+    
   }
 }
   //onclick toggling both

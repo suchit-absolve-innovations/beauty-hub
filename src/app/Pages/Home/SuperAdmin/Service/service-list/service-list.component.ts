@@ -103,7 +103,14 @@ export class ServiceListComponent implements OnInit {
       relativeTo: this.route,
       queryParams: { page: null },
       queryParamsHandling: 'merge'
+      
     });
+    this.form.get('mainCategoryId').setValue('');
+    this.form.get('subCategoryId').setValue('');
+    this.form.get('ageRestrictions').setValue('');
+    this.form.get('genderPreferences').setValue('');
+    this.subCategoryList = [];
+    this. getList();
   }
  
 

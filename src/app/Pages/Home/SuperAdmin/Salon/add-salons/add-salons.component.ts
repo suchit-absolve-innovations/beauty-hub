@@ -278,7 +278,7 @@ add() {
       return this.formBuilder.group({
         salonName: ['', [Validators.required]],
         salonType: ['',[Validators.required]],
-        salonDescription: ['', [Validators.required, this.maxLengthValidator(200)]],
+        salonDescription: ['', [Validators.required]],
         gstnumber: ['', [Validators.required,Validators.pattern("^[a-zA-Z0-9]{15}$")]],
         businessPAN: ['', [Validators.required,Validators.pattern("^[a-zA-Z0-9]{10}$")]],
         city: ['', [Validators.required]],

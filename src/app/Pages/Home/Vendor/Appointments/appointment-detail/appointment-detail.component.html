@@ -87,6 +87,10 @@
                                 <dt>Final Price:</dt>
                                 <dd>{{appointmentDetail?.finalPrice}}</dd>
                             </dl>
+                            <dl *ngIf="appointmentDetail?.cancelledPrice !== 0" class="d-flex inform_text">
+                                <dt>Cancelled Price:</dt>
+                                <dd>{{appointmentDetail?.cancelledPrice}}</dd>
+                            </dl>
                             <!-- <dl class="d-flex inform_text">
                             <dt>CGST:</dt>
                             <dd>{{appointmentDetail?.cgst}}</dd>

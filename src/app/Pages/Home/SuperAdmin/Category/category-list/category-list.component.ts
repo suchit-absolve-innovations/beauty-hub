@@ -145,6 +145,8 @@ export class CategoryListComponent implements OnInit {
     // Clear query parameters
     this.page1 = 1
     this.page2 = 1;
+    this.page3 = 1;
+    this.page4 = 1;
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: { page1: null, page2: null, page3: null, page4: null },

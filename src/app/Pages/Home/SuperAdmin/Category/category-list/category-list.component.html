@@ -313,7 +313,7 @@
                                 <th>Action</th>
                             </tr>
                             <tr
-                                *ngFor="let item of categoryRequestList | filter:searchText | paginate: {itemsPerPage: 10, currentPage: page2, totalItems: totalItems,id: '2' }  ">
+                                *ngFor="let item of categoryRequestList | filter:searchText | paginate: {itemsPerPage: 5, currentPage: page2, totalItems: totalItems,id: '2' }  ">
                                 <td>
                                     {{item?.maincategoryName}}
                                 </td>

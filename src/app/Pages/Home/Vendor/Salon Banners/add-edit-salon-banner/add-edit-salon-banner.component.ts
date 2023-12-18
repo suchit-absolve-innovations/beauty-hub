@@ -188,6 +188,9 @@ export class AddEditSalonBannerComponent implements OnInit {
     const selectedBannerType = this.bannerTypeControl.value;
     // Determine if the subcategory dropdown should be visible
     this.visible = selectedBannerType === 'SalonCategoryBanner';
+    this.form.get('mainCategoryId').setValue('');
+    this.form.get('subCategoryId').setValue('');
+    this.subCategoryList = [];
   }
 
 
