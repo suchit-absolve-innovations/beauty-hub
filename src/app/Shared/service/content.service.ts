@@ -185,6 +185,7 @@ export class ContentService {
       return data;
     }));
   }
+  
 
   // OR Image upload 
   UploadQrImage(data: any) {

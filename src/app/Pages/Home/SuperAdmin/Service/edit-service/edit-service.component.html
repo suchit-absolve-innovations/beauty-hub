@@ -240,7 +240,7 @@
                             <input  type="file" class="uploadFile  img" #image1
                                 (change)="handleFileInput($event)" (change)="onImageSelect($event)">
                               
-                                <label *ngIf="imageUrl"  width="512" height="512" data-toggle="modal" data-target="#myModal" class="preview-butn">preview</label>
+                                <label *ngIf="imageUrl1"  width="512" height="512" data-toggle="modal" data-target="#myModal" class="preview-butn">preview</label>
                                 <div *ngIf="errorMessage"  class="help-block"  style="color: #fd0000">{{ errorMessage }}</div>
                             </div>
 
@@ -270,7 +270,7 @@
             </button>
             <div class="modal-body text-center">
                 <div class="imagePreview vendor-preview">
-                    <img class="image" [src]="imageUrl">
+                    <img class="image" [src]="imageUrl1">
 
                 </div>
 

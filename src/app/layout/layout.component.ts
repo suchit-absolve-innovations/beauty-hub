@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, Renderer2, EventEmitter, Output, NgZone }
 import { AuthService } from '../Shared/service/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ContentService } from '../Shared/service/content.service';
 
 @Component({
   selector: 'app-layout',
@@ -20,7 +21,8 @@ export class LayoutComponent implements OnInit {
   constructor(private auth: AuthService,
     private ngZone: NgZone,
     private toaster: ToastrService,
-    private spinner: NgxSpinnerService,) { }
+    private spinner: NgxSpinnerService,
+    private contentservice: ContentService) { }
 
   ngOnInit(): void {
   
@@ -232,5 +234,7 @@ export class LayoutComponent implements OnInit {
   // })
   // }
 
+
+  
 
 }

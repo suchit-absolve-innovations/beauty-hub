@@ -8,7 +8,7 @@ import { ContentService } from 'src/app/Shared/service/content.service';
 import { environment } from 'src/environments/environment';
 import { Location } from '@angular/common';
 import { Observable } from 'rxjs';
-
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 @Component({
   selector: 'app-edit-service',
   templateUrl: './edit-service.component.html',
@@ -45,6 +45,7 @@ export class EditServiceComponent implements OnInit {
   discount: any = 0;
   listingPrice: any = 0;
   maxDiscountValue: any;
+  imageUrl1!: any;
 
   constructor(private router: Router,
     private formBuilder: FormBuilder,
@@ -55,7 +56,8 @@ export class EditServiceComponent implements OnInit {
     private route: ActivatedRoute,
     private ngZone: NgZone,
     private http: HttpClient,
-    private _location: Location,) { }
+    private _location: Location,
+    private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
     this.rootUrl = environment.rootPathUrl;
@@ -187,7 +189,7 @@ export class EditServiceComponent implements OnInit {
         this.imageConvert64();
 
         this.serviceDetailPatch = response.data
-        this.imageUrl = this.rootUrl + this.serviceDetailPatch.serviceIconImage
+        this.imageUrl1 = this.rootUrl + this.serviceDetailPatch.serviceIconImage
 
 
         this.form.patchValue({
@@ -397,31 +399,47 @@ debugger
     });
   }
   onImageSelect(event: any) {
+    debugger;
+  
     const file = event.target.files[0];
-    const fileType = event.target.files[0].type;
-    if ((fileType === 'image/jpeg' || fileType === 'image/png') && fileType !== 'image/jfif') {
-      if (file) {
-        const imageSize = file.size / 1024; // in KB
-        const image = new Image();
-
-        image.src = URL.createObjectURL(file);
-
-        image.onload = () => {
-          if (image.width === 512 && image.height === 512 && imageSize <= 512) {
-            this.errorMessage = '';
-            this.isValid = true;
-            this.imageUrl = image.src;
-          } else {
-            this.errorMessage = 'Please select 512x512 pixels (width×height) image.';
-            this.isValid = false;
-            this.imageUrl = '';
-          }
-        };
+  
+    if (file) {
+      const fileType = file.type;
+      const fileName = file.name;
+  
+      if ((fileType === 'image/jpeg' || fileType === 'image/png')) {
+        if (fileName.toLowerCase().endsWith('.jpeg') || (fileName.toLowerCase().endsWith('.png')) ||  (fileName.toLowerCase().endsWith('.jpg'))) {
+          const imageSize = file.size / 1024; // in KB
+          const image = new Image();
+    
+          image.src = URL.createObjectURL(file);
+    
+          image.onload = () => {
+            if (image.width === 512 && image.height === 512 && imageSize <= 512) {
+              this.errorMessage = '';
+              this.isValid = true;
+              this.imageUrl1 = this.sanitizer.bypassSecurityTrustUrl(image.src) as SafeUrl;
+            } else {
+              this.errorMessage = 'Please select 512x512 pixels (width×height) image.';
+              this.isValid = false;
+              this.imageUrl1 = '';
+            }
+          };
+        } else {
+          this.errorMessage = 'Please select a valid JPEG or PNG image.';
+          this.imageUrl1 = '';
+          return;
+        }
+  
+     
+      } else {
+        this.errorMessage = 'Please select a valid JPEG or PNG image.';
       }
-    } else {
-      this.errorMessage = 'Please select a valid JPEG or PNG image.';
     }
   }
+  
+  
+  
 
   handleFileInput(event: any) {
     const files = event.target.files;
