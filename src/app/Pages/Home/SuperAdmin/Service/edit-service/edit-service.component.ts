@@ -208,8 +208,6 @@ export class EditServiceComponent implements OnInit {
           serviceDescription: this.serviceDetailPatch.serviceDescription,
         });
         this.getSubcategoryList(this.serviceDetailPatch?.mainCategoryId);
-
-
       }
     });
   }
@@ -238,7 +236,6 @@ export class EditServiceComponent implements OnInit {
       lockTimeStart: this.form.value.lockTimeStart || '',
       lockTimeEnd: this.form.value.lockTimeEnd || '',
       serviceDescription: this.form.value.serviceDescription
-
     }
     this.spinner.show();
     this.contentService.addNewService(payload).subscribe(response => {

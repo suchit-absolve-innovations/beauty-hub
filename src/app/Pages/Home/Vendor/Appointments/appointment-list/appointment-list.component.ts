@@ -282,6 +282,14 @@ export class AppointmentListComponent implements OnInit {
   }
 
   // list all filter 
+
+  clear() {
+    this.form.patchValue({
+      fromDate: null,
+      toDate: null
+    });
+    this.filterAllList();
+  }
   filterAllList() {
     if (this.refreshSubscription) {
       this.refreshSubscription.unsubscribe();
