@@ -31,23 +31,16 @@ export class AdminDetailComponent implements OnInit {
   }
 
   getAdminDetail(){
-
     this.spinner.show();
   this.content.UserAdminDetail(this.adminId).subscribe((response:any) => {
       if (response.isSuccess) {
         this.adminDetail = response.data;
         this.spinner.hide();
   }
-
-  
-
-  
 });
   }
-
   backClicked() {
     this._location.back();
   }
-
   }
 

@@ -8,7 +8,7 @@ import { ContentService } from 'src/app/Shared/service/content.service';
 import { environment } from 'src/environments/environment';
 import { Location } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 
 @Component({
@@ -76,6 +76,7 @@ form:any;
     private _location: Location,
     private route: ActivatedRoute,
     private http: HttpClient,
+    private sanitizer: DomSanitizer
 
   ) { }
 
@@ -480,38 +481,75 @@ convertImageToBase64(url: string): Promise<string> {
   });
 }
 onImageSelect(event: any) {
+  debugger;
+
   const file = event.target.files[0];
 
   if (file) {
-    const imageSize = file.size / 1024; // in KB
-    const image = new Image();
+    const fileType = file.type;
+    const fileName = file.name;
 
-    image.src = URL.createObjectURL(file);
-
-    image.onload = () => {
-      if (image.width === 512 && image.height === 512 && imageSize <= 512) {
-        this.errorMessage = '';
-        this.isValid = true;
-        // this.previewImage = image.src;
+    if ((fileType === 'image/jpeg' || fileType === 'image/png')) {
+      if (fileName.toLowerCase().endsWith('.jpeg') || (fileName.toLowerCase().endsWith('.png')) ||  (fileName.toLowerCase().endsWith('.jpg'))) {
+        const imageSize = file.size / 1024; // in KB
+        const image = new Image();
+  
+        image.src = URL.createObjectURL(file);
+  
+        image.onload = () => {
+          if (image.width === 512 && image.height === 512 && imageSize <= 512) {
+            this.errorMessage = '';
+            this.isValid = true;
+            this.imageUrl = this.sanitizer.bypassSecurityTrustUrl(image.src) as SafeUrl;
+          } else {
+            this.errorMessage = 'Please select 512x512 pixels (width×height) image.';
+            this.isValid = false;
+            this.imageUrl= '';
+          }
+        };
       } else {
-        this.errorMessage = 'Please select 512x512 pixels (width×height) image.';
-        this.isValid = false;
+        this.errorMessage = 'Please select a valid JPEG or PNG image.';
         this.imageUrl = '';
+        return;
       }
-    };
+
+   
+    } else {
+      this.errorMessage = 'Please select a valid JPEG or PNG image.';
+      this.imageUrl = '';
+    }
   }
 }
+// onImageSelect(event: any) {
+//   const file = event.target.files[0];
 
+//   if (file) {
+//     const imageSize = file.size / 1024; // in KB
+//     const image = new Image();
+
+//     image.src = URL.createObjectURL(file);
+
+//     image.onload = () => {
+//       if (image.width === 512 && image.height === 512 && imageSize <= 512) {
+//         this.errorMessage = '';
+//         this.isValid = true;
+//         // this.previewImage = image.src;
+//       } else {
+//         this.errorMessage = 'Please select 512x512 pixels (width×height) image.';
+//         this.isValid = false;
+//         this.imageUrl = '';
+//       }
+//     };
+//   }
+// }
 
 handleFileInput(event: any) {
+  debugger
   const files = event.target.files;
-  const fileType = event.target.files[0].type;
-    if ((fileType === 'image/jpeg' || fileType === 'image/png') && fileType !== 'image/jfif') {
   for (let e = 0; e < files.length; e++) {
     const file = files[e];
     const reader = new FileReader();
     reader.readAsDataURL(file);
-    
     reader.onload = () => {
       const image = new Image();
       image.src = reader.result as string;
@@ -534,9 +572,6 @@ handleFileInput(event: any) {
       };
     }
   }
-} else {
-  this.errorMessage = 'Please select a valid JPEG or PNG image.';
-    }
 }
 
 fileChangeEvents() {

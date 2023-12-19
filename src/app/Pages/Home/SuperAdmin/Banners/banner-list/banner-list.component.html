@@ -1,24 +1,20 @@
 
-
 <div class="app-main__outer">
     <div class="app-main__inner">
         
         <div class="text-center d-table">
             <h3>Banner List</h3>
         </div>
-      
 
         <div class="admin_a form_dashbord">
         <div class="d-flex if_xs_btn mt-30">
             <input type="text" placeholder="Search Here" class="btn_border search_here" (input)="addSpaceAfterText()" [(ngModel)]="searchText"
             style="width:25%!important;">
-
             <a [routerLink]="['/banner-list/add-edit-banner']" class="btn_blue ml-auto">Add Banner </a>
         </div>
         
         <div class="table-responsive">
             <table class="table admin_table">
-
                 <tr>
                     <!-- <th>Serial No.</th> -->
                     <th>Date</th>
@@ -36,7 +32,7 @@
                         {{item?.bannerType}}
 
                     </td>
-                    
+              
                     <!-- <td>{{item.createDate}}</td> -->
                     <td>
 

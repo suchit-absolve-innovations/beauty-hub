@@ -5,7 +5,6 @@
             <h3>Admin List</h3>
         </div>
 
-
         <div class="admin_a form_dashbord">
             <div class="d-flex if_xs_btn mt-30">
                 <input type="text" placeholder="Search Here" class="btn_border search_here" (input)="addSpaceAfterText()"(click)="onSearch(search)" (click)="performSearch()" [(ngModel)]="searchText"
@@ -27,8 +26,6 @@
 
                     <tr
                         *ngFor="let item of adminList | filter:searchText | paginate: {itemsPerPage: 5, currentPage: page, totalItems: totalItems,id: '1' }  ">
-
-
                         <td>
                             {{item?.firstName}} {{item?.lastName}}
                         </td>

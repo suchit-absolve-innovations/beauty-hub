@@ -44,9 +44,6 @@ export class ServiceListComponent implements OnInit {
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private _location: Location) {
-  
-
-
      }
 
   ngOnInit(): void {
@@ -59,18 +56,15 @@ export class ServiceListComponent implements OnInit {
     this.route.queryParams.subscribe((params) => {
       this.search = params['search'] || '';
       this.page = params['page'] ? parseInt(params['page'], 10) : 1;
-
       // Fetch data based on the search term and page
       this.getList();
     });
 
-    this.salonId = this.route.snapshot.queryParams
-    // this.salonIds = localStorage.setItem('salonid',this.salonId.id)
+    this.salonId = this.route.snapshot.queryParams;
     this.getList();
     this.getcategoryList();
     this.filterListForm();
     this.form.get('mainCategoryId').valueChanges.subscribe(() => {
-      // Reset subCategoryId when mainCategoryId changes
       this.form.get('subCategoryId').setValue('');
     });
   }

@@ -35,7 +35,7 @@ export class EditServiceComponent implements OnInit {
   // errorMessage: string | null = null;
   errorMessage: string = '';
   isValid: boolean = false;
-  previewImage: string = '';
+  previewImage!: any;
   errorMessages: string = '';
   salonId: any;
   base64Image: string[] = [];
@@ -61,13 +61,12 @@ export class EditServiceComponent implements OnInit {
 
   ngOnInit(): void {
     this.rootUrl = environment.rootPathUrl;
-    this.role = localStorage.getItem('user')
+    this.role = localStorage.getItem('user');
     this.serviceId = this.route.snapshot.queryParams;
-   
     this.salonId = this.route.snapshot.queryParams;
     this.serviceForm();
     this.getcategoryList();
-    this.getServiceDetail()
+    this.getServiceDetail();
   }
 
   serviceForm() {
@@ -88,7 +87,7 @@ export class EditServiceComponent implements OnInit {
       lockTimeEnd: [''],
       serviceDescription: ['', [Validators.required, this.maxLengthValidator(160)]],
     }
-    , { validator: this.timeValidator });
+      , { validator: this.timeValidator });
   }
   maxLengthValidator(maxLength: number) {
     return (control: { value: any; }) => {
@@ -105,16 +104,14 @@ export class EditServiceComponent implements OnInit {
   timeValidator(control: AbstractControl): ValidationErrors | null {
     const startTime = control.get('lockTimeStart')?.value;
     const endTime = control.get('lockTimeEnd')?.value;
-  
     if (startTime && endTime) {
       if (startTime === endTime) {
         return { timeOrder: true };
       }
     }
-  
     return null;
   }
-  
+
   backClicked() {
     this._location.back();
   }
@@ -125,7 +122,6 @@ export class EditServiceComponent implements OnInit {
     if (isNaN(discount)) {
       discount = 0; // Set discount to 0 if it's NaN
     }
-
     if (isNaN(discount) || discount > basePrice) {
       discount = 0; // Set discount to 0 if it's NaN
     }
@@ -137,18 +133,15 @@ export class EditServiceComponent implements OnInit {
       discount = 0;
 
     }
-
     // Update the discount property with the validated discount value
     this.discount = discount;
   }
-  resetDiscount() {
 
+  resetDiscount() {
     this.listingPrice = this.basePrice - this.discount;
   }
 
-
   getcategoryList() {
-
     // this.spinner.show();
     this.contentService.getcategory().subscribe(response => {
       if (response.isSuccess) {
@@ -163,11 +156,9 @@ export class EditServiceComponent implements OnInit {
   }
 
   getSubcategoryList(mainCategoryId: any) {
-
     this.contentService.SuperSubCategory(mainCategoryId).subscribe(response => {
       if (response.isSuccess) {
         this.subCategoryList = response.data;
-
         var categoryListData = this.subCategoryList?.find((y: { subCategoryId: any; }) => y.subCategoryId == this.serviceDetailPatch.subCategoryId);
         this.form.patchValue({
           subCategoryId: categoryListData?.subCategoryId,
@@ -209,7 +200,6 @@ export class EditServiceComponent implements OnInit {
         });
         this.getSubcategoryList(this.serviceDetailPatch?.mainCategoryId);
 
-
       }
     });
   }
@@ -221,7 +211,6 @@ export class EditServiceComponent implements OnInit {
       this.toasterService.error("Form Incomplete: Please fill in all the required fields correctly");
       return;
     }
-
     let payload = {
       serviceId: parseInt(this.serviceId.id2),
       salonId: parseInt(this.salonId.id),
@@ -238,7 +227,6 @@ export class EditServiceComponent implements OnInit {
       lockTimeStart: this.form.value.lockTimeStart || '',
       lockTimeEnd: this.form.value.lockTimeEnd || '',
       serviceDescription: this.form.value.serviceDescription
-
     }
     this.spinner.show();
     this.contentService.addNewService(payload).subscribe(response => {
@@ -251,28 +239,24 @@ export class EditServiceComponent implements OnInit {
         this._location.back();
         setTimeout(() => {
           window.location.reload();
-        }, 500); 
+        }, 500);
       } else {
         this.spinner.hide();
         this.toaster.error(response.messages);
       }
-
-    }) 
-   
-    
+    })
   }
 
   imageConvert64() {
-
     this.contentService.imageConvert(this.serviceId.id2).subscribe(response => {
       if (response.isSuccess) {
-        this.base64Image = response.data
+        this.base64Image = response.data;
       }
     });
   }
- 
+
   fileChangeEvent() {
-debugger
+    debugger
     const formData = new FormData();
     for (let i = 0; i < this.base64Image.length; i++) {
       const imageDataUrl = this.base64Image[i];
@@ -282,7 +266,7 @@ debugger
     }
     formData.append('serviceId', this.serviceId.id2);
     this.contentService.uploadServiceImage(formData).subscribe(response => {
-     
+
     });
   }
   private dataURItoBlob(dataURI: string): Blob {
@@ -298,11 +282,11 @@ debugger
   onselect(event: any) {
     const files = event.target.files;
     this.errorMessages = ''; // Clear previous error messages
-  
+
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
       const fileType = file.type;
-  
+
       if ((fileType === 'image/jpeg' || fileType === 'image/png') && fileType !== 'image/jfif') {
         this.handleValidImage(file);
       } else if (fileType === 'image/jfif') {
@@ -313,15 +297,15 @@ debugger
       }
     }
   }
-  
+
   handleValidImage(file: File) {
     const reader = new FileReader();
     reader.readAsDataURL(file);
-  
+
     reader.onload = () => {
       const image = new Image();
       image.src = reader.result as string;
-  
+
       image.onload = () => {
         if (image.width === 1280 && image.height === 720 && file.size / 1024 <= 1000) {
           this.base64Image.push(image.src);
@@ -331,50 +315,58 @@ debugger
       };
     };
   }
-  
+
   convertJfifToJpeg(file: File) {
     const reader = new FileReader();
     reader.readAsArrayBuffer(file);
-  
     reader.onload = () => {
       const uint8Array = new Uint8Array(reader.result as ArrayBuffer);
       const blob = new Blob([uint8Array], { type: 'image/jpeg' });
       const convertedFile = new File([blob], file.name, { type: 'image/jpeg' });
-  
       // Handle the converted JFIF file
       this.handleValidImage(convertedFile);
     };
   }
-  
+
   onBannerImageSelect(event: any) {
     debugger
     const file = event.target.files[0];
-    const fileType = event.target.files[0].type;
-    if ((fileType === 'image/jpeg' || fileType === 'image/png') && fileType !== 'image/jfif') {
+  
     if (file) {
-      const imageSize = file.size / 1024; // in KB
-      const image = new Image();
+      const fileType = file.type;
+      const fileName = file.name;
   
-      image.src = URL.createObjectURL(file);
-  
-      image.onload = () => {
-        if (image.width === 1280 && image.height === 720 && imageSize <= 1020) {
-          this.errorMessages = '';
-          // this.isValid = true;
-          this.previewImage = image.src;
-        } else {
-          this.errorMessages = 'Please select 1280x720 pixels (width×height) image.';
-          // this.isValid = false;
-          this.previewImage = '';
-        }
-      };
-    }
-  } else {
-    this.errorMessage = 'Please select a valid JPEG or PNG image.';
+      if ((fileType === 'image/jpeg' || fileType === 'image/png')) {
+        if (fileName.toLowerCase().endsWith('.jpeg') || (fileName.toLowerCase().endsWith('.png')) ||  (fileName.toLowerCase().endsWith('.jpg'))) {
+          const imageSize = file.size / 1024; // in KB
+          const image = new Image();
+    
+          image.src = URL.createObjectURL(file);
+    
+
+        image.onload = () => {
+          if (image.width === 1280 && image.height === 720 && imageSize <= 1020) {
+            this.errorMessages = '';
+            this.isValid = true;
+            this.previewImage = this.sanitizer.bypassSecurityTrustUrl(image.src) as SafeUrl;
+          } else {
+            this.errorMessages = 'Please select 1280x720 pixels (width×height) image.';
+            this.isValid = false;
+            this.previewImage = '';
+          }
+        };
+      } else {
+        this.errorMessages = 'Please select a valid JPEG or PNG image.';
+        this.previewImage = '';
+        return;
       }
+    } 
+    else {
+      this.errorMessages = 'Please select a valid JPEG or PNG image.';
+    }
+    }
   }
-  
-  
+
 
   convertImageToBase64(url: string): Promise<string> {
     return new Promise<string>((resolve, reject) => {
@@ -442,12 +434,12 @@ debugger
   
 
   handleFileInput(event: any) {
+    debugger
     const files = event.target.files;
     for (let e = 0; e < files.length; e++) {
       const file = files[e];
       const reader = new FileReader();
       reader.readAsDataURL(file);
-
       reader.onload = () => {
         const image = new Image();
         image.src = reader.result as string;
@@ -481,24 +473,17 @@ debugger
     });
   }
 
- 
+
   removeImage(index: number) {
     if (index >= 0 && index < this.base64Image.length) {
-        this.base64Image.splice(index, 1);
-        // Check and remove from selectedImageData if necessary
-        if (index < this.selectedImageData.length) {
-            this.selectedImageData.splice(index, 1);
-        }
+      this.base64Image.splice(index, 1);
+      // Check and remove from selectedImageData if necessary
+      if (index < this.selectedImageData.length) {
+        this.selectedImageData.splice(index, 1);
+      }
     }
-}
-
+  }
   
-  // removeImage(index: any) {
-  //   debugger
-  //   this.selectedImageData.splice(index, 1);
-  //   this.base64Image.splice(index, 1);
-  // }
-
   cancel() {
     if (this.role == 'SuperAdmin') {
       this.router.navigateByUrl('/salon-list')
@@ -512,17 +497,4 @@ debugger
         });
     }
   }
-  // both() {
-  //   if (this.role == 'SuperAdmin') {
-  //     this.router.navigateByUrl('/salon-list')
-  //       .then(() => {
-  //         window.location.reload();
-  //       });
-  //   } else if (this.role == 'Vendor') {
-  //     this.router.navigateByUrl('/vendor-service-list')
-  //       .then(() => {
-  //         window.location.reload();
-  //       });
-  //   }
-  // }
 }

@@ -14,7 +14,6 @@ export class HeaderComponent implements OnInit {
 
 
   sideNav() {
-
     this.show = !this.show;
     this.collapseSideNav.emit(this.show);
   }
@@ -22,13 +21,13 @@ export class HeaderComponent implements OnInit {
 
   onToggle() {
     this.showToggle = !this.showToggle;
-}
+  }
 
 
   ngOnInit(): void {
   }
 
- 
+
   /* log-out */
   logouts() {
     localStorage.clear();

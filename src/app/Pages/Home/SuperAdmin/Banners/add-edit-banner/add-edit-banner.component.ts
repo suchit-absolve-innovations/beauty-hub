@@ -32,7 +32,8 @@ export class AddEditBannerComponent implements OnInit {
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private toasterService: ToastrService,
-    private _location: Location,) { }
+    private _location: Location
+    ) { }
 
   ngOnInit(): void {
     this.rootUrl = environment.rootPathUrl;
@@ -88,13 +89,11 @@ export class AddEditBannerComponent implements OnInit {
 Submit() {
   this.spinner.show();
   this.submitted = true;
-
   if (!this.imageFile || !this.imageFile.file) {
     this.toasterService.error("Form Incomplete: Please upload an image");
     this.spinner.hide();
     return;
   }
-
   if (this.detail) {
     this.bannerId = this.id;
     this.fileChangeEvents();
@@ -123,28 +122,7 @@ Submit() {
   //   }
 
   // }
-
-
-  /*** Image Upload ***/
-  // imagesUpload(event: any) {
-  
-  //   if (event.target.files && event.target.files[0]) {
-  //     const reader = new FileReader();
-  //     reader.onload = (_event: any) => {
-  //       this.imageFile = {
-  //         link: _event.target.result,
-  //         file: event.srcElement.files[0],
-  //         name: event.srcElement.files[0].name,
-  //         type: event.srcElement.files[0].type
-  //       };
-  //     };
-  //     reader.readAsDataURL(event.target.files[0]);
-
-  //   }
-  // }
-
   fileChangeEvents() {
-
     let formData = new FormData();
     formData.append("bannerId", this.bannerId);
     formData.append("bannerImage", this.editImages);
@@ -154,17 +132,14 @@ Submit() {
       if (response.isSuccess) {
         this.spinner.hide();
         this.toasterService.success(response.messages);
-        this.router.navigateByUrl('/banner-list')
+        this.router.navigateByUrl('/banner-list');
       } else {
         this.spinner.hide();
         this.toasterService.error(response.messages);
       }
     });
   }
-
-
   fileChangeEvent() {
-    
     let formData = new FormData();
     formData.append("bannerImage", this.imageFile?.file);
     this.spinner.show();
@@ -172,7 +147,7 @@ Submit() {
       if (response.isSuccess) {
         this.spinner.hide();
         this.toasterService.success(response.messages);
-         this.router.navigateByUrl('/banner-list')
+         this.router.navigateByUrl('/banner-list');
       } else {
         this.spinner.hide();
         this.toasterService.error(response.messages);
@@ -188,14 +163,12 @@ Submit() {
     this.content.bannerDetail(id).subscribe(response => {
       if (response.isSuccess) {
         this.detail = response.data;
-        this.id = this.detail.bannerId
+        this.id = this.detail.bannerId;
         this.editImages = this.rootUrl + this.detail?.bannerImage;
         // this.form.patchValue({
         //   bannerType: this.detail.bannerType,
-
         // });
       }
-
     });
   }
 

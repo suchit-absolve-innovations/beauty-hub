@@ -15,7 +15,7 @@ import { Location } from '@angular/common';
 })
 export class AddServiceComponent implements OnInit {
   form: any;
-  submitted!: boolean
+  submitted!: boolean;
   rootUrl: any;
   id: any;
   sizeErrorMessage: string | null = null;
@@ -51,9 +51,6 @@ export class AddServiceComponent implements OnInit {
   listingPrice: any = 0;
   maxDiscountValue: any;
 
-
-
-
   constructor(private router: Router,
     private formBuilder: FormBuilder,
     private contentService: ContentService,
@@ -63,11 +60,10 @@ export class AddServiceComponent implements OnInit {
     private toasterService: ToastrService,
     private _location: Location,
     private route: ActivatedRoute,
-
   ) { }
 
   ngOnInit(): void {
-    this.role = localStorage.getItem('user')
+    this.role = localStorage.getItem('user');
     this.salonIds = localStorage.getItem('salonId');
     this.rootUrl = environment.rootPathUrl;
     this.serviceForm();
@@ -76,7 +72,7 @@ export class AddServiceComponent implements OnInit {
     this.form.get('mainCategoryId').valueChanges.subscribe(() => {
       // Reset subCategoryId when mainCategoryId changes
       this.form.get('subCategoryId').setValue('');
-    this.subCategoryList= ['select'];
+      this.subCategoryList = ['select'];
     });
 
   }
@@ -111,13 +107,12 @@ export class AddServiceComponent implements OnInit {
   timeValidator(control: AbstractControl): ValidationErrors | null {
     const startTime = control.get('lockTimeStart')?.value;
     const endTime = control.get('lockTimeEnd')?.value;
-  
+
     if (startTime && endTime) {
       if (startTime === endTime) {
         return { timeOrder: true };
       }
     }
-  
     return null;
   }
   onTimeInputChange(event: Event) {
@@ -140,7 +135,7 @@ export class AddServiceComponent implements OnInit {
 
     // Format the time as "hh:mm tt"
     const formattedTime = `${parsedHours.toString().padStart(2, '0')}:${selectedTime.slice(3)} ${period}`;
-    this.time = formattedTime
+    this.time = formattedTime;
 
     // Now 'formattedTime' contains the time in "hh:mm tt" format with 12-hour time
   }
@@ -163,9 +158,7 @@ export class AddServiceComponent implements OnInit {
     }
     // Format the time as "hh:mm tt"
     const formattedTime = `${parsedHours.toString().padStart(2, '0')}:${selectedTime.slice(3)} ${period}`;
-    this.time2 = formattedTime
-
-
+    this.time2 = formattedTime;
     // Now 'formattedTime' contains the time in "hh:mm tt" format with 12-hour time
   }
 
@@ -188,14 +181,11 @@ export class AddServiceComponent implements OnInit {
     this.listingPrice = basePrice - discount;
     if (discount === basePrice) {
       discount = 0;
-
     }
-
     // Update the discount property with the validated discount value
     this.discount = discount;
   }
   resetDiscount() {
-
     this.listingPrice = this.basePrice - this.discount;
   }
 
@@ -212,7 +202,7 @@ export class AddServiceComponent implements OnInit {
       if (response.isSuccess) {
         this.categoryList = response.data;
         this.subCategoryList = [];
-         this.spinner.hide();
+        this.spinner.hide();
       } else {
         this.categoryList = [];
         this.spinner.hide();
@@ -263,27 +253,27 @@ export class AddServiceComponent implements OnInit {
     const files = event.target.files;
     const fileType = event.target.files[0].type;
     if ((fileType === 'image/jpeg' || fileType === 'image/png') && fileType !== 'image/jfif') {
-    for (let i = 0; i < files.length; i++) {
-      const file = files[i];
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        const image = new Image();
-        image.src = reader.result as string;
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+          const image = new Image();
+          image.src = reader.result as string;
 
-        image.onload = () => {
-          if (image.width === 1280 && image.height === 720) {
-            // Only add the image to the array if it meets the dimensions criteria.
-            const imageDataUrl = reader.result as string;
-            this.imageUrl1 = imageDataUrl;
-            this.urls.push(imageDataUrl);
-          }
-        };
+          image.onload = () => {
+            if (image.width === 1280 && image.height === 720) {
+              // Only add the image to the array if it meets the dimensions criteria.
+              const imageDataUrl = reader.result as string;
+              this.imageUrl1 = imageDataUrl;
+              this.urls.push(imageDataUrl);
+            }
+          };
+        }
       }
-    }
     } else {
       this.errorMessage = 'Please select a valid JPEG or PNG image.';
-        }
+    }
   }
   fileChangeEvent() {
     const formData = new FormData();
@@ -313,36 +303,42 @@ export class AddServiceComponent implements OnInit {
   //////service icon image//
   handleImageInput(event: any) {
     const files = event.target.files;
-    const fileType = event.target.files[0].type;
-    if ((fileType === 'image/jpeg' || fileType === 'image/png') && fileType !== 'image/jfif') {
-    for (let i = 0; i < files.length; i++) {
-      const file = files[i];
-      const imageSize = file.size / 1024; // in KB
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        const image = new Image();
-        image.src = reader.result as string;
-        image.onload = () => {
-          if (image.width === 512 && image.height === 512 && imageSize <= 512) {
-            // Add image to the array and set as valid if it meets criteria
-            const imageDataUrl = reader.result as string;
-            this.errorMessage = '';
-            this.isValid = true;
-           this.previewImages = image.src;
-            this.urls1.push(imageDataUrl);
-          } else {
-            // Set as invalid if criteria not met
-            this.errorMessage = 'Please select 512x512 pixels (width×height) image.';
-            this.isValid = false;
-            this.previewImages = '';
-          }
-        };
-      };
-    }
-  } else {
-    this.errorMessage = 'Please select a valid JPEG or PNG image.';
+    const file = event.target.files[0];
+
+    if (file) {
+      const fileType = file.type;
+      const fileName = file.name;
+
+      if ((fileType === 'image/jpeg' || fileType === 'image/png')) {
+        if (fileName.toLowerCase().endsWith('.jpeg') || (fileName.toLowerCase().endsWith('.png')) || (fileName.toLowerCase().endsWith('.jpg'))) {
+          const imageSize = file.size / 1024; // in KB
+          const image = new Image();
+          const reader = new FileReader();
+          reader.readAsDataURL(file);
+          reader.onload = () => {
+            const image = new Image();
+            image.src = reader.result as string;
+            image.onload = () => {
+              if (image.width === 512 && image.height === 512 && imageSize <= 512) {
+                // Add image to the array and set as valid if it meets criteria
+                const imageDataUrl = reader.result as string;
+                this.errorMessage = '';
+                this.isValid = true;
+                this.previewImages = image.src;
+                this.urls1.push(imageDataUrl);
+              } else {
+                // Set as invalid if criteria not met
+                this.errorMessage = 'Please select 512x512 pixels (width×height) image.';
+                this.isValid = false;
+                this.previewImages = '';
+              }
+            };
+          };
+        }
+      } else {
+        this.errorMessage = 'Please select a valid JPEG or PNG image.';
       }
+    }
   }
   fileChangeEvents() {
     const formData = new FormData();
@@ -408,13 +404,13 @@ export class AddServiceComponent implements OnInit {
       this.serviceId = response.data?.serviceId
       this.fileChangeEvent();
       this.fileChangeEvents();
-      this.spinner.hide()
+      this.spinner.hide();
       if (response.isSuccess) {
         this.toaster.success(response.messages);
         this._location.back();
       } else {
-        this.spinner.hide()
-        this.toaster.error(response.messages)
+        this.spinner.hide();
+        this.toaster.error(response.messages);
       }
     });
   }
@@ -450,13 +446,13 @@ export class AddServiceComponent implements OnInit {
       this.serviceId = response.data?.serviceId
       this.fileChangeEvent();
       this.fileChangeEvents();
-      this.spinner.hide()
+      this.spinner.hide();
       if (response.isSuccess) {
         this.toaster.success(response.messages);
         this._location.back();
       } else {
-        this.spinner.hide()
-        this.toaster.error(response.messages)
+        this.spinner.hide();
+        this.toaster.error(response.messages);
       }
     });
   }
@@ -472,8 +468,5 @@ export class AddServiceComponent implements OnInit {
           window.location.reload();
         });
     }
-
-
   }
-
 }

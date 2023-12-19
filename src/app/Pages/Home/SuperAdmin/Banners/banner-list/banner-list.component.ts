@@ -12,46 +12,46 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./banner-list.component.css']
 })
 export class BannerListComponent implements OnInit {
-// serach 
-public searchText: any = '';
-page: number = 0;
-itemsPerPage!: number;
-totalItems!: number;
-rootUrl: any;
+  // serach 
+  public searchText: any = '';
+  page: number = 0;
+  itemsPerPage!: number;
+  totalItems!: number;
+  rootUrl: any;
   bannerList: any;
   bannerId: any;
 
-constructor(private toaster: ToastrService,
-  private spinner: NgxSpinnerService,
-  private content: ContentService,
-  private router: Router,
-  private ngZone: NgZone,) { }
+  constructor(private toaster: ToastrService,
+    private spinner: NgxSpinnerService,
+    private content: ContentService,
+    private router: Router,
+    private ngZone: NgZone
+  ) { }
 
-ngOnInit(): void {
-  this.rootUrl = environment.rootPathUrl;
-  this.getBannerList();
-}
+  ngOnInit(): void {
+    this.rootUrl = environment.rootPathUrl;
+    this.getBannerList();
+  }
 
-/*** Brand List ***/
+  /*** Brand List ***/
 
-getBannerList(){
-let payload = {
-  pageNumber: 1,
-  pageSize: 1000,
-}
-this.spinner.show();
-  this.content.getBanner(payload).subscribe(response => {
-    if (response.isSuccess) {
-      this.bannerList = response.data;
-    
-     this.spinner.hide();
+  getBannerList() {
+    let payload = {
+      pageNumber: 1,
+      pageSize: 1000,
     }
-  });
-}
+    this.spinner.show();
+    this.content.getBanner(payload).subscribe(response => {
+      if (response.isSuccess) {
+        this.bannerList = response.data;
+        this.spinner.hide();
+      }
+    });
+  }
 
 
-   // edit user 
-   edit(data: any) {
+  // edit user 
+  edit(data: any) {
     this.router.navigate(['/banner-list/add-edit-banner'],
       {
         queryParams: {
@@ -60,12 +60,9 @@ this.spinner.show();
       });
   }
 
-  delet(data:any){
-    
-this.bannerId = data.bannerId;
-this.deleteHomeBanners()
-
-
+  delet(data: any) {
+    this.bannerId = data.bannerId;
+    this.deleteHomeBanners();
   }
 
   deleteHomeBanners() {
@@ -78,13 +75,12 @@ this.deleteHomeBanners()
         this.toaster.success(response.messages);
       } else {
         this.spinner.hide();
-        this.toaster.error(response.messages)
+        this.toaster.error(response.messages);
       }
     });
   }
 
-
   addSpaceAfterText() {
     this.searchText = this.searchText.trim();
-    }
+  }
 }

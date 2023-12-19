@@ -39,18 +39,16 @@ export class EditCategoryComponent implements OnInit {
     private toasterService: ToastrService,
     private spinner: NgxSpinnerService,
     private router: Router,
-    private _location: Location,
+    private _location: Location
   ) { }
 
   ngOnInit(): void {
     this.rootUrl = environment.rootPathUrl;
-    this.role = localStorage.getItem('user')
+    this.role = localStorage.getItem('user');
     this.categoryForm();
-
     this.route.queryParams.subscribe((params: any) => {
       if (params.id) {
         this.getCategoryDetail(params.id);
-
       }
     });
   }
@@ -58,11 +56,9 @@ export class EditCategoryComponent implements OnInit {
     this._location.back();
   }
 
-
   get f() {
     return this.form['controls'];
   }
-
 
   categoryForm() {
     this.form = this.formBuilder.group({
@@ -82,7 +78,6 @@ export class EditCategoryComponent implements OnInit {
   }
 
   postCategory() {
-
     this.submitted = true;
     if (this.form.invalid) {
       return;
@@ -96,15 +91,12 @@ export class EditCategoryComponent implements OnInit {
         categoryType: this.form.value.categoryType
       }
       this.contentService.UpdateCategory(payload).subscribe(response => {
-        this.mainId = response.data?.mainCategoryId
+        this.mainId = response.data?.mainCategoryId;
         this.fileChangeEvent();
         this.afterResponse(response);
-
       });
     }
   }
-
-
 
   afterResponse(response: any) {
     if (response && response.statusCode == 200) {
@@ -115,14 +107,12 @@ export class EditCategoryComponent implements OnInit {
             window.location.reload();
           }, 500); 
           this.toasterService.success(response.messages);
-
         }
         if (this.login == 'Vendor') {
           this.showModal();
         }
         else if (this.login == 'Admin')
           this.showModal();
-
       }
       else {
         this.toasterService.error(response.messages);
@@ -136,20 +126,16 @@ export class EditCategoryComponent implements OnInit {
       .then(() => {
         window.location.reload();
       });
-
   }
   showModal() {
     $('#myModal').modal('show');
   }
 
-
-
   getCategoryDetail(id: string) {
     this.contentService.categoryDetail(id).subscribe(response => {
       if (response.isSuccess) {
         this.detail = response.data;
-        this.id = this.detail.mainCategoryId
-
+        this.id = this.detail.mainCategoryId;
         this.editImages = this.rootUrl + this.detail?.categoryImage;
         this.form.patchValue({
           categoryName: this.detail.categoryName,
@@ -157,7 +143,6 @@ export class EditCategoryComponent implements OnInit {
           categoryType: this.detail.categoryType
         });
       }
-
     });
   }
   imagesUpload(event: any) {
@@ -171,7 +156,6 @@ export class EditCategoryComponent implements OnInit {
           const image = new Image();
           image.src = _event.target.result as string;
           image.onload = () => {
-
             if (image.width === 512 && image.height === 512 && imageSize <= 500) {
               const imageDataUrl = reader.result as string;
               this.imageFile = {
@@ -179,7 +163,6 @@ export class EditCategoryComponent implements OnInit {
                 file: file,
                 name: file.name,
                 type: file.type,
-
               };
               this.previewImage = imageDataUrl;
               this.urls1.push(imageDataUrl);
@@ -199,21 +182,15 @@ export class EditCategoryComponent implements OnInit {
     }
   }
 
-
   fileChangeEvent() {
-
     let formData = new FormData();
     formData.append("CategoryImage", this.imageFile?.file);
     formData.append("MainCategoryId", this.mainId);
     this.contentService.categoryImage(formData).subscribe(response => {
-
     });
   }
 
-
-
   onGenderChange(event: any) {
-
     const selectedGender = event.target.value;
     if (selectedGender === '1') {
       this.categoryType = this.form.patchValue({ male: true, female: false });
@@ -223,6 +200,4 @@ export class EditCategoryComponent implements OnInit {
       this.categoryType = this.form.patchValue({ male: true, female: true });
     }
   }
-
-
 } 

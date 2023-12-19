@@ -81,11 +81,5 @@ this.userRole = 'distributor'
 
   classActive(data: any) {
     this.classActives = data;
-    
   }
-
-
-  
-
-
 }
