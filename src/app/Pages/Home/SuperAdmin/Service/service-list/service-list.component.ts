@@ -81,12 +81,18 @@ const storedData = this.filterService.getFilteredData();
 
 if (storedData && storedData.length > 0) {
   this.list = storedData;
+  debugger
   const firstItem = storedData[0].mainCategoryId;
   const secondItem = storedData[0].subCategoryId;
+  const thirdItem = storedData[0].ageRestrictions;
+  const fourthItem = storedData[0].genderPreferences;
 
   this.form.patchValue({
-    mainCategoryId: firstItem
+    mainCategoryId: firstItem,
+    ageRestrictions: thirdItem,
+    genderPreferences: fourthItem
   });
+
 
   // Use setTimeout to ensure that the patchValue is applied before calling getSubcategoryList
   this.spinner.show();
