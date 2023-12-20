@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { Location } from '@angular/common';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 declare var $: any;
 
 
@@ -40,7 +41,8 @@ export class AddEditCategoryComponent implements OnInit {
     private toasterService: ToastrService,
     private spinner: NgxSpinnerService,
     private router: Router,
-    private _location: Location
+    private _location: Location,
+    private sanitizer: DomSanitizer
   ) { }
 
   ngOnInit(): void {
@@ -126,44 +128,83 @@ export class AddEditCategoryComponent implements OnInit {
     $('#myModal').modal('show');
   }
 
+
   imagesUpload(event: any) {
-    const fileType = event.target.files[0].type;
-    if ((fileType === 'image/jpeg' || fileType === 'image/png') && fileType !== 'image/jfif') {
-      // Valid image type, you can proceed with further checks
+    debugger;
+  
+    const file = event.target.files[0];
+  
+    if (file) {
+      const fileType = file.type;
+      const fileName = file.name;
+  
+      if ((fileType === 'image/jpeg' || fileType === 'image/png')) {
+        if (fileName.toLowerCase().endsWith('.jpeg') || (fileName.toLowerCase().endsWith('.png')) ||  (fileName.toLowerCase().endsWith('.jpg'))) {
+          const imageSize = file.size / 1024; // in KB
+          const image = new Image();
     
-    if (event.target.files && event.target.files[0]) {
-      const file = event.target.files[0];
-      const imageSize = file.size / 1024; // in KB
-      const reader = new FileReader();
-      reader.onload = (_event: any) => {
-        const image = new Image();
-        image.src = _event.target.result as string;
-        image.onload = () => {
-          if (image.width === 512 && image.height === 512 && imageSize <= 512) {
-            const imageDataUrl = reader.result as string;
-            this.imageFile = {
-              link: _event.target.result,
-              file: file,
-              name: file.name,
-              type: file.type
-            };
-            this.previewImage = imageDataUrl;
-            this.urls1.push(imageDataUrl);
-            this.isValid = true;
-            this.errorMessage = ''; // No error message if the image meets criteria
-          } else {
-            this.isValid = false;
-            this.errorMessage = 'Please select a 512x512 pixels (width×height) image .'; // Error message for invalid image
-            // You can add further handling if needed for invalid images
-          }
-        };
-      };
-      reader.readAsDataURL(file);
+          image.src = URL.createObjectURL(file);
+    
+          image.onload = () => {
+            if (image.width === 512 && image.height === 512 && imageSize <= 512) {
+              this.errorMessage = '';
+              this.isValid = true;
+              this.imageUrl1 = this.sanitizer.bypassSecurityTrustUrl(image.src) as SafeUrl;
+            } else {
+              this.errorMessage = 'Please select a 512x512 pixels (width×height) & JPEG or PNG image.';
+              this.isValid = false;
+              this.imageUrl1 = '';
+            }
+          };
+        } else {
+          this.errorMessage = 'Please select a 512x512 pixels (width×height) & JPEG or PNG image.';
+          this.isValid = false;
+          this.imageUrl1 = '';
+          return;
+        }
+  
+     
+      } 
     }
-  } else {
-this.errorMessage = 'Please select a valid JPEG or PNG image.';
   }
-  }
+//   imagesUpload(event: any) {
+//     const fileType = event.target.files[0].type;
+//     if ((fileType === 'image/jpeg' || fileType === 'image/png') && fileType !== 'image/jfif') {
+//       // Valid image type, you can proceed with further checks
+    
+//     if (event.target.files && event.target.files[0]) {
+//       const file = event.target.files[0];
+//       const imageSize = file.size / 1024; // in KB
+//       const reader = new FileReader();
+//       reader.onload = (_event: any) => {
+//         const image = new Image();
+//         image.src = _event.target.result as string;
+//         image.onload = () => {
+//           if (image.width === 512 && image.height === 512 && imageSize <= 512) {
+//             const imageDataUrl = reader.result as string;
+//             this.imageFile = {
+//               link: _event.target.result,
+//               file: file,
+//               name: file.name,
+//               type: file.type
+//             };
+//             this.previewImage = imageDataUrl;
+//             this.urls1.push(imageDataUrl);
+//             this.isValid = true;
+//             this.errorMessage = ''; // No error message if the image meets criteria
+//           } else {
+//             this.isValid = false;
+//             this.errorMessage = 'Please select a 512x512 pixels (width×height) image .'; // Error message for invalid image
+//             // You can add further handling if needed for invalid images
+//           }
+//         };
+//       };
+//       reader.readAsDataURL(file);
+//     }
+//   } else {
+// this.errorMessage = 'Please select a valid JPEG or PNG image.';
+//   }
+//   }
   
 
 

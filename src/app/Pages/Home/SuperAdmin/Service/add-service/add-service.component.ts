@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ContentService } from 'src/app/Shared/service/content.service';
 import { environment } from 'src/environments/environment';
 import { Location } from '@angular/common';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-add-service',
@@ -44,8 +45,8 @@ export class AddServiceComponent implements OnInit {
   errorMessage: string = '';
   errorMessages: string = '';
   isValid: boolean = false;
-  previewImage: string = '';
-  previewImages: string = '';
+  previewImage: any;
+  previewImages: any;
   basePrice: any;
   discount: any = 0;
   listingPrice: any = 0;
@@ -60,6 +61,8 @@ export class AddServiceComponent implements OnInit {
     private toasterService: ToastrService,
     private _location: Location,
     private route: ActivatedRoute,
+    private sanitizer: DomSanitizer
+
   ) { }
 
   ngOnInit(): void {
@@ -227,52 +230,83 @@ export class AddServiceComponent implements OnInit {
   //banner image upload//
   onFileSelected(event: any) {
     const file = event.target.files[0];
-
-    if (file) {
-      const imageSize = file.size / 1024; // in KB
-      const image = new Image();
-
-      image.src = URL.createObjectURL(file);
-
-      image.onload = () => {
-        if (image.width === 1280 && image.height === 720 && imageSize <= 1000) {
-          this.errorMessages = '';
-          // this.submitted = true;
-          this.previewImage = image.src;
-        } else {
-          this.errorMessages = 'Please select 1280x720 pixels (width×height) image.';
-          // this.submitted = false;
-          this.previewImage = '';
-        }
-
-      };
-
+    const fileType = event.target.files[0].type;
+  
+    if ((fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') &&
+        (file.name.toLowerCase().endsWith('.jpeg') || file.name.toLowerCase().endsWith('.png') || file.name.toLowerCase().endsWith('.jpg'))) {
+      if (file) {
+        const imageSize = file.size / 1024; // in KB
+        const image = new Image();
+  
+        image.src = URL.createObjectURL(file);
+  
+        image.onload = () => {
+          if (image.width === 1280 && image.height === 720) {
+            this.errorMessages = '';
+            this.previewImage = this.sanitizer.bypassSecurityTrustUrl(image.src) as SafeUrl;
+          } else {
+            this.errorMessages = 'Please select a 1280x720 pixels (width×height) & JPEG or PNG image.';
+            this.previewImage = '';
+          }
+        };
+      }
+    } else {
+      this.errorMessages = 'Please select a 1280x720 pixels (width×height) & JPEG or PNG image.';
+      this.previewImage = '';
     }
   }
+  // onFileSelected(event: any) {
+  //   const file = event.target.files[0];
+
+  //   if (file) {
+  //     const imageSize = file.size / 1024; // in KB
+  //     const image = new Image();
+
+  //     image.src = URL.createObjectURL(file);
+
+  //     image.onload = () => {
+  //       if (image.width === 1280 && image.height === 720 && imageSize <= 1000) {
+  //         this.errorMessages = '';
+  //         // this.submitted = true;
+  //         this.previewImage = image.src;
+  //       } else {
+  //         this.errorMessages = 'Please select 1280x720 pixels (width×height) image.';
+  //         // this.submitted = false;
+  //         this.previewImage = '';
+  //       }
+
+  //     };
+
+  //   }
+  // }
   onselect(event: any) {
     const files = event.target.files;
-    const fileType = event.target.files[0].type;
-    if ((fileType === 'image/jpeg' || fileType === 'image/png') && fileType !== 'image/jfif') {
-      for (let i = 0; i < files.length; i++) {
-        const file = files[i];
+  
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+  
+      if (
+        (file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/jpg') &&
+        (file.name.toLowerCase().endsWith('.jpeg') || file.name.toLowerCase().endsWith('.png') || file.name.toLowerCase().endsWith('.jpg'))
+      ) {
         const reader = new FileReader();
         reader.readAsDataURL(file);
+  
         reader.onload = () => {
           const image = new Image();
           image.src = reader.result as string;
-
+  
           image.onload = () => {
             if (image.width === 1280 && image.height === 720) {
-              // Only add the image to the array if it meets the dimensions criteria.
-              const imageDataUrl = reader.result as string;
-              this.imageUrl1 = imageDataUrl;
-              this.urls.push(imageDataUrl);
+              this.urls.push(image.src);
+            } else {
+              // Handle cases where the image doesn't meet the required dimensions
             }
           };
-        }
+        };
+      } else {
+        // Handle cases where the image format is not supported (not JPG or PNG)
       }
-    } else {
-      this.errorMessage = 'Please select a valid JPEG or PNG image.';
     }
   }
   fileChangeEvent() {
@@ -287,6 +321,129 @@ export class AddServiceComponent implements OnInit {
     });
   }
 
+  private dataURItoBlob(dataURI: string): Blob {
+    const byteString = atob(dataURI.split(',')[1]);
+    const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+    const ab = new ArrayBuffer(byteString.length);
+    const ia = new Uint8Array(ab);
+    for (let i = 0; i < byteString.length; i++) {
+      ia[i] = byteString.charCodeAt(i);
+    }
+    return new Blob([ab], { type: mimeString });
+  }
+
+
+  //////service icon image//
+  onImageSelect(event: any) {
+    debugger;
+  
+    const file = event.target.files[0];
+  
+    if (file) {
+      const fileType = file.type;
+      const fileName = file.name;
+  
+      if ((fileType === 'image/jpeg' || fileType === 'image/png')) {
+        if (fileName.toLowerCase().endsWith('.jpeg') || (fileName.toLowerCase().endsWith('.png')) ||  (fileName.toLowerCase().endsWith('.jpg'))) {
+          const imageSize = file.size / 1024; // in KB
+          const image = new Image();
+    
+          image.src = URL.createObjectURL(file);
+    
+          image.onload = () => {
+            if (image.width === 512 && image.height === 512 && imageSize <= 512) {
+              this.errorMessage = '';
+              this.isValid = true;
+              this.imageUrl1 = this.sanitizer.bypassSecurityTrustUrl(image.src) as SafeUrl;
+            } else {
+              this.errorMessage = 'Please select 512x512 pixels (width×height) & JPEG or PNG image.';
+              this.isValid = false;
+              this.imageUrl1= '';
+            }
+          }
+        } else {
+          this.errorMessage = 'Please select 512x512 pixels (width×height) & JPEG or PNG image.';
+          this.imageUrl1 = '';
+         
+        }
+      } 
+    }
+  }
+  handleFileInput(event: any) {   
+    const files = event.target.files;
+    for (let e = 0; e < files.length; e++) {
+      const file = files[e];
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+    reader.onload = () => {
+      const image = new Image();
+      image.src = reader.result as string;
+  
+      image.onload = () => {
+        if (image.width === 512 && image.height === 512) {
+          // Only add the image to the array if it meets the dimensions criteria.
+          const imageDataUrl1 = reader.result as string;
+                this.imageUrl = imageDataUrl1;
+             this.urls1.push(imageDataUrl1);
+        } else {
+          this.errorMessage = 'Please select 512x512 pixels (width×height) & JPEG or PNG image.';
+          this.imageUrl1 = '';
+        }
+      };
+    }
+  }
+  }
+  // handleImageInput(event: any) {
+  //   const files = event.target.files;
+  //   const file = event.target.files[0];
+
+  //   if (file) {
+  //     const fileType = file.type;
+  //     const fileName = file.name;
+
+  //     if ((fileType === 'image/jpeg' || fileType === 'image/png')) {
+  //       if (fileName.toLowerCase().endsWith('.jpeg') || (fileName.toLowerCase().endsWith('.png')) || (fileName.toLowerCase().endsWith('.jpg'))) {
+  //         const imageSize = file.size / 1024; // in KB
+  //         const image = new Image();
+  //         const reader = new FileReader();
+  //         reader.readAsDataURL(file);
+  //         reader.onload = () => {
+  //           const image = new Image();
+  //           image.src = reader.result as string;
+  //           image.onload = () => {
+  //             if (image.width === 512 && image.height === 512 && imageSize <= 512) {
+  //               // Add image to the array and set as valid if it meets criteria
+  //               const imageDataUrl = reader.result as string;
+  //               this.errorMessage = '';
+  //               this.isValid = true;
+  //               this.previewImages = image.src;
+  //               this.urls1.push(imageDataUrl);
+  //             } else {
+  //               // Set as invalid if criteria not met
+  //               this.errorMessage = 'Please select 512x512 pixels (width×height) image.';
+  //               this.isValid = false;
+  //               this.previewImages = '';
+  //             }
+  //           };
+  //         };
+  //       }
+  //     } else {
+  //       this.errorMessage = 'Please select a valid JPEG or PNG image.';
+  //     }
+  //   }
+  // }
+  fileChangeEvents() {
+    const formData = new FormData();
+    for (let e = 0; e < this.urls1.length; e++) {
+      const imageDataUrl1 = this.urls1[e];
+      const blob = this.dataURItoBlob1(imageDataUrl1);
+      formData.append('salonServiceIconImage', blob, `image_${e}.png`);
+    }
+    // formData.append("SalonImage", this.imageFiles?.file);
+    formData.append('serviceId', this.serviceId);
+    this.contentService.uploadServiceIconImage(formData).subscribe(response => {
+    });
+  }
   private dataURItoBlob1(dataURI: string): Blob {
 
     const byteString = atob(dataURI.split(',')[1]);
@@ -300,68 +457,6 @@ export class AddServiceComponent implements OnInit {
   }
 
 
-  //////service icon image//
-  handleImageInput(event: any) {
-    const files = event.target.files;
-    const file = event.target.files[0];
-
-    if (file) {
-      const fileType = file.type;
-      const fileName = file.name;
-
-      if ((fileType === 'image/jpeg' || fileType === 'image/png')) {
-        if (fileName.toLowerCase().endsWith('.jpeg') || (fileName.toLowerCase().endsWith('.png')) || (fileName.toLowerCase().endsWith('.jpg'))) {
-          const imageSize = file.size / 1024; // in KB
-          const image = new Image();
-          const reader = new FileReader();
-          reader.readAsDataURL(file);
-          reader.onload = () => {
-            const image = new Image();
-            image.src = reader.result as string;
-            image.onload = () => {
-              if (image.width === 512 && image.height === 512 && imageSize <= 512) {
-                // Add image to the array and set as valid if it meets criteria
-                const imageDataUrl = reader.result as string;
-                this.errorMessage = '';
-                this.isValid = true;
-                this.previewImages = image.src;
-                this.urls1.push(imageDataUrl);
-              } else {
-                // Set as invalid if criteria not met
-                this.errorMessage = 'Please select 512x512 pixels (width×height) image.';
-                this.isValid = false;
-                this.previewImages = '';
-              }
-            };
-          };
-        }
-      } else {
-        this.errorMessage = 'Please select a valid JPEG or PNG image.';
-      }
-    }
-  }
-  fileChangeEvents() {
-    const formData = new FormData();
-    for (let e = 0; e < this.urls1.length; e++) {
-      const imageDataUrl1 = this.urls1[e];
-      const blob = this.dataURItoBlob1(imageDataUrl1);
-      formData.append('salonServiceIconImage', blob, `image_${e}.png`);
-    }
-    // formData.append("SalonImage", this.imageFiles?.file);
-    formData.append('serviceId', this.serviceId);
-    this.contentService.uploadServiceIconImage(formData).subscribe(response => {
-    });
-  }
-  private dataURItoBlob(dataURI: string): Blob {
-    const byteString = atob(dataURI.split(',')[1]);
-    const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
-    const ab = new ArrayBuffer(byteString.length);
-    const ia = new Uint8Array(ab);
-    for (let i = 0; i < byteString.length; i++) {
-      ia[i] = byteString.charCodeAt(i);
-    }
-    return new Blob([ab], { type: mimeString });
-  }
   removeImage(index: any) {
     this.urls.splice(index, 1);
   }

@@ -57,9 +57,9 @@ form:any;
   imageUrl1: any;
   imageFiles!: { link: any; file: any; name: any; type: any; };
   errorMessage: string = '';
-  errorMessages: string = '';
+  errorMessages: any;
   isValid: boolean = false;
-  previewImage: string = '';
+  previewImage:any;
   serviceIds: any;
   basePrice: any;
   discount : any = 0 ;
@@ -414,49 +414,85 @@ onselect(event: any) {
 
   for (let i = 0; i < files.length; i++) {
     const file = files[i];
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
 
-    reader.onload = () => {
-      const image = new Image();
-      image.src = reader.result as string;
+    if (
+      file.type === 'image/jpeg' ||
+      file.type === 'image/png' ||
+      file.type === 'image/jpg'
+    ) {
+      if (
+        file.name.toLowerCase().endsWith('.jpeg') ||
+        file.name.toLowerCase().endsWith('.png') ||
+        file.name.toLowerCase().endsWith('.jpg')
+      ) {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
 
-      image.onload = () => {
-        if (image.width === 1280 && image.height === 720 && file.size / 1024 <= 1000) {
-          this.base64Image.push(image.src);
-        } else {
-          this.errorMessages ;
-        }
-      };
+        reader.onload = () => {
+          const image = new Image();
+          image.src = reader.result as string;
+
+          image.onload = () => {
+            if (image.width === 1280 && image.height === 720 && file.size / 1024 <= 1000) {
+              this.base64Image.push(image.src);
+            } else {
+              this.errorMessages = 'Please select a 1280x720 pixels (width×height) & JPEG or PNG image.';
+            }
+          };
+        };
+      } else {
+        this.errorMessages = 'Please select a 1280x720 pixels (width×height) & JPEG or PNG image.';
+      }
+    } else {
+      this.errorMessages = 'Please select a 1280x720 pixels (width×height) & JPEG or PNG image.';
     }
   }
 }
+
+
 onBannerImageSelect(event: any) {
   const file = event.target.files[0];
-  const fileType = event.target.files[0].type;
-  if ((fileType === 'image/jpeg' || fileType === 'image/png') && fileType !== 'image/jfif') {
+
   if (file) {
-    const imageSize = file.size / 1024; // in KB
-    const image = new Image();
+    const fileType = file.type;
+    const fileName = file.name;
 
-    image.src = URL.createObjectURL(file);
+    if (
+      fileType === 'image/jpeg' || 
+      fileType === 'image/png' || 
+      fileType === 'image/jpg'
+    ) {
+      if (
+        fileName.toLowerCase().endsWith('.jpeg') || 
+        fileName.toLowerCase().endsWith('.png') ||  
+        fileName.toLowerCase().endsWith('.jpg')
+      ) {
+        const imageSize = file.size / 1024; // in KB
+        const image = new Image();
 
-    image.onload = () => {
-      if (image.width === 1280 && image.height === 720 && imageSize <= 1020) {
-        this.errorMessages = '';
-        this.isValid = true;
-        this.previewImage = image.src;
+        image.src = URL.createObjectURL(file);
+
+        image.onload = () => {
+          if (image.width === 1280 && image.height === 720 && imageSize <= 1024) {
+            this.errorMessages = '';
+            this.isValid = true;
+            this.previewImage = this.sanitizer.bypassSecurityTrustUrl(image.src) as SafeUrl;
+          } else {
+            this.errorMessages = 'Please select a 1280x720 pixels (width×height) & JPEG or PNG image.';
+            this.isValid = false;
+            this.previewImage = '';
+          }
+        };
       } else {
-        this.errorMessages = 'Please select 1280x720 pixels (width×height) image.';
+        this.errorMessages = 'Please select a 1280x720 pixels (width×height) & JPEG or PNG image.';
         this.isValid = false;
         this.previewImage = '';
       }
-    };
+    } 
+  
   }
-} else {
-  this.errorMessage = 'Please select a valid JPEG or PNG image.';
-    }
 }
+
 
 convertImageToBase64(url: string): Promise<string> {
   return new Promise<string>((resolve, reject) => {
@@ -500,48 +536,21 @@ onImageSelect(event: any) {
           if (image.width === 512 && image.height === 512 && imageSize <= 512) {
             this.errorMessage = '';
             this.isValid = true;
-            this.imageUrl = this.sanitizer.bypassSecurityTrustUrl(image.src) as SafeUrl;
+            this.imageUrl1 = this.sanitizer.bypassSecurityTrustUrl(image.src) as SafeUrl;
           } else {
-            this.errorMessage = 'Please select 512x512 pixels (width×height) image.';
+            this.errorMessage = 'Please select 512x512 pixels (width×height) & JPEG or PNG image.';
             this.isValid = false;
-            this.imageUrl= '';
+            this.imageUrl1= '';
           }
-        };
+        }
       } else {
-        this.errorMessage = 'Please select a valid JPEG or PNG image.';
-        this.imageUrl = '';
-        return;
+        this.errorMessage = 'Please select 512x512 pixels (width×height) & JPEG or PNG image.';
+        this.imageUrl1 = '';
+       
       }
-
-   
-    } else {
-      this.errorMessage = 'Please select a valid JPEG or PNG image.';
-      this.imageUrl = '';
-    }
+    } 
   }
 }
-// onImageSelect(event: any) {
-//   const file = event.target.files[0];
-
-//   if (file) {
-//     const imageSize = file.size / 1024; // in KB
-//     const image = new Image();
-
-//     image.src = URL.createObjectURL(file);
-
-//     image.onload = () => {
-//       if (image.width === 512 && image.height === 512 && imageSize <= 512) {
-//         this.errorMessage = '';
-//         this.isValid = true;
-//         // this.previewImage = image.src;
-//       } else {
-//         this.errorMessage = 'Please select 512x512 pixels (width×height) image.';
-//         this.isValid = false;
-//         this.imageUrl = '';
-//       }
-//     };
-//   }
-// }
 
 handleFileInput(event: any) {
   debugger
@@ -599,13 +608,14 @@ private dataURItoBlob(dataURI: string): Blob {
 // }
 removeImage(index: number) {
   if (index >= 0 && index < this.base64Image.length) {
-      this.base64Image.splice(index, 1);
-      // Check and remove from selectedImageData if necessary
-      if (index < this.selectedImageData.length) {
-          this.selectedImageData.splice(index, 1);
-      }
+    this.base64Image.splice(index, 1);
+    // Check and remove from selectedImageData if necessary
+    if (this.selectedImageData.length > 0) {
+      this.selectedImageData.splice(index, 1);
+    }
   }
 }
+
 cancel(){
   this.router.navigateByUrl('/package-list')
   .then(() => {

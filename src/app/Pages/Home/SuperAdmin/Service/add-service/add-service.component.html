@@ -249,29 +249,6 @@
                             </div>
                         </div>
 
-
-                        <!-- <div class="col-lg-6 col-md-12">
-                        <label>Lock Time Start</label>
-                        <input type="time" id="startTime" class="form-control" formControlName="lockTimeStart" (input)="onTimeInputChange($event)"/>
-                        <div *ngIf="submitted && f['lockTimeStart'].errors" class="help-block">
-                            <div *ngIf="f['lockTimeStart'].errors" style="color: #fd0000">
-                                Lock Time Start is required.
-                            </div>
-                        </div>
-                    </div>
-                   
-
-                      <div class="col-lg-6 col-md-12">
-                          <label>Lock Time End</label>
-                          <input  type="time" id="endTime" class="form-control" formControlName="lockTimeEnd" (input)="onTimeInputChange2($event)"/>
-                          <div *ngIf="submitted && f['lockTimeEnd'].errors" class="help-block">
-                              <div *ngIf="f['lockTimeEnd'].errors" style="color: #fd0000">
-                                  Lock Time End is required.
-                              </div>
-                          </div>
-                      </div> -->
-
-                       
                         <div class="col-md-12 mt-20">
                             <label>Description <i class="fa fa-asterisk" aria-hidden="true"></i></label>
                             <textarea type="text" class="control-form" formControlName="serviceDescription" noSpacesAtStart appCapitalizeFirstLetter>
@@ -290,8 +267,8 @@
                             <label>Service Image</label>
                             <br>
                             <input name="bannerimage" type="file" class="uploadFile img" #image1
-                                (change)="handleImageInput($event)">
-                            <label *ngIf="previewImages" data-toggle="modal" data-target="#myModal3"
+                            (change)="handleFileInput($event)"  (change)="onImageSelect($event)">
+                            <label *ngIf="imageUrl1" data-toggle="modal" data-target="#myModal3"
                                 class="preview-butn">preview</label>
                             <div *ngIf="errorMessage" class="help-block" style="color: #fd0000">{{ errorMessage }}</div>
                         </div>
@@ -346,12 +323,9 @@
             </button>
             <div class="modal-body text-center">
                 <div class="imagePreview vendor-preview">
-                    <img class="image" [src]="previewImages">
+                    <img class="image" [src]="imageUrl1">
                 </div>
-
-
             </div>
-
         </div>
     </div>
 </div>

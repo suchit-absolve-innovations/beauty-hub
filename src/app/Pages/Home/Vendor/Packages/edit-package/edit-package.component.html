@@ -26,9 +26,8 @@
                                                 id="bannerimage" (change)="onBannerImageSelect($event)"
                                                 (change)="onselect($event)" multiple />
                                         </label>
-                                        <div *ngIf="errorMessages" class="error-message" style="color: #fd0000">{{
-                                            errorMessages }}</div>
-                                        <div></div>
+                                        <div *ngIf="errorMessages" class="help-block" style="color: #fd0000">
+                                        {{errorMessages }}</div>
                                     </div>
                                 </div>
                             </div>
@@ -68,7 +67,7 @@
                             <br>
                             <input type="file" class="uploadFile img" #image1
                                 (change)="handleFileInput($event)" (change)="onImageSelect($event)">
-                            <label *ngIf="imageUrl" width="512" height="512" data-toggle="modal" data-target="#myModal3"
+                            <label *ngIf="imageUrl1" data-toggle="modal" data-target="#myModal3"
                                 class="preview-butn">preview</label>
                             <div *ngIf="errorMessage" class="help-block" style="color: #fd0000">{{ errorMessage }}</div>
                         </div>
@@ -301,12 +300,9 @@
             </button>
             <div class="modal-body text-center">
                 <div class="imagePreview vendor-preview">
-                    <img class="image" [src]="imageUrl">
+                    <img class="image" [src]="imageUrl1">
                 </div>
-
-
             </div>
-
         </div>
     </div>
 </div>

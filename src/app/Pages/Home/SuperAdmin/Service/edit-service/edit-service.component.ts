@@ -34,8 +34,9 @@ export class EditServiceComponent implements OnInit {
   role!: string | null;
   // errorMessage: string | null = null;
   errorMessage: string = '';
+  error: string = '';
   isValid: boolean = false;
-  previewImage!: any;
+  previewImage: any;
   errorMessages: string = '';
   salonId: any;
   base64Image: string[] = [];
@@ -199,6 +200,7 @@ export class EditServiceComponent implements OnInit {
           serviceDescription: this.serviceDetailPatch.serviceDescription,
         });
         this.getSubcategoryList(this.serviceDetailPatch?.mainCategoryId);
+
       }
     });
   }
@@ -281,51 +283,47 @@ export class EditServiceComponent implements OnInit {
   onselect(event: any) {
     const files = event.target.files;
     this.errorMessages = ''; // Clear previous error messages
-
+  
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
-      const fileType = file.type;
-
-      if ((fileType === 'image/jpeg' || fileType === 'image/png') && fileType !== 'image/jfif') {
-        this.handleValidImage(file);
-      } else if (fileType === 'image/jfif') {
-        // Handle JFIF image by converting it to JPEG
-        this.convertJfifToJpeg(file);
+  
+      if (
+        file.type === 'image/jpeg' ||
+        file.type === 'image/png' ||
+        file.type === 'image/jpg'
+      ) {
+        if (
+          file.name.toLowerCase().endsWith('.jpeg') ||
+          file.name.toLowerCase().endsWith('.png') ||
+          file.name.toLowerCase().endsWith('.jpg')
+        ) {
+          const reader = new FileReader();
+          reader.readAsDataURL(file);
+  
+          reader.onload = () => {
+            const image = new Image();
+            image.src = reader.result as string;
+  
+            image.onload = () => {
+              if (image.width === 1280 && image.height === 720 && file.size / 1024 <= 1000) {
+                this.base64Image.push(image.src);
+              } else {
+                this.errorMessages = 'Please select a 1280x720 pixels (width×height) & JPEG or PNG image.';
+                this.previewImage = '';
+              }
+            };
+          };
+        } else {
+          this.errorMessages = 'Please select a 1280x720 pixels (width×height) & JPEG or PNG image.';
+          this.previewImage = '';
+        }
       } else {
-        this.errorMessage = 'Please select a valid JPEG, PNG, or JFIF image.';
+        this.errorMessages = 'Please select a 1280x720 pixels (width×height) & JPEG or PNG image.';
+        this.previewImage = '';
       }
     }
   }
-
-  handleValidImage(file: File) {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-
-    reader.onload = () => {
-      const image = new Image();
-      image.src = reader.result as string;
-
-      image.onload = () => {
-        if (image.width === 1280 && image.height === 720 && file.size / 1024 <= 1000) {
-          this.base64Image.push(image.src);
-        } else {
-          this.errorMessages;
-        }
-      };
-    };
-  }
-
-  convertJfifToJpeg(file: File) {
-    const reader = new FileReader();
-    reader.readAsArrayBuffer(file);
-    reader.onload = () => {
-      const uint8Array = new Uint8Array(reader.result as ArrayBuffer);
-      const blob = new Blob([uint8Array], { type: 'image/jpeg' });
-      const convertedFile = new File([blob], file.name, { type: 'image/jpeg' });
-      // Handle the converted JFIF file
-      this.handleValidImage(convertedFile);
-    };
-  }
+  
 
   onBannerImageSelect(event: any) {
     debugger
@@ -340,8 +338,7 @@ export class EditServiceComponent implements OnInit {
           const imageSize = file.size / 1024; // in KB
           const image = new Image();
     
-          image.src = URL.createObjectURL(file);
-    
+        image.src = URL.createObjectURL(file);
 
         image.onload = () => {
           if (image.width === 1280 && image.height === 720 && imageSize <= 1020) {
@@ -349,24 +346,21 @@ export class EditServiceComponent implements OnInit {
             this.isValid = true;
             this.previewImage = this.sanitizer.bypassSecurityTrustUrl(image.src) as SafeUrl;
           } else {
-            this.errorMessages = 'Please select 1280x720 pixels (width×height) image.';
+            this.errorMessages = 'Please select a 1280x720 pixels (width×height) & JPEG or PNG image.';
             this.isValid = false;
             this.previewImage = '';
           }
-        };
+        }
+      }
       } else {
-        this.errorMessages = 'Please select a valid JPEG or PNG image.';
+        this.errorMessages = 'Please select a 1280x720 pixels (width×height) & JPEG or PNG image.';
         this.previewImage = '';
         return;
-      }
+    }
+     
     } 
-    else {
-      this.errorMessages = 'Please select a valid JPEG or PNG image.';
-    }
-    }
+   
   }
-
-
   convertImageToBase64(url: string): Promise<string> {
     return new Promise<string>((resolve, reject) => {
       this.http.get(url, { responseType: 'blob' })

@@ -81,34 +81,28 @@ const storedData = this.filterService.getFilteredData();
 
 if (storedData && storedData.length > 0) {
   this.list = storedData;
-  debugger
-  // const firstItem = storedData[0].mainCategoryId;
-  // const secondItem = storedData[0].subCategoryId;
-  // const thirdItem = storedData[0].ageRestrictions;
-  // const fourthItem = storedData[0].genderPreferences;
+  const firstItem = storedData[0].mainCategoryId;
+  const secondItem = storedData[0].subCategoryId;
 
-  // this.form.patchValue({
-  //   mainCategoryId: firstItem,
-  //   ageRestrictions: thirdItem,
-  //   genderPreferences: fourthItem
-  // });
-
+  this.form.patchValue({
+    mainCategoryId: firstItem
+  });
 
   // Use setTimeout to ensure that the patchValue is applied before calling getSubcategoryList
-  // this.spinner.show();
-  // setTimeout(() => {
-  //   // Code to be executed after the specified timeout
-  //   this.zone.run(() => {
-  //     this.getSubcategoryList(firstItem);
-  //     this.spinner.hide(); // Hide the spinner after getSubcategoryList completes
-  //   });
-  // }, 2000);
+  this.spinner.show();
+  setTimeout(() => {
+    // Code to be executed after the specified timeout
+    this.zone.run(() => {
+      this.getSubcategoryList(firstItem);
+      this.spinner.hide(); // Hide the spinner after getSubcategoryList completes
+    });
+  }, 2000);
 
-  // if (secondItem > 0) {
-  //   this.form.patchValue({
-  //     subCategoryId: secondItem
-  //   });
-  // }
+  if (secondItem > 0) {
+    this.form.patchValue({
+      subCategoryId: secondItem
+    });
+  }
 
 } else {
   this.getList(); // Fetch initial data
@@ -478,7 +472,6 @@ postUnActiveServiceStatus(data: any) {
     this.searchService.setSearchCriteria(this.searchText);
     // Other search logic...
     this.serviceListFilter();
-   
   }
 
 
@@ -486,35 +479,32 @@ postUnActiveServiceStatus(data: any) {
   serviceListFilter() {
    // this.spinner.show();
    
-   let payload : any;
-
-   if (this.role === 'Vendor') {
-     payload = {
-       pageNumber: 1,
-       pageSize: 1000,
-       salonId: this.id,
-       ageRestrictions: this.form.value.ageRestrictions || '',
-       mainCategoryId: this.form.value.mainCategoryId || '',
-       subCategoryId: this.form.value.subCategoryId || '',
-       genderPreferences: this.form.value.genderPreferences || '',
-     };
-   } else if (this.role === 'SuperAdmin') {
-     payload = {
-       pageNumber: 1,
-       pageSize: 1000,
-       salonId: this.salonId.id,
-       ageRestrictions: this.form.value.ageRestrictions || '',
-       mainCategoryId: this.form.value.mainCategoryId || '',
-       subCategoryId: this.form.value.subCategoryId || '',
-       genderPreferences: this.form.value.genderPreferences || '',
-     };
-   }
-
+    let payload;
+    if (this.role === 'Vendor') {
+      payload = {
+        pageNumber: 1,
+        pageSize: 1000,
+        salonId: this.id,
+        ageRestrictions: this.form.value.ageRestrictions ? this.form.value.ageRestrictions : '',
+        mainCategoryId: this.form.value.mainCategoryId ? this.form.value.mainCategoryId : '',
+        subCategoryId: this.form.value.subCategoryId ? this.form.value.subCategoryId : '',
+        genderPreferences : this.form.value.genderPreferences ? this.form.value.genderPreferences : '',
+      };
+    } else if (this.role === 'SuperAdmin') {
+      payload = {
+        pageNumber: 1,
+        pageSize: 1000,
+        salonId: this.salonId.id,
+        ageRestrictions: this.form.value.ageRestrictions ? this.form.value.ageRestrictions : '',
+        mainCategoryId: this.form.value.mainCategoryId ? this.form.value.mainCategoryId : '',
+        subCategoryId: this.form.value.subCategoryId ? this.form.value.subCategoryId : '',
+        genderPreferences : this.form.value.genderPreferences ? this.form.value.genderPreferences : '',
+      };
+    }
     this.content.filterServiceList(payload).subscribe(response => {
       if (response.isSuccess) {
         this.list = response.data.dataList;
         this.filterService.setFilteredData(this.list);
-        
    //     this.spinner.hide();
       } else {
         this.list = [];

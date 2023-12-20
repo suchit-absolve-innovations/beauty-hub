@@ -117,39 +117,47 @@ export class AddEditSalonBannerComponent implements OnInit {
   // image upload 
 
   imagesUpload(event: any) {
-    const fileType = event.target.files[0].type;
-    if ((fileType === 'image/jpeg' || fileType === 'image/png') && fileType !== 'image/jfif') {
-    if (event.target.files && event.target.files[0]) {
-      const file = event.target.files[0];
-      const imageSize = file.size / 1024; // in KB
+    const file = event.target.files[0];
   
-      const reader = new FileReader();
-      reader.onload = (_event: any) => {
+    if (file) {
+      const fileType = file.type;
+      const fileName = file.name;
+  
+      if (
+        (fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') &&
+        (fileName.toLowerCase().endsWith('.jpeg') || fileName.toLowerCase().endsWith('.png') || fileName.toLowerCase().endsWith('.jpg'))
+      ) {
+        const imageSize = file.size / 1024; // in KB
         const image = new Image();
-        image.src = _event.target.result as string;
-        image.onload = () => {
-          if (image.width === 1280 && image.height === 720 && imageSize <= 1024) {
-            this.imageFile = {
-              link: _event.target.result,
-              file: file,
-              name: file.name,
-              type: file.type
-            };
-            this.isValid = true;
-            this.errorMessage = ''; // No error message if the image meets criteria
-          } else {
-            this.isValid = false;
-            this.errorMessage = 'Please select a 1280x720 pixels (width×height) image .'; // Error message for invalid image
-            // You can add further handling if needed for invalid images
-          }
+  
+        const reader = new FileReader();
+        reader.onload = (_event: any) => {
+          const image = new Image();
+          image.src = _event.target.result as string;
+          image.onload = () => {
+            if (image.width === 1280 && image.height === 720 && imageSize <= 1024) {
+              this.imageFile = {
+                link: _event.target.result,
+                file: file,
+                name: file.name,
+                type: file.type
+              };
+              this.isValid = true;
+              this.errorMessage = ''; // No error message if the image meets criteria
+            } else {
+              this.isValid = false;
+              this.errorMessage = 'Please select a 1280x720 pixels (width×height) & JPEG or PNG image.';
+              // Further handling for invalid images if needed
+            }
+          };
         };
-      };
-      reader.readAsDataURL(file);
-    }
-  } else {
-    this.errorMessage = 'Please select a valid JPEG or PNG image.';
+        reader.readAsDataURL(file);
+      } else {
+        this.errorMessage = 'Please select a 1280x720 pixels (width×height) & JPEG or PNG image.';
       }
-}
+    }
+  }
+  
   
 
   // Shop Detail
