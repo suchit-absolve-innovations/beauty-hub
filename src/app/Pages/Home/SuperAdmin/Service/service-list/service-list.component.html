@@ -12,10 +12,10 @@
             <img src="https://dummyimage.com/100x100/ddd/fff" class="img-responsive rounded-circle">
             <h3>James Walter</h3>
         </div> -->
-
+        <form [formGroup]="form">
         <div class="d-flex if_xs_btn mt-30">
             <input type="text" placeholder="Search Here" class="btn_border search_here" (input)="addSpaceAfterText()"
-                [(ngModel)]="searchText" (click)="performSearch()" (click)="onSearch(search)" style="width:25%!important;">
+            [(ngModel)]="searchText"       (input)="searchlist()" formControlName="searchQuery" (click)="performSearch()" (click)="onSearch(search)" style="width:25%!important;">
             <!-- <a class="btn_blue ml-auto" data-toggle="modal" data-target="#myModalpurchase-membership">Add Salon</a> -->
 
             <a (click)="passId()" class="btn_blue ml-auto">Add Service </a>
@@ -23,7 +23,7 @@
         </div>
 
 
-        <form [formGroup]="form">
+ 
             <div class="d-flex flex-wrap if_xs_btn mb-20" style="gap: 10px;">
 
 

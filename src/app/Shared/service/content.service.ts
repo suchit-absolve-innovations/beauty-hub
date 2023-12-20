@@ -370,7 +370,7 @@ export class ContentService {
   }
   // Service List 
   getservice(data: any) {
-    return this.http.get<any>(environment.apiUrl + ApiEndPoint.serviceList + '?pageNumber=' + data.pageNumber + '&pageSize=' + data.pageSize + '&salonId=' + data.salonId)
+    return this.http.get<any>(environment.apiUrl + ApiEndPoint.serviceList + '?pageNumber=' + data.pageNumber + '&pageSize=' + data.pageSize + '&salonId=' + data.salonId )
   }
 
   getfilteListBycategories(data: any) {
@@ -383,7 +383,7 @@ export class ContentService {
 
   filterServiceList(data: any) {
     return this.http.get<any>(environment.apiUrl + ApiEndPoint.serviceList + '?pageNumber=' + data.pageNumber + '&pageSize=' + data.pageSize + '&salonId=' + data.salonId + '&mainCategoryId=' + data.mainCategoryId + '&subCategoryId=' + data.subCategoryId
-      + '&ageRestrictions=' + data.ageRestrictions + '&genderPreferences=' + data.genderPreferences)
+      + '&ageRestrictions=' + data.ageRestrictions + '&genderPreferences=' + data.genderPreferences )
   }
 
   getServiceDetail(serviceId: any) {

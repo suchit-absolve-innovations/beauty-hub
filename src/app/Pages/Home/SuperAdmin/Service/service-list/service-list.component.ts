@@ -6,6 +6,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { FormBuilder } from '@angular/forms';
 import { Location } from '@angular/common';
+import { SearchService } from 'src/app/Shared/service/search.service';
+import { FilterService } from 'src/app/Shared/service/filter.service';
 declare var $: any;
 
 @Component({
@@ -35,7 +37,7 @@ export class ServiceListComponent implements OnInit {
   itemToDelete: any;
   search: any;
   currentPage: any;
- 
+ // isFiltered: boolean = false; // Add a flag to track whether the data is being filtered
   constructor(private toaster: ToastrService,
     private spinner: NgxSpinnerService,
     private content: ContentService,
@@ -43,7 +45,9 @@ export class ServiceListComponent implements OnInit {
     private ngZone: NgZone,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private _location: Location) {
+    private _location: Location,
+    private searchService: SearchService,
+    private filterService: FilterService) {
   
 
 
@@ -60,13 +64,15 @@ export class ServiceListComponent implements OnInit {
       this.search = params['search'] || '';
       this.page = params['page'] ? parseInt(params['page'], 10) : 1;
 
-      // Fetch data based on the search term and page
+  
       this.getList();
     });
 
     this.salonId = this.route.snapshot.queryParams
-    // this.salonIds = localStorage.setItem('salonid',this.salonId.id)
-    this.getList();
+    this.searchText = this.searchService.getSearchCriteria();
+
+       this.getList();
+  
     this.getcategoryList();
     this.filterListForm();
     this.form.get('mainCategoryId').valueChanges.subscribe(() => {
@@ -78,7 +84,7 @@ export class ServiceListComponent implements OnInit {
   onSearch(searchTerm: string): void {
     // Update query parameters for search
     this.router.navigate([], {
-      queryParams: { search: searchTerm, page: 1 }, // Reset to the first page when searching
+      queryParams: { search: searchTerm, page:1 }, // Reset to the first page when searching
       queryParamsHandling: 'merge',
     });
   }
@@ -151,6 +157,8 @@ export class ServiceListComponent implements OnInit {
     }
   }
 
+
+
   getServiceList() {
 
     let payload = {
@@ -158,10 +166,13 @@ export class ServiceListComponent implements OnInit {
       pageSize: 1000,
       salonId: this.salonId.id
     }
+    this.spinner.show();
     this.content.getservice(payload).subscribe(response => {
       if (response.isSuccess) {
         this.list = response.data.dataList;
 
+        this.spinner.hide();
+      } else {
         this.spinner.hide();
       }
     });
@@ -172,13 +183,17 @@ export class ServiceListComponent implements OnInit {
     let payload = {
       pageNumber: 1,
       pageSize: 1000,
-      salonId: this.id
+      salonId: this.id,
+      
     }
+  //  this.spinner.show();
     this.content.getservice(payload).subscribe(response => {
       if (response.isSuccess) {
         this.list = response.data.dataList;
 
-        this.spinner.hide();
+    //    this.spinner.hide();
+      } else {
+     //   this.spinner.hide();
       }
 
     });
@@ -331,11 +346,16 @@ postUnActiveServiceStatus(data: any) {
       genderPreferences: [''],
       mainCategoryId: [''],
       subCategoryId: [''],
-      ageRestrictions: ['']
+      ageRestrictions: [''],
+      searchQuery: ['']
     });
   }
 
   get f() {
+    return this.form['controls'];
+  }
+
+  get l(){
     return this.form['controls'];
   }
 
@@ -412,9 +432,21 @@ postUnActiveServiceStatus(data: any) {
     });
   }
 
+
+
+  searchlist(): void {
+    this.searchService.setSearchCriteria(this.searchText);
+    // Other search logic...
+    this.serviceListFilter();
+  }
+
+
+
   serviceListFilter() {
     this.spinner.show();
-// this.form.value.subCategoryId = []
+
+
+    this.filterService.setFilterCriteria(this.form.value);
     let payload;
     if (this.role === 'Vendor') {
       payload = {
@@ -424,7 +456,7 @@ postUnActiveServiceStatus(data: any) {
         ageRestrictions: this.form.value.ageRestrictions ? this.form.value.ageRestrictions : '',
         mainCategoryId: this.form.value.mainCategoryId ? this.form.value.mainCategoryId : '',
         subCategoryId: this.form.value.subCategoryId ? this.form.value.subCategoryId : '',
-        genderPreferences : this.form.value.genderPreferences ? this.form.value.genderPreferences : ''
+        genderPreferences : this.form.value.genderPreferences ? this.form.value.genderPreferences : '',
 
       };
     } else if (this.role === 'SuperAdmin') {
@@ -435,7 +467,7 @@ postUnActiveServiceStatus(data: any) {
         ageRestrictions: this.form.value.ageRestrictions ? this.form.value.ageRestrictions : '',
         mainCategoryId: this.form.value.mainCategoryId ? this.form.value.mainCategoryId : '',
         subCategoryId: this.form.value.subCategoryId ? this.form.value.subCategoryId : '',
-        genderPreferences : this.form.value.genderPreferences ? this.form.value.genderPreferences : ''
+        genderPreferences : this.form.value.genderPreferences ? this.form.value.genderPreferences : '',
 
       };
     }
