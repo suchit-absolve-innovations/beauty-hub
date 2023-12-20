@@ -37,6 +37,7 @@ export class ServiceListComponent implements OnInit {
   itemToDelete: any;
   search: any;
   currentPage: any;
+
  // isFiltered: boolean = false; // Add a flag to track whether the data is being filtered
   constructor(private toaster: ToastrService,
     private spinner: NgxSpinnerService,
@@ -47,7 +48,8 @@ export class ServiceListComponent implements OnInit {
     private formBuilder: FormBuilder,
     private _location: Location,
     private searchService: SearchService,
-    private filterService: FilterService) {
+    private filterService: FilterService,
+    private zone: NgZone) {
   
 
 
@@ -60,24 +62,55 @@ export class ServiceListComponent implements OnInit {
     // this.route.queryParams.subscribe(params => {
     //   this.page = +params['page'] || 0; // Use the 'page' query parameter value, or default to 1
     // });
-    this.route.queryParams.subscribe((params) => {
-      this.search = params['search'] || '';
-      this.page = params['page'] ? parseInt(params['page'], 10) : 1;
-
-  
-      this.getList();
-    });
-
-    this.salonId = this.route.snapshot.queryParams
-    this.searchText = this.searchService.getSearchCriteria();
-
-       this.getList();
-  
     this.getcategoryList();
     this.filterListForm();
     this.form.get('mainCategoryId').valueChanges.subscribe(() => {
       this.form.get('subCategoryId').setValue('');
     });
+    this.route.queryParams.subscribe((params) => {
+      this.search = params['search'] || '';
+      this.page = params['page'] ? parseInt(params['page'], 10) : 1;
+    
+
+
+
+// ...
+
+// Retrieve filtered data from the service
+const storedData = this.filterService.getFilteredData();
+
+if (storedData && storedData.length > 0) {
+  this.list = storedData;
+  const firstItem = storedData[0].mainCategoryId;
+  const secondItem = storedData[0].subCategoryId;
+
+  this.form.patchValue({
+    mainCategoryId: firstItem
+  });
+
+  // Use setTimeout to ensure that the patchValue is applied before calling getSubcategoryList
+  this.spinner.show();
+  setTimeout(() => {
+    // Code to be executed after the specified timeout
+    this.zone.run(() => {
+      this.getSubcategoryList(firstItem);
+      this.spinner.hide(); // Hide the spinner after getSubcategoryList completes
+    });
+  }, 2000);
+
+  if (secondItem > 0) {
+    this.form.patchValue({
+      subCategoryId: secondItem
+    });
+  }
+
+} else {
+  this.getList(); // Fetch initial data
+}
+    });   
+
+    this.salonId = this.route.snapshot.queryParams
+    this.searchText = this.searchService.getSearchCriteria();
   }
 
   onSearch(searchTerm: string): void {
@@ -413,11 +446,13 @@ postUnActiveServiceStatus(data: any) {
 
 
   getSubcategoryList(MainCategoryId: any) {
-    this.details
+    // this.details
+    debugger
     if (!MainCategoryId) {
     window.location.reload();
     
     }
+    this.spinner.show();
     this.content.SubCategory(MainCategoryId).subscribe(response => {
       if (response.isSuccess) {
         this.subCategoryList = response.data;
@@ -443,7 +478,7 @@ postUnActiveServiceStatus(data: any) {
 
   serviceListFilter() {
    // this.spinner.show();
-    this.filterService.setFilterCriteria(this.form.value);
+   
     let payload;
     if (this.role === 'Vendor') {
       payload = {
@@ -469,6 +504,7 @@ postUnActiveServiceStatus(data: any) {
     this.content.filterServiceList(payload).subscribe(response => {
       if (response.isSuccess) {
         this.list = response.data.dataList;
+        this.filterService.setFilteredData(this.list);
    //     this.spinner.hide();
       } else {
         this.list = [];
