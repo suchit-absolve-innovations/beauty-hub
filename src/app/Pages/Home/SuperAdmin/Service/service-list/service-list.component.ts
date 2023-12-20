@@ -442,9 +442,7 @@ postUnActiveServiceStatus(data: any) {
 
 
   serviceListFilter() {
-    this.spinner.show();
-
-
+   // this.spinner.show();
     this.filterService.setFilterCriteria(this.form.value);
     let payload;
     if (this.role === 'Vendor') {
@@ -456,7 +454,6 @@ postUnActiveServiceStatus(data: any) {
         mainCategoryId: this.form.value.mainCategoryId ? this.form.value.mainCategoryId : '',
         subCategoryId: this.form.value.subCategoryId ? this.form.value.subCategoryId : '',
         genderPreferences : this.form.value.genderPreferences ? this.form.value.genderPreferences : '',
-
       };
     } else if (this.role === 'SuperAdmin') {
       payload = {
@@ -467,16 +464,14 @@ postUnActiveServiceStatus(data: any) {
         mainCategoryId: this.form.value.mainCategoryId ? this.form.value.mainCategoryId : '',
         subCategoryId: this.form.value.subCategoryId ? this.form.value.subCategoryId : '',
         genderPreferences : this.form.value.genderPreferences ? this.form.value.genderPreferences : '',
-
       };
     }
     this.content.filterServiceList(payload).subscribe(response => {
       if (response.isSuccess) {
         this.list = response.data.dataList;
-        this.spinner.hide();
+   //     this.spinner.hide();
       } else {
         this.list = [];
-
       }
     });
   }
@@ -486,8 +481,8 @@ postUnActiveServiceStatus(data: any) {
     this.searchText = this.searchText.trim();
     }
 
-    clear(){
-   
+ 
+    clear(){  
       this.subCategoryList = []
     }
 }
