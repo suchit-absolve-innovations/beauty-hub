@@ -81,8 +81,17 @@ const storedData = this.filterService.getFilteredData();
 
 if (storedData && storedData.length > 0) {
   this.list = storedData;
+  debugger
   const firstItem = storedData[0].mainCategoryId;
   const secondItem = storedData[0].subCategoryId;
+  const thirdItem = storedData[0].ageRestrictions;
+  const fourthItem = storedData[0].genderPreferences;
+
+  this.form.patchValue({
+    mainCategoryId: firstItem,
+    ageRestrictions: thirdItem,
+    genderPreferences: fourthItem
+  });
 
   this.form.patchValue({
     mainCategoryId: firstItem
@@ -470,8 +479,8 @@ postUnActiveServiceStatus(data: any) {
 
   searchlist(): void {
     this.searchService.setSearchCriteria(this.searchText);
-    // Other search logic...
-    this.serviceListFilter();
+
+   
   }
 
 
