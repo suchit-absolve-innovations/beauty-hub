@@ -42,14 +42,10 @@ export class LoginComponent implements OnInit {
   togglePasswordVisibility() {
     this.show = !this.show;
   }
-
-  
   /*** for validation ***/
   get f() {
     return this.loginForm.controls;
   }
-
-  
    // eye icon show password
    onClick() {
     if (this.password === 'password') {
@@ -60,11 +56,8 @@ export class LoginComponent implements OnInit {
       this.show = false;
     }
   }
-
 // post login 
-
 onLogin(){
-  
   this.submitted = true;
   this.spinner.show();
   if (this.loginForm.invalid) {
@@ -119,7 +112,6 @@ onLogin(){
 
 updateToken(){
   //  this.test = this.fcm?.value;
-  
   let payload = {
     fcmToken : localStorage.getItem('token' )
   }

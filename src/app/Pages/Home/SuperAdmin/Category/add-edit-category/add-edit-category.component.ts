@@ -40,12 +40,12 @@ export class AddEditCategoryComponent implements OnInit {
     private toasterService: ToastrService,
     private spinner: NgxSpinnerService,
     private router: Router,
-    private _location: Location,
+    private _location: Location
   ) { }
 
   ngOnInit(): void {
     this.rootUrl = environment.rootPathUrl;
-    this.role = localStorage.getItem('user')
+    this.role = localStorage.getItem('user');
     this.categoryForm();
   }
   backClicked() {
@@ -75,17 +75,14 @@ export class AddEditCategoryComponent implements OnInit {
   }
 
   postCategory() {
-
     this.submitted = true;
     if (this.form.invalid) {
       return;
     }
-  
     if (!this.imageFile) {
       this.errorMessage = 'Please select an image.';
       return;
     }
-   
       let payload = {
         categoryName: this.form.value.categoryName,
         categoryDescription: this.form.value.categoryDescription,
@@ -93,15 +90,11 @@ export class AddEditCategoryComponent implements OnInit {
       }
       this.contentService.addCategory(payload).subscribe(response => {
 
-        this.mainId = response.data?.mainCategoryId
+        this.mainId = response.data?.mainCategoryId;
         this.fileChangeEvent();
         this.afterResponse(response);
-
       });
-    
   }
-
-
 
   afterResponse(response: any) {
     if (response && response.statusCode == 200) {
@@ -109,7 +102,6 @@ export class AddEditCategoryComponent implements OnInit {
         if (this.login == 'SuperAdmin') {
           this._location.back();
           this.toasterService.success(response.messages);
-
         }
         if (this.login == 'Vendor') {
           this.showModal();
@@ -123,8 +115,6 @@ export class AddEditCategoryComponent implements OnInit {
       }
     }
   }
-
-
   ok() {
     this.router.navigate(['/category-list'])
       .then(() => {
@@ -182,14 +172,10 @@ this.errorMessage = 'Please select a valid JPEG or PNG image.';
     formData.append("CategoryImage", this.imageFile?.file);
     formData.append("MainCategoryId", this.mainId);
     this.contentService.categoryImage(formData).subscribe(response => {
-
     });
   }
 
-
-
   onGenderChange(event: any) {
-
     const selectedGender = event.target.value;
     if (selectedGender === '1') {
       this.categoryType = this.form.patchValue({ male: true, female: false });
@@ -199,6 +185,4 @@ this.errorMessage = 'Please select a valid JPEG or PNG image.';
       this.categoryType = this.form.patchValue({ male: true, female: true });
     }
   }
-
-
 } 

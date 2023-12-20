@@ -76,7 +76,6 @@ export class ServiceListComponent implements OnInit {
     this.getcategoryList();
     this.filterListForm();
     this.form.get('mainCategoryId').valueChanges.subscribe(() => {
-      // Reset subCategoryId when mainCategoryId changes
       this.form.get('subCategoryId').setValue('');
     });
   }

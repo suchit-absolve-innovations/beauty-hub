@@ -21,7 +21,8 @@ export class BannerDetailComponent implements OnInit {
     private content: ContentService,
     private toasterService: ToastrService,
     private route: ActivatedRoute,
-    private _location: Location,) { }
+    private _location: Location,
+    ) { }
 
   ngOnInit(): void {
     this.bannerId = this.route.snapshot.paramMap.get('id');
@@ -32,16 +33,13 @@ export class BannerDetailComponent implements OnInit {
   backClicked() {
     this._location.back();
   }
-
   getBannerDetail() {
    this.spinner.show();
     this.content.bannerDetail(this.bannerId).subscribe(response => {
       if (response.isSuccess) {
         this.spinner.hide();
         this.bannerdetail = response.data;
-       
       }
-
     });
   }
 }

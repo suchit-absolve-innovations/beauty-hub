@@ -1,117 +1,127 @@
-<div class="app-main__outer">						
+<div class="app-main__outer">
     <div class="admin_a">
         <div class="top-head">
             <img (click)="backClicked()" src="assets\img\backimage.svg" class="backimage-butn">
             <h2> Category</h2>
-          </div>
-        
+        </div>
+
         <form [formGroup]="form">
-        <div class="vendor-form mt-30 bg-white pb-60">				
-            
-            <div class="this_row">
-                <div class="row">								
-                    
-                    <div class="col-lg-12 col-md-12 mb-30 text-center">
-                        <h3>Add Category Picture</h3>
-                    </div>
-                    
-                    <div class="col-lg-12 col-md-12 mb-30">
-                        <div class="upload_file text-center">
-                            
-                            <div class="imges-upload mb-0">
-                                <div class="imgUp m-auto">
-                                    <!-- <div class="imagePreview"><img src="{{editImages}}"></div> -->
+            <div class="vendor-form mt-30 bg-white pb-60">
 
-                                    <div *ngIf="isValid" class="imagePreview" [style.background-image]="'url(' + previewImage + ')'"></div>
-                                    <div *ngIf="!isValid && errorMessage" class="error"></div>
-                                    <!-- {{imageFile}}/ -->
-                                    <label class="upload button btn btn-primary">
-                                        <!-- <input value="rootUrl + homeServicesData.imagePath" name="bannerHidden" type="hidden"> -->
-                                        Upload<input  type="file" class="uploadFile img" name="bannerimage" formControlName="bannerimage"
-                                            style="width: 0px;height: 0px;overflow: file; border-style: none;"
-                                            id="bannerimage"   (change)="imagesUpload($event)" >
-                                          
-                                    </label>
-                                    <div *ngIf="submitted && f['bannerimage'].errors" class="help-block">
-                                        <div *ngIf="f['bannerimage'].errors['required']" style="color: #fd0000;">Category Image
-                                            is
-                                            required</div>
-                                    </div>
-                                    <div *ngIf="errorMessage" class="help-block" style="color: #fd0000">{{ errorMessage }}</div>
-                                    <div>
-                                    </div>
-                                </div>
-                                <br>
-                                <br>
-                            </div>								
+                <div class="this_row">
+                    <div class="row">
+
+                        <div class="col-lg-12 col-md-12 mb-30 text-center">
+                            <h3>Add Category Picture</h3>
                         </div>
-                    </div>
-                    
-                    <div class="col-lg-6 col-md-12">
-                        <label> Main Category Name</label>
-                        <input type="text" class="control-form" formControlName="categoryName"  noSpacesAtStart appCapitalizeFirstLetter> 		
-                        <div *ngIf="submitted && f['categoryName'].errors" class="help-block">
-                            <div *ngIf="f['categoryName'].errors['required']" style="color: #fd0000;">Category Name is
-                                required</div>
-          
-                        </div>								
-                    </div>
-                    <div class="col-lg-6 col-md-12">
-                        <label>Category Type</label>
-                        <select type="text" class="control-form" formControlName="categoryType" (change)="onGenderChange($event)">
-                            <option value="" disabled selected>Select</option>
-                            <option value="1">Male</option>
-                            <option value="2">Female</option>
-                            <option value="3">Male & Female</option>
-                        </select>
-                
-                    <div *ngIf="submitted && f['categoryType'].errors" class="help-block">
-                        <div *ngIf="f['categoryType'].errors['required']" style="color: #fd0000;">Category Type is
-                            required</div>
-      
-                    </div>	
-                    </div>
-                    
-                    
-                    <div class="col-lg-12 col-md-12">
-                        <label>Description</label>
-                        <textarea type="text" class="control-form" formControlName="categoryDescription"  noSpacesAtStart appCapitalizeFirstLetter></textarea>
-                        <div *ngIf="form.get('categoryDescription')?.hasError('maxLengthExceeded')"  style="color: #fd0000;">
-                        Maximum 160 characters for description.
-                          </div>
-                    </div>
-                    
-                    <div class="col-lg-12 col-md-12 mt-40 text-center">
-                        <button class="btn_blue " type="submit" (click)="postCategory()">Submit</button>
-                    </div>
 
+                        <div class="col-lg-12 col-md-12 mb-30">
+                            <div class="upload_file text-center">
+
+                                <div class="imges-upload mb-0">
+                                    <div class="imgUp m-auto">
+                                        <!-- <div class="imagePreview"><img src="{{editImages}}"></div> -->
+
+                                        <div *ngIf="isValid" class="imagePreview"
+                                            [style.background-image]="'url(' + previewImage + ')'"></div>
+                                        <div *ngIf="!isValid && errorMessage" class="error"></div>
+                                        <!-- {{imageFile}}/ -->
+                                        <label class="upload button btn btn-primary">
+                                            <!-- <input value="rootUrl + homeServicesData.imagePath" name="bannerHidden" type="hidden"> -->
+                                            Upload<input type="file" class="uploadFile img" name="bannerimage"
+                                                formControlName="bannerimage"
+                                                style="width: 0px;height: 0px;overflow: file; border-style: none;"
+                                                id="bannerimage" (change)="imagesUpload($event)">
+
+                                        </label>
+                                        <div *ngIf="submitted && f['bannerimage'].errors" class="help-block">
+                                            <div *ngIf="f['bannerimage'].errors['required']" style="color: #fd0000;">
+                                                Category Image
+                                                is
+                                                required</div>
+                                        </div>
+                                        <div *ngIf="errorMessage" class="help-block" style="color: #fd0000">{{
+                                            errorMessage }}</div>
+                                        <div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <br>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-md-12">
+                            <label> Main Category Name</label>
+                            <input type="text" class="control-form" formControlName="categoryName" noSpacesAtStart
+                                appCapitalizeFirstLetter>
+                            <div *ngIf="submitted && f['categoryName'].errors" class="help-block">
+                                <div *ngIf="f['categoryName'].errors['required']" style="color: #fd0000;">Category Name
+                                    is
+                                    required</div>
+
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12">
+                            <label>Category Type</label>
+                            <select type="text" class="control-form" formControlName="categoryType"
+                                (change)="onGenderChange($event)">
+                                <option value="" disabled selected>Select</option>
+                                <option value="1">Male</option>
+                                <option value="2">Female</option>
+                                <option value="3">Male & Female</option>
+                            </select>
+
+                            <div *ngIf="submitted && f['categoryType'].errors" class="help-block">
+                                <div *ngIf="f['categoryType'].errors['required']" style="color: #fd0000;">Category Type
+                                    is
+                                    required</div>
+
+                            </div>
+                        </div>
+
+
+                        <div class="col-lg-12 col-md-12">
+                            <label>Description</label>
+                            <textarea type="text" class="control-form" formControlName="categoryDescription"
+                                noSpacesAtStart appCapitalizeFirstLetter></textarea>
+                            <div *ngIf="form.get('categoryDescription')?.hasError('maxLengthExceeded')"
+                                style="color: #fd0000;">
+                                Maximum 160 characters for description.
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12 col-md-12 mt-40 text-center">
+                            <button class="btn_blue " type="submit" (click)="postCategory()">Submit</button>
+                        </div>
+
+                    </div>
                 </div>
             </div>
-        </div>
-    </form><!-- end first form -->
-                                 
-        </div>
-        
-    </div>	
+        </form><!-- end first form -->
 
-
-
-     <!-- Modal -->
-  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="success-messLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content warning-content">
-        
-        <div class="modal-body text-center warning-mess-sec">
-            <button type="button" class="close float-right" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            <img src="assets\img\check.png">
-            <h2>Success </h2>
-          <p>Thanks for placing category request. Your request will be processed in 24 hrs.</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class=" btn_blue" (click)="ok()">OK</button>
-        </div>
-      </div>
     </div>
-  </div>
+
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="success-messLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content warning-content">
+
+            <div class="modal-body text-center warning-mess-sec">
+                <button type="button" class="close float-right" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <img src="assets\img\check.png">
+                <h2>Success </h2>
+                <p>Thanks for placing category request. Your request will be processed in 24 hrs.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class=" btn_blue" (click)="ok()">OK</button>
+            </div>
+        </div>
+    </div>
+</div>

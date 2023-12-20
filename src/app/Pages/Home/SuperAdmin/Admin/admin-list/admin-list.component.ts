@@ -107,19 +107,12 @@ export class AdminListComponent implements OnInit {
 });
 }
 
-// delet1(data:any){
-    
-//   this.adminId = data.id;
-  
-//     }
     delet(data: any) {
-
       this.itemToDelete = data;
       $('#list-cross-mess').modal('show');
     }
   
     deleteUser() {
- 
       this.spinner.show();
       if (this.itemToDelete) {
         const itemId = this.itemToDelete.id;

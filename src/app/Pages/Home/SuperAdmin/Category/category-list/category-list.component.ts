@@ -14,9 +14,9 @@ import { EMPTY, Observable, Subscription, interval } from 'rxjs';
 })
 export class CategoryListComponent implements OnInit {
 
-  // serach 
+  // search 
   public searchText: any = '';
-  vendorId = localStorage.getItem('vendorId')
+  vendorId = localStorage.getItem('vendorId');
   page3: number;
   page4: number;
   page1: number;
@@ -27,7 +27,6 @@ export class CategoryListComponent implements OnInit {
   categoryList: any;
   rootUrl: any;
   login = localStorage.getItem('role');
-
   isActive: boolean = true;
   unActive: boolean = false;
   shopDetail: any;
@@ -45,7 +44,8 @@ export class CategoryListComponent implements OnInit {
     private router: Router,
     private ngZone: NgZone,
     private route: ActivatedRoute,
-    private formBuilder: FormBuilder,) {
+    private formBuilder: FormBuilder
+    ) {
     // Get the initial active tab and pagination values from the query parameters
     const queryParams = this.route.snapshot.queryParams;
     this.activeTab = queryParams['tab'] || 'pills-categorylist';
@@ -53,10 +53,9 @@ export class CategoryListComponent implements OnInit {
     this.page2 = queryParams['page2'] ? +queryParams['page2'] : 0;
     this.page3 = queryParams['page3'] ? +queryParams['page3'] : 0;
     this.page4 = queryParams['page4'] ? +queryParams['page4'] : 0;
-
   }
+  
   ngOnInit(): void {
-
     this.rootUrl = environment.rootPathUrl;
     // Check if the active tab is not set in the query parameters
     if (!this.activeTab) {
@@ -65,7 +64,6 @@ export class CategoryListComponent implements OnInit {
       // Update the query parameters with the default active tab
       this.updateQueryParams();
     }
-
     // this.getvendorDetail();
     this.getCategoryRequestList();
     this.getList();
@@ -74,7 +72,6 @@ export class CategoryListComponent implements OnInit {
   }
 
   getList() {
-
     if (this.login == 'SuperAdmin') {
       this.getsuperlist();
     } else if (this.login == 'Admin') {
@@ -82,20 +79,17 @@ export class CategoryListComponent implements OnInit {
     } else {
       this.getVendorcategoryList();
     }
-
   }
 
   switchToTab(tabId: string) {
     // Set the active tab
     this.activeTab = tabId;
-
     // Clear the corresponding pagination query parameter
     if (tabId === 'pills-categorylist') {
       this.page1 = 0;
     } else if (tabId === 'pills-categoryrequest') {
       this.page2 = 0;
     }
-
     // Update the query parameters
     this.updateQueryParams();
   }
@@ -107,30 +101,25 @@ export class CategoryListComponent implements OnInit {
       page2: this.page2,
 
     };
-
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams,
       queryParamsHandling: 'merge'
     });
   }
-  refresh(): void {
-    // Perform refresh actions
 
-    // Update the query parameter with the current page index
+  refresh(): void {
     const queryParams = {
       page3: this.page3,
     };
-
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams,
       queryParamsHandling: 'merge'
     });
   }
+
   refresh1(): void {
-    // Perform refresh actions
-    // Update the query parameter with the current page index
     const queryParams = {
       page4: this.page4
     };
@@ -141,9 +130,10 @@ export class CategoryListComponent implements OnInit {
       queryParamsHandling: 'merge'
     });
   }
+
   performSearch() {
     // Clear query parameters
-    this.page1 = 1
+    this.page1 = 1;
     this.page2 = 1;
     this.page3 = 1;
     this.page4 = 1;
@@ -153,29 +143,23 @@ export class CategoryListComponent implements OnInit {
       queryParamsHandling: 'merge'
     });
   }
-
-
   checkActiveStatus(data: any) {
     this.isActive = !this.isActive;
     if (this.isActive == true) {
-      this.postActiveStatus(data)
+      this.postActiveStatus(data);
     } else if (this.isActive == false) {
-      this.postUnActiveStatus(data)
+      this.postUnActiveStatus(data);
     }
   }
-
   checkInactiveStatus(data: any) {
     this.unActive = !this.unActive;
     if (this.unActive == true) {
-      this.postActiveStatus(data)
+      this.postActiveStatus(data);
     } else if (this.unActive == false) {
-      this.postUnActiveStatus(data)
+      this.postUnActiveStatus(data);
     }
   }
-
-
   postActiveStatus(data: any) {
-
     let payload = {
       mainCategoryId: data,
       salonId: this.salonId,
@@ -198,17 +182,14 @@ export class CategoryListComponent implements OnInit {
       this.spinner.hide();
     });
   }
-
-
   /*** Category List ***/
 
   getsuperlist() {
     this.spinner.show();
-    this.deleteMainCategory
+    this.deleteMainCategory;
     this.content.getcategory().subscribe(response => {
       if (response.isSuccess) {
         this.categoryList = response.data;
-
         this.spinner.hide();
       }
     });
@@ -216,7 +197,7 @@ export class CategoryListComponent implements OnInit {
 
   filterListForm() {
     this.form = this.formBuilder.group({
-      CategoryType: ['0'],
+      CategoryType: ['0']
     });
   }
 
@@ -229,9 +210,8 @@ export class CategoryListComponent implements OnInit {
         this.spinner.hide();
       }
       else {
-        this.toaster.error(response.messages)
+        this.toaster.error(response.messages);
         this.spinner.hide();
-
       }
     });
   }
@@ -242,7 +222,6 @@ export class CategoryListComponent implements OnInit {
         window.location.reload();
       });
   }
-
 
   getVendorcategoryList() {
     // this.spinner.show();
@@ -257,7 +236,6 @@ export class CategoryListComponent implements OnInit {
 
   // Product Category Requests List
   getCategoryRequestList() {
-
     this.content.getRequestList().subscribe(response => {
       if (response.isSuccess) {
         this.categoryRequestList = response.data;
@@ -281,13 +259,11 @@ export class CategoryListComponent implements OnInit {
         this.toaster.success(response.messages);
       } else {
         this.spinner.hide();
-        this.toaster.error(response.messages)
+        this.toaster.error(response.messages);
       }
     });
   }
-
   rejectCategory(data: any) {
-
     let payload = {
       mainCategoryId: data.mainCategoryId,
       subCategoryId: data.subCategoryId,
@@ -301,7 +277,7 @@ export class CategoryListComponent implements OnInit {
         this.toaster.success(response.messages);
       } else {
         this.spinner.hide();
-        this.toaster.error(response.messages)
+        this.toaster.error(response.messages);
       }
     });
   }
@@ -310,7 +286,6 @@ export class CategoryListComponent implements OnInit {
     this.mainCategoryId = data.mainCategoryId;
     this.subCategoryId = data.subCategoryId;
   }
- 
   deleteSubCategory() {
     this.spinner.show();
     this.content.subCategoryDelete(this.subCategoryId).subscribe(response => {
@@ -322,7 +297,7 @@ export class CategoryListComponent implements OnInit {
         this.toaster.success(response.messages);
       } else {
         this.spinner.hide();
-        this.toaster.error(response.messages)
+        this.toaster.error(response.messages);
       }
     });
   }
@@ -338,13 +313,10 @@ export class CategoryListComponent implements OnInit {
         this.toaster.success(response.messages);
       } else {
         this.spinner.hide();
-        this.toaster.error(response.messages)
+        this.toaster.error(response.messages);
       }
     });
   }                                                                     
-
-
-
   // edit user 
   edit(data: any) {
     this.router.navigate(['/category-list/category-edit'],
@@ -354,22 +326,17 @@ export class CategoryListComponent implements OnInit {
         }
       });
   }
-
-
   startRefreshInterval() {
     const refreshInterval = 40000;
     // Check if there is an existing subscription and unsubscribe if needed
     if (this.refreshSubscription) {
       this.refreshSubscription.unsubscribe();
     }
-
     // Use interval to call getOrderList every 10 seconds
     this.refreshSubscription = interval(refreshInterval).subscribe(() => {
       this.getCategoryRequestList();
     });
   }
-
-
   /** Vendor Detail **/
 
   //  getvendorDetail() {
@@ -390,6 +357,4 @@ export class CategoryListComponent implements OnInit {
   addSpaceAfterText() {
     this.searchText = this.searchText.trim();
     }
-  
-
 }
