@@ -31,6 +31,7 @@ export class SubCategoryListComponent implements OnInit {
   MainCategoryId: any;
   subCategoryId: any;
   form: any;
+  search: any;
 
   constructor(
     private spinner: NgxSpinnerService,
@@ -47,21 +48,49 @@ export class SubCategoryListComponent implements OnInit {
   ngOnInit(): void {
     this.Id = this.route.snapshot.paramMap.get('id');
     this.rootUrl = environment.rootPathUrl;
+    this.route.queryParams.subscribe((params) => {
+      this.search = params['search'] || '';
+      this.page = params['page'] ? parseInt(params['page'], 10) : 1;
+      // Fetch data based on the search term and page
+      this.getList();
+    });
     // this.getvendorDetail();
     
-    this.getList();
+    
     this.filterSubListForm();
     // this.getSubcategoryList();
 
   }
 
   backClicked() {
-    this._location.back();
+    this.router.navigateByUrl('/category-list');
   }
-
   // status change
 
+  performSearch() {
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { page: null },
+      queryParamsHandling: 'merge'
+    });
+  }
+
+  onPageChange(page: number): void {
+    // Update query parameters for pagination
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { page: page },
+      queryParamsHandling: 'merge',
+    });
+  }
   
+  onSearch(searchTerm: string): void {
+    // Update query parameters for search
+    this.router.navigate([], {
+      queryParams: { search: searchTerm, page: 1 }, // Reset to the first page when searching
+      queryParamsHandling: 'merge',
+    });
+  }
   checkActiveStatus(data: any) {
     this.isActive = !this.isActive;
     if (this.isActive == true) {
@@ -167,7 +196,7 @@ this.spinner.hide();
 
       filterSubListForm() {
         this.form = this.formBuilder.group({
-          CategoryType: ['0'],
+          categoryType: ['0'],
         });
       }
       getSubCategoryListFilter() {
@@ -175,10 +204,10 @@ this.spinner.hide();
         // this.spinner.show();
           let payload = {
           mainCategoryId: parseInt(this.Id),
-          salonId: this.salonId,
-          CategoryType:this.form.value.CategoryType
+         
+          categoryType:this.form.value.categoryType
         } 
-        this.content.getFilterCategoryList(payload).subscribe(response => {
+        this.content.getFilterSubCategoryList(payload).subscribe(response => {
           if (response.isSuccess) {
             this.categoryList = response.data;
             this.toaster.success(response.messages);
@@ -192,6 +221,26 @@ this.spinner.hide();
    
 
   // Vendor
+
+  getVendorSubCategoryListFilter() {
+
+    // this.spinner.show();
+      let payload = {
+      mainCategoryId: parseInt(this.Id),
+      salonId: this.salonId,
+      categoryType:this.form.value.categoryType
+    } 
+    this.content.getFilterVendorSubCategoryList(payload).subscribe(response => {
+      if (response.isSuccess) {
+        this.categoryList = response.data;
+        this.toaster.success(response.messages);
+        this.spinner.hide();
+      }else{
+        this.spinner.hide();
+        this.toaster.success(response.messages);
+      }
+    });
+  }
 
   getSubcategoryList() {
 

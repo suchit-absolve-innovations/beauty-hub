@@ -9,8 +9,9 @@
 
         <div class="d-flex if_xs_btn mt-30">
             <input type="text" placeholder="Search Here" class="btn_border search_here" (input)="addSpaceAfterText()"
-                [(ngModel)]="searchText">
-                <a data-toggle="modal" data-target="#myModalpurchase-membership" class="btn_blue ml-3 mb-0">Filter</a>
+                [(ngModel)]="searchText"  (click)="performSearch()">
+                <a *ngIf="login == 'SuperAdmin'" data-toggle="modal" data-target="#myModalpurchase-membership" class="btn_blue ml-3 mb-0" (click)="performSearch()" (click)="onSearch(search)">Filter</a>
+                <a  *ngIf="login == 'Vendor'" data-toggle="modal" data-target="#vendorCategoryFilter" class="btn_blue ml-3 mb-0" (click)="performSearch()" (click)="onSearch(search)">Filter</a>
 
             <a [routerLink]="['/category-list/sub-category-list/addEdit-sub-category/'] + Id" class="btn_blue ml-auto">Add Sub
                 Category</a>
@@ -31,7 +32,7 @@
                 </tr>
 
                 <tr
-                    *ngFor="let item of categoryList | filter:searchText | paginate: {itemsPerPage: 10, currentPage: page, totalItems: totalItems,id: '1' } ">
+                    *ngFor="let item of categoryList | filter:searchText | paginate: {itemsPerPage: 5, currentPage: page, totalItems: totalItems,id: '1' } ">
                     <td>{{item?.categoryName}}</td>
                     <td class="profile"><img [src]="rootUrl + item?.categoryImage" class="img-responsive"></td>
                     <td *ngIf="item?.categoryType == 1">Male</td>
@@ -96,8 +97,9 @@
 
             </table>
         </div>
-        <pagination-controls (pageChange)="((page = $event))" id="1" (pageIndex)="page" class="paginate-doctor-list">
-        </pagination-controls>
+        <pagination-controls (pageChange)="((page = $event))" id="1" (pageIndex)="page"
+        class="paginate-doctor-list"  queryParamsHandling="merge" (pageChange)="onPageChange($event)">
+    </pagination-controls>
     </div>
 </div>
 
@@ -118,7 +120,7 @@
                             <div class="modal-body vendor-form pb-0 ">
                                 <div class="">
                                     <label>Select Filter</label>
-                                    <select type="text" class="control-form mb-0 btn_border" formControlName="CategoryType">
+                                    <select type="text" class="control-form mb-0 btn_border" formControlName="categoryType">
                                         <!-- <option value="">Select </option> -->
                                         <option value="0" selected>All</option>
                                         <option value="1">Male</option>
@@ -132,6 +134,43 @@
                             <a type="button" class=" border-btn cancelinfilter" data-dismiss="modal"
                                >Reset</a>
                             <a type="button" class="btn_blue" (click)="getSubCategoryListFilter()" data-dismiss="modal">Apply</a>
+                        </div>
+                
+                    </div>
+                </div>
+                </div>
+
+
+                <!-- ///for vendor//// -->
+                <div class="modal fade" id="vendorCategoryFilter" tabindex="-1" role="dialog"
+                aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                <div class="modal-dialog max_sf modal-dialog-centered" role="document"
+                    style="border-radius:15px; overflow:hidden; border:none;">
+                    <div class="modal-content for-payment popup_advance">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Apply Filter</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form [formGroup]="form">
+                            <div class="modal-body vendor-form pb-0 ">
+                                <div class="">
+                                    <label>Select Filter</label>
+                                    <select type="text" class="control-form mb-0 btn_border" formControlName="categoryType">
+                                        <!-- <option value="">Select </option> -->
+                                        <option value="0" selected>All</option>
+                                        <option value="1">Male</option>
+                                        <option value="2">Female</option>
+                                        <option value="3">Male & Female</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="modal-footer">
+                            <a type="button" class=" border-btn cancelinfilter" data-dismiss="modal"
+                               >Reset</a>
+                            <a type="button" class="btn_blue" (click)="getVendorSubCategoryListFilter()" data-dismiss="modal">Apply</a>
                         </div>
                 
                     </div>

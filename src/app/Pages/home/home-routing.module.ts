@@ -91,6 +91,7 @@ const routes: Routes = [
       { path: 'vendor-notification-list/add-notification', component:VendorAddNotificationComponent},
       { path: 'category-list/category-edit',component:EditCategoryComponent},
       { path: 'category-list/sub-category-list/sub-category-edit/:id/:id2',component:EditSubCategoryComponent},
+      { path: 'category-list/sub-category-edit/:id/:id2',component:EditSubCategoryComponent},
 
       //////Admin///////
       { path: 'admin-user-profile', component: AdminProfileComponent },
