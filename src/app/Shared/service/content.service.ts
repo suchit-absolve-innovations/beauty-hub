@@ -200,11 +200,17 @@ export class ContentService {
     }));
   }
 
-  getFilterCategoryList(CategoryType: any) {
-    return this.http.get<any>(environment.apiUrl + ApiEndPoint.getcategoryList + '?CategoryType=' + CategoryType)
+  getFilterCategoryList(categoryType: any) {
+    return this.http.get<any>(environment.apiUrl + ApiEndPoint.getcategoryList + '?categoryType=' + categoryType)
+  }
+  getFilterVendorCategoryList(data: any) {
+    return this.http.get<any>(environment.apiUrl + ApiEndPoint.getcategoryVendor + '?salonId=' + data.salonId + '&categoryType=' + data.categoryType )
   }
   getFilterSubCategoryList(data: any ) {
     return this.http.get<any>(environment.apiUrl + ApiEndPoint.getcategoryList + '?CategoryType=' + data.CategoryType + '&mainCategoryId=' + data.mainCategoryId)
+  }
+  getFilterVendorSubCategoryList(data: any ) {
+    return this.http.get<any>(environment.apiUrl + ApiEndPoint.getcategoryVendor + '?salonId=' + data.salonId + '&categoryType=' + data.categoryType + '&mainCategoryId=' + data.mainCategoryId )
   }
   //  Add Category
   addCategory(data: any) {
@@ -238,7 +244,7 @@ export class ContentService {
   }
 
   getRequestList() {
-    return this.http.get<any>(environment.apiUrl + ApiEndPoint.getCategoryRequestList)
+    return this.http.get<any>(environment.apiUrl + ApiEndPoint.getCategoryRequestList )
   }
   acceptRejectCategorys(data: any) {
     return this.http.post<any>(environment.apiUrl + ApiEndPoint.acceptRejectCategory, data)

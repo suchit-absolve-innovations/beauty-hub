@@ -1,21 +1,20 @@
 <div class="app-main__outer">
-    <div class="app-main__inner">
-
-        <div class="text-center d-table">
-            <h3>Admin List</h3>
-        </div>
+    <!-- <div class="admin_a"> -->
+     
 
         <div class="admin_a form_dashbord">
+            <div class="top-head">
+                <h3>Admin List</h3>
+            </div>
             <div class="d-flex if_xs_btn mt-30">
                 <input type="text" placeholder="Search Here" class="btn_border search_here" (input)="addSpaceAfterText()"(click)="onSearch(search)" (click)="performSearch()" [(ngModel)]="searchText"
-                    style="width:25%!important;">
+                    >
 
                 <a [routerLink]="['/admin-list/add-edit-admin']" class="btn_blue ml-auto">Add Admin </a>
             </div>
 
             <div class="table-responsive">
                 <table class="table admin_table">
-
                     <tr>
                         <th>Name</th>
                         <th>Profile Pic</th>

@@ -197,14 +197,33 @@ export class CategoryListComponent implements OnInit {
 
   filterListForm() {
     this.form = this.formBuilder.group({
-      CategoryType: ['0']
+      categoryType: ['0']
     });
   }
 
   getCategoryListFilter() {
     this.spinner.show();
 
-    this.content.getFilterCategoryList(this.form.value.CategoryType).subscribe(response => {
+    this.content.getFilterCategoryList(this.form.value.categoryType).subscribe(response => {
+      if (response.isSuccess) {
+        this.categoryList = response.data;
+        this.spinner.hide();
+      }
+      else {
+        this.toaster.error(response.messages);
+        this.spinner.hide();
+      }
+    });
+  }
+
+  getVendorCategoryListFilter() {
+    this.spinner.show();
+    let payload = {
+      salonId: this.salonId,
+      categoryType: this.form.value.categoryType
+    }
+
+    this.content.getFilterVendorCategoryList(payload).subscribe(response => {
       if (response.isSuccess) {
         this.categoryList = response.data;
         this.spinner.hide();
@@ -319,13 +338,25 @@ export class CategoryListComponent implements OnInit {
   }                                                                     
   // edit user 
   edit(data: any) {
+    
     this.router.navigate(['/category-list/category-edit'],
       {
         queryParams: {
-          id: data.mainCategoryId
+          id: data.mainCategoryId,
+          id2 : data.subCategoryId
         }
       });
   }
+  // editSubcategoryReq(data: any) {
+
+  //   this.router.navigate(['/category-list/sub-category-edit'],
+  //     {
+  //       queryParams: {
+  //         id: data.mainCategoryId,
+  //         id2: data.subCategoryId
+  //       }
+  //     });
+  // }
   startRefreshInterval() {
     const refreshInterval = 40000;
     // Check if there is an existing subscription and unsubscribe if needed

@@ -5,7 +5,7 @@
             <div class="d-flex if_xs_btn mt-30">
                 <input type="text" placeholder="Search Here" class="btn_border search_here"  [(ngModel)]="searchText"   (input)="addSpaceAfterText()"
                     (click)="performSearch()">
-                    <a data-toggle="modal" data-target="#myModalpurchase-membership" class="btn_blue ml-3 mb-0">Filter</a>
+                    <a data-toggle="modal" data-target="#vendor-category" class="btn_blue ml-3 mb-0" (click)="performSearch()">Filter</a>
                 <a [routerLink]="['/category-list/add-edit-category']" class="btn_blue ml-auto">Add New Category</a>
             </div>
 
@@ -189,7 +189,7 @@
             <div class="d-flex if_xs_btn mt-30">
                 <input type="text" placeholder="Search Here" class="btn_border search_here" (input)="addSpaceAfterText()"  [(ngModel)]="searchText"
                     (click)="performSearch()">
-                <a data-toggle="modal" data-target="#myModalpurchase-membership" class="btn_blue ml-3 mb-0">Filter</a>
+                <a data-toggle="modal" data-target="#myModalpurchase-membership" class="btn_blue ml-3 mb-0" (click)="performSearch()">Filter</a>
                 <a [routerLink]="['/category-list/add-edit-category']" class="btn_blue ml-auto">Add New Category</a>
             </div>
             <!-- <ul class="nav nav-pills nav-justified mb-5 " id="pills-tab" role="tablist">
@@ -342,7 +342,10 @@
                                             style="background:#e6629f; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;"
                                             class="fa fa-eye"></i></a>
 
-                                    <a (click)="edit(item)"><i class="fa fa-pencil"></i></a>
+                                    <a *ngIf="!item.subCategoryId" (click)="edit(item)"><i class="fa fa-pencil"></i></a>
+                                    <a *ngIf="item.subCategoryId" [routerLink]="['/category-list/sub-category-edit/',   item?.mainCategoryId ,item?.subCategoryId]">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
                                     <!-- <a (click)="deleteMainCategory(item.mainProductCategoryId)"><i
                                             style="background:#9f0a2a; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;"
                                             class="fa fa-times"></i></a> -->
@@ -412,7 +415,7 @@
                                 <div class="">
                                     <label>Select Filter</label>
                                     <select type="text" class="control-form mb-0 btn_border"
-                                        formControlName="CategoryType">
+                                        formControlName="categoryType">
                                         <!-- <option value="">Select </option> -->
                                         <option value="0" >All</option>
                                         <option value="1">Male</option>
@@ -432,6 +435,43 @@
                 </div>
             </div>
 
+<!-- //for vendor model// -->
+
+<div class="modal fade" id="vendor-category" tabindex="-1" role="dialog"
+aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+<div class="modal-dialog max_sf modal-dialog-centered" role="document"
+    style="border-radius:15px; overflow:hidden; border:none;">
+    <div class="modal-content for-payment popup_advance">
+        <div class="modal-header">
+            <h5 class="modal-title">Apply Filter</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <form [formGroup]="form">
+            <div class="modal-body vendor-form pb-0 ">
+                <div class="">
+                    <label>Select Filter</label>
+                    <select type="text" class="control-form mb-0 btn_border"
+                        formControlName="categoryType">
+                        <!-- <option value="">Select </option> -->
+                        <option value="0" >All</option>
+                        <option value="1">Male</option>
+                        <option value="2">Female</option>
+                        <option value="3">Male & Female</option>
+                    </select>
+                </div>
+            </div>
+        </form>
+        <div class="modal-footer">
+            <a type="button" class=" border-btn cancelinfilter" data-dismiss="modal"
+                (click)="backClickedreload()">Reset</a>
+            <a type="button" class=" btn_blue" data-dismiss="modal" (click)="getVendorCategoryListFilter()">Apply</a>
+        </div>
+
+    </div>
+</div>
+</div>
 
 
 

@@ -136,42 +136,44 @@ export class EditSalonBannerComponent implements OnInit {
     });
   } 
   imagesUpload(event: any) {
-    debugger;
-  
     const file = event.target.files[0];
   
     if (file) {
       const fileType = file.type;
       const fileName = file.name;
   
-      if ((fileType === 'image/jpeg' || fileType === 'image/png')) {
-        if (fileName.toLowerCase().endsWith('.jpeg') || (fileName.toLowerCase().endsWith('.png')) ||  (fileName.toLowerCase().endsWith('.jpg'))) {
-          const imageSize = file.size / 1024; // in KB
+      if (
+        (fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') &&
+        (fileName.toLowerCase().endsWith('.jpeg') || fileName.toLowerCase().endsWith('.png') || fileName.toLowerCase().endsWith('.jpg'))
+      ) {
+        const imageSize = file.size / 1024; // in KB
+        const image = new Image();
+  
+        const reader = new FileReader();
+        reader.onload = (_event: any) => {
           const image = new Image();
-    
-          image.src = URL.createObjectURL(file);
-    
+          image.src = _event.target.result as string;
           image.onload = () => {
             if (image.width === 1280 && image.height === 720 && imageSize <= 1024) {
-              this.errorMessage = '';
+              this.imageFile = {
+                link: _event.target.result,
+                file: file,
+                name: file.name,
+                type: file.type
+              };
               this.isValid = true;
-              this.previewImage = this.sanitizer.bypassSecurityTrustUrl(image.src) as SafeUrl;
+              this.previewImage =  image.src;
+              this.errorMessage = ''; // No error message if the image meets criteria
             } else {
-              this.errorMessage = 'Please select a 1280x720 pixels (width×height) & JPEG or PNG image.';
               this.isValid = false;
-              this.previewImage = '';
+              this.errorMessage = 'Please select a 1280x720 pixels (width×height) & JPEG or PNG image.';
+              // Further handling for invalid images if needed
             }
           };
-        } else {
-          this.errorMessage = 'Please select a 1280x720 pixels (width×height) & JPEG or PNG image.';
-          this.isValid = false;
-          this.previewImage = '';
-          return;
-        }
-  
-     
+        };
+        reader.readAsDataURL(file);
       } else {
-        this.errorMessage = 'Please select a valid JPEG or PNG image.';
+        this.errorMessage = 'Please select a 1280x720 pixels (width×height) & JPEG or PNG image.';
       }
     }
   }
