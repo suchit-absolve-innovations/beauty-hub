@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -13,5 +12,9 @@ export class FilterService {
 
   getFilteredData(): any[] {
     return this.filteredData;
+  }
+
+  clearFilteredData(): void {
+    this.filteredData = [];
   }
 }

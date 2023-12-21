@@ -1,4 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { FilterService } from 'src/app/Shared/service/filter.service';
+import { SearchService } from 'src/app/Shared/service/search.service';
 import { RoleRoutes } from 'src/app/route';
 
 
@@ -16,8 +18,16 @@ export class MenuComponent implements OnInit {
   userRole!: any;
   login = localStorage.getItem('user');
   showSubRoutes: boolean;
-  constructor() { 
+  constructor(
+    private searchService: SearchService,
+    private filterService: FilterService
+  ) { 
     this.showSubRoutes = false;
+  }
+  onSidebarClick(): void {
+    // Call the clearSearchCriteria method when the sidebar is clicked
+    this.searchService.clearSearchCriteria();
+    this.filterService.clearFilteredData();
   }
 
   ngOnInit(): void {

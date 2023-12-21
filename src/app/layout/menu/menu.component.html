@@ -12,7 +12,7 @@
    <div class="app-sidebar sidebar-shadow">		
    <div class="scrollbar-sidebar">
     <div class="app-sidebar__inner">
-        <ul class="vertical-nav-menu nav-pills">
+        <ul class="vertical-nav-menu nav-pills" (click)=" onSidebarClick()">
             <li class="nav-item nav-pills parent"  *ngFor="let route of routes" >
                 <a routerLinkActive="mm-active" #rla="routerLinkActive" [routerLink]="'/' + route.routerLink" *ngIf="!route?.sub">
                  <span>{{route.name}}</span>
