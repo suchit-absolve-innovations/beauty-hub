@@ -37,6 +37,7 @@ export class ServiceListComponent implements OnInit {
   itemToDelete: any;
   search: any;
   currentPage: any;
+  storedData!: any[];
 
  // isFiltered: boolean = false; // Add a flag to track whether the data is being filtered
   constructor(private toaster: ToastrService,
@@ -51,7 +52,6 @@ export class ServiceListComponent implements OnInit {
     private filterService: FilterService,
     private zone: NgZone) {
   
-
 
      }
 
@@ -70,56 +70,41 @@ export class ServiceListComponent implements OnInit {
     this.route.queryParams.subscribe((params) => {
       this.search = params['search'] || '';
       this.page = params['page'] ? parseInt(params['page'], 10) : 1;
-    
 
-
-
-// ...
-
-// Retrieve filtered data from the service
-const storedData = this.filterService.getFilteredData();
-
-if (storedData && storedData.length > 0) {
-  this.list = storedData;
-  debugger
-  const firstItem = storedData[0].mainCategoryId;
-  const secondItem = storedData[0].subCategoryId;
-  const thirdItem = storedData[0].ageRestrictions;
-  const fourthItem = storedData[0].genderPreferences;
-
-  this.form.patchValue({
-    mainCategoryId: firstItem,
-    ageRestrictions: thirdItem,
-    genderPreferences: fourthItem
-  });
-
-  this.form.patchValue({
-    mainCategoryId: firstItem
-  });
-
-  // Use setTimeout to ensure that the patchValue is applied before calling getSubcategoryList
-  this.spinner.show();
-  setTimeout(() => {
-    // Code to be executed after the specified timeout
-    this.zone.run(() => {
-      this.getSubcategoryList(firstItem);
-      this.spinner.hide(); // Hide the spinner after getSubcategoryList completes
-    });
-  }, 2000);
-
-  if (secondItem > 0) {
-    this.form.patchValue({
-      subCategoryId: secondItem
-    });
-  }
-
-} else {
-  this.getList(); // Fetch initial data
-}
     });   
 
     this.salonId = this.route.snapshot.queryParams
     this.searchText = this.searchService.getSearchCriteria();
+
+      // Retrieve filter params and apply them
+      const filterParams = this.filterService.getFilterParams();
+      debugger
+      if (filterParams) {
+        this.applyFilter(filterParams);
+      
+      }
+  }
+
+
+  applyFilter(params: any): void {
+    // Apply filter logic with the provided params
+    debugger
+   
+    this.form.patchValue({
+      ageRestrictions: params.ageRestrictions || '',
+      mainCategoryId: params.mainCategoryId || '',
+      subCategoryId: params.subCategoryId || '',
+      genderPreferences: params.genderPreferences || '',
+    });
+    if ( params.mainCategoryId && params.subCategoryId) {
+      // Hit the subcategory function and patch the subCategoryId
+      this.getSubcategoryList( params.mainCategoryId);
+    }
+    if(params.mainCategoryId){
+      this.getSubcategoryList( params.mainCategoryId);
+    }
+    // Trigger the filter
+    this.serviceListFilter();
   }
 
   onSearch(searchTerm: string): void {
@@ -442,7 +427,7 @@ postUnActiveServiceStatus(data: any) {
     this.content.getcategory().subscribe(response => {
       if (response.isSuccess) {
         this.categoryList = response.data;
-        this.subCategoryList = [];
+      //  this.subCategoryList = [];
 
         //  this.spinner.hide();
       } else {
@@ -487,7 +472,7 @@ postUnActiveServiceStatus(data: any) {
 
   serviceListFilter() {
    // this.spinner.show();
-   
+   debugger
     let payload;
     if (this.role === 'Vendor') {
       payload = {
@@ -513,8 +498,16 @@ postUnActiveServiceStatus(data: any) {
     this.content.filterServiceList(payload).subscribe(response => {
       if (response.isSuccess) {
         this.list = response.data.dataList;
-        this.filterService.setFilteredData(this.list);
+  
    //     this.spinner.hide();
+      // Store filter params
+      this.filterService.setFilterParams({
+        ageRestrictions: this.form.value.ageRestrictions,
+        mainCategoryId: this.form.value.mainCategoryId,
+        subCategoryId: this.form.value.subCategoryId,
+        genderPreferences: this.form.value.genderPreferences,
+      });
+   
       } else {
         this.list = [];
       }
