@@ -4,17 +4,17 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class FilterService {
-  private filteredData: any[] = [];
+  private filterParams: any = {};
 
-  setFilteredData(data: any[]): void {
-    this.filteredData = data;
+  setFilterParams(params: any): void {
+    this.filterParams = params;
   }
 
-  getFilteredData(): any[] {
-    return this.filteredData;
+  getFilterParams(): any {
+    return this.filterParams;
   }
 
   clearFilteredData(): void {
-    this.filteredData = [];
+    this.filterParams = [];
   }
 }
