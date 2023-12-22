@@ -6,6 +6,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { FormBuilder } from '@angular/forms';
 import { EMPTY, Observable, Subscription, interval } from 'rxjs';
+import { SearchService } from 'src/app/Shared/service/search.service';
+import { FilterService } from 'src/app/Shared/service/filter.service';
+
+
 
 @Component({
   selector: 'app-category-list',
@@ -36,15 +40,21 @@ export class CategoryListComponent implements OnInit {
   mainCategoryId: any;
   subCategoryId :any;
   form: any;
-
+  search: any;
+  
   private refreshSubscription!: Subscription;
+  page: any;
+
   constructor(private toaster: ToastrService,
     private spinner: NgxSpinnerService,
     private content: ContentService,
     private router: Router,
     private ngZone: NgZone,
     private route: ActivatedRoute,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private searchService: SearchService,
+    private filterService: FilterService,
+
     ) {
     // Get the initial active tab and pagination values from the query parameters
     const queryParams = this.route.snapshot.queryParams;
@@ -63,12 +73,37 @@ export class CategoryListComponent implements OnInit {
       this.activeTab = 'pills-categorylist';
       // Update the query parameters with the default active tab
       this.updateQueryParams();
+      
     }
     // this.getvendorDetail();
     this.getCategoryRequestList();
     this.getList();
+    this.route.queryParams.subscribe((params) => {
+      this.search = params['search'] || '';
+      this.page = params['page'] ? parseInt(params['page'], 10) : 1;
+
+      // Fetch data based on the search term and page
+      this.getList();
+    });
     // this.getsuperlist();
     this.filterListForm();
+    this.searchText = this.searchService.getSearchCriteria();
+  }
+
+  searchlist(): void {
+    this.searchService.setSearchCriteria(this.searchText);
+  }
+  onSearch(searchTerm: string): void {
+    // Update query parameters for search
+    this.router.navigate([], {
+      queryParams: { search: searchTerm, page: 1 }, // Reset to the first page when searching
+      queryParamsHandling: 'merge',
+    });
+  }
+
+  clearSearchedData(): void {
+    // Call the clearSearchCriteria method when the sidebar is clicked
+    this.searchService.clearSearchCriteria();
   }
 
   getList() {
@@ -87,11 +122,14 @@ export class CategoryListComponent implements OnInit {
     // Clear the corresponding pagination query parameter
     if (tabId === 'pills-categorylist') {
       this.page1 = 0;
+    this.searchText = ('');
     } else if (tabId === 'pills-categoryrequest') {
       this.page2 = 0;
+      this.searchText = ('');
     }
     // Update the query parameters
     this.updateQueryParams();
+   
   }
 
   updateQueryParams() {
@@ -340,6 +378,7 @@ export class CategoryListComponent implements OnInit {
   edit(data: any) {
     
     this.router.navigate(['/category-list/category-edit'],
+    
       {
         queryParams: {
           id: data.mainCategoryId,

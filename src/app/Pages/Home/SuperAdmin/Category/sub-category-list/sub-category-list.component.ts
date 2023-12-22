@@ -6,6 +6,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { Location } from '@angular/common';
 import { FormBuilder } from '@angular/forms';
+import { FilterService } from 'src/app/Shared/service/filter.service';
+import { SearchService } from 'src/app/Shared/service/search.service';
 
 @Component({
   selector: 'app-sub-category-list',
@@ -42,6 +44,8 @@ export class SubCategoryListComponent implements OnInit {
     private toaster: ToastrService,
     private _location: Location,
     private formBuilder: FormBuilder,
+    private filterService: FilterService,
+    private searchService: SearchService,
     
   ) { }
 
@@ -59,11 +63,13 @@ export class SubCategoryListComponent implements OnInit {
     
     this.filterSubListForm();
     // this.getSubcategoryList();
-
+    this.searchText = this.searchService.getSearchCriteria();
   }
 
   backClicked() {
     this.router.navigateByUrl('/category-list');
+    this.searchService.clearSearchCriteria();
+  
   }
   // status change
 
@@ -82,6 +88,10 @@ export class SubCategoryListComponent implements OnInit {
       queryParams: { page: page },
       queryParamsHandling: 'merge',
     });
+  }
+  searchlist(): void {
+    this.searchService.setSearchCriteria(this.searchText);
+   
   }
   
   onSearch(searchTerm: string): void {
