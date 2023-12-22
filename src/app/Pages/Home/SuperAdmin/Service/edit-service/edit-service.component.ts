@@ -237,7 +237,7 @@ export class EditServiceComponent implements OnInit {
       this.fileChangeEvents();
       if (response.isSuccess) {
         this.toaster.success(response.messages);
-        this._location.back();
+        // this._location.back();
         setTimeout(() => {
           window.location.reload();
         }, 500);
