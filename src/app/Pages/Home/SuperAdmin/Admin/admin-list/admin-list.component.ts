@@ -4,6 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { ContentService } from 'src/app/Shared/service/content.service';
+import { FilterService } from 'src/app/Shared/service/filter.service';
+import { SearchService } from 'src/app/Shared/service/search.service';
 import { environment } from 'src/environments/environment';
 declare var $: any;
 
@@ -40,6 +42,8 @@ export class AdminListComponent implements OnInit {
     private route: ActivatedRoute,
     private ngZone: NgZone,
     private formBuilder: FormBuilder,
+    private filterService: FilterService,
+    private searchService: SearchService,
   ) { 
     
   }
@@ -57,6 +61,7 @@ export class AdminListComponent implements OnInit {
     this.form = this.formBuilder.group({
       transactionId: ['']
     });
+    this.searchText = this.searchService.getSearchCriteria();
   }
 
   onSearch(searchTerm: string): void {
@@ -66,7 +71,11 @@ export class AdminListComponent implements OnInit {
       queryParamsHandling: 'merge',
     });
   }
-
+  searchlist(): void {
+    this.searchService.setSearchCriteria(this.searchText);
+   
+  }
+ 
   onPageChange(page: number): void {
     // Update query parameters for pagination
     this.router.navigate([], {

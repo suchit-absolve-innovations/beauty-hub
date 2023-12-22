@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { ContentService } from 'src/app/Shared/service/content.service';
+import { SearchService } from 'src/app/Shared/service/search.service';
 import { environment } from 'src/environments/environment';
 declare var $: any;
 
@@ -35,6 +36,7 @@ export class PackageListComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private ngZone: NgZone,
+    private searchService: SearchService
   ) { }
 
   ngOnInit(): void {
@@ -47,6 +49,7 @@ export class PackageListComponent implements OnInit {
       // Fetch data based on the search term and page
       this.getPackagesList();
     });
+    this.searchText = this.searchService.getSearchCriteria();
   }
   onSearch(searchTerm: string): void {
     // Update query parameters for search
@@ -54,6 +57,10 @@ export class PackageListComponent implements OnInit {
       queryParams: { search: searchTerm, page: 1 }, // Reset to the first page when searching
       queryParamsHandling: 'merge',
     });
+  }
+  searchlist(): void {
+    this.searchService.setSearchCriteria(this.searchText);
+   
   }
 
   onPageChange(page: number): void {

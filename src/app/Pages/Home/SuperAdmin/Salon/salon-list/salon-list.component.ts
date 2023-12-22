@@ -5,6 +5,7 @@ import { ContentService } from 'src/app/Shared/service/content.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { environment } from 'src/environments/environment';
+import { SearchService } from 'src/app/Shared/service/search.service';
 declare var $: any;
 
 @Component({
@@ -36,7 +37,9 @@ export class SalonListComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private ngZone: NgZone,
-    private formBuilder: FormBuilder,) { }
+    private formBuilder: FormBuilder,
+    private searchService: SearchService,
+    ) { }
 
   ngOnInit(): void {
     this.rootUrl = environment.rootPathUrl;
@@ -53,8 +56,14 @@ export class SalonListComponent implements OnInit {
     this.form = this.formBuilder.group({
       transactionId: ['']
     });
+    this.searchText = this.searchService.getSearchCriteria();
   }
 
+  searchlist(): void {
+    this.searchService.setSearchCriteria(this.searchText);
+   
+  }
+ 
   onSearch(searchTerm: string): void {
     // Update query parameters for search
     this.router.navigate([], {
@@ -79,8 +88,6 @@ export class SalonListComponent implements OnInit {
       queryParamsHandling: 'merge'
     });
   }
-
-
 
   getVendorList() {
     let payload = {

@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { ContentService } from 'src/app/Shared/service/content.service';
+import { SearchService } from 'src/app/Shared/service/search.service';
 import { environment } from 'src/environments/environment';
 declare var $: any;
 
@@ -41,13 +42,14 @@ export class ShopBannerListComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private ngZone: NgZone,
+    private searchService: SearchService,
     private formBuilder: FormBuilder,) { }
 
   ngOnInit(): void {
     this.vendorId = localStorage.getItem('id');
     this.rootUrl = environment.rootPathUrl;
 
-    this.getSalonBannerList();
+    // this.getSalonBannerList();
     this.getcategoryList();
     this.route.queryParams.subscribe((params) => {
       this.search = params['search'] || '';
@@ -62,6 +64,7 @@ export class ShopBannerListComponent implements OnInit {
       salonBannerType: ['']
       //  brandId       : [''],
     });
+    this.searchText = this.searchService.getSearchCriteria();
   }
 
   get f() {
@@ -80,6 +83,10 @@ export class ShopBannerListComponent implements OnInit {
     return this.form['controls'];
   }
 
+  searchlist(): void {
+    this.searchService.setSearchCriteria(this.searchText);
+   
+  }
   onSearch(searchTerm: string): void {
     // Update query parameters for search
     this.router.navigate([], {
@@ -153,6 +160,7 @@ clearSubCategories() {
 
   delet(data: any) {
     this.itemToDelete = data;
+    
     $('#list-cross-mess').modal('show');
   }
   
@@ -239,6 +247,7 @@ clearSubCategories() {
     this.content.filterAllBanners(payload).subscribe(response => {
       if (response.isSuccess) {
         this.shopBannerList = response.data
+
         //    this.spinner.hide();
         //   this.toaster.success(response.messages)
       } else {

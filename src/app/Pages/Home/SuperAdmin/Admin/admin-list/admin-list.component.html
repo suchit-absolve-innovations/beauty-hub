@@ -8,7 +8,7 @@
             </div>
             <div class="d-flex if_xs_btn mt-30">
                 <input type="text" placeholder="Search Here" class="btn_border search_here" (input)="addSpaceAfterText()"(click)="onSearch(search)" (click)="performSearch()" [(ngModel)]="searchText"
-                    >
+                (input)="searchlist()" >
 
                 <a [routerLink]="['/admin-list/add-edit-admin']" class="btn_blue ml-auto">Add Admin </a>
             </div>
