@@ -7,7 +7,7 @@ export const environment = {
   apiUrl: "https://3mfc1e6iz8.execute-api.ap-south-1.amazonaws.com/",
   rootPathUrl: "https://beautyhub-file.s3.ap-south-1.amazonaws.com/FileToSave/",
 
-
+ 
   firebase: {
     apiKey: "AIzaSyBtlN7iOdtANEkPIIWI4tVj4iELAy5Axt8",
     authDomain: "beautyhub-76894.firebaseapp.com",
