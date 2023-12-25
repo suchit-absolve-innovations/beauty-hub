@@ -36,6 +36,7 @@ form:any;
   serviceId: any;
   startTime: any;
   endTime: any  ;
+  serviceDetailPatch: any;
   // time2!: string;
   salonId: any;
   role!: string | null;
@@ -297,7 +298,7 @@ getServiceDetail() {
       this.imageConvert64();
       this.packageDetailPatch = response.data
       this.ServiceImage = this.packageDetailPatch.serviceImage
-      this.imageUrl = this.rootUrl + this.packageDetailPatch.serviceIconImage
+      this.imageUrl1 = this.rootUrl + this.packageDetailPatch.serviceIconImage
       // this.options = this.packageDetailPatch.includeServiceId
       // let serviceListData: { item_id: any; item_text: any; }[] = [];
       // this.serviceList?.forEach((element: { serviceId: any; serviceName: any; }) => {

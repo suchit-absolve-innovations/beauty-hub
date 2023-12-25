@@ -234,7 +234,7 @@ export class EditServiceComponent implements OnInit {
       this.spinner.hide();
       // this.productId = response.data?.productId
       this.fileChangeEvent();
-      this.fileChangeEvents();
+      this.uploadServiceIconImage();
       if (response.isSuccess) {
         this.toaster.success(response.messages);
         // this._location.back();
@@ -280,6 +280,50 @@ export class EditServiceComponent implements OnInit {
     }
     return new Blob([ab], { type: mimeString });
   }
+  // onselect(event: any) {
+  //   const files = event.target.files;
+  //   this.errorMessages = ''; // Clear previous error messages
+  
+  //   for (let i = 0; i < files.length; i++) {
+  //     const file = files[i];
+  
+  //     if (
+  //       file.type === 'image/jpeg' ||
+  //       file.type === 'image/png' ||
+  //       file.type === 'image/jpg'
+  //     ) {
+  //       if (
+  //         file.name.toLowerCase().endsWith('.jpeg') ||
+  //         file.name.toLowerCase().endsWith('.png') ||
+  //         file.name.toLowerCase().endsWith('.jpg')
+  //       ) {
+  //         const reader = new FileReader();
+  //         reader.readAsDataURL(file);
+  
+  //         reader.onload = () => {
+  //           const image = new Image();
+  //           image.src = reader.result as string;
+  
+  //           image.onload = () => {
+  //             if (image.width === 1280 && image.height === 720 && file.size / 1024 <= 1000) {
+  //               this.base64Image.push(image.src);
+  //             } else {
+  //               this.errorMessages = 'Please select a 1280x720 pixels (width×height) & JPEG or PNG image.';
+  //               this.previewImage = '';
+  //             }
+  //           };
+  //         };
+  //       } else {
+  //         this.errorMessages = 'Please select a 1280x720 pixels (width×height) & JPEG or PNG image.';
+  //         this.previewImage = '';
+  //       }
+  //     } else {
+  //       this.errorMessages = 'Please select a 1280x720 pixels (width×height) & JPEG or PNG image.';
+  //       this.previewImage = '';
+  //     }
+  //   }
+  // }
+  
   onselect(event: any) {
     const files = event.target.files;
     this.errorMessages = ''; // Clear previous error messages
@@ -305,26 +349,32 @@ export class EditServiceComponent implements OnInit {
             image.src = reader.result as string;
   
             image.onload = () => {
-              if (image.width === 1280 && image.height === 720 && file.size / 1024 <= 1000) {
-                this.base64Image.push(image.src);
+              const imageSize = file.size / 1024; // Size of individual image in KB
+  
+              if (image.width === 1280 && image.height === 720) {
+                if (imageSize <= 720) {
+                  this.base64Image.push(image.src);
+                } else {
+                  this.errorMessages = 'Individual image size should not exceed 720 KB.';
+                  this.previewImage = '';
+                }
               } else {
-                this.errorMessages = 'Please select a 1280x720 pixels (width×height) & JPEG or PNG image.';
+                this.errorMessages = 'Please select a 1280x720 pixels (width×height) & maximum 720 KB JPEG or PNG image.';
                 this.previewImage = '';
               }
             };
           };
         } else {
-          this.errorMessages = 'Please select a 1280x720 pixels (width×height) & JPEG or PNG image.';
+          this.errorMessages = 'Please select a 1280x720 pixels (width×height) & maximum 720 KB JPEG or PNG image.';
           this.previewImage = '';
         }
       } else {
-        this.errorMessages = 'Please select a 1280x720 pixels (width×height) & JPEG or PNG image.';
+        this.errorMessages = 'Please select a 1280x720 pixels (width×height) & maximum 720 KB JPEG or PNG image.';
         this.previewImage = '';
       }
     }
   }
   
-
   onBannerImageSelect(event: any) {
     debugger
     const file = event.target.files[0];
@@ -341,19 +391,19 @@ export class EditServiceComponent implements OnInit {
         image.src = URL.createObjectURL(file);
 
         image.onload = () => {
-          if (image.width === 1280 && image.height === 720 && imageSize <= 1020) {
+          if (image.width === 1280 && image.height === 720 ) {
             this.errorMessages = '';
             this.isValid = true;
-            this.previewImage = this.sanitizer.bypassSecurityTrustUrl(image.src) as SafeUrl;
+            this.previewImage = image.src;
           } else {
-            this.errorMessages = 'Please select a 1280x720 pixels (width×height) & JPEG or PNG image.';
+            this.errorMessages = 'Please select a 1280x720 pixels (width×height) & maximum 720 KB JPEG or PNG image.';
             this.isValid = false;
             this.previewImage = '';
           }
         }
       }
       } else {
-        this.errorMessages = 'Please select a 1280x720 pixels (width×height) & JPEG or PNG image.';
+        this.errorMessages = 'Please select a 1280x720 pixels (width×height) & maximum 720 KB JPEG or PNG image.';
         this.previewImage = '';
         return;
     }
@@ -405,20 +455,20 @@ export class EditServiceComponent implements OnInit {
               this.isValid = true;
               this.imageUrl1 = this.sanitizer.bypassSecurityTrustUrl(image.src) as SafeUrl;
             } else {
-              this.errorMessage = 'Please select 512x512 pixels (width×height) image.';
+              this.errorMessage = 'Please select a 512x512 pixels (width×height) & JPEG or PNG image.';
               this.isValid = false;
               this.imageUrl1 = '';
             }
           };
         } else {
-          this.errorMessage = 'Please select a valid JPEG or PNG image.';
+          this.errorMessage = 'Please select a 512x512 pixels (width×height) & JPEG or PNG image.';
           this.imageUrl1 = '';
           return;
         }
   
      
       } else {
-        this.errorMessage = 'Please select a valid JPEG or PNG image.';
+        this.errorMessage = 'Please select a 512x512 pixels (width×height) & JPEG or PNG image.';
       }
     }
   }
@@ -450,20 +500,20 @@ export class EditServiceComponent implements OnInit {
               this.isValid = true;
               this.imageUrl1 = this.sanitizer.bypassSecurityTrustUrl(image.src) as SafeUrl;
             } else {
-              this.errorMessage = 'Please select 512x512 pixels (width×height) image.';
+              this.errorMessage = 'Please select a 512x512 pixels (width×height) & JPEG or PNG image.';
               this.isValid = false;
               this.imageUrl1 = '';
             }
           };
         } else {
-          this.errorMessage = 'Please select a valid JPEG or PNG image.';
+          this.errorMessage = 'Please select a 512x512 pixels (width×height) & JPEG or PNG image.';
           this.imageUrl1 = '';
           return;
         }
   
      
       } else {
-        this.errorMessage = 'Please select a valid JPEG or PNG image.';
+        this.errorMessage = 'Please select a 512x512 pixels (width×height) & JPEG or PNG image.';
       }
     }
     reader.onload = () => {
@@ -496,7 +546,7 @@ export class EditServiceComponent implements OnInit {
   
 
 
-  fileChangeEvents() {
+  uploadServiceIconImage() {
     debugger
     let formData = new FormData();
     formData.append("salonServiceIconImage", this.imageFiles?.file);

@@ -188,7 +188,7 @@
             </div>
             <pagination-controls *ngIf="appointmentsList?.length > 0" (pageChange)="((page = $event))" id="1"
                 (pageIndex)="page" class="paginate-doctor-list" queryParamsHandling="merge" (pageChange)="refresh()"
-                (click)="setScrollPosition()">
+                (click)="setScrollPosition()"  (pageChange)="onPageChange($event)">
             </pagination-controls>
 
         </div>

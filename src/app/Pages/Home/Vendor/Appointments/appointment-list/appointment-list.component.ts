@@ -7,6 +7,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { EMPTY, Observable, Subscription, debounceTime, distinctUntilChanged, interval } from 'rxjs';
 import { ContentService } from 'src/app/Shared/service/content.service';
+import { FilterService } from 'src/app/Shared/service/filter.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -46,6 +47,7 @@ export class AppointmentListComponent implements OnInit {
     private formBuilder: FormBuilder,
     private ngZone     : NgZone,
     private el: ElementRef,
+    private filterService: FilterService,
     public datepipe    : DatePipe) {
       this.datePickerConfig = Object.assign(
         { }
@@ -57,11 +59,14 @@ export class AppointmentListComponent implements OnInit {
     this.salonImage = localStorage.getItem('salonImage');
     this.salonName  = localStorage.getItem('salonName');
     this.role       = localStorage.getItem('role');
-    this.getAppointmentsList();
-    this.getAppointmentsLists();
-    this.route.queryParams.subscribe(params => {
-      this.page = +params['page'] || 0; // Use the 'page' query parameter value, or default to 1
-    });
+    if(!this.filterAllList){
+      this.getAppointmentsList();
+      this.getAppointmentsLists();
+    }
+    this.route.queryParams.subscribe((params) => {
+      this.page = params['page'] ? parseInt(params['page'], 10) : 1;
+
+    }); 
     
     this.form = this.formBuilder.group({
       // deliveryType: [''],
@@ -73,7 +78,36 @@ export class AppointmentListComponent implements OnInit {
       sortDateBy       : ['1'],
 
     });
+    const filterParams = this.filterService.getFilterParams();
+    debugger
+    if (filterParams) {
+      this.applyFilter(filterParams);
+    
+    }
     this.watchFromDateChanges();
+  }
+
+  applyFilter(params: any): void {
+    // Apply filter logic with the provided params
+    debugger
+   
+    this.form.patchValue({
+      fromDate: params.fromDate || '',
+      toDate: params.toDate || '',
+      paymentStatus: params.paymentStatus || '',
+      paymentMethod: params.paymentMethod || '',
+      appointmentStatus: params.appointmentStatus || '',
+      sortDateBy: params.sortDateBy || '1',
+    });
+    // if ( params.mainCategoryId && params.subCategoryId) {
+    //   // Hit the subcategory function and patch the subCategoryId
+    //   this.getSubcategoryList( params.mainCategoryId);
+    // }
+    // if(params.mainCategoryId){
+    //   this.getSubcategoryList( params.mainCategoryId);
+    // }
+    // Trigger the filter
+    this.filterAllList();
   }
   private watchFromDateChanges() {
     const fromDateControl: AbstractControl | null = this.form.get('fromDate');
@@ -124,7 +158,14 @@ export class AppointmentListComponent implements OnInit {
   clearDate(){
     window.location.reload()
   }
-
+  onPageChange(page: number): void {
+    // Update query parameters for pagination
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { page: page },
+      queryParamsHandling: 'merge',
+    });
+  }
   ngOnDestroy() {
     if (this.refreshSubscription) {
       this.refreshSubscription.unsubscribe();
@@ -327,6 +368,14 @@ export class AppointmentListComponent implements OnInit {
         this.appointmentsList = response.data
         // this.startRefreshInterval();
         this.spinner.hide();
+        this.filterService.setFilterParams({
+          fromDate: this.form.value.fromDate,
+          toDate: this.form.value.toDate,
+          paymentStatus: this.form.value.paymentStatus,
+          paymentMethod: this.form.value.paymentMethod,
+          appointmentStatus: this.form.value.appointmentStatus,
+          sortDateBy: this.form.value.sortDateBy,
+        });
         //   this.toaster.success(response.messages)
       } else {
         this.spinner.hide();

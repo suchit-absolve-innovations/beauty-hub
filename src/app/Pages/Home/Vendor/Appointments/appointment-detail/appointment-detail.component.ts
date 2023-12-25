@@ -69,9 +69,10 @@ export class AppointmentDetailComponent implements OnInit {
   }
   
   backClicked() {
-    this.router.navigate(['/appointment-list'], {
-      queryParamsHandling: 'preserve'
-    });
+    this._location.back();
+    // this.router.navigate(['/appointment-list'], {
+    //   queryParamsHandling: 'preserve'
+    // });
   }
 
   getApointmentDetail() {  
