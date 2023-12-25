@@ -234,10 +234,10 @@ export class EditSalonBannerComponent implements OnInit {
       if (response.isSuccess) {
         this.spinner.hide();
         this.toaster.success(response.messages)
-        this.router.navigateByUrl('/salon-banner-list')
-        setTimeout(() => {
-          window.location.reload();
-        }, 500); 
+        // this.router.navigateByUrl('/salon-banner-list')
+        // setTimeout(() => {
+        //   window.location.reload();
+        // }, 500); 
       } else {
         this.spinner.hide();
         this.toaster.error(response.messages)
