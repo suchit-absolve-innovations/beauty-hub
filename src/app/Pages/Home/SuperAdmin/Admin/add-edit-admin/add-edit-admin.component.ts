@@ -162,7 +162,8 @@ export class AddEditAdminComponent implements OnInit {
       this.contentService.updateAdminUser(payload).subscribe(response => {
         this.id = response.data?.id;
         this.fileChangeEvent();
-        this.afterResponse(response);
+        this.updateAfterResponse(response);
+        
         
       });
 
@@ -181,14 +182,27 @@ export class AddEditAdminComponent implements OnInit {
       this.contentService.postAdminUser(payload).subscribe(response => {
         this.id = response.data?.id;
         this.fileChangeEvent();
-        this.afterResponse(response);
+        this.addAfterResponse(response);
         this.spinner.hide();
       });
     }
   }
 
   // for status message
-  afterResponse(response: any) {
+  updateAfterResponse(response: any) {
+    if (response && response.statusCode == 200) {
+      if (response.isSuccess) {
+        
+        this.toasterService.success(response.messages);
+      
+      }
+      else {
+        this.toasterService.error(response.messages);
+      }
+    }
+  }
+
+  addAfterResponse(response: any) {
     if (response && response.statusCode == 200) {
       if (response.isSuccess) {
         this.form.reset();
@@ -203,7 +217,6 @@ export class AddEditAdminComponent implements OnInit {
       }
     }
   }
-
   // get detail 
   getAdminDetail(id: string) {
     this.spinner.show();

@@ -382,10 +382,10 @@ imageConvert64() {
     this.spinner.hide()
     if (response.isSuccess) {
       this.toaster.success(response.messages);
-       this._location.back();
-        setTimeout(() => {
-          window.location.reload();
-        }, 500); 
+      //  this._location.back();
+      //   setTimeout(() => {
+      //     window.location.reload();
+      //   }, 500); 
     } else {
       this.toaster.error(response.messages)
     }

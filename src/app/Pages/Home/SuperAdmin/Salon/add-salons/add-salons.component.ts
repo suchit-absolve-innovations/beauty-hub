@@ -530,10 +530,10 @@ add() {
             this.fileChangeEvents();
             this.fileQrChangeEvents();
             this.toaster.success(response.messages);
-            this.router.navigateByUrl('/salon-list');
-            setTimeout(() => {
-              window.location.reload();
-            }, 500); 
+            // this.router.navigateByUrl('/salon-list');
+            // setTimeout(() => {
+            //   window.location.reload();
+            // }, 500); 
           } else {
             this.spinner.hide();
             this.toaster.error(response.messages);

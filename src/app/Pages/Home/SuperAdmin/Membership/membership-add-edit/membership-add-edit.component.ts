@@ -110,7 +110,7 @@ export class MembershipAddEditComponent implements OnInit {
         if (response.isSuccess) {
           this.spinner.hide();
           this.toasterService.success(response.messages);
-          this.router.navigateByUrl('/plan-list');
+          // this.router.navigateByUrl('/plan-list');
    
         } else {
           this.toasterService.error(response.messages);
