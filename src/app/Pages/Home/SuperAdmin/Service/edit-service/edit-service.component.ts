@@ -326,7 +326,12 @@ export class EditServiceComponent implements OnInit {
   onBannerImageSelect(event: any, isBannerImage: boolean = false) {
     const files = event.target.files;
     this.errorMessages = ''; // Clear previous error messages
-  
+    const totalImages = this.base64Image.length + files.length;
+
+    if (totalImages > 5) {
+      this.errorMessages = 'You can only select up to 5 images.';
+      return;
+    }
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
   
