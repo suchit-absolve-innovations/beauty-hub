@@ -238,8 +238,8 @@
                             <label>Service Image</label>
                             <br>
                             <input type="file" class="uploadFile img" #image1 (change)="handleFileInput($event)" (change)="onImageSelect($event)">
-                            <h6 style="color:343a40 !important; font-size: 14px;" *ngIf="serviceDetailPatch.serviceIconImage">
-                              {{ serviceDetailPatch.serviceIconImage }}
+                            <h6 style="color:343a40 !important; font-size: 14px;" *ngIf="serviceDetailPatch?.serviceIconImage">
+                              {{ serviceDetailPatch?.serviceIconImage }}
                             </h6>
                             <label *ngIf="imageUrl1" width="512" height="512" data-toggle="modal" data-target="#myModal" class="preview-butn">preview</label>
                             <div *ngIf="errorMessage" class="help-block" style="color: #fd0000">{{ errorMessage }}</div>

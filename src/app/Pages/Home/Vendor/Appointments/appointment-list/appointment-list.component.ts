@@ -305,11 +305,11 @@ export class AppointmentListComponent implements OnInit {
   paymentsStatus() {
     this.postPaymentsStatus = this.form.value.paymentStatus
   }
+
   postPaymentStatus(data: any) {
     let payload = {
       appointmentId: data.appointmentId,
       paymentStatus: this.postPaymentsStatus,
-
     };
     this.spinner.show();
     this.content.postPaymentStatus(payload).subscribe(response => {
