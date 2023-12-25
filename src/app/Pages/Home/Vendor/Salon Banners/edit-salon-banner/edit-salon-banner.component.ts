@@ -30,6 +30,7 @@ export class EditSalonBannerComponent implements OnInit {
   editImages: any;
   selectedFilter: any;
   showBrandDiv: boolean = false;
+  showBanner: boolean = false;
   previewImage: any;
   urls1: any = [];
   image1: any;
@@ -254,6 +255,12 @@ export class EditSalonBannerComponent implements OnInit {
   onBannerTypeChange(selectedValue: string) {
     this.showBrandDiv = selectedValue === 'SalonCategoryBanner';
     this.selectedFilter = selectedValue === 'SalonCategoryBanner';
+    this.showBanner = selectedValue === 'SalonBanner'
+
+    if(this.showBanner){
+      this.form.value.mainCategoryId = ['']
+      this.form.value.subCategoryId = ['']
+    }
     // Perform any other actions based on the selected value
     
   }
