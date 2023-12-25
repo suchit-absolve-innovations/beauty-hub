@@ -9,7 +9,7 @@
 
         <div class="d-flex if_xs_btn mt-30">
             <input type="text" placeholder="Search Here" class="btn_border search_here" (input)="addSpaceAfterText()"
-                [(ngModel)]="searchText"  (click)="performSearch()">
+                [(ngModel)]="searchText"  (click)="performSearch()"  (input)="searchlist()"  (click)="onSearch(search)">
                 <a *ngIf="login == 'SuperAdmin'" data-toggle="modal" data-target="#myModalpurchase-membership" class="btn_blue ml-3 mb-0" (click)="performSearch()" (click)="onSearch(search)">Filter</a>
                 <a  *ngIf="login == 'Vendor'" data-toggle="modal" data-target="#vendorCategoryFilter" class="btn_blue ml-3 mb-0" (click)="performSearch()" (click)="onSearch(search)">Filter</a>
 
