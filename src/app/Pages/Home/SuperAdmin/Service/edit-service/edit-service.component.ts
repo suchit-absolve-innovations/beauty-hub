@@ -323,8 +323,7 @@ export class EditServiceComponent implements OnInit {
   //     }
   //   }
   // }
-  
-  onselect(event: any) {
+  onBannerImageSelect(event: any, isBannerImage: boolean = false) {
     const files = event.target.files;
     this.errorMessages = ''; // Clear previous error messages
   
@@ -353,9 +352,15 @@ export class EditServiceComponent implements OnInit {
   
               if (image.width === 1280 && image.height === 720) {
                 if (imageSize <= 720) {
-                  this.base64Image.push(image.src);
+                  if (isBannerImage) {
+                    this.errorMessages = '';
+                    this.isValid = true;
+                    this.previewImage = image.src;
+                  } else {
+                    this.base64Image.push(image.src);
+                  }
                 } else {
-                  this.errorMessages = 'Individual image size should not exceed 720 KB.';
+                  this.errorMessages = isBannerImage ? 'Banner image size should not exceed 720 KB.' : 'Individual image size should not exceed 720 KB.';
                   this.previewImage = '';
                 }
               } else {
@@ -375,42 +380,93 @@ export class EditServiceComponent implements OnInit {
     }
   }
   
-  onBannerImageSelect(event: any) {
-    debugger
-    const file = event.target.files[0];
+  // onselect(event: any) {
+  //   const files = event.target.files;
+  //   this.errorMessages = ''; // Clear previous error messages
   
-    if (file) {
-      const fileType = file.type;
-      const fileName = file.name;
+  //   for (let i = 0; i < files.length; i++) {
+  //     const file = files[i];
   
-      if ((fileType === 'image/jpeg' || fileType === 'image/png')) {
-        if (fileName.toLowerCase().endsWith('.jpeg') || (fileName.toLowerCase().endsWith('.png')) ||  (fileName.toLowerCase().endsWith('.jpg'))) {
-          const imageSize = file.size / 1024; // in KB
-          const image = new Image();
+  //     if (
+  //       file.type === 'image/jpeg' ||
+  //       file.type === 'image/png' ||
+  //       file.type === 'image/jpg'
+  //     ) {
+  //       if (
+  //         file.name.toLowerCase().endsWith('.jpeg') ||
+  //         file.name.toLowerCase().endsWith('.png') ||
+  //         file.name.toLowerCase().endsWith('.jpg')
+  //       ) {
+  //         const reader = new FileReader();
+  //         reader.readAsDataURL(file);
+  
+  //         reader.onload = () => {
+  //           const image = new Image();
+  //           image.src = reader.result as string;
+  
+  //           image.onload = () => {
+  //             const imageSize = file.size / 1024; // Size of individual image in KB
+  
+  //             if (image.width === 1280 && image.height === 720) {
+  //               if (imageSize <= 720) {
+  //                 this.base64Image.push(image.src);
+  //               } else {
+  //                 this.errorMessages = 'Individual image size should not exceed 720 KB.';
+  //                 this.previewImage = '';
+  //               }
+  //             } else {
+  //               this.errorMessages = 'Please select a 1280x720 pixels (width×height) & maximum 720 KB JPEG or PNG image.';
+  //               this.previewImage = '';
+  //             }
+  //           };
+  //         };
+  //       } else {
+  //         this.errorMessages = 'Please select a 1280x720 pixels (width×height) & maximum 720 KB JPEG or PNG image.';
+  //         this.previewImage = '';
+  //       }
+  //     } else {
+  //       this.errorMessages = 'Please select a 1280x720 pixels (width×height) & maximum 720 KB JPEG or PNG image.';
+  //       this.previewImage = '';
+  //     }
+  //   }
+  // }
+  
+  // onBannerImageSelect(event: any) {
+  //   debugger
+  //   const file = event.target.files[0];
+  
+  //   if (file) {
+  //     const fileType = file.type;
+  //     const fileName = file.name;
+  
+  //     if ((fileType === 'image/jpeg' || fileType === 'image/png')) {
+  //       if (fileName.toLowerCase().endsWith('.jpeg') || (fileName.toLowerCase().endsWith('.png')) ||  (fileName.toLowerCase().endsWith('.jpg'))) {
+  //         const imageSize = file.size / 1024; // in KB
+  //         const image = new Image();
     
-        image.src = URL.createObjectURL(file);
+  //       image.src = URL.createObjectURL(file);
 
-        image.onload = () => {
-          if (image.width === 1280 && image.height === 720 ) {
-            this.errorMessages = '';
-            this.isValid = true;
-            this.previewImage = image.src;
-          } else {
-            this.errorMessages = 'Please select a 1280x720 pixels (width×height) & maximum 720 KB JPEG or PNG image.';
-            this.isValid = false;
-            this.previewImage = '';
-          }
-        }
-      }
-      } else {
-        this.errorMessages = 'Please select a 1280x720 pixels (width×height) & maximum 720 KB JPEG or PNG image.';
-        this.previewImage = '';
-        return;
-    }
+  //       image.onload = () => {
+  //         if (image.width === 1280 && image.height === 720 ) {
+  //           this.errorMessages = '';
+  //           this.isValid = true;
+  //           this.previewImage = image.src;
+  //         } else {
+  //           this.errorMessages = 'Please select a 1280x720 pixels (width×height) & maximum 720 KB JPEG or PNG image.';
+  //           this.isValid = false;
+  //           this.previewImage = '';
+  //         }
+  //       }
+  //     }
+  //     } else {
+  //       this.errorMessages = 'Please select a 1280x720 pixels (width×height) & maximum 720 KB JPEG or PNG image.';
+  //       this.previewImage = '';
+  //       return;
+  //   }
      
-    } 
+  //   } 
    
-  }
+  // }
   convertImageToBase64(url: string): Promise<string> {
     return new Promise<string>((resolve, reject) => {
       this.http.get(url, { responseType: 'blob' })
