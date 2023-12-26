@@ -91,6 +91,8 @@ form:any;
       this.form.get('subCategoryId').setValue('');
     });
   }
+  
+  
 
   onItemSelect(item: any) { }
 
@@ -111,7 +113,7 @@ form:any;
       durationInMinutes    : ['', [Validators.required]],
       lockTimeStart        : [''],
       lockTimeEnd          : [''],
-      serviceDescription: ['', [Validators.required, this.maxLengthValidator(160)]],
+      serviceDescription   : ['', [Validators.required, this.maxLengthValidator(160)]],
       serviceId            : [],
       includeServiceId     : []
 
