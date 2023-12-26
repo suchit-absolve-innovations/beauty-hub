@@ -30,7 +30,7 @@
                                                 (change)="onselect($event)" multiple [disabled]="urls.length >= 5 "  />
                                         </label>
                                         <div *ngIf="urls.length >= 5 && urls.length !== previewImage.length" class="error-message" style="color: #fd0000">
-                                            You can only select up to 5 images.
+                                            You can  select only 5 images.
                                         </div>
                                         <div *ngIf="errorMessages" class="error-message" style="color: #fd0000">{{
                                             errorMessages }}</div>
