@@ -366,8 +366,11 @@ return ;
                   if (isBannerImage) {
                     this.errorMessages = '';
                     this.isValid = true;
+                    debugger
                     this.previewImage = image.src;
                   } else {
+                    debugger
+                    this.previewImage = this.sanitizer.bypassSecurityTrustUrl(image.src) as SafeUrl;
                     this.base64Image.push(image.src);
                   }
                 } else {
@@ -388,6 +391,36 @@ return ;
         this.errorMessages = 'Please select a 1280x720 pixels (width×height) & maximum 720 KB JPEG or PNG image.';
         this.previewImage = '';
       }
+    }
+  }
+
+
+  onFileSelected(event: any) {
+    const file = event.target.files[0];
+    const fileType = event.target.files[0].type;
+  
+    if ((fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') &&
+        (file.name.toLowerCase().endsWith('.jpeg') || file.name.toLowerCase().endsWith('.png') || file.name.toLowerCase().endsWith('.jpg'))) {
+      if (file) {
+        const imageSize = file.size / 1024; // in KB
+        const image = new Image();
+  
+        image.src = URL.createObjectURL(file);
+  
+        image.onload = () => {
+          if (image.width === 1280 && image.height === 720) {
+            this.errorMessages = '';
+            debugger
+            this.previewImage = this.sanitizer.bypassSecurityTrustUrl(image.src) as SafeUrl;
+          } else {
+            this.errorMessages = 'Please select a 1280x720 pixels (width×height) & JPEG or PNG image.';
+            this.previewImage = '';
+          }
+        };
+      }
+    } else {
+      this.errorMessages = 'Please select a 1280x720 pixels (width×height) & JPEG or PNG image.';
+      this.previewImage = '';
     }
   }
   

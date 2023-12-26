@@ -244,6 +244,7 @@ export class AddServiceComponent implements OnInit {
         image.onload = () => {
           if (image.width === 1280 && image.height === 720) {
             this.errorMessages = '';
+            debugger
             this.previewImage = this.sanitizer.bypassSecurityTrustUrl(image.src) as SafeUrl;
           } else {
             this.errorMessages = 'Please select a 1280x720 pixels (width×height) & JPEG or PNG image.';

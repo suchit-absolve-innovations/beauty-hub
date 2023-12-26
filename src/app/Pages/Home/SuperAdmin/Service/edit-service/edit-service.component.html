@@ -17,12 +17,12 @@
                             <div class="upload_file text-center">
                                 <div class="imges-upload mb-0">
                                     <div class="imgUp m-auto">
-                                        <div class="imagePreview" style="background-image: url(&quot;undefined&quot;);" *ngIf="previewImage"  width="1280" height="720">
+                                        <div class="imagePreview" style="background-image: url(&quot;undefined&quot;);" *ngIf="previewImage" >
                                         </div>
                                         <label class="upload button btn btn-primary" >
                                             Upload<input type="file" class="uploadFile img" name="bannerimage"
                                                 style="width: 0px;height: 0px;overflow: file; border-style: none;"
-                                                id="bannerimage" (change)="onBannerImageSelect($event)"
+                                                id="bannerimage"  (change)="onFileSelected($event)" (change)="onBannerImageSelect($event)"
                                                  multiple  />
                                         </label>
                                         <div *ngIf="errorMessages" class="help-block" style="color: #fd0000">{{ errorMessages }}</div>
