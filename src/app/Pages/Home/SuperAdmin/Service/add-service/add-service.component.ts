@@ -31,7 +31,7 @@ export class AddServiceComponent implements OnInit {
   time!: string;
   time2!: string;
   urls: any = [];
-  imageFiles!: { link: any, file: any, name: any, type: any };
+  imageFile!: { link: any, file: any, name: any, type: any };
   serviceId: any;
   startTime: any;
   endTime: any;
@@ -51,7 +51,6 @@ export class AddServiceComponent implements OnInit {
   discount: any = 0;
   listingPrice: any = 0;
   maxDiscountValue: any;
-  serviceDetailPatch: any;
 
   constructor(private router: Router,
     private formBuilder: FormBuilder,
@@ -234,27 +233,32 @@ export class AddServiceComponent implements OnInit {
     const fileType = event.target.files[0].type;
   
     if ((fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') &&
-        (file.name.toLowerCase().endsWith('.jpeg') || file.name.toLowerCase().endsWith('.png') || file.name.toLowerCase().endsWith('.jpg'))) {
+      (file.name.toLowerCase().endsWith('.jpeg') || file.name.toLowerCase().endsWith('.png') || file.name.toLowerCase().endsWith('.jpg'))) {
       if (file) {
         const imageSize = file.size / 1024; // in KB
         const image = new Image();
-  
+
         image.src = URL.createObjectURL(file);
-  
+
         image.onload = () => {
+          const imageSize = file.size / 1024;
+
           if (image.width === 1280 && image.height === 720) {
-            this.errorMessages = '';
-            debugger
-            this.previewImage = this.sanitizer.bypassSecurityTrustUrl(image.src) as SafeUrl;
-          } else {
-            this.errorMessages = 'Please select a 1280x720 pixels (width×height) & JPEG or PNG image.';
-            this.previewImage = '';
+            if (imageSize <= 720) {
+              this.errorMessages = '';
+              this.previewImage = image.src;
+            } else {
+              this.errorMessages = 'Please select a 1280x720 pixels (width×height) & maximum 720 KB JPEG or PNG image.';
+              this.previewImage = '';
+              return;
+            }
           }
         };
       }
     } else {
-      this.errorMessages = 'Please select a 1280x720 pixels (width×height) & JPEG or PNG image.';
+      this.errorMessages = 'Please select a 1280x720 pixels (width×height) & maximum 720 KB JPEG or PNG image.';
       this.previewImage = '';
+      return;
     }
   }
   // onFileSelected(event: any) {
@@ -283,25 +287,34 @@ export class AddServiceComponent implements OnInit {
   // }
   onselect(event: any) {
     const files = event.target.files;
-  
+    const totalImages = this.urls.length + files.length;
+
+    if (totalImages > 5) {
+      this.errorMessages = 'You can only select up to 5 images.';
+      this.previewImage = '';
+      return;
+    }
+
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
-  
+
       if (
         (file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/jpg') &&
         (file.name.toLowerCase().endsWith('.jpeg') || file.name.toLowerCase().endsWith('.png') || file.name.toLowerCase().endsWith('.jpg'))
       ) {
         const reader = new FileReader();
         reader.readAsDataURL(file);
-  
+
         reader.onload = () => {
           const image = new Image();
           image.src = reader.result as string;
-  
+
           image.onload = () => {
             if (image.width === 1280 && image.height === 720) {
               this.urls.push(image.src);
             } else {
+              this.previewImage = '';
+              return;
               // Handle cases where the image doesn't meet the required dimensions
             }
           };
@@ -338,20 +351,20 @@ export class AddServiceComponent implements OnInit {
   //////service icon image//
   onImageSelect(event: any) {
     debugger;
-  
+
     const file = event.target.files[0];
-  
+
     if (file) {
       const fileType = file.type;
       const fileName = file.name;
-  
+
       if ((fileType === 'image/jpeg' || fileType === 'image/png')) {
-        if (fileName.toLowerCase().endsWith('.jpeg') || (fileName.toLowerCase().endsWith('.png')) ||  (fileName.toLowerCase().endsWith('.jpg'))) {
+        if (fileName.toLowerCase().endsWith('.jpeg') || (fileName.toLowerCase().endsWith('.png')) || (fileName.toLowerCase().endsWith('.jpg'))) {
           const imageSize = file.size / 1024; // in KB
           const image = new Image();
-    
+
           image.src = URL.createObjectURL(file);
-    
+
           image.onload = () => {
             if (image.width === 512 && image.height === 512 && imageSize <= 512) {
               this.errorMessage = '';
@@ -360,83 +373,40 @@ export class AddServiceComponent implements OnInit {
             } else {
               this.errorMessage = 'Please select 512x512 pixels (width×height) & JPEG or PNG image.';
               this.isValid = false;
-              this.imageUrl1= '';
+              this.imageUrl1 = '';
             }
           }
         } else {
           this.errorMessage = 'Please select 512x512 pixels (width×height) & JPEG or PNG image.';
           this.imageUrl1 = '';
-         
+
         }
-      } 
+      }
     }
   }
   handleFileInput(event: any) {
     const files = event.target.files;
-    const file = files[0]; // Assuming you only care about the first file
-  
-    const reader = new FileReader();
-  
-    reader.readAsDataURL(file);
-    if (file) {
-      const fileType = file.type;
-      const fileName = file.name;
-  
-      if ((fileType === 'image/jpeg' || fileType === 'image/png')) {
-        if (fileName.toLowerCase().endsWith('.jpeg') || (fileName.toLowerCase().endsWith('.png')) ||  (fileName.toLowerCase().endsWith('.jpg'))) {
-          const imageSize = file.size / 1024; // in KB
-          const image = new Image();
-    
-          image.src = URL.createObjectURL(file);
-    
-          image.onload = () => {
-            if (image.width === 512 && image.height === 512 && imageSize <= 512) {
-              this.errorMessage = '';
-              this.isValid = true;
-              this.imageUrl1 = this.sanitizer.bypassSecurityTrustUrl(image.src) as SafeUrl;
-            } else {
-              this.errorMessage = 'Please select a 512x512 pixels (width×height) & JPEG or PNG image.';
-              this.isValid = false;
-              this.imageUrl1 = '';
-            }
-          };
-        } else {
-          this.errorMessage = 'Please select a 512x512 pixels (width×height) & JPEG or PNG image.';
-          this.imageUrl1 = '';
-          return;
-        }
-  
-     
-      } else {
-        this.errorMessage = 'Please select a 512x512 pixels (width×height) & JPEG or PNG image.';
+    for (let e = 0; e < files.length; e++) {
+      const file = files[e];
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        const image = new Image();
+        image.src = reader.result as string;
+
+        image.onload = () => {
+          if (image.width === 512 && image.height === 512) {
+            // Only add the image to the array if it meets the dimensions criteria.
+            const imageDataUrl1 = reader.result as string;
+            this.imageUrl = imageDataUrl1;
+            this.urls1.push(imageDataUrl1);
+          } else {
+            this.errorMessage = 'Please select 512x512 pixels (width×height) & JPEG or PNG image.';
+            this.imageUrl1 = '';
+          }
+        };
       }
     }
-    reader.onload = () => {
-      const image = new Image();
-      image.src = reader.result as string;
-  
-      image.onload = () => {
-        if (image.width === 512 && image.height === 512) {
-          // Only add the image to the array and update the preview if it meets the dimensions criteria.
-          const imageDataUrl = reader.result as string;
-  
-          // Update serviceDetailPatch.serviceIconImage with the new image URL
-          this.serviceDetailPatch = file.name;
-  
-          // You can keep the rest of your logic here if needed
-          this.imageUrl1 = imageDataUrl;
-          this.imageFiles = {
-            link: imageDataUrl,
-            file: file,
-            name: file.name,
-            type: file.type
-          };
-        } else {
-          // Handle the case where the image doesn't meet the criteria (optional).
-          // You can add error messages or any other handling you prefer.
-        }
-      };
-    };
   }
   // handleImageInput(event: any) {
   //   const files = event.target.files;
