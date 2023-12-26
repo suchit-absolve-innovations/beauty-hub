@@ -88,9 +88,7 @@
                                     <option value="">Select </option>
                                     <option *ngFor="let item of categoryList" [ngValue]="item?.mainCategoryId">
                                         {{item?.categoryName}}</option>
-
-                                </select>
-          
+                                </select>          
                             </div>
                             <div class="col-lg-6 col-md-12">
                                 <label>Sub Category</label>
@@ -117,7 +115,8 @@
                                 </select> -->
                                     <ng-multiselect-dropdown [settings]="dropdownSettings" [data]="bindServiceList"
                                         [(ngModel)]="selectedItems" formControlName="includeServiceId"
-                                        (onDeSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
+                                        (onDeSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)"
+                                       >
                                         <option *ngFor="let serviceId of serviceList" [value]="serviceId.serviceId">
                                             {{serviceId.serviceName}}
                                         </option>

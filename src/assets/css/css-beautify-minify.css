@@ -9085,6 +9085,7 @@ button,
   position: fixed;
   width: 100%;
   top: 0;
+  z-index: 99;
 }
 .fixed-header .app-header .app-header__logo {
   visibility: visible;

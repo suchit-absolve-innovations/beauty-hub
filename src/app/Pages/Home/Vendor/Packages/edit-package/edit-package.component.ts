@@ -110,6 +110,7 @@ form:any;
   onItemSelect(item: any) { }
 
   onSelectAll(items: any) { }
+  
 
 
   serviceForm() {

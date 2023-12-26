@@ -1925,6 +1925,16 @@ input.uploadFile.img {
 }
 
 
+.upload-name  
+    {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 15px;
+    }
+
+
+
 
 /* collection page css */
 
