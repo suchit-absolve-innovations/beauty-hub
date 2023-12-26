@@ -78,28 +78,12 @@ export class CategoryListComponent implements OnInit {
     // this.getvendorDetail();
     this.getCategoryRequestList();
     this.getList();
-    this.route.queryParams.subscribe((params) => {
-      this.search = params['search'] || '';
-      this.page = params['page'] ? parseInt(params['page'], 10) : 1;
 
-      // Fetch data based on the search term and page
-      this.getList();
-    });
     // this.getsuperlist();
     this.filterListForm();
-    this.searchText = this.searchService.getSearchCriteria();
   }
 
-  searchlist(): void {
-    this.searchService.setSearchCriteria(this.searchText);
-  }
-  onSearch(searchTerm: string): void {
-    // Update query parameters for search
-    this.router.navigate([], {
-      queryParams: { search: searchTerm, page: 1 }, // Reset to the first page when searching
-      queryParamsHandling: 'merge',
-    });
-  }
+ 
 
   clearSearchedData(): void {
     // Call the clearSearchCriteria method when the sidebar is clicked

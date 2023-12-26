@@ -212,12 +212,6 @@ export class EditServiceComponent implements OnInit {
       this.toasterService.error("Form Incomplete: Please fill in all the required fields correctly");
       return;
     }
-
-    if( this.errorMessage == 'Please select a 512x512 pixels (width×height) & JPEG or PNG image.'){
-      alert('hello')
-return ;
-    }
-
     let payload = {
       serviceId: parseInt(this.serviceId.id2),
       salonId: parseInt(this.salonId.id),
@@ -413,13 +407,13 @@ return ;
             debugger
             this.previewImage = this.sanitizer.bypassSecurityTrustUrl(image.src) as SafeUrl;
           } else {
-            this.errorMessages = 'Please select a 1280x720 pixels (width×height) & JPEG or PNG image.';
+            this.errorMessages = 'Please select a 1280x720 pixels (width×height) & maximum 720 KB JPEG or PNG image.';
             this.previewImage = '';
           }
         };
       }
     } else {
-      this.errorMessages = 'Please select a 1280x720 pixels (width×height) & JPEG or PNG image.';
+      this.errorMessages = 'Please select a 1280x720 pixels (width×height) & maximum 720 KB JPEG or PNG image.';
       this.previewImage = '';
     }
   }

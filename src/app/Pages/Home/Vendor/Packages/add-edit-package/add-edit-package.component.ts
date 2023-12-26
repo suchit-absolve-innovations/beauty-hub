@@ -412,6 +412,13 @@ private dataURItoBlob1(dataURI: string): Blob {
 }
 onselect(event: any) {
   const files = event.target.files;
+  const totalImages = this.urls.length + files.length;
+
+  if (totalImages > 5) {
+    this.errorMessages = 'You can only select up to 5 images.';
+  // Clear preview images array if more than 5 images selected
+    return;
+  }
 
   for (let i = 0; i < files.length; i++) {
     const file = files[i];
@@ -428,8 +435,19 @@ onselect(event: any) {
         image.src = reader.result as string;
 
         image.onload = () => {
+          const imageSize = file.size / 1024;
+
           if (image.width === 1280 && image.height === 720) {
-            this.urls.push(image.src);
+            if (imageSize <= 720) {
+              if (totalImages <= 5) {
+                this.urls.push(image.src);
+                if (this.previewImage.length < 5) {
+                  this.previewImage.push(image.src); // Add to preview only if count is less than 5
+                }
+              }
+            } else {
+              // Handle cases where the image exceeds size limit
+            }
           } else {
             // Handle cases where the image doesn't meet the required dimensions
           }
@@ -440,7 +458,6 @@ onselect(event: any) {
     }
   }
 }
-
 
 onFileSelected(event: any) {
   const file = event.target.files[0];
@@ -455,17 +472,20 @@ onFileSelected(event: any) {
       image.src = URL.createObjectURL(file);
 
       image.onload = () => {
+        const imageSize = file.size / 1024;
         if (image.width === 1280 && image.height === 720) {
+          if (imageSize <= 720) {  
           this.errorMessages = '';
-          this.previewImage = this.sanitizer.bypassSecurityTrustUrl(image.src) as SafeUrl;
+          this.previewImage = image.src ;
         } else {
-          this.errorMessages = 'Please select a 1280x720 pixels (width×height) & JPEG or PNG image.';
+          this.errorMessages = 'Please select a 1280x720 pixels (width×height) & maximum 720 KB JPEG or PNG image.';
           this.previewImage = '';
         }
+      }
       };
     }
   } else {
-    this.errorMessages = 'Please select a 1280x720 pixels (width×height) & JPEG or PNG image.';
+    this.errorMessages = 'Please select a 1280x720 pixels (width×height) & maximum 720 KB JPEG or PNG image.';
     this.previewImage = '';
   }
 }

@@ -27,8 +27,11 @@
                                             Upload<input type="file" class="uploadFile img" name="bannerimage"
                                                 style="width: 0px;height: 0px;overflow: file; border-style: none;"
                                                 id="bannerimage" (change)="onFileSelected($event)"
-                                                (change)="onselect($event)" multiple />
+                                                (change)="onselect($event)" multiple [disabled]="urls.length >= 5 "  />
                                         </label>
+                                        <div *ngIf="urls.length >= 5 && urls.length !== previewImage.length" class="error-message" style="color: #fd0000">
+                                            You can only select up to 5 images.
+                                        </div>
                                         <div *ngIf="errorMessages" class="error-message" style="color: #fd0000">{{
                                             errorMessages }}</div>
 
@@ -266,15 +269,10 @@
                         <div class="col-lg-12 col-md-12 mb-20">
                             <label>Service Image</label>
                             <br>
-                            <div class="upload-name">
                             <input name="bannerimage" type="file" class="uploadFile img" #image1
                             (change)="handleFileInput($event)"  (change)="onImageSelect($event)">
-                            <h6 style="color:343a40 !important; font-size: 14px;" *ngIf="serviceDetailPatch">
-                                {{ serviceDetailPatch }}
-                              </h6>
                             <label *ngIf="imageUrl1" data-toggle="modal" data-target="#myModal3"
                                 class="preview-butn">preview</label>
-                                </div>
                             <div *ngIf="errorMessage" class="help-block" style="color: #fd0000">{{ errorMessage }}</div>
                         </div>
 

@@ -85,7 +85,7 @@
                                     {{packageDetail?.serviceDescription}}</dd>
                             </dl>
                             <dl class=" inform_text">
-                                <dt>Package Image Icon:</dt>
+                                <dt>Package Icon Image:</dt>
                                 <dd><a href="" data-toggle="modal" data-target="#myModal">Preview</a></dd>
                             </dl>
                         </div>
@@ -102,28 +102,29 @@
                                 <dd>{{packageDetail?.basePrice}}</dd>
                             </dl>
                             <dl class="d-flex inform_text">
-                                <dt>Discount:</dt>
-                                <dd>{{packageDetail?.discount}}</dd>
+                                <dt>Listing Price:</dt>
+                                <dd>{{packageDetail?.listingPrice}}</dd>
+                            </dl>
+                           
+                            <dl class="d-flex inform_text">
+                                <dt>Gender:</dt>
+                                <dd>{{packageDetail?.genderPreferences}}</dd>
                             </dl>
                             <dl class="d-flex inform_text">
                                 <dt>Total Count Per Duration:</dt>
                                 <dd>{{packageDetail?.totalCountPerDuration}}</dd>
                             </dl>
-                            <dl class="d-flex inform_text">
-                                <dt>Gender:</dt>
-                                <dd>{{packageDetail?.genderPreferences}}</dd>
-                            </dl>
                          
                         </div>
                         <div class="col-lg-6 col-md-12">
                             <dl class="d-flex inform_text">
+                                <dt>Discount:</dt>
+                                <dd>{{packageDetail?.discount}}</dd>
+                            </dl>
+                            <dl class="d-flex inform_text">
                                 <dt>Status:</dt>
                                 <dd *ngIf="packageDetail?.status == 1" >Active</dd>
                                 <dd *ngIf="packageDetail?.status == 2" >InActive</dd>
-                            </dl>
-                            <dl class="d-flex inform_text">
-                                <dt>Listing Price:</dt>
-                                <dd>{{packageDetail?.listingPrice}}</dd>
                             </dl>
                             <!-- <dl class="d-flex inform_text">
                                 <dt>Is Slot Available:</dt>

@@ -410,10 +410,18 @@ fileChangeEvent() {
 }
 
 
-onselect(event: any) {
+
+
+
+onBannerImageSelect(event: any, isBannerImage: boolean = false) {
   const files = event.target.files;
   this.errorMessages = ''; // Clear previous error messages
+  const totalImages = this.base64Image.length + files.length;
 
+  if (totalImages > 5) {
+    this.errorMessages = 'You can select only 5 images.';
+    return;
+  }
   for (let i = 0; i < files.length; i++) {
     const file = files[i];
 
@@ -435,63 +443,68 @@ onselect(event: any) {
           image.src = reader.result as string;
 
           image.onload = () => {
-            if (image.width === 1280 && image.height === 720 && file.size / 1024 <= 1000) {
-              this.base64Image.push(image.src);
+            const imageSize = file.size / 1024; // Size of individual image in KB
+
+            if (image.width === 1280 && image.height === 720) {
+              if (imageSize <= 720) {
+                if (isBannerImage) {
+                  this.errorMessages = '';
+                  this.isValid = true;
+                  debugger
+                  this.previewImage = image.src;
+                } else {
+                  debugger
+                  this.previewImage = this.sanitizer.bypassSecurityTrustUrl(image.src) as SafeUrl;
+                  this.base64Image.push(image.src);
+                }
+              } else {
+                this.errorMessages = isBannerImage ? 'Banner image size should not exceed 720 KB.' : 'Individual image size should not exceed 720 KB.';
+                this.previewImage = '';
+              }
             } else {
-              this.errorMessages = 'Please select a 1280x720 pixels (width×height) & JPEG or PNG image.';
+              this.errorMessages = 'Please select a 1280x720 pixels (width×height) & maximum 720 KB JPEG or PNG image.';
+              this.previewImage = '';
             }
           };
         };
       } else {
-        this.errorMessages = 'Please select a 1280x720 pixels (width×height) & JPEG or PNG image.';
+        this.errorMessages = 'Please select a 1280x720 pixels (width×height) & maximum 720 KB JPEG or PNG image.';
+        this.previewImage = '';
       }
     } else {
-      this.errorMessages = 'Please select a 1280x720 pixels (width×height) & JPEG or PNG image.';
+      this.errorMessages = 'Please select a 1280x720 pixels (width×height) & maximum 720 KB JPEG or PNG image.';
+      this.previewImage = '';
     }
   }
 }
 
 
-onBannerImageSelect(event: any) {
+onFileSelected(event: any) {
   const file = event.target.files[0];
+  const fileType = event.target.files[0].type;
 
-  if (file) {
-    const fileType = file.type;
-    const fileName = file.name;
+  if ((fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') &&
+      (file.name.toLowerCase().endsWith('.jpeg') || file.name.toLowerCase().endsWith('.png') || file.name.toLowerCase().endsWith('.jpg'))) {
+    if (file) {
+      const imageSize = file.size / 1024; // in KB
+      const image = new Image();
 
-    if (
-      fileType === 'image/jpeg' || 
-      fileType === 'image/png' || 
-      fileType === 'image/jpg'
-    ) {
-      if (
-        fileName.toLowerCase().endsWith('.jpeg') || 
-        fileName.toLowerCase().endsWith('.png') ||  
-        fileName.toLowerCase().endsWith('.jpg')
-      ) {
-        const imageSize = file.size / 1024; // in KB
-        const image = new Image();
+      image.src = URL.createObjectURL(file);
 
-        image.src = URL.createObjectURL(file);
-
-        image.onload = () => {
-          if (image.width === 1280 && image.height === 720 && imageSize <= 1024) {
-            this.errorMessages = '';
-            this.isValid = true;
-            this.previewImage = this.sanitizer.bypassSecurityTrustUrl(image.src) as SafeUrl;
-          } else {
-            this.errorMessages = 'Please select a 1280x720 pixels (width×height) & JPEG or PNG image.';
-            this.isValid = false;
-            this.previewImage = '';
-          }
-        };
-      } else {
-        this.errorMessages = 'Please select a 1280x720 pixels (width×height) & JPEG or PNG image.';
-        this.isValid = false;
-        this.previewImage = '';
-      }
-    } 
-  
+      image.onload = () => {
+        if (image.width === 1280 && image.height === 720) {
+          this.errorMessages = '';
+          debugger
+          this.previewImage = this.sanitizer.bypassSecurityTrustUrl(image.src) as SafeUrl;
+        } else {
+          this.errorMessages = 'Please select a 1280x720 pixels (width×height) & JPEG or PNG image.';
+          this.previewImage = '';
+        }
+      };
+    }
+  } else {
+    this.errorMessages = 'Please select a 1280x720 pixels (width×height) & JPEG or PNG image.';
+    this.previewImage = '';
   }
 }
 
