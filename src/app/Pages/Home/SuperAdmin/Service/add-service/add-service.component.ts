@@ -31,7 +31,7 @@ export class AddServiceComponent implements OnInit {
   time!: string;
   time2!: string;
   urls: any = [];
-  imageFile!: { link: any, file: any, name: any, type: any };
+  imageFiles!: { link: any, file: any, name: any, type: any };
   serviceId: any;
   startTime: any;
   endTime: any;
@@ -51,6 +51,7 @@ export class AddServiceComponent implements OnInit {
   discount: any = 0;
   listingPrice: any = 0;
   maxDiscountValue: any;
+  serviceDetailPatch: any;
 
   constructor(private router: Router,
     private formBuilder: FormBuilder,
@@ -369,29 +370,72 @@ export class AddServiceComponent implements OnInit {
       } 
     }
   }
-  handleFileInput(event: any) {   
+  handleFileInput(event: any) {
     const files = event.target.files;
-    for (let e = 0; e < files.length; e++) {
-      const file = files[e];
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
+    const file = files[0]; // Assuming you only care about the first file
+  
+    const reader = new FileReader();
+  
+    reader.readAsDataURL(file);
+    if (file) {
+      const fileType = file.type;
+      const fileName = file.name;
+  
+      if ((fileType === 'image/jpeg' || fileType === 'image/png')) {
+        if (fileName.toLowerCase().endsWith('.jpeg') || (fileName.toLowerCase().endsWith('.png')) ||  (fileName.toLowerCase().endsWith('.jpg'))) {
+          const imageSize = file.size / 1024; // in KB
+          const image = new Image();
+    
+          image.src = URL.createObjectURL(file);
+    
+          image.onload = () => {
+            if (image.width === 512 && image.height === 512 && imageSize <= 512) {
+              this.errorMessage = '';
+              this.isValid = true;
+              this.imageUrl1 = this.sanitizer.bypassSecurityTrustUrl(image.src) as SafeUrl;
+            } else {
+              this.errorMessage = 'Please select a 512x512 pixels (width×height) & JPEG or PNG image.';
+              this.isValid = false;
+              this.imageUrl1 = '';
+            }
+          };
+        } else {
+          this.errorMessage = 'Please select a 512x512 pixels (width×height) & JPEG or PNG image.';
+          this.imageUrl1 = '';
+          return;
+        }
+  
+     
+      } else {
+        this.errorMessage = 'Please select a 512x512 pixels (width×height) & JPEG or PNG image.';
+      }
+    }
     reader.onload = () => {
       const image = new Image();
       image.src = reader.result as string;
   
       image.onload = () => {
         if (image.width === 512 && image.height === 512) {
-          // Only add the image to the array if it meets the dimensions criteria.
-          const imageDataUrl1 = reader.result as string;
-                this.imageUrl = imageDataUrl1;
-             this.urls1.push(imageDataUrl1);
+          // Only add the image to the array and update the preview if it meets the dimensions criteria.
+          const imageDataUrl = reader.result as string;
+  
+          // Update serviceDetailPatch.serviceIconImage with the new image URL
+          this.serviceDetailPatch = file.name;
+  
+          // You can keep the rest of your logic here if needed
+          this.imageUrl1 = imageDataUrl;
+          this.imageFiles = {
+            link: imageDataUrl,
+            file: file,
+            name: file.name,
+            type: file.type
+          };
         } else {
-          this.errorMessage = 'Please select 512x512 pixels (width×height) & JPEG or PNG image.';
-          this.imageUrl1 = '';
+          // Handle the case where the image doesn't meet the criteria (optional).
+          // You can add error messages or any other handling you prefer.
         }
       };
-    }
-  }
+    };
   }
   // handleImageInput(event: any) {
   //   const files = event.target.files;

@@ -212,6 +212,12 @@ export class EditServiceComponent implements OnInit {
       this.toasterService.error("Form Incomplete: Please fill in all the required fields correctly");
       return;
     }
+
+    if( this.errorMessage == 'Please select a 512x512 pixels (width×height) & JPEG or PNG image.'){
+      alert('hello')
+return ;
+    }
+
     let payload = {
       serviceId: parseInt(this.serviceId.id2),
       salonId: parseInt(this.salonId.id),
