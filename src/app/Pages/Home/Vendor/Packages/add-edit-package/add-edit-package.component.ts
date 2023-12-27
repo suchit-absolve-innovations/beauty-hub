@@ -8,6 +8,7 @@ import { ContentService } from 'src/app/Shared/service/content.service';
 import { environment } from 'src/environments/environment';
 import { Location } from '@angular/common';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { EMPTY, Observable, Subscription, debounceTime, distinctUntilChanged, interval } from 'rxjs';
 
 @Component({
   selector: 'app-add-edit-package',
@@ -19,7 +20,7 @@ export class AddEditPackageComponent implements OnInit {
   submitted!: boolean
   rootUrl: any;
   id: any;
-form:any;
+  form:any;
   subCategoryList: any;
   categoryList: any;
   salonBannerId: any;
@@ -55,6 +56,10 @@ form:any;
   listingPrice: any = 0 ;
   maxDiscountValue: any;
 
+  public isGenderSelected = false;
+  type: any;
+  categoryType!: number;
+
 
   constructor(private router: Router,
     private formBuilder: FormBuilder,
@@ -74,7 +79,7 @@ form:any;
     this.salonIds = localStorage.getItem('salonId');
     this.rootUrl = environment.rootPathUrl;
     this.serviceForm();
-    this.getcategoryList();
+   
     this.getServicesList();
     this.salonId = this.route.snapshot.queryParams
     this.dropdownSettings = {
@@ -84,14 +89,51 @@ form:any;
       allowSearchFilter: true,
       itemsShowLimit: 5,
       idField: 'item_id',
-      textField: 'item_text',
+      textField: 'customDisplayText',
     };
     this.form.get('mainCategoryId').valueChanges.subscribe(() => {
       // Reset subCategoryId when mainCategoryId changes
       this.form.get('subCategoryId').setValue('');
     });
+    this.watchFromDateChanges();
   }
   
+  private watchFromDateChanges() {
+    const fromGenderControl: AbstractControl | null = this.form.get('genderPreferences');
+    const mainCategoryControl: AbstractControl | null = this.form.get('mainCategoryId');
+  
+    if (fromGenderControl && mainCategoryControl) {
+      fromGenderControl.valueChanges
+        .pipe(
+          debounceTime(200),
+          distinctUntilChanged()
+        )
+        .subscribe((fromGenderValue) => {
+          this.isGenderSelected = !!fromGenderValue;
+  
+          if (fromGenderValue) {
+            mainCategoryControl.enable();
+          } else {
+            mainCategoryControl.disable();
+          }
+        });
+    }
+  }
+  onMainCategoryClick() {
+    if (!this.isGenderSelected) {
+      this.showToastrMessage();
+      return;
+    }
+  
+    const mainCategoryControl: AbstractControl | null = this.form.get('mainCategoryId');
+    if (mainCategoryControl) {
+      mainCategoryControl.enable();
+    }
+  }
+  
+  private showToastrMessage() {
+    this.toaster.info('Please select "Gender" first.');
+  }
   
 
   onItemSelect(item: any) { }
@@ -105,7 +147,7 @@ form:any;
       basePrice            : ['', [Validators.required]],
       discount             : [0 , [Validators.required]],
       listingPrice         : ['', [Validators.required]],
-      mainCategoryId       : [''],
+      mainCategoryId       : [{ value: '', disabled: true }],
       subCategoryId        : [0],
       ageRestrictions      : ['', [Validators.required]],
       genderPreferences    : ['', [Validators.required]],
@@ -177,20 +219,34 @@ timeValidator(control: AbstractControl): ValidationErrors | null {
       this.listingPrice = this.basePrice - this.discount;
     } 
 
-  getcategoryList(){
-    // this.spinner.show();
-      this.contentService.getcategory().subscribe(response => {
+    getcategoryList(data:any) {
+      this.spinner.show();
+      this.type = data
+  if(this.type == 'Male'){
+  this.categoryType = 1
+  } else if (this.type == 'Female'){
+    this.categoryType = 2 
+  } else {
+    this.categoryType = 3
+  }
+  let payload = {
+    salonId : this.salonIds,
+    categoryType : this.categoryType
+  }
+  debugger
+      this.contentService.getcategoryService(payload).subscribe(response => {
         if (response.isSuccess) {
           this.categoryList = response.data;
+          
           this.subCategoryList = [];
-        //  this.spinner.hide();
+  
+          this.spinner.hide();
         } else {
-          // this.spinner.hide();
+          this.spinner.hide();
           this.toaster.error(response.messages);
         }
       });
     }
-
 
    getSubcategoryList(mainCategoryId:any){
    this.contentService.SuperSubCategory(mainCategoryId).subscribe(response => {
@@ -217,12 +273,14 @@ timeValidator(control: AbstractControl): ValidationErrors | null {
   this.contentService.getservice(payload).subscribe(response => {
     if (response.isSuccess) {
       this.serviceList = response.data.dataList
-      this.bindServiceList = [];
-      this.serviceList.forEach((element: { serviceId: any; serviceName: any; }) => {
-        this.bindServiceList.push(
-          { item_id: element.serviceId, item_text: element.serviceName }
-        )
-      });
+      this.bindServiceList = this.serviceList.map((element:{ serviceId: any; serviceName: any; listingPrice:any; genderPreferences:any } ) => ({
+        item_id: element.serviceId,
+        item_text: element.serviceName,
+        item_text2: element.listingPrice,
+        item_text3: element.genderPreferences,
+        customDisplayText: `${element.serviceName} - ${element.genderPreferences} - ₹${element.listingPrice}`,
+        
+      }));
       // this.shopId = response.data.dataList.shopId
       // this.getFilterMainCategoryList(this.productList);
       // this.total = response.data;
@@ -233,33 +291,41 @@ timeValidator(control: AbstractControl): ValidationErrors | null {
 }
 
 getServicesListByCategories() {
-    this.spinner.show();
-  
-    let payload = {
-      pageNumber: 1,
-      pageSize: 1000,
-      salonId: this.salonIds,
-      mainCategoryId: this.form.value.mainCategoryId ? this.form.value.mainCategoryId : '',
-      subCategoryId: this.form.value.subCategoryId ? this.form.value.subCategoryId : '',
-      
-    }
-    this.contentService.getfilteListBycategories(payload).subscribe(response => {
-      if (response.isSuccess) {
-        this.serviceList = response.data.dataList
-        this.bindServiceList = [];
-        this.serviceList.forEach((element: { serviceId: any; serviceName: any; }) => {
-          this.bindServiceList.push(
-            { item_id: element.serviceId, item_text: element.serviceName }
-          )
-        });
-        // this.shopId = response.data.dataList.shopId
-        // this.getFilterMainCategoryList(this.productList);
-        // this.total = response.data;
-  
-        this.spinner.hide();
-      }
-    });
+  debugger
+  this.spinner.show();
+  // if (this.form.value.mainCategoryId === '' || this.packageDetailPatch.mainCategoryId === '') {
+  //   this.bindServiceList = [];
+  //   this.subCategoryList = [];
+  //   this.spinner.hide();
+  //   return;
+  // }
+  let payload = {
+    pageNumber: 1,
+    pageSize: 1000,
+    salonId: this.salonIds,
+    mainCategoryId: this.form.value.mainCategoryId ? this.form.value.mainCategoryId : '',
+    subCategoryId: this.form.value.subCategoryId ? this.form.value.subCategoryId : '',
+
   }
+  this.contentService.getfilteListBycategories(payload).subscribe(response => {
+    if (response.isSuccess) {
+      this.serviceList = response.data.dataList
+      this.bindServiceList = this.serviceList.map((element:{ serviceId: any; serviceName: any; listingPrice:any; genderPreferences:any } ) => ({
+        item_id: element.serviceId,
+        item_text: element.serviceName,
+        item_text2: element.listingPrice,
+        item_text3: element.genderPreferences,
+        customDisplayText: `${element.serviceName} - ${element.genderPreferences} - ₹${element.listingPrice}`,
+      }));
+      // this.shopId = response.data.dataList.shopId
+      // this.getFilterMainCategoryList(this.productList);
+      // this.total = response.data;
+
+      this.spinner.hide();
+    }
+  })
+}
+
   
 
 convertSelectedItemsToString(): string {

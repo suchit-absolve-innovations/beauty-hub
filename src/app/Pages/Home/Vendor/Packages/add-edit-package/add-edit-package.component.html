@@ -71,6 +71,37 @@
                             <label  *ngIf="imageUrl1"  width="512" height="512"  data-toggle="modal" data-target="#myModal3" class="preview-butn">preview</label>
                             <div *ngIf="errorMessage" class="help-block" style="color: #fd0000">{{ errorMessage }}</div>
                         </div>
+                        <div class="col-lg-6 col-md-12">
+                            <label>Age <i class="fa fa-asterisk" aria-hidden="true"></i></label>
+                            <select type="text" class="control-form" formControlName="ageRestrictions">
+                                <option value="" selected>Select</option>
+                                <option>All</option>
+                                <option>Kids</option>
+                                <option>Adult</option>
+                            </select>
+
+                            <div *ngIf="submitted && f['ageRestrictions'].errors" class="help-block">
+                                <div *ngIf="f['ageRestrictions'].errors" style="color: #fd0000">
+                                    Age is required.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-md-12">
+                            <label>Gender <i class="fa fa-asterisk" aria-hidden="true"></i></label>
+                            <select type="text" class="control-form" formControlName="genderPreferences" (change)="getcategoryList(f['genderPreferences'].value)">
+                                <option value="" selected>Choose Gender</option>
+                                <option>Male</option>
+                                <option>Female</option>
+                                <option>Male & Female</option>
+                            </select>
+                            <div *ngIf="submitted && f['genderPreferences'].errors" class="help-block">
+                                <div *ngIf="f['genderPreferences'].errors" style="color: #fd0000">
+                                    State is required.
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="col-md-12">
                             <h3 style="font-size: 22px;">Select Service</h3>
                         </div>
@@ -84,9 +115,11 @@
                                     <option value="">Select </option>
                                     <option *ngFor="let item of categoryList" [ngValue]="item?.mainCategoryId">
                                         {{item?.categoryName}}</option>
-
+                                       
                                 </select>
-           
+                                <div *ngIf="!isGenderSelected"
+                                style="position: absolute; top: 31px; left: 17px; width: 92%; height: 51%; z-index: 1;"
+                                (click)="onMainCategoryClick()"></div>
                             </div>
                             <div class="col-lg-6 col-md-12">
                                 <label>Sub Category</label>
@@ -153,35 +186,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6 col-md-12">
-                            <label>Age <i class="fa fa-asterisk" aria-hidden="true"></i></label>
-                            <select type="text" class="control-form" formControlName="ageRestrictions">
-                                <option value="" selected>Select</option>
-                                <option>Kids</option>
-                                <option>Adult</option>
-                            </select>
-
-                            <div *ngIf="submitted && f['ageRestrictions'].errors" class="help-block">
-                                <div *ngIf="f['ageRestrictions'].errors" style="color: #fd0000">
-                                    Age is required.
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-6 col-md-12">
-                            <label>Gender <i class="fa fa-asterisk" aria-hidden="true"></i></label>
-                            <select type="text" class="control-form" formControlName="genderPreferences">
-                                <option value="" selected>Choose Gender</option>
-                                <option>Male</option>
-                                <option>Female</option>
-                            </select>
-                            <div *ngIf="submitted && f['genderPreferences'].errors" class="help-block">
-                                <div *ngIf="f['genderPreferences'].errors" style="color: #fd0000">
-                                    State is required.
-                                </div>
-                            </div>
-                        </div>
-
+                  
                         <div class="col-lg-6 col-md-12">
                             <label>Duration In Minutes <i class="fa fa-asterisk" aria-hidden="true"></i></label>
                             <input type="tel" class="control-form" formControlName="durationInMinutes" OnlyNumbers />
