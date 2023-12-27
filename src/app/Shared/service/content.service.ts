@@ -51,6 +51,10 @@ export class ContentService {
     return this.http.get<any>(environment.apiUrl + ApiEndPoint.getcategoryList)
   }
 
+  getcategoryService(categoryType:any) {
+    return this.http.get<any>(environment.apiUrl + ApiEndPoint.getcategoryList + '?salonId=' + categoryType.salonId + '&categoryType=' + categoryType.categoryType)
+  }
+
   // Update Sub Category 
   UpdateSubCategory(data: any) {
     return this.http.post<any>(environment.apiUrl + ApiEndPoint.updateCategory + '?subCategoryId=' + data.subCategoryId, data)

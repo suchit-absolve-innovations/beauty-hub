@@ -24,9 +24,9 @@
                                             Upload<input type="file" class="uploadFile img" name="bannerimage"
                                                 style="width: 0px;height: 0px;overflow: file; border-style: none;"
                                                 id="bannerimage" (change)="onFileSelected($event)" (change)="onBannerImageSelect($event)"
-                                                multiple [disabled]="base64Image.length >= 5 "/>
+                                                multiple [disabled]="base64Image?.length >= 5 "/>
                                         </label>
-                                        <div *ngIf="base64Image.length >= 5 && base64Image.length" class="error-message" style="color: #fd0000">
+                                        <div *ngIf="base64Image?.length >= 5 && base64Image?.length" class="error-message" style="color: #fd0000">
                                             You can select only 5 images.
                                         </div>
                                         <div *ngIf="errorMessages" class="help-block" style="color: #fd0000">
@@ -78,6 +78,37 @@
                             <div *ngIf="errorMessage" class="help-block" style="color: #fd0000">{{ errorMessage }}</div>
                         </div>
 
+                        <div class="col-lg-6 col-md-12">
+                            <label>Age <i class="fa fa-asterisk" aria-hidden="true"></i></label>
+                            <select type="text" class="control-form" formControlName="ageRestrictions">
+                                <option value="" selected>Select</option>
+                                <option>All</option>
+                                <option>Kids</option>
+                                <option>Adult</option>
+                            </select>
+
+                            <div *ngIf="submitted && f['ageRestrictions'].errors" class="help-block">
+                                <div *ngIf="f['ageRestrictions'].errors" style="color: #fd0000">
+                                    Age is required.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-md-12">
+                            <label>Gender <i class="fa fa-asterisk" aria-hidden="true"></i></label>
+                            <select type="text" class="control-form" formControlName="genderPreferences" (change)="getcategoryList(f['genderPreferences'].value)" >
+                                <option value="" selected>Choose Gender</option>
+                                <option>Male</option>
+                                <option>Female</option>
+                                <option>Male & Female</option>
+                            </select>
+                            <div *ngIf="submitted && f['genderPreferences'].errors" class="help-block">
+                                <div *ngIf="f['genderPreferences'].errors" style="color: #fd0000">
+                                    State is required.
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="col-md-12">
                             <h3 style="font-size: 22px;">Select Service</h3>
                         </div>
@@ -120,9 +151,9 @@
                                         [(ngModel)]="selectedItems" formControlName="includeServiceId"
                                         (onDeSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)"
                                        >
-                                        <option *ngFor="let serviceId of serviceList" [value]="serviceId.serviceId">
-                                            {{serviceId.serviceName}}
-                                        </option>
+                                       <!-- <option *ngFor="let serviceId of serviceList" [value]="serviceId.serviceId">
+                                        {{ serviceId.serviceName }}
+                                      </option> -->
                                     </ng-multiselect-dropdown>
                                 </div>
                             </div>
@@ -160,34 +191,7 @@
 
 
 
-                        <div class="col-lg-6 col-md-12">
-                            <label>Age <i class="fa fa-asterisk" aria-hidden="true"></i></label>
-                            <select type="text" class="control-form" formControlName="ageRestrictions">
-                                <option value="" selected>Select</option>
-                                <option>Kids</option>
-                                <option>Adult</option>
-                            </select>
-
-                            <div *ngIf="submitted && f['ageRestrictions'].errors" class="help-block">
-                                <div *ngIf="f['ageRestrictions'].errors" style="color: #fd0000">
-                                    Age is required.
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-6 col-md-12">
-                            <label>Gender <i class="fa fa-asterisk" aria-hidden="true"></i></label>
-                            <select type="text" class="control-form" formControlName="genderPreferences">
-                                <option value="" selected>Choose Gender</option>
-                                <option>Male</option>
-                                <option>Female</option>
-                            </select>
-                            <div *ngIf="submitted && f['genderPreferences'].errors" class="help-block">
-                                <div *ngIf="f['genderPreferences'].errors" style="color: #fd0000">
-                                    State is required.
-                                </div>
-                            </div>
-                        </div>
+        
 
                         <div class="col-lg-6 col-md-12">
                             <label>Duration In Minutes <i class="fa fa-asterisk" aria-hidden="true"></i></label>

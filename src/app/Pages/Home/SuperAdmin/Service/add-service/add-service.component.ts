@@ -379,7 +379,6 @@ export class AddServiceComponent implements OnInit {
         } else {
           this.errorMessage = 'Please select 512x512 pixels (width×height) & JPEG or PNG image.';
           this.imageUrl1 = '';
-
         }
       }
     }
