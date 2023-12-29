@@ -44,7 +44,6 @@ export class ServiceListComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private content: ContentService,
     private router: Router,
-    private ngZone: NgZone,
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
     private _location: Location,
@@ -85,6 +84,7 @@ export class ServiceListComponent implements OnInit {
       }
   }
 
+  
 
   applyFilter(params: any): void {
     // Apply filter logic with the provided params
@@ -128,6 +128,15 @@ export class ServiceListComponent implements OnInit {
     this._location.back();
   }
   
+  performSearch1() {
+
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { page: null },
+      queryParamsHandling: 'merge'
+      
+    });
+  }
 
   performSearch() {
 

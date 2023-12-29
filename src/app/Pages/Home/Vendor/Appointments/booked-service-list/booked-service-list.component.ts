@@ -14,15 +14,15 @@ import { environment } from 'src/environments/environment';
 export class BookedServiceListComponent implements OnInit {
 
   bookedServiceList:any;
-  rootUrl:any;
+  rootUrl          :any;
   appointmentDetail:any;
-  appointmentId:any;
+  appointmentId    :any;
   constructor(
-    private toaster: ToastrService,
-    private spinner: NgxSpinnerService,
+    private toaster    : ToastrService,
+    private spinner    : NgxSpinnerService,
     private formBuilder: FormBuilder,
-    private content: ContentService,
-    private route: ActivatedRoute,
+    private content    : ContentService,
+    private route      : ActivatedRoute,
   ) { }
 
   ngOnInit(): void {
@@ -50,9 +50,9 @@ export class BookedServiceListComponent implements OnInit {
 
   setSelectedStatus() {
     let payload = {
-      appointmentId :this.appointmentDetail.appointmentId,
+      appointmentId     :this.appointmentDetail.appointmentId,
       appointmentStatus : this.appointmentDetail.appointmentStatus,
-      setToAll : true
+      setToAll          : true
 
     };
     this.spinner.show();

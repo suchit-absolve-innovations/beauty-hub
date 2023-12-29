@@ -16,20 +16,20 @@ declare var $: any;
 export class VendorNotificationListComponent implements OnInit {
 
   public searchText: any = '';
-  notificationList: any;
-  itemsPerPage!        : number;
-  totalItems!          : number;
-  page                 : number = 0;
-  notificationId: any;
+  notificationList : any;
+  itemsPerPage!    : number;
+  totalItems!      : number;
+  page             : number = 0;
+  notificationId   : any;
   search: any;
   itemToDelete: any;
   constructor(
     private toasterService: ToastrService,
-    private spinner: NgxSpinnerService,
-    private content: ContentService,
-    private formBuilder: FormBuilder,
-    private route      : ActivatedRoute,
-    private router: Router,
+    private spinner       : NgxSpinnerService,
+    private content       : ContentService,
+    private formBuilder   : FormBuilder,
+    private route         : ActivatedRoute,
+    private router        : Router,
     // private ngZone: NgZone,
   ) { }
 
@@ -55,16 +55,16 @@ export class VendorNotificationListComponent implements OnInit {
   onPageChange(page: number): void {
     // Update query parameters for pagination
     this.router.navigate([], {
-      relativeTo: this.route,
-      queryParams: { page: page },
+      relativeTo         : this.route,
+      queryParams        : { page: page },
       queryParamsHandling: 'merge',
     });
   }
   performSearch() {
 
     this.router.navigate([], {
-      relativeTo: this.route,
-      queryParams: { page: null },
+      relativeTo         : this.route,
+      queryParams        : { page: null },
       queryParamsHandling: 'merge'
     });
   }

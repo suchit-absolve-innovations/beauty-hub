@@ -21,7 +21,7 @@ export class AppointmentListComponent implements OnInit {
   page                 : number = 0;
   itemsPerPage!        : number;
   totalItems!          : number;
-  form                 : any
+  form                 : any;
   postAppointmentStatus: any;
   PaymentStatus        : any;
   postPaymentsStatus   : any;
@@ -92,12 +92,12 @@ export class AppointmentListComponent implements OnInit {
     debugger
    
     this.form.patchValue({
-      fromDate: params.fromDate || '',
-      toDate: params.toDate || '',
-      paymentStatus: params.paymentStatus || '',
-      paymentMethod: params.paymentMethod || '',
+      fromDate         : params.fromDate          || '',
+      toDate           : params.toDate            || '',
+      paymentStatus    : params.paymentStatus     || '',
+      paymentMethod    : params.paymentMethod     || '',
       appointmentStatus: params.appointmentStatus || '',
-      sortDateBy: params.sortDateBy || '1',
+      sortDateBy       : params.sortDateBy        || '1',
     });
     // if ( params.mainCategoryId && params.subCategoryId) {
     //   // Hit the subcategory function and patch the subCategoryId
@@ -243,18 +243,15 @@ export class AppointmentListComponent implements OnInit {
 
   handleSelectChange(item: any) {
     if (item.totalServices == '1') {
-      // Handle when totalServices is 1 (e.g., post status)
       this.postAppointmentsStatus(item);
     }
     else {
-      // Handle when totalServices is greater than 1 (e.g., navigate to detail page)
+      // Handle when Services is greater than 1 
       this.navigateToDetailPage(item);
     }
   }
 
   navigateToDetailPage(item: any) {
-    // Navigation logic when totalServices is greater than 1
-    // You can use Angular Router to navigate to the detail page
     this.router.navigate(['/appointment-list/appointment-detail/', item.appointmentId]);
   }
 
@@ -327,7 +324,7 @@ export class AppointmentListComponent implements OnInit {
   clear() {
     this.form.patchValue({
       fromDate: null,
-      toDate: null
+      toDate  : null
     });
     this.filterAllList();
   }
@@ -358,9 +355,9 @@ export class AppointmentListComponent implements OnInit {
       fromDate         : fromDate,
       toDate           : toDate,
       sortDateBy       : this.form.value.sortDateBy,
-      paymentMethod    : this.form.value.paymentMethod     ? this.form.value.paymentMethod : '',
+      paymentMethod    : this.form.value.paymentMethod     ? this.form.value.paymentMethod     : '',
       appointmentStatus: this.form.value.appointmentStatus ? this.form.value.appointmentStatus : '',
-      paymentStatus    : this.form.value.paymentStatus     ? this.form.value.paymentStatus : '',
+      paymentStatus    : this.form.value.paymentStatus     ? this.form.value.paymentStatus     : '',
     }
     this.spinner.show();
     this.content.appointmentPaymentStatusList(payload).subscribe(response => {
@@ -369,12 +366,12 @@ export class AppointmentListComponent implements OnInit {
         // this.startRefreshInterval();
         this.spinner.hide();
         this.filterService.setFilterParams({
-          fromDate: this.form.value.fromDate,
-          toDate: this.form.value.toDate,
-          paymentStatus: this.form.value.paymentStatus,
-          paymentMethod: this.form.value.paymentMethod,
+          fromDate         : this.form.value.fromDate,
+          toDate           : this.form.value.toDate,
+          paymentStatus    : this.form.value.paymentStatus,
+          paymentMethod    : this.form.value.paymentMethod,
           appointmentStatus: this.form.value.appointmentStatus,
-          sortDateBy: this.form.value.sortDateBy,
+          sortDateBy       : this.form.value.sortDateBy,
         });
         //   this.toaster.success(response.messages)
       } else {

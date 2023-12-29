@@ -16,9 +16,9 @@ export class VendorAddNotificationComponent implements OnInit {
   form!: FormGroup;
   submitted = false;
   constructor(
-    private router: Router,
-    private formBuilder: FormBuilder,
-    private spinner: NgxSpinnerService,
+    private router        : Router,
+    private formBuilder   : FormBuilder,
+    private spinner       : NgxSpinnerService,
     private contentService: ContentService,
     private toasterService: ToastrService,
     private _location: Location
@@ -31,9 +31,9 @@ export class VendorAddNotificationComponent implements OnInit {
     // add notification form
     notificationForm() {
       this.form = this.formBuilder.group({
-        title: ['', [Validators.required,]],
+        title      : ['', [Validators.required,]],
         description: ['', [Validators.required]],
-        sendToRole: ['Customer']
+        sendToRole : ['Customer']
       });
     }
 

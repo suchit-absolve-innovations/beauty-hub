@@ -33,7 +33,7 @@
                     <!-- (change)="getSubcategoryList(f['countryId'].value)" -->
                     <!-- (change)="getSubcategoryList(f['mainProductCategoryId'].value)" -->
                     <select type="text" class="control-form mr-20 btn_border" formControlName="mainCategoryId"
-                (change)="serviceListFilter()"
+                (change)="serviceListFilter()" (click)="performSearch()"
                         (change)="getSubcategoryList(f['mainCategoryId'].value)">
                         <option value="">Select </option>
                         <option *ngFor="let item of categoryList" [ngValue]="item?.mainCategoryId">

@@ -61,16 +61,17 @@ export class AddEditPackageComponent implements OnInit {
   categoryType!: number;
 
 
-  constructor(private router: Router,
-    private formBuilder: FormBuilder,
+  constructor(
+    private router        : Router,
+    private formBuilder   : FormBuilder,
     private contentService: ContentService,
-    private toaster: ToastrService,
-    private spinner: NgxSpinnerService,
-    private datePipe: DatePipe,
+    private toaster       : ToastrService,
+    private spinner       : NgxSpinnerService,
+    private datePipe      : DatePipe,
     private toasterService: ToastrService,
-    private _location: Location,
-    private route: ActivatedRoute,
-    private sanitizer: DomSanitizer
+    private _location     : Location,
+    private route         : ActivatedRoute,
+    private sanitizer     : DomSanitizer
 
   ) { }
 
@@ -222,14 +223,14 @@ timeValidator(control: AbstractControl): ValidationErrors | null {
     getcategoryList(data:any) {
       this.spinner.show();
       this.type = data
-  if(this.type == 'Male'){
-  this.categoryType = 1
-  } else if (this.type == 'Female'){
-    this.categoryType = 2 
-  } else {
+     if(this.type == 'Male'){
+     this.categoryType = 1
+     } else if (this.type == 'Female'){
+     this.categoryType = 2 
+    } else {
     this.categoryType = 3
-  }
-  let payload = {
+   }
+   let payload = {
     salonId : this.salonIds,
     categoryType : this.categoryType
   }
@@ -432,7 +433,7 @@ handleFileInput(event: any) {
     const file = files[e];
     const reader = new FileReader();
     reader.readAsDataURL(file);
-  reader.onload = () => {
+    reader.onload = () => {
     const image = new Image();
     image.src = reader.result as string;
 

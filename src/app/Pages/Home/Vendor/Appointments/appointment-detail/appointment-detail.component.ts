@@ -24,7 +24,7 @@ export class AppointmentDetailComponent implements OnInit {
   services             : any;
   form                 : any
   postAppointmentStatus: any;
-  searchTerm! : string;
+  searchTerm!          : string;
 
   constructor(
     private spinner    : NgxSpinnerService,
