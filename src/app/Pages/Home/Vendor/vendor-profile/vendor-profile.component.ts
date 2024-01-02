@@ -429,7 +429,6 @@ export class VendorProfileComponent implements OnInit {
             this.List1().push(listGroup)
           });
         }
-
       }
       this.spinner.hide();
     });

@@ -318,7 +318,6 @@ debugger
 
   convertSelectedItemsToString(): string {
     return this.selectedItems.map(item => item.item_id).join(',');
-
   }
 
 

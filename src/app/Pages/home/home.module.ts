@@ -59,6 +59,7 @@ import { NoSpacesAtStartDirective } from 'src/app/NoSpacesAtStartDirective ';
 import { EditCategoryComponent } from './SuperAdmin/Category/edit-category/edit-category.component';
 import { EditSubCategoryComponent } from './SuperAdmin/Category/sub-category-list/edit-sub-category/edit-sub-category.component';
 import { CapitalizeFirstLetterDirective } from 'src/app/CapitalizeFirstLetterDirective ';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 
@@ -132,6 +133,7 @@ import { CapitalizeFirstLetterDirective } from 'src/app/CapitalizeFirstLetterDir
     QRCodeModule,    
     NgMultiSelectDropDownModule.forRoot(),
     BsDatepickerModule.forRoot(),
+    NgxSpinnerModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBStBK-iNO1S6himB2q41PLm9bSoBfVmP4',
       libraries: ['places']
