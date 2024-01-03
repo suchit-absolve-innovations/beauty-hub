@@ -176,14 +176,14 @@ export class AddEditScheduleComponent implements OnInit {
    
      
       if (response.isSuccess) {
-   
+   this.spinner.hide();
         this.schedule = response.data;
-       alert('Schedule Updating...')
-        if(this.schedule.updateStatus == true){
+      //  alert('Schedule Updating...')
+      //   if(this.schedule.updateStatus == true){
        
-       this.spinner.hide();
-       this.toasterService.success('Schedule Updated Successfully');
-        }
+      //  this.spinner.hide();
+      //  this.toasterService.success('Schedule Updated Successfully');
+      //   }
         this.Form.patchValue({
           monday: response.data.monday,
           tuesday: response.data.tuesday,
@@ -244,19 +244,19 @@ export class AddEditScheduleComponent implements OnInit {
   }
 
 
-  startRefreshInterval() {
-    const refreshInterval = 6000;
+  // startRefreshInterval() {
+  //   const refreshInterval = 6000;
 
-    // Check if there is an existing subscription and unsubscribe if needed
-    if (this.refreshSubscription) {
-      this.refreshSubscription.unsubscribe();
-    }
+  //   // Check if there is an existing subscription and unsubscribe if needed
+  //   if (this.refreshSubscription) {
+  //     this.refreshSubscription.unsubscribe();
+  //   }
 
-    // Use interval to call getOrderList every 10 seconds
-    this.refreshSubscription = interval(refreshInterval).subscribe(() => {
-    //  this.getAppointmentsLists();
-    this.getScheduleDayTime();
-    });
-  }
+  //   // Use interval to call getOrderList every 10 seconds
+  //   this.refreshSubscription = interval(refreshInterval).subscribe(() => {
+  //   //  this.getAppointmentsLists();
+  //   this.getScheduleDayTime();
+  //   });
+  // }
 
 }

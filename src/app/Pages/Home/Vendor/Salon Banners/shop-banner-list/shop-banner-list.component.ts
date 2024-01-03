@@ -84,9 +84,9 @@ export class ShopBannerListComponent implements OnInit {
   }
 
   searchlist(): void {
-    this.searchService.setSearchCriteria(this.searchText);
-   
+    this.searchService.setSearchCriteria(this.searchText); 
   }
+
   onSearch(searchTerm: string): void {
     // Update query parameters for search
     this.router.navigate([], {
@@ -103,6 +103,7 @@ export class ShopBannerListComponent implements OnInit {
       queryParamsHandling: 'merge',
     });
   }
+  
   performSearch() {
 
     this.router.navigate([], {
