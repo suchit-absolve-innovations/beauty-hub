@@ -89,7 +89,7 @@ export class ServiceListComponent implements OnInit {
   applyFilter(params: any): void {
     // Apply filter logic with the provided params
     debugger
-   
+
     this.form.patchValue({
       ageRestrictions: params.ageRestrictions || '',
       mainCategoryId: params.mainCategoryId || '',
@@ -129,7 +129,7 @@ export class ServiceListComponent implements OnInit {
   }
   
   performSearch1() {
-
+    this.searchText = '';
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: { page: null },

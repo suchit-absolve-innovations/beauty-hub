@@ -56,7 +56,7 @@
                 <div class="cate-align">
                     <label>Age</label>
                     <select type="text" class="control-form mr-20 btn_border" formControlName="ageRestrictions"
-                        (change)="serviceListFilter()">
+                        (change)="serviceListFilter()" (click)="performSearch1()">
                         <option value="">Select </option>
                         <option value="Kids">Kids</option>
                         <option value="Adult">Adult</option>
@@ -66,7 +66,7 @@
                 <div class="cate-align">
                     <label>Gender Preferences</label>
                     <select type="text" class="control-form mr-20 btn_border" formControlName="genderPreferences"
-                        (change)="serviceListFilter()" >
+                        (change)="serviceListFilter()" (click)="performSearch1()">
                         <option value="">Select </option>
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>

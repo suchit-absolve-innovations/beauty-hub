@@ -115,6 +115,7 @@ export class ShopBannerListComponent implements OnInit {
 
 
   onBannerTypeChange(selectedValue: string) {
+    this.searchText = '';
     if(selectedValue == ''){
       window.location.reload();
     }
