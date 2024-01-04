@@ -33,11 +33,11 @@
                     <!-- (change)="getSubcategoryList(f['countryId'].value)" -->
                     <!-- (change)="getSubcategoryList(f['mainProductCategoryId'].value)" -->
                     <select type="text" class="control-form mr-20 btn_border" formControlName="mainCategoryId"
-                (change)="serviceListFilter()" (click)="performSearch()"
+                (change)="serviceListFilter()" (click)="performSearch1()"
                         (change)="getSubcategoryList(f['mainCategoryId'].value)">
-                        <option value="">Select </option>
-                        <option *ngFor="let item of categoryList" [ngValue]="item?.mainCategoryId">
-                            {{item?.categoryName}}</option>
+                        <option  value="">Select </option>
+                        <option  *ngFor="let item of categoryList" [ngValue]="item?.mainCategoryId">
+                            {{item?.categoryName}} </option>
 
                     </select>
                 </div>

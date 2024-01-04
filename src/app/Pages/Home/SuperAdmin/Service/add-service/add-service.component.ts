@@ -94,6 +94,7 @@ export class AddServiceComponent implements OnInit {
       durationInMinutes: ['', [Validators.required]],
       lockTimeStart: [''],
       lockTimeEnd: [''],
+      bannerimage : ['',[Validators.required]],
       serviceDescription: ['', [Validators.required, this.maxLengthValidator(160)]],
 
     }, { validator: this.timeValidator });

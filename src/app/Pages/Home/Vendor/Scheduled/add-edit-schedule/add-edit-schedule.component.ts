@@ -4,9 +4,9 @@ import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 import { ToastrService } from 'ngx-toastr';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, ObservableInput, Subscription, interval, timer } from 'rxjs';
 import { ContentService } from 'src/app/Shared/service/content.service';
-
+import { takeUntil } from 'rxjs/operators';
 @Component({
   selector: 'app-add-edit-schedule',
   templateUrl: './add-edit-schedule.component.html',
@@ -27,6 +27,8 @@ export class AddEditScheduleComponent implements OnInit {
   time!: string;
   time1!: string;
   time2!:string;
+  ngUnsubscribe!: ObservableInput<any>;
+  private refreshSubscription!: Subscription;
   constructor(
     private formBuilder: FormBuilder,
     private contentService: ContentService,
@@ -171,11 +173,17 @@ export class AddEditScheduleComponent implements OnInit {
     
     this.spinner.show();
     this.contentService.getScheduleDayTimes(this.salonId).subscribe(response => {
-      this.spinner.hide();
+   
      
       if (response.isSuccess) {
+   this.spinner.hide();
         this.schedule = response.data;
-        
+      //  alert('Schedule Updating...')
+      //   if(this.schedule.updateStatus == true){
+       
+      //  this.spinner.hide();
+      //  this.toasterService.success('Schedule Updated Successfully');
+      //   }
         this.Form.patchValue({
           monday: response.data.monday,
           tuesday: response.data.tuesday,
@@ -187,7 +195,6 @@ export class AddEditScheduleComponent implements OnInit {
           fromTime: response.data.fromTime,
           toTime: response.data.toTime,
         });
-  
       }
         else {
           this.spinner.hide();
@@ -195,11 +202,6 @@ export class AddEditScheduleComponent implements OnInit {
     });
     
   }
-
-
-
-
-
 
 
   addUpdateSchedule(){
@@ -219,8 +221,10 @@ export class AddEditScheduleComponent implements OnInit {
     this.spinner.show();
     this.contentService.addSchedule(payload).subscribe(response => {
       if (response.isSuccess) {
-        this.spinner.hide();
-        this.toasterService.success(response.messages);
+        debugger
+      this.spinner.hide();
+   //    this.getScheduleDayTime();
+     //   this.toasterService.success(response.messages);
       
       } else {
         this.spinner.hide();
@@ -239,5 +243,20 @@ export class AddEditScheduleComponent implements OnInit {
       });
   }
 
+
+  // startRefreshInterval() {
+  //   const refreshInterval = 6000;
+
+  //   // Check if there is an existing subscription and unsubscribe if needed
+  //   if (this.refreshSubscription) {
+  //     this.refreshSubscription.unsubscribe();
+  //   }
+
+  //   // Use interval to call getOrderList every 10 seconds
+  //   this.refreshSubscription = interval(refreshInterval).subscribe(() => {
+  //   //  this.getAppointmentsLists();
+  //   this.getScheduleDayTime();
+  //   });
+  // }
 
 }

@@ -34,7 +34,7 @@ export class AuthService {
           localStorage.setItem('salonId', user.data.salonId);
           localStorage.setItem('vendorId', user.data.vendorId);
           localStorage.setItem('userAdminId', user.data.id);
-          localStorage.setItem('Id', user.data.id)
+          localStorage.setItem('Id', user.data.id);
           localStorage.setItem('salonImage', user.data.salonImage );
           localStorage.setItem('salonName', user.data.salonName );
           localStorage.setItem('firstName', user.data.firstName );
@@ -80,9 +80,9 @@ export class AuthService {
 
   
   getAllNotifactonList(data: any) {
-
     return this.http.get<any>(environment.apiUrl + ApiEndPoint.getNotificationList +  '?pageNumber=' + data.pageNumber + '&pageSize=' + data.pageSize)
   }
+
   getReadNotictions(){
     return  this.http.get<any>(environment.apiUrl + ApiEndPoint.getReadNotiction )
   }
@@ -94,6 +94,7 @@ export class AuthService {
   deleteNotification(){
     return this.http.delete<any>(environment.apiUrl + ApiEndPoint.deleteAllNotification)
   }
+
   deleteSingleNotifications(notificationSentId:any){
     return this.http.delete<any>(environment.apiUrl + ApiEndPoint.deleteAllNotification + '?notificationSentId=' + notificationSentId)
   }
@@ -102,9 +103,6 @@ export class AuthService {
     return this.http.post<any>(environment.apiUrl + ApiEndPoint.tockenFcm, data).pipe(map((data: any) => {  
       return data;
     }));
-
   }
-
-
 
 }

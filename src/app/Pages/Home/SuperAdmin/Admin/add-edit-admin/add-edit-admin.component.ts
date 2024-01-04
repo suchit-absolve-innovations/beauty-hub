@@ -51,9 +51,7 @@ export class AddEditAdminComponent implements OnInit {
       }
     });
     this.setValidationOfForm();
-    this.getStateList();
-    
-    
+    this.getStateList();        
   }
   
    setValidationOfForm() {

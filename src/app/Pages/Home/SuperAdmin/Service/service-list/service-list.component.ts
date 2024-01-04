@@ -205,7 +205,6 @@ export class ServiceListComponent implements OnInit {
     this.content.getservice(payload).subscribe(response => {
       if (response.isSuccess) {
         this.list = response.data.dataList;
-
         this.spinner.hide();
       } else {
         this.spinner.hide();
@@ -219,7 +218,6 @@ export class ServiceListComponent implements OnInit {
       pageNumber: 1,
       pageSize: 1000,
       salonId: this.id,
-      
     }
   //  this.spinner.show();
     this.content.getservice(payload).subscribe(response => {
