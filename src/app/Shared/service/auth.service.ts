@@ -99,9 +99,7 @@ export class AuthService {
   }
 
   fcmToken(data: any) {
-    
-    return this.http.post<any>(environment.apiUrl + ApiEndPoint.tockenFcm, data).pipe(map((data: any) => {
-      
+    return this.http.post<any>(environment.apiUrl + ApiEndPoint.tockenFcm, data).pipe(map((data: any) => {  
       return data;
     }));
 
