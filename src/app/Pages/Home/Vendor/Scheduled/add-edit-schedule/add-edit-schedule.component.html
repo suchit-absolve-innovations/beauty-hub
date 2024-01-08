@@ -104,9 +104,9 @@
                 </form>
             </div>
 
-            <div class="col-md-6 " style="position: relative; top: -118px; ">
+            <div class="col-md-6 " style="position: relative; top: -109px; ">
                 <div class="heading" style="margin-bottom: 30px;">
-                    <h4> Scheduled Appointments</h4>
+                    <h4 style="font-size: 20px;"> Scheduled Appointments</h4>
                 </div>
                 <div class="table-responsive" style=" border: 2px solid #ffd7e9;">
                     <table class="table admin_table baby-pink">
@@ -128,8 +128,8 @@
                                 
                             </td>
                             <td>{{item?.slotCount}}</td>
-                              <td> <i style="background:#e6629f; color:#fff; padding: 6px; border-radius: 5px; font-size: 9px;" class="fa fa-eye"></i></td> 
-                            <!-- <td> <i  [routerLink]="['/add-edit-schedule/up-coming-schedule-detail/']" style="background:#e6629f; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;" class="fa fa-eye"></i></td> -->
+                              <!-- <td> <i style="background:#e6629f; color:#fff; padding: 6px; border-radius: 5px; font-size: 9px;" class="fa fa-eye"></i></td>  -->
+                            <td> <i  [routerLink]="['/add-edit-schedule/up-coming-schedule-detail/' + item?.date]" style="background:#e6629f; color:#fff; padding: 6px; border-radius: 5px; font-size: 9px;" class="fa fa-eye"></i></td>
                         </tr>
                     
                     </table>

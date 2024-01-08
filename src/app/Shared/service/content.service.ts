@@ -416,6 +416,11 @@ export class ContentService {
     return this.http.get<any>(environment.apiUrl + ApiEndPoint.getUpcomingSchedule + '?salonId=' + salonId);
   }
 
+  getScheduleDetail(queryDate: any) {
+    debugger
+    return this.http.get<any>(environment.apiUrl + ApiEndPoint.getUpcomingScheduleDetail + '?queryDate=' + queryDate);
+  }
+
   addNewService(data: any) {
     return this.http.post<any>(environment.apiUrl + ApiEndPoint.addService, data)
   }

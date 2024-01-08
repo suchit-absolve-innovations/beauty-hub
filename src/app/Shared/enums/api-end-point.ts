@@ -82,6 +82,7 @@ export enum ApiEndPoint {
   getPackagesList = "api/Service/GetSalonServiceList",
   postServiceStatus = "api/Service/SetServiceStatus",
   getCategorytype = 'api/Category/GetSubCategoryType',
-  getUpcomingSchedule = 'api/Vendor/UpComingSchedule'
+  getUpcomingSchedule = 'api/Vendor/UpComingSchedule',
+  getUpcomingScheduleDetail = 'api/Vendor/UpComingScheduleDetail'
 
 }

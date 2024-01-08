@@ -105,6 +105,7 @@ export class AddEditSubCategoryComponent implements OnInit {
   // }
 
   postCategory() {
+    debugger
     this.submitted = true;
     if (this.form.invalid) {
       return;
