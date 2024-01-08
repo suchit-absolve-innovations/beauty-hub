@@ -115,7 +115,7 @@ const routes: Routes = [
      { path: 'subscription', component: BuyMebershipPlanListComponent },
      { path: 'subscription/buy-membership-plan/add-salon', component: AddSalonsComponent },
      { path: 'add-edit-schedule', component: AddEditScheduleComponent },
-     { path: 'add-edit-schedule/up-coming-schedule-detail', component: UpComingScheduleDetailComponent },
+     { path: 'add-edit-schedule/up-coming-schedule-detail/:date', component: UpComingScheduleDetailComponent },
      { path: 'vendor-notification-list', component: VendorNotificationListComponent },
      { path: 'vendor-notification-list/add-notification', component: VendorAddNotificationComponent },
      { path: 'package-list', component: PackageListComponent},
