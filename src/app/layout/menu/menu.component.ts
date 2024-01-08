@@ -21,7 +21,7 @@ export class MenuComponent implements OnInit {
   constructor(
     private searchService: SearchService,
     private filterService: FilterService
-  ) { 
+  ) {
     this.showSubRoutes = false;
   }
   onSidebarClick(): void {
@@ -41,7 +41,7 @@ export class MenuComponent implements OnInit {
   }
 
 
-  
+
 
   setRouts() {
 
@@ -54,8 +54,8 @@ export class MenuComponent implements OnInit {
     } if (this.userRole == 'Vendor') {
       this.userRole = 'vendor'
     }
-    if(this.userRole == 'Distributor'){
-this.userRole = 'distributor'
+    if (this.userRole == 'Distributor') {
+      this.userRole = 'distributor'
     }
 
     switch (this.userRole) {
@@ -67,12 +67,12 @@ this.userRole = 'distributor'
         break;
       case 'vendor':
         this.routes = RoleRoutes['Vendor']
-       
+
         break;
-        case 'distributor':
-          this.routes = RoleRoutes['Distributor']
-         
-          break; 
+      case 'distributor':
+        this.routes = RoleRoutes['Distributor']
+
+        break;
     }
   }
 
@@ -81,7 +81,7 @@ this.userRole = 'distributor'
   }
 
 
-  
+
   public openSection(selectedRoute: any) {
     this.routes = this.routes.map(item => {
       item.name == selectedRoute.name ? item['isSelected'] = !item['isSelected'] : item['isSelected'] = false
