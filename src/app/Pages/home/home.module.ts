@@ -60,6 +60,7 @@ import { EditCategoryComponent } from './SuperAdmin/Category/edit-category/edit-
 import { EditSubCategoryComponent } from './SuperAdmin/Category/sub-category-list/edit-sub-category/edit-sub-category.component';
 import { CapitalizeFirstLetterDirective } from 'src/app/CapitalizeFirstLetterDirective ';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { UpComingScheduleDetailComponent } from './Vendor/Scheduled/up-coming-schedule-detail/up-coming-schedule-detail.component';
 
 
 
@@ -118,7 +119,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
    NoSpacesAtStartDirective,
    EditCategoryComponent,
    EditSubCategoryComponent,
-   CapitalizeFirstLetterDirective 
+   CapitalizeFirstLetterDirective,
+   UpComingScheduleDetailComponent 
 
 
 

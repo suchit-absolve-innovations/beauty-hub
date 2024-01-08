@@ -300,6 +300,7 @@ export class ContentService {
     return this.http.get<any>(environment.apiUrl + ApiEndPoint.getSalonBannerList + '?salonId=' + data.salonId + '&salonBannerType=' + data.salonBannerType)
   }
 
+
   getFilterShopMain(data: any) {
     return this.http.get<any>(environment.apiUrl + ApiEndPoint.getSalonBannerList + '?salonId=' + data.salonId + '&mainCategoryId=' + data.mainCategoryId)
   }
@@ -410,6 +411,9 @@ export class ContentService {
 
   addSchedule(data: any) {
     return this.http.post<any>(environment.apiUrl + ApiEndPoint.addSchedule, data)
+  }
+  getUpcomingSchedules(salonId: any) {
+    return this.http.get<any>(environment.apiUrl + ApiEndPoint.getUpcomingSchedule + '?salonId=' + salonId);
   }
 
   addNewService(data: any) {

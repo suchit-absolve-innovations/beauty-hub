@@ -45,6 +45,7 @@ import { AddEditPackageComponent } from './Vendor/Packages/add-edit-package/add-
 import { EditPackageComponent } from './Vendor/Packages/edit-package/edit-package.component';
 import { EditCategoryComponent } from './SuperAdmin/Category/edit-category/edit-category.component';
 import { EditSubCategoryComponent } from './SuperAdmin/Category/sub-category-list/edit-sub-category/edit-sub-category.component';
+import { UpComingScheduleDetailComponent } from './Vendor/Scheduled/up-coming-schedule-detail/up-coming-schedule-detail.component';
 
 
 const routes: Routes = [
@@ -114,6 +115,7 @@ const routes: Routes = [
      { path: 'subscription', component: BuyMebershipPlanListComponent },
      { path: 'subscription/buy-membership-plan/add-salon', component: AddSalonsComponent },
      { path: 'add-edit-schedule', component: AddEditScheduleComponent },
+     { path: 'add-edit-schedule/up-coming-schedule-detail', component: UpComingScheduleDetailComponent },
      { path: 'vendor-notification-list', component: VendorNotificationListComponent },
      { path: 'vendor-notification-list/add-notification', component: VendorAddNotificationComponent },
      { path: 'package-list', component: PackageListComponent},

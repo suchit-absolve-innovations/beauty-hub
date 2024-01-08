@@ -1,102 +1,143 @@
 <div class="app-main__outer">
 
     <div class="admin_a form_dashbord">
-            <div class="row">
-                <div class="col-md-12 ">
-                    <div class="heading">
-                        <h2> Schedule</h2>
-                        <p>Schedule your work timings</p>
+        <div class="row">
+            <div class="col-md-12 ">
+                <div class="heading">
+                    <h2> Schedule</h2>
+                    <p>Schedule your work timings</p>
 
-                    
-                    </div>
+
                 </div>
-                <div class="col-md-12 mt-30">
-
-                    <div class="selecotr-item label-close-tag">
-                        <input type="checkbox"  name="selector" class="selector-item_radio" >
-                        <label  class="selector-item_label" style="background-color: white;">Open </label>
-                   
-                    </div>
+            </div>
+            <div class="col-md-12 mt-30">
 
                 <div class="selecotr-item label-close-tag">
-                    <input type="checkbox"  name="selector" class="selector-item_radio" >
-                    <label  class="selector-item_label" style="background-color: #ffd7ea;"> Close</label>
-               
+                    <input type="checkbox" name="selector" class="selector-item_radio">
+                    <label class="selector-item_label" style="background-color: white;">Open </label>
+
                 </div>
 
-          
-             </div>
+                <div class="selecotr-item label-close-tag">
+                    <input type="checkbox" name="selector" class="selector-item_radio">
+                    <label class="selector-item_label" style="background-color: #ffd7ea;"> Close</label>
+
+                </div>
+
+
             </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 ">
+                <form [formGroup]="Form">
 
-            <form [formGroup]="Form" >
 
-                <div class="work-days">
-                    <h5>Working Days:</h5>
+                    <div class="work-days">
+                        <h5>Working Days:</h5>
 
-                    <div class="selector">
-                        <div class="selecotr-item">
-                            <input type="checkbox" formControlName="monday" name="selector" class="selector-item_radio"
-                                id="radio307" (change)='planMonday($event)'>
-                            <label for="radio307" class="selector-item_label">Mon </label>
+                        <div class="selector">
+                            <div class="selecotr-item">
+                                <input type="checkbox" formControlName="monday" name="selector"
+                                    class="selector-item_radio" id="radio307" (change)='planMonday($event)'>
+                                <label for="radio307" class="selector-item_label">Mon </label>
+                            </div>
+
+                            <div class="selecotr-item">
+                                <input type="checkbox" formControlName="tuesday" name="selector"
+                                    class="selector-item_radio" id="radio308" (change)='planTuesday($event)'>
+                                <label for="radio308" class="selector-item_label">Tue </label>
+                            </div>
+                            <div class="selecotr-item">
+                                <input type="checkbox" formControlName="wednesday" name="selector"
+                                    class="selector-item_radio" id="radio301" (change)='planWednesday($event)'>
+                                <label for="radio301" class="selector-item_label">Wed</label>
+
+                            </div>
+                            <div class="selecotr-item">
+                                <input type="checkbox" formControlName="thursday" name="selector"
+                                    class="selector-item_radio" id="radio302" (change)='planThrusday($event)'>
+                                <label for="radio302" class="selector-item_label">Thu </label>
+                            </div>
+                            <div class="selecotr-item">
+                                <input type="checkbox" formControlName="friday" name="selector"
+                                    class="selector-item_radio" id="radio303" (change)='planFriday($event)'>
+                                <label for="radio303" class="selector-item_label">Fri </label>
+                            </div>
+                            <div class="selecotr-item">
+                                <input type="checkbox" formControlName="saturday" name="selector"
+                                    class="selector-item_radio" id="radio304" (change)='planSaturday($event)'>
+                                <label for="radio304" class="selector-item_label">Sat </label>
+                            </div>
+                            <div class="selecotr-item">
+                                <input type="checkbox" formControlName="sunday" name="selector"
+                                    class="selector-item_radio" id="radio305" (change)='planSunday($event)'>
+                                <label for="radio305" class="selector-item_label">Sun </label>
+                            </div>
                         </div>
 
-                        <div class="selecotr-item">
-                            <input type="checkbox" formControlName="tuesday" name="selector" class="selector-item_radio"
-                                id="radio308" (change)='planTuesday($event)'>
-                            <label for="radio308" class="selector-item_label">Tue </label>
-                        </div>
-                        <div class="selecotr-item">
-                            <input type="checkbox" formControlName="wednesday" name="selector" class="selector-item_radio" id="radio301" (change)='planWednesday($event)'>
-                            <label for="radio301" class="selector-item_label">Wed</label>
-                       
-                        </div>
-                        <div class="selecotr-item">
-                            <input type="checkbox" formControlName="thursday" name="selector"
-                                class="selector-item_radio" id="radio302" (change)='planThrusday($event)'>
-                            <label for="radio302" class="selector-item_label">Thu </label>
-                        </div>
-                        <div class="selecotr-item">
-                            <input type="checkbox" formControlName="friday" name="selector" class="selector-item_radio"
-                                id="radio303" (change)='planFriday($event)'>
-                            <label for="radio303" class="selector-item_label">Fri </label>
-                        </div>
-                        <div class="selecotr-item">
-                            <input type="checkbox" formControlName="saturday" name="selector"
-                                class="selector-item_radio" id="radio304" (change)='planSaturday($event)'>
-                            <label for="radio304" class="selector-item_label">Sat </label>
-                        </div>
-                        <div class="selecotr-item">
-                            <input type="checkbox" formControlName="sunday" name="selector" class="selector-item_radio"
-                                id="radio305" (change)='planSunday($event)'>
-                            <label for="radio305" class="selector-item_label">Sun </label>
-                        </div>
                     </div>
 
+                    <div class="work-timing">
+                        <h5>Working Time:</h5>
+                        <!-- <p> <span><b>8:30</b> AM</span> - <span><b>6:30</b> PM</span></p> -->
+                        <p><span>
+                                <input formControlName="fromTime" type="time" class="form-control" />
+                            </span>
+                            -
+                            <span>
+                                <input formControlName="toTime" type="time" class="form-control" />
+                            </span>
+                        </p>
+
+
+                    </div>
+
+                    <div class="col-lg-12 col-md-12 mt-40 text-center btn_margin">
+                        <button class="border-btn btn-round" type="submit" value="" data-toggle="modal"
+                            data-target="#cancel-mess">
+                            Cancel
+                        </button>
+                        <button class="btn_blue btn-round" type="submit" (click)="addUpdateSchedule()">Submit</button>
+                    </div>
+
+
+                </form>
+            </div>
+
+            <div class="col-md-6 " style="position: relative; top: -118px; ">
+                <div class="heading" style="margin-bottom: 30px;">
+                    <h4> Scheduled Appointments</h4>
+                </div>
+                <div class="table-responsive" style=" border: 2px solid #ffd7e9;">
+                    <table class="table admin_table baby-pink">
+
+                        <tr>
+                            <th>Date </th>
+                            <th>Day</th>
+                            <th>Slot</th>
+                            <th>Action</th>
+                        </tr>
+                        <tr *ngFor="let item of list">
+
+                        
+                            <td>
+                                {{item?.date}}
+                            </td>
+                            <td>
+                                {{item?.day}}
+                                
+                            </td>
+                            <td>{{item?.slotCount}}</td>
+                              <td> <i style="background:#e6629f; color:#fff; padding: 6px; border-radius: 5px; font-size: 9px;" class="fa fa-eye"></i></td> 
+                            <!-- <td> <i  [routerLink]="['/add-edit-schedule/up-coming-schedule-detail/']" style="background:#e6629f; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;" class="fa fa-eye"></i></td> -->
+                        </tr>
+                    
+                    </table>
                 </div>
 
-                <div class="work-timing">
-                    <h5>Working Time:</h5>
-                    <!-- <p> <span><b>8:30</b> AM</span> - <span><b>6:30</b> PM</span></p> -->
-                    <p><span>
-                        <input formControlName="fromTime" type="time" class="form-control" />
-                        </span>
-                        -
-                        <span>
-                            <input formControlName="toTime" type="time" class="form-control"  />
-                        </span>
-                    </p>
-
-
-                </div>
-
-                <div class="col-lg-12 col-md-12 mt-40 text-center btn_margin">
-                    <button class="border-btn btn-round" type="submit" value="" data-toggle="modal" data-target="#cancel-mess">
-                      Cancel
-                    </button>
-                    <button class="btn_blue btn-round" type="submit" (click)="addUpdateSchedule()">Submit</button>
-                  </div>
-            </form>
+            </div>
         </div>
+    </div>
 
 
 </div>

@@ -26,7 +26,9 @@ export class AddEditScheduleComponent implements OnInit {
   salonId: any;
   time!: string;
   time1!: string;
-  time2!:string;
+  time2!: string;
+  shopBannerList: any;
+  list: any;
   ngUnsubscribe!: ObservableInput<any>;
   private refreshSubscription!: Subscription;
   constructor(
@@ -40,6 +42,7 @@ export class AddEditScheduleComponent implements OnInit {
   ngOnInit(): void {
     this.scheduleform();
     this.salonId = localStorage.getItem('salonId');
+    this.getSchedule();
     this.getScheduleDayTime();
   }
 
@@ -97,7 +100,7 @@ export class AddEditScheduleComponent implements OnInit {
       this.monday = true;
     }
 
- }
+  }
 
 
   // tuesday value select true and false 
@@ -170,20 +173,20 @@ export class AddEditScheduleComponent implements OnInit {
   // get schedule 
 
   getScheduleDayTime() {
-    
+
     this.spinner.show();
     this.contentService.getScheduleDayTimes(this.salonId).subscribe(response => {
-   
-     
+
+
       if (response.isSuccess) {
-   this.spinner.hide();
+        this.spinner.hide();
         this.schedule = response.data;
-      //  alert('Schedule Updating...')
-      //   if(this.schedule.updateStatus == true){
-       
-      //  this.spinner.hide();
-      //  this.toasterService.success('Schedule Updated Successfully');
-      //   }
+        //  alert('Schedule Updating...')
+        //   if(this.schedule.updateStatus == true){
+
+        //  this.spinner.hide();
+        //  this.toasterService.success('Schedule Updated Successfully');
+        //   }
         this.Form.patchValue({
           monday: response.data.monday,
           tuesday: response.data.tuesday,
@@ -196,18 +199,18 @@ export class AddEditScheduleComponent implements OnInit {
           toTime: response.data.toTime,
         });
       }
-        else {
-          this.spinner.hide();
+      else {
+        this.spinner.hide();
       }
     });
-    
+
   }
 
 
-  addUpdateSchedule(){
-    
+  addUpdateSchedule() {
+
     let payload = {
-      salonId : localStorage.getItem('salonId'),
+      salonId: localStorage.getItem('salonId'),
       fromTime: this.Form.value.fromTime,
       toTime: this.Form.value.toTime,
       monday: this.Form.value.monday,
@@ -216,16 +219,16 @@ export class AddEditScheduleComponent implements OnInit {
       thursday: this.Form.value.thursday,
       friday: this.Form.value.friday,
       saturday: this.Form.value.saturday,
-      sunday: this.Form.value.sunday,    
+      sunday: this.Form.value.sunday,
     }
     this.spinner.show();
     this.contentService.addSchedule(payload).subscribe(response => {
       if (response.isSuccess) {
         debugger
-      this.spinner.hide();
-   //    this.getScheduleDayTime();
-     //   this.toasterService.success(response.messages);
-      
+        this.spinner.hide();
+        //    this.getScheduleDayTime();
+        //   this.toasterService.success(response.messages);
+
       } else {
         this.spinner.hide();
         this.toasterService.error(response.messages);
@@ -233,6 +236,17 @@ export class AddEditScheduleComponent implements OnInit {
     });
   }
 
+  getSchedule() {
+    debugger
+    this.contentService.getUpcomingSchedules(this.salonId).subscribe(response => {
+      if (response.isSuccess) {
+        this.list = response.data;
+        console.log(this.list)
+      } else {
+        // this.spinner.hide();
+      }
+    });
+  }
 
   // cancel 
 

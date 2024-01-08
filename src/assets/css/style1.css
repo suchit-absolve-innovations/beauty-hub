@@ -589,7 +589,13 @@ a.forget_link {
     min-width: 140px;
     font-weight: 500;
 }
-
+.baby-pink th {
+    background: #ffd7ea !important;
+    color: #252525 !important;
+}
+.baby-pink {
+    margin: 0px;
+}
 .collection-table.admin_table {
     max-height: 400px;
 }
@@ -605,6 +611,17 @@ a.forget_link {
     height: 45px;
 }
 
+.baby-pink th {
+    
+  font-weight: 500 !important;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+}
+.baby-pink td {
+    font-size: 11px;
+    padding-top: 7px !important;
+    padding-bottom: 7px !important;
+}
 .load_more {
     background: #85214f !important;
 }
