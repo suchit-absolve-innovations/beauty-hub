@@ -248,13 +248,13 @@ clearSubCategories() {
     }
     this.content.filterAllBanners(payload).subscribe(response => {
       if (response.isSuccess) {
-        this.shopBannerList = response.data
+        this.shopBannerList = response.data;
 
         //    this.spinner.hide();
         //   this.toaster.success(response.messages)
       } else {
         //   this.spinner.hide();
-        this.toaster.error(response.messages)
+        this.toaster.error(response.messages);
         this.shopBannerList = [];
       }
     });

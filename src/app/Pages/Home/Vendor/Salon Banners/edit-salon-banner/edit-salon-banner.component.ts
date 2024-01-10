@@ -60,13 +60,13 @@ export class EditSalonBannerComponent implements OnInit {
       mainCategoryId: [''],
       subCategoryId: [''],
       bannerImage: ['']
-
     })
     this.form.get('mainCategoryId').valueChanges.subscribe(() => {
       // Reset subCategoryId when mainCategoryId changes
       this.form.get('subCategoryId').setValue('');
     });
   }
+  
   get d() {
     return this.form['controls'];
   }
@@ -101,7 +101,6 @@ export class EditSalonBannerComponent implements OnInit {
           subCategoryId: this.ShopBannerdetail.subCategoryId,
         });
       }
-
     });
   }
 
