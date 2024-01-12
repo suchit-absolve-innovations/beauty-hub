@@ -246,7 +246,6 @@ export class ServiceListComponent implements OnInit {
         this.list = response.data.dataList;
 
            // Apply filtering if searchText is provided
-           debugger
 
     //    this.spinner.hide();
       } else {
