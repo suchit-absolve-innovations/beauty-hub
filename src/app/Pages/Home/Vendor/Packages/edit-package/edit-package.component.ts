@@ -91,10 +91,10 @@ export class EditPackageComponent implements OnInit {
     this.getServiceDetail()
     this.serviceForm();
     // this.getcategoryList();
-     this.getServicesList();
+    this.getServicesList();
 
     this.salonId = this.route.snapshot.queryParams
-    if(this.packageDetailPatch.includeServiceId = '') {
+    if (this.packageDetailPatch.includeServiceId = '') {
       this.dropdownSettings = {
         singleSelection: false,
         selectAllText: 'Select All',
@@ -105,16 +105,16 @@ export class EditPackageComponent implements OnInit {
         textField: 'item_text',
       };
     } else {
-    this.dropdownSettings = {
-      singleSelection: false,
-      selectAllText: 'Select All',
-      unSelectAllText: 'UnSelect All',
-      allowSearchFilter: true,
-      itemsShowLimit: 5,
-      idField: 'item_id',
-      textField: 'customDisplayText',
-    };
-  }
+      this.dropdownSettings = {
+        singleSelection: false,
+        selectAllText: 'Select All',
+        unSelectAllText: 'UnSelect All',
+        allowSearchFilter: true,
+        itemsShowLimit: 5,
+        idField: 'item_id',
+        textField: 'customDisplayText',
+      };
+    }
     this.form.get('mainCategoryId').valueChanges.subscribe(() => {
       // Reset subCategoryId when mainCategoryId changes
       this.form.get('subCategoryId').setValue('');
@@ -208,25 +208,25 @@ export class EditPackageComponent implements OnInit {
     this.listingPrice = this.basePrice - this.discount;
   }
 
-  getcategoryList(data:any) {
+  getcategoryList(data: any) {
     this.spinner.show();
     this.type = data
-if(this.type == 'Male'){
-this.categoryType = 1
-} else if (this.type == 'Female'){
-  this.categoryType = 2 
-} else {
-  this.categoryType = 3
-}
-let payload = {
-  salonId : this.salonIds,
-  categoryType : this.categoryType
-}
-debugger
+    if (this.type == 'Male') {
+      this.categoryType = 1
+    } else if (this.type == 'Female') {
+      this.categoryType = 2
+    } else {
+      this.categoryType = 3
+    }
+    let payload = {
+      salonId: this.salonIds,
+      categoryType: this.categoryType
+    }
+    debugger
     this.contentService.getcategoryService(payload).subscribe(response => {
       if (response.isSuccess) {
         this.categoryList = response.data;
-        
+
         this.subCategoryList = [];
 
         this.spinner.hide();
@@ -239,7 +239,7 @@ debugger
 
 
   getSubcategoryList(mainCategoryId: any) {
-debugger
+    debugger
     this.contentService.SuperSubCategory(mainCategoryId).subscribe(response => {
       if (response.isSuccess) {
         this.subCategoryList = response.data;
@@ -262,13 +262,13 @@ debugger
     this.contentService.getservice(payload).subscribe(response => {
       if (response.isSuccess) {
         this.serviceList = response.data.dataList
-        this.bindServiceList = this.serviceList.map((element:{ serviceId: any; serviceName: any; listingPrice:any; genderPreferences:any } ) => ({
+        this.bindServiceList = this.serviceList.map((element: { serviceId: any; serviceName: any; listingPrice: any; genderPreferences: any }) => ({
           item_id: element.serviceId,
           item_text: element.serviceName,
           item_text2: element.listingPrice,
           item_text3: element.genderPreferences,
           customDisplayText: `${element.serviceName} - ${element.genderPreferences} - ₹${element.listingPrice}`,
-          
+
         }));
         // this.shopId = response.data.dataList.shopId
         // this.getFilterMainCategoryList(this.productList);
@@ -299,7 +299,7 @@ debugger
     this.contentService.getfilteListBycategories(payload).subscribe(response => {
       if (response.isSuccess) {
         this.serviceList = response.data.dataList
-        this.bindServiceList = this.serviceList.map((element:{ serviceId: any; serviceName: any; listingPrice:any; genderPreferences:any } ) => ({
+        this.bindServiceList = this.serviceList.map((element: { serviceId: any; serviceName: any; listingPrice: any; genderPreferences: any }) => ({
           item_id: element.serviceId,
           item_text: element.serviceName,
           item_text2: element.listingPrice,
@@ -333,7 +333,7 @@ debugger
     this.contentService.getPackageDetail(payload).subscribe(response => {
 
       if (response.isSuccess) {
-debugger
+        debugger
         this.imageConvert64();
         this.packageDetailPatch = response.data
         this.getcategoryList(this.packageDetailPatch.genderPreferences);
@@ -353,13 +353,13 @@ debugger
 
 
         // this.packageDetailPatch.includeService.map((service: any) => service.serviceName, ),
-      //  this.getcategoryList(this.packageDetailPatch.genderPreferences);
+        //  this.getcategoryList(this.packageDetailPatch.genderPreferences);
         this.form.patchValue({
           serviceName: this.packageDetailPatch.serviceName,
           basePrice: this.packageDetailPatch.basePrice,
           discount: this.packageDetailPatch.discount,
           listingPrice: this.packageDetailPatch.listingPrice,
-      //   mainCategoryId: this.packageDetailPatch.mainCategoryId,
+          //   mainCategoryId: this.packageDetailPatch.mainCategoryId,
           ageRestrictions: this.packageDetailPatch.ageRestrictions,
           genderPreferences: this.packageDetailPatch.genderPreferences,
           duration: this.packageDetailPatch.duration,
@@ -377,9 +377,9 @@ debugger
           })),
         });
         debugger
-   
-// this.getServicesListByCategories();
-    // this.getSubcategoryList(this.packageDetailPatch?.mainCategoryId);
+
+        // this.getServicesListByCategories();
+        // this.getSubcategoryList(this.packageDetailPatch?.mainCategoryId);
       }
     });
     this.spinner.hide();
@@ -409,7 +409,7 @@ debugger
       serviceName: this.form.value.serviceName,
       basePrice: parseInt(this.form.value.basePrice),
       discount: parseInt(this.form.value.discount),
-      listingPrice: parseInt(this .form.value.listingPrice),
+      listingPrice: parseInt(this.form.value.listingPrice),
       // mainCategoryId       : this.form.value.mainCategoryId,
       // subCategoryId        : this.form.value.subCategoryId,
       ageRestrictions: this.form.value.ageRestrictions,

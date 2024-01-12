@@ -99,6 +99,9 @@ export class AddEditCategoryComponent implements OnInit {
       if (response.isSuccess) {
         if (this.login == 'SuperAdmin') {
           this._location.back();
+          setTimeout(() => {
+            window.location.reload();
+          }, 500); 
           this.toasterService.success(response.messages);
         }
         if (this.login == 'Vendor') {
