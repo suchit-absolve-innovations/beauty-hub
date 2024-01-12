@@ -82,6 +82,9 @@ export class ServiceListComponent implements OnInit {
         this.applyFilter(filterParams);
       
       }
+
+
+      
   }
 
   
@@ -113,7 +116,11 @@ export class ServiceListComponent implements OnInit {
       queryParams: { search: searchTerm, page:1 }, // Reset to the first page when searching
       queryParamsHandling: 'merge',
     });
+   
   }
+
+
+
 
   onPageChange(page: number): void {
     // Update query parameters for pagination
@@ -224,6 +231,9 @@ export class ServiceListComponent implements OnInit {
       if (response.isSuccess) {
         this.list = response.data.dataList;
 
+           // Apply filtering if searchText is provided
+           debugger
+
     //    this.spinner.hide();
       } else {
      //   this.spinner.hide();
@@ -231,6 +241,9 @@ export class ServiceListComponent implements OnInit {
 
     });
   }
+
+
+
 
   passId() {
     if (this.role == 'SuperAdmin') {
@@ -470,11 +483,34 @@ postUnActiveServiceStatus(data: any) {
 
 
   searchlist(): void {
-    this.searchService.setSearchCriteria(this.searchText);
+    this.searchService.setSearchCriteria(this.searchText);  
+      // Assuming this.list contains the original unfiltered list
+  this.list = this.list.filter((service: any) => this.matchService(service, this.searchText));
 
-   
+
+   debugger
+   if(this.searchText == '')
+   this.getList();
   }
 
+// Function to check if a service matches the search term
+matchService(service: any, searchTerm: string): boolean {
+  const propertiesToSearch = ['genderPreferences', 'listingPrice', 'serviceName']; // Add more properties as needed
+
+  for (const property of propertiesToSearch) {
+    const propertyValue = service[property];
+
+    if (typeof propertyValue === 'string' &&
+        propertyValue.toLowerCase().startsWith(searchTerm.toLowerCase())) {
+      return true; // Return true if the search term is found at the beginning of any string property
+    } else if (typeof propertyValue === 'number' &&
+               propertyValue.toString().startsWith(searchTerm.toLowerCase())) {
+      return true; // Return true if the search term is found at the beginning of any numeric property
+    }
+  }
+
+  return false;
+}
 
 
   serviceListFilter() {
