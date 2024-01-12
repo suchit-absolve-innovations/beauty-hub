@@ -8,6 +8,8 @@ import { FormBuilder } from '@angular/forms';
 import { Location } from '@angular/common';
 import { SearchService } from 'src/app/Shared/service/search.service';
 import { FilterService } from 'src/app/Shared/service/filter.service';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 declare var $: any;
 
 @Component({
@@ -16,6 +18,7 @@ declare var $: any;
   styleUrls: ['./service-list.component.css']
 })
 export class ServiceListComponent implements OnInit {
+  private debouncer = new Subject<string>();
   list: any;
   // serach 
   public searchText: any = '';
@@ -50,7 +53,18 @@ export class ServiceListComponent implements OnInit {
     private searchService: SearchService,
     private filterService: FilterService,
     private zone: NgZone) {
-  
+      this.debouncer.pipe(
+        debounceTime(300),
+        distinctUntilChanged()
+      ).subscribe(searchText => {
+        this.searchService.setSearchCriteria(searchText);
+        if (searchText.trim() === '') {
+          this.getList();
+        } else {
+          // Assuming this.list contains the original unfiltered list
+          this.list = this.list.filter((service: any) => this.matchService(service, searchText));
+        }
+      });
 
      }
 
@@ -480,18 +494,18 @@ postUnActiveServiceStatus(data: any) {
     });
   }
 
-
+  // onSearchInputChange(searchText: any): void {
+  //   debugger
+  //   this.searchText = searchText.value;
+  //   this.searchlist();
+  // }
 
   searchlist(): void {
-    this.searchService.setSearchCriteria(this.searchText);  
+  
       // Assuming this.list contains the original unfiltered list
-  this.list = this.list.filter((service: any) => this.matchService(service, this.searchText));
-
-
-   debugger
-   if(this.searchText == '')
-   this.getList();
-  }
+      this.debouncer.next(this.searchText.trim().toLowerCase());
+      this.searchService.setSearchCriteria(this.searchText);  
+}
 
 // Function to check if a service matches the search term
 matchService(service: any, searchTerm: string): boolean {
