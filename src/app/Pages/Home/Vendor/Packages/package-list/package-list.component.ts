@@ -88,6 +88,7 @@ export class PackageListComponent implements OnInit {
       serviceType: 'Package'
     }
     this.spinner.show();
+
     this.content.getPackageList(payload).subscribe(response => {
       if (response.isSuccess) {
         this.packagesList = response.data.dataList;
@@ -117,6 +118,7 @@ export class PackageListComponent implements OnInit {
 
 
   postActiveServiceStatus(data: any) {
+
     let payload = {
       serviceId: data,
       status: 1
@@ -128,6 +130,7 @@ export class PackageListComponent implements OnInit {
   }
 
   postUnActiveServiceStatus(data: any) {
+
     let payload = {
       serviceId: data,
       status: 0
