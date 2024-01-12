@@ -118,7 +118,8 @@ export class AddEditSubCategoryComponent implements OnInit {
         categoryType: this.form.value.categoryType
       }
       this.content.addSubCategory(payload).subscribe(response => {
-        this.subId = response.data?.subCategoryId
+        this.subId = response.data?.subCategoryId;
+        debugger
         this.fileChangeEvent();
         this.afterResponse(response);
       });
@@ -224,6 +225,7 @@ export class AddEditSubCategoryComponent implements OnInit {
   }
 
   fileChangeEvent() {
+    debugger
     let formData = new FormData();
     formData.append("categoryImage", this.imageFile?.file);
     formData.append("subCategoryId", this.subId);

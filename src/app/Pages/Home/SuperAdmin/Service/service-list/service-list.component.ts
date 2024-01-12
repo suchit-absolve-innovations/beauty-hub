@@ -8,8 +8,6 @@ import { FormBuilder } from '@angular/forms';
 import { Location } from '@angular/common';
 import { SearchService } from 'src/app/Shared/service/search.service';
 import { FilterService } from 'src/app/Shared/service/filter.service';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { Subject } from 'rxjs';
 declare var $: any;
 
 @Component({
@@ -18,7 +16,6 @@ declare var $: any;
   styleUrls: ['./service-list.component.css']
 })
 export class ServiceListComponent implements OnInit {
-  private debouncer = new Subject<string>();
   list: any;
   // serach 
   public searchText: any = '';
@@ -53,18 +50,7 @@ export class ServiceListComponent implements OnInit {
     private searchService: SearchService,
     private filterService: FilterService,
     private zone: NgZone) {
-      this.debouncer.pipe(
-        debounceTime(300),
-        distinctUntilChanged()
-      ).subscribe(searchText => {
-        this.searchService.setSearchCriteria(searchText);
-        if (searchText.trim() === '') {
-          this.getList();
-        } else {
-          // Assuming this.list contains the original unfiltered list
-          this.list = this.list.filter((service: any) => this.matchService(service, searchText));
-        }
-      });
+  
 
      }
 
@@ -96,9 +82,6 @@ export class ServiceListComponent implements OnInit {
         this.applyFilter(filterParams);
       
       }
-
-
-      
   }
 
   
@@ -130,11 +113,7 @@ export class ServiceListComponent implements OnInit {
       queryParams: { search: searchTerm, page:1 }, // Reset to the first page when searching
       queryParamsHandling: 'merge',
     });
-   
   }
-
-
-
 
   onPageChange(page: number): void {
     // Update query parameters for pagination
@@ -245,9 +224,6 @@ export class ServiceListComponent implements OnInit {
       if (response.isSuccess) {
         this.list = response.data.dataList;
 
-           // Apply filtering if searchText is provided
-           debugger
-
     //    this.spinner.hide();
       } else {
      //   this.spinner.hide();
@@ -255,9 +231,6 @@ export class ServiceListComponent implements OnInit {
 
     });
   }
-
-
-
 
   passId() {
     if (this.role == 'SuperAdmin') {
@@ -494,37 +467,14 @@ postUnActiveServiceStatus(data: any) {
     });
   }
 
-  // onSearchInputChange(searchText: any): void {
-  //   debugger
-  //   this.searchText = searchText.value;
-  //   this.searchlist();
-  // }
+
 
   searchlist(): void {
-  
-      // Assuming this.list contains the original unfiltered list
-      this.debouncer.next(this.searchText.trim().toLowerCase());
-      this.searchService.setSearchCriteria(this.searchText);  
-}
+    this.searchService.setSearchCriteria(this.searchText);
 
-// Function to check if a service matches the search term
-matchService(service: any, searchTerm: string): boolean {
-  const propertiesToSearch = ['genderPreferences', 'listingPrice', 'serviceName']; // Add more properties as needed
-
-  for (const property of propertiesToSearch) {
-    const propertyValue = service[property];
-
-    if (typeof propertyValue === 'string' &&
-        propertyValue.toLowerCase().startsWith(searchTerm.toLowerCase())) {
-      return true; // Return true if the search term is found at the beginning of any string property
-    } else if (typeof propertyValue === 'number' &&
-               propertyValue.toString().startsWith(searchTerm.toLowerCase())) {
-      return true; // Return true if the search term is found at the beginning of any numeric property
-    }
+   
   }
 
-  return false;
-}
 
 
   serviceListFilter() {
