@@ -83,7 +83,6 @@ export class ServiceListComponent implements OnInit {
     this.route.queryParams.subscribe((params) => {
       this.search = params['search'] || '';
       this.page = params['page'] ? parseInt(params['page'], 10) : 1;
-
     });   
 
     this.salonId = this.route.snapshot.queryParams
@@ -91,21 +90,15 @@ export class ServiceListComponent implements OnInit {
 
       // Retrieve filter params and apply them
       const filterParams = this.filterService.getFilterParams();
-      debugger
       if (filterParams) {
         this.applyFilter(filterParams);
-      
-      }
-
-
-      
+      }      
   }
 
   
 
   applyFilter(params: any): void {
     // Apply filter logic with the provided params
-    debugger
 
     this.form.patchValue({
       ageRestrictions: params.ageRestrictions || '',
@@ -130,11 +123,7 @@ export class ServiceListComponent implements OnInit {
       queryParams: { search: searchTerm, page:1 }, // Reset to the first page when searching
       queryParamsHandling: 'merge',
     });
-   
   }
-
-
-
 
   onPageChange(page: number): void {
     // Update query parameters for pagination
@@ -154,8 +143,7 @@ export class ServiceListComponent implements OnInit {
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: { page: null },
-      queryParamsHandling: 'merge'
-      
+      queryParamsHandling: 'merge'      
     });
   }
 
@@ -164,8 +152,7 @@ export class ServiceListComponent implements OnInit {
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: { page: null },
-      queryParamsHandling: 'merge'
-      
+      queryParamsHandling: 'merge'      
     });
     this.form.get('mainCategoryId').setValue('');
     this.form.get('subCategoryId').setValue('');
@@ -251,12 +238,8 @@ export class ServiceListComponent implements OnInit {
       } else {
      //   this.spinner.hide();
       }
-
     });
   }
-
-
-
 
   passId() {
     if (this.role == 'SuperAdmin') {
@@ -264,20 +247,19 @@ export class ServiceListComponent implements OnInit {
         {
           queryParams: {
             id: this.salonId.id
-
           }
-        })
+        });
     }
     else if (this.role == 'Vendor') {
       this.router.navigate(['/vendor-service-list/add-service'],
         {
           queryParams: {
             id: this.salonId.id
-
           }
-        })
+        });
     }
   }
+
   details(data: any) {
     if (this.role == 'SuperAdmin') {
       this.router.navigate(['/salon-list/service-list/service-detail'],
@@ -285,7 +267,7 @@ export class ServiceListComponent implements OnInit {
           queryParams: {
             id: data.serviceId
           }
-        })
+        });
     }
     else if (this.role == 'Vendor') {
       this.router.navigate(['/vendor-service-list/service-detail'],
@@ -293,9 +275,10 @@ export class ServiceListComponent implements OnInit {
           queryParams: {
             id: data.serviceId
           }
-        })
+        });
     }
   }
+
   edit(data: any) {
     if (this.role == 'SuperAdmin') {
       this.router.navigate(['/salon-list/service-list/edit-service'],
@@ -303,9 +286,8 @@ export class ServiceListComponent implements OnInit {
           queryParams: {
             id2: data.serviceId,
             id: data.salonId
-
           }
-        })
+        });
     }
     else if (this.role == 'Vendor') {
       this.router.navigate(['vendor-service-list/edit-service'],
@@ -313,9 +295,8 @@ export class ServiceListComponent implements OnInit {
           queryParams: {
             id2: data.serviceId,
             id: data.salonId
-
           }
-        })
+        });
     }
   }
 
@@ -363,12 +344,8 @@ postUnActiveServiceStatus(data: any) {
 }
 
   delet(data: any) {
-
     this.itemToDelete = data;
-
     $('#list-cross-mess').modal('show');
-    
-
   }
 
 
@@ -447,10 +424,8 @@ postUnActiveServiceStatus(data: any) {
         this.spinner.hide();
       }
       else {
-
         this.toaster.error(response.messages)
         this.spinner.hide();
-
       }
     });
   }
@@ -476,14 +451,12 @@ postUnActiveServiceStatus(data: any) {
     // this.details
     debugger
     if (!MainCategoryId) {
-    window.location.reload();
-    
+    window.location.reload();    
     }
     this.spinner.show();
     this.content.SubCategory(MainCategoryId).subscribe(response => {
       if (response.isSuccess) {
         this.subCategoryList = response.data;
-
         // this.SubSubcategoryList = []
         this.spinner.hide();
       } else {
@@ -512,7 +485,6 @@ matchService(service: any, searchTerm: string): boolean {
 
   for (const property of propertiesToSearch) {
     const propertyValue = service[property];
-
     if (typeof propertyValue === 'string' &&
         propertyValue.toLowerCase().startsWith(searchTerm.toLowerCase())) {
       return true; // Return true if the search term is found at the beginning of any string property
@@ -521,14 +493,12 @@ matchService(service: any, searchTerm: string): boolean {
       return true; // Return true if the search term is found at the beginning of any numeric property
     }
   }
-
   return false;
 }
 
 
   serviceListFilter() {
    // this.spinner.show();
-   debugger
     let payload;
     if (this.role === 'Vendor') {
       payload = {

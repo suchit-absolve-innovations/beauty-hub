@@ -181,8 +181,8 @@ export class EditServiceComponent implements OnInit {
         this.spinner.hide();
         this.imageConvert64();
 
-        this.serviceDetailPatch = response.data
-        this.imageUrl1 = this.rootUrl + this.serviceDetailPatch.serviceIconImage
+        this.serviceDetailPatch = response.data;
+        this.imageUrl1 = this.rootUrl + this.serviceDetailPatch.serviceIconImage;
 
 
         this.form.patchValue({
