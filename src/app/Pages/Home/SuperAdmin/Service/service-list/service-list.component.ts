@@ -425,7 +425,7 @@ postUnActiveServiceStatus(data: any) {
         this.spinner.hide();
       }
       else {
-        this.toaster.error(response.messages)
+        this.toaster.error(response.messages);
         this.spinner.hide();
       }
     });
@@ -526,7 +526,7 @@ matchService(service: any, searchTerm: string): boolean {
       if (response.isSuccess) {
         this.list = response.data.dataList;
   
-   //     this.spinner.hide();
+      // this.spinner.hide();
       // Store filter params
       this.filterService.setFilterParams({
         ageRestrictions: this.form.value.ageRestrictions,
@@ -534,7 +534,6 @@ matchService(service: any, searchTerm: string): boolean {
         subCategoryId: this.form.value.subCategoryId,
         genderPreferences: this.form.value.genderPreferences,
       });
-   
       } else {
         this.list = [];
       }
@@ -548,6 +547,6 @@ matchService(service: any, searchTerm: string): boolean {
 
  
     clear(){  
-      this.subCategoryList = []
+      this.subCategoryList = [];
     }
 }
