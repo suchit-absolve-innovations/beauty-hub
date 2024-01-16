@@ -250,6 +250,10 @@ timeValidator(control: AbstractControl): ValidationErrors | null {
     }
 
    getSubcategoryList(mainCategoryId:any){
+    if (!mainCategoryId) {
+      this.subCategoryList = [];
+      return;
+    }
    this.contentService.SuperSubCategory(mainCategoryId).subscribe(response => {
      if (response.isSuccess) {
        this.subCategoryList = response.data;
@@ -548,8 +552,11 @@ onFileSelected(event: any) {
           this.errorMessages = 'Please select a 1280x720 pixels (width×height) & maximum 720 KB JPEG or PNG image.';
           this.previewImage = '';
         }
+      }else {
+        this.errorMessages = 'Please select a 1280x720 pixels (width×height) & maximum 720 KB JPEG or PNG image.';
+        this.previewImage = '';
       }
-      };
+      }
     }
   } else {
     this.errorMessages = 'Please select a 1280x720 pixels (width×height) & maximum 720 KB JPEG or PNG image.';

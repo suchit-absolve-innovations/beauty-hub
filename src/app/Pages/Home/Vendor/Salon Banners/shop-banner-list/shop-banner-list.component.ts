@@ -61,7 +61,8 @@ export class ShopBannerListComponent implements OnInit {
     this.form = this.formBuilder.group({
       mainCategoryId : [''],
       subCategoryId  : [''],
-      salonBannerType: ['']
+      salonBannerType: [''],
+      categoryType: ['']
       //  brandId       : [''],
     });
     this.searchText = this.searchService.getSearchCriteria();

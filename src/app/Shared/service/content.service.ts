@@ -297,7 +297,7 @@ export class ContentService {
 
   // Shop Banner
   getShopBanner(data: any) {
-    return this.http.get<any>(environment.apiUrl + ApiEndPoint.getSalonBannerList + '?salonId=' + data.salonId + '&salonBannerType=' + data.salonBannerType)
+    return this.http.get<any>(environment.apiUrl + ApiEndPoint.getSalonBannerList + '?salonId=' + data.salonId + '&salonBannerType=' + data.salonBannerType )
   }
 
 

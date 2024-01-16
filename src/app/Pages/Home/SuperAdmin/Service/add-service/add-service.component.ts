@@ -254,6 +254,11 @@ export class AddServiceComponent implements OnInit {
               return;
             }
           }
+          else {
+            this.errorMessages = 'Please select a 1280x720 pixels (width×height) & maximum 720 KB JPEG or PNG image.';
+            this.previewImage = '';
+            return;
+          }
         };
       }
     } else {

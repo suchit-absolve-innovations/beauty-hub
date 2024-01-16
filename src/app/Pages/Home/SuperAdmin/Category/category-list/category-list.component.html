@@ -3,8 +3,8 @@
 
         <div class="category-section" *ngIf="login == 'Vendor'">
             <div class="d-flex if_xs_btn mt-30">
-                <input type="text" placeholder="Search Here" class="btn_border search_here"  [(ngModel)]="searchText"   (input)="addSpaceAfterText()"
-                    (click)="performSearch()"  >
+                <input type="text" placeholder="Search Here" class="btn_border search_here"   [(ngModel)]="searchText"  (input)="addSpaceAfterText()"
+                    (input)="performSearch()" (click)="onSearch(search)"   (input)="searchlist()" >
                     <a data-toggle="modal" data-target="#vendor-category" class="btn_blue ml-3 mb-0" (click)="performSearch()">Filter</a>
                 <a [routerLink]="['/category-list/add-edit-category']" class="btn_blue ml-auto">Add New Category</a>
             </div>
@@ -53,12 +53,9 @@
                             <a  class="btn_blue redbutton">Reject</a>
                         </div>
                     </td> -->
-
-
                         <td>
-
                             <a *ngIf="item.isNext == true"
-                                [routerLink]="['/category-list/sub-category-list/'] + item.mainCategoryId " (click)="clearSearchedData()"><i
+                                [routerLink]="['/category-list/sub-category-list/'] + item.mainCategoryId " ><i
                                     style="background:#e6629f; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;"
                                     class="fa fa-eye"></i></a>
                             <a *ngIf="item.isNext == false"
@@ -100,7 +97,7 @@
         <div class="category-section" *ngIf="login == 'Admin'">
             <div class="d-flex if_xs_btn mt-30">
                 <input type="text" placeholder="Search Here" class="btn_border search_here" (input)="addSpaceAfterText()" [(ngModel)]="searchText"
-                    (click)="performSearch()">
+                (input)="performSearch()" (click)="onSearch(search)"   (input)="searchlist()">
                 <a [routerLink]="['/category-list/add-edit-category']" class="btn_blue ml-auto">Add New Category</a>
             </div>
 
@@ -188,7 +185,7 @@
 
             <div class="d-flex if_xs_btn mt-30">
                 <input type="text" placeholder="Search Here" class="btn_border search_here" (input)="addSpaceAfterText()"  [(ngModel)]="searchText"
-                    (click)="performSearch()"  >
+                (input)="performSearch()" (click)="onSearch(search)" (input)="searchlist()" >
                 <a *ngIf="activeTab === 'pills-categorylist'" data-toggle="modal" data-target="#myModalpurchase-membership" class="btn_blue ml-3 mb-0" (click)="performSearch()">Filter</a>
                 <a [routerLink]="['/category-list/add-edit-category']" class="btn_blue ml-auto">Add New Category</a>
             </div>
@@ -245,7 +242,7 @@
                                 <td>
 
                                     <a *ngIf="item.isNext == true"
-                                        [routerLink]="['/category-list/sub-category-list/'] + item.mainCategoryId " (click)="clearSearchedData()"><i
+                                        [routerLink]="['/category-list/sub-category-list/'] + item.mainCategoryId " ><i
                                             style="background:#e6629f; color:#fff; padding: 6px; border-radius: 5px; font-size: 14px;"
                                             class="fa fa-eye"></i></a>
                                     <a *ngIf="item.isNext == false"

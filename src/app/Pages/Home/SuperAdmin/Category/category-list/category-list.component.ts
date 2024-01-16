@@ -5,7 +5,7 @@ import { ContentService } from 'src/app/Shared/service/content.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { FormBuilder } from '@angular/forms';
-import { EMPTY, Observable, Subscription, interval } from 'rxjs';
+import { EMPTY, Observable, Subject, Subscription, debounceTime, distinctUntilChanged, interval } from 'rxjs';
 import { SearchService } from 'src/app/Shared/service/search.service';
 import { FilterService } from 'src/app/Shared/service/filter.service';
 
@@ -19,6 +19,7 @@ import { FilterService } from 'src/app/Shared/service/filter.service';
 export class CategoryListComponent implements OnInit {
 
   // search 
+  private debouncer = new Subject<string>();
   public searchText: any = '';
   vendorId = localStorage.getItem('vendorId');
   page3: number;
@@ -56,6 +57,18 @@ export class CategoryListComponent implements OnInit {
     private filterService: FilterService,
 
     ) {
+      this.debouncer.pipe(
+        debounceTime(300),
+        distinctUntilChanged()
+      ).subscribe(searchText => {
+        this.searchService.setSearchCriteria(searchText);
+        if (searchText.trim() === '') {
+          this.getList();
+        } else {
+          // Assuming this.list contains the original unfiltered list
+          this.categoryList = this.categoryList.filter((service: any) => this.matchService(service, searchText));
+        }
+      });
     // Get the initial active tab and pagination values from the query parameters
     const queryParams = this.route.snapshot.queryParams;
     this.activeTab = queryParams['tab'] || 'pills-categorylist';
@@ -67,6 +80,11 @@ export class CategoryListComponent implements OnInit {
   
   ngOnInit(): void {
     this.rootUrl = environment.rootPathUrl;
+    this.route.queryParams.subscribe((params) => {
+      this.search = params['search'] || '';
+      this.page = params['page'] ? parseInt(params['page'], 10) : 1;
+    });   
+    this.searchText = this.searchService.getSearchCriteria();
     // Check if the active tab is not set in the query parameters
     if (!this.activeTab) {
       // Set the default active tab when the page is initially loaded
@@ -85,11 +103,23 @@ export class CategoryListComponent implements OnInit {
 
  
 
-  clearSearchedData(): void {
-    // Call the clearSearchCriteria method when the sidebar is clicked
-    this.searchService.clearSearchCriteria();
+  // clearSearchedData(): void {
+  //   // Call the clearSearchCriteria method when the sidebar is clicked
+  //   this.searchService.clearSearchCriteria();
+  // }
+  onSearch(searchTerm: string): void {
+    // Update query parameters for search
+    this.router.navigate([], {
+      queryParams: { search: searchTerm, page:1 }, // Reset to the first page when searching
+      queryParamsHandling: 'merge',
+    });
   }
-
+  searchlist(): void {
+  
+    // Assuming this.list contains the original unfiltered list
+    this.debouncer.next(this.searchText.trim().toLowerCase());
+    this.searchService.setSearchCriteria(this.searchText);  
+}
   getList() {
     if (this.login == 'SuperAdmin') {
       this.getsuperlist();
@@ -115,7 +145,21 @@ export class CategoryListComponent implements OnInit {
     this.updateQueryParams();
    
   }
-
+  matchService(service: any, searchTerm: string): boolean {
+    const propertiesToSearch = ['categoryName', 'categoryTypeName']; // Add more properties as needed
+  
+    for (const property of propertiesToSearch) {
+      const propertyValue = service[property];
+      if (typeof propertyValue === 'string' &&
+          propertyValue.toLowerCase().startsWith(searchTerm.toLowerCase())) {
+        return true; // Return true if the search term is found at the beginning of any string property
+      } else if (typeof propertyValue === 'number' &&
+                 propertyValue.toString().startsWith(searchTerm.toLowerCase())) {
+        return true; // Return true if the search term is found at the beginning of any numeric property
+      }
+    }
+    return false;
+  }
   updateQueryParams() {
     const queryParams = {
       tab: this.activeTab,
@@ -153,6 +197,15 @@ export class CategoryListComponent implements OnInit {
     });
   }
 
+  // performSearch1() {
+  //   this.searchText = '';
+  //   this.router.navigate([], {
+  //     relativeTo: this.route,
+  //     queryParams: { page: null },
+  //     queryParamsHandling: 'merge'      
+  //   });
+  // }
+  
   performSearch() {
     // Clear query parameters
     this.page1 = 1;

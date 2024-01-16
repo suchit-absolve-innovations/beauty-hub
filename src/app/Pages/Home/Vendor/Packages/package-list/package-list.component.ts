@@ -2,6 +2,7 @@ import { Component, NgZone, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
+import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
 import { ContentService } from 'src/app/Shared/service/content.service';
 import { SearchService } from 'src/app/Shared/service/search.service';
 import { environment } from 'src/environments/environment';
@@ -15,7 +16,7 @@ declare var $: any;
   styleUrls: ['./package-list.component.css']
 })
 export class PackageListComponent implements OnInit {
-
+  private debouncer = new Subject<string>();
   public searchText: any = '';
   page: number = 1;
   itemsPerPage!: number;
@@ -37,7 +38,20 @@ export class PackageListComponent implements OnInit {
     private route: ActivatedRoute,
     private ngZone: NgZone,
     private searchService: SearchService
-  ) { }
+  ) { 
+    this.debouncer.pipe(
+      debounceTime(300),
+      distinctUntilChanged()
+    ).subscribe(searchText => {
+      this.searchService.setSearchCriteria(searchText);
+      if (searchText.trim() === '') {
+        this.getPackagesList();
+      } else {
+        // Assuming this.list contains the original unfiltered list
+        this.packagesList = this.packagesList.filter((service: any) => this.matchService(service, searchText));
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.rootUrl = environment.rootPathUrl;
@@ -59,9 +73,11 @@ export class PackageListComponent implements OnInit {
     });
   }
   searchlist(): void {
-    this.searchService.setSearchCriteria(this.searchText);
-   
-  }
+  
+    // Assuming this.list contains the original unfiltered list
+    this.debouncer.next(this.searchText.trim().toLowerCase());
+    this.searchService.setSearchCriteria(this.searchText);  
+}
 
   onPageChange(page: number): void {
     // Update query parameters for pagination
@@ -79,7 +95,23 @@ export class PackageListComponent implements OnInit {
       queryParamsHandling: 'merge'
     });
   }
-
+  matchService(service: any, searchTerm: string): boolean {
+    const propertiesToSearch = ['genderPreferences', 'listingPrice', 'serviceName']; // Add more properties as needed
+  
+    for (const property of propertiesToSearch) {
+      const propertyValue = service[property];
+  
+      if (typeof propertyValue === 'string' &&
+          propertyValue.toLowerCase().startsWith(searchTerm.toLowerCase())) {
+        return true; // Return true if the search term is found at the beginning of any string property
+      } else if (typeof propertyValue === 'number' &&
+                 propertyValue.toString().startsWith(searchTerm.toLowerCase())) {
+        return true; // Return true if the search term is found at the beginning of any numeric property
+      }
+    }
+  
+    return false;
+  }
   getPackagesList(){
     let payload = {
       pageNumber: 1,

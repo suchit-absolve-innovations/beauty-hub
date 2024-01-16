@@ -253,7 +253,6 @@ this.spinner.hide();
   }
 
   getSubcategoryList() {
-
     // this.spinner.show();
     // let payload = {
     //   MainCategoryId : parseInt(this.Id),

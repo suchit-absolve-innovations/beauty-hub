@@ -24,6 +24,7 @@ export class AddEditSalonBannerComponent implements OnInit {
   shopDetail: any;
   vendorId: any;
   visible!: boolean;
+  categoryType: any;
   bannerTypeControl: FormControl = new FormControl('');
   previewImage: string = '';
   urls1: any = [];
@@ -49,9 +50,10 @@ export class AddEditSalonBannerComponent implements OnInit {
     this.getcategoryList();
     this.form = this.formBuilder.group({
       bannerType: this.bannerTypeControl,
+      categoryType: [''],
       ShopCategoryBanner: [''],
       mainCategoryId: [''],
-      subCategoryId: [''],    
+      subCategoryId: [''],
     })
     this.form.get('mainCategoryId').valueChanges.subscribe(() => {
       // Reset subCategoryId when mainCategoryId changes
@@ -118,18 +120,18 @@ export class AddEditSalonBannerComponent implements OnInit {
 
   imagesUpload(event: any) {
     const file = event.target.files[0];
-  
+
     if (file) {
       const fileType = file.type;
       const fileName = file.name;
-  
+
       if (
         (fileType === 'image/jpeg' || fileType === 'image/png' || fileType === 'image/jpg') &&
         (fileName.toLowerCase().endsWith('.jpeg') || fileName.toLowerCase().endsWith('.png') || fileName.toLowerCase().endsWith('.jpg'))
       ) {
         const imageSize = file.size / 1024; // in KB
         const image = new Image();
-  
+
         const reader = new FileReader();
         reader.onload = (_event: any) => {
           const image = new Image();
@@ -157,17 +159,18 @@ export class AddEditSalonBannerComponent implements OnInit {
       }
     }
   }
-  
-  
+
+
 
   // Shop Detail
 
   fileChangeEvent() {
- 
+    debugger
     this.spinner.show();
     let formData = new FormData();
     formData.append("bannerImage", this.imageFile?.file);
     formData.append("bannerType", this.form.value.bannerType);
+    formData.append("categoryType", this.form.value.categoryType);
     formData.append("salonId", this.salonId);
     formData.append("mainCategoryId", this.form.value.mainCategoryId);
     formData.append("subCategoryId", this.form.value.subCategoryId > 0 ? this.form.value.subCategoryId : 0);
@@ -176,12 +179,23 @@ export class AddEditSalonBannerComponent implements OnInit {
       if (response.isSuccess) {
         this.spinner.hide();
         this.toaster.success(response.messages)
-        this.router.navigateByUrl('/salon-banner-list')
+        // this.router.navigateByUrl('/salon-banner-list')
       } else {
         this.spinner.hide();
         this.toaster.error(response.messages)
       }
     });
+  }
+
+  onGenderChange(event: any) {
+    const selectedGender = event.target.value;
+    if (selectedGender === '1') {
+      this.categoryType = this.form.patchValue({ male: true, female: false });
+    } else if (selectedGender === '2') {
+      this.categoryType = this.form.patchValue({ male: false, female: true });
+    } else if (selectedGender === '3') {
+      this.categoryType = this.form.patchValue({ male: true, female: true });
+    }
   }
 
   // use to submit data

@@ -27,6 +27,7 @@ export class EditSalonBannerComponent implements OnInit {
   visible!: boolean;
   bannerImage: any;
   rootUrl: any;
+  categoryType: any;
   editImages: any;
   selectedFilter: any;
   showBrandDiv: boolean = false;
@@ -57,6 +58,7 @@ export class EditSalonBannerComponent implements OnInit {
     this.onBannerTypeChange('SalonCategoryBanner'); 
     this.form = this.formBuilder.group({
       bannerType: [''],
+      categoryType : [''],
       mainCategoryId: [''],
       subCategoryId: [''],
       bannerImage: ['']
@@ -97,6 +99,7 @@ export class EditSalonBannerComponent implements OnInit {
 
         this.form.patchValue({
           bannerType: this.ShopBannerdetail.bannerType,
+          categoryType: this.ShopBannerdetail.categoryType,
           mainCategoryId: this.ShopBannerdetail.mainCategoryId,
           subCategoryId: this.ShopBannerdetail.subCategoryId,
         });
@@ -230,6 +233,7 @@ export class EditSalonBannerComponent implements OnInit {
     formData.append("salonId", this.salonId);
     formData.append("mainCategoryId", this.form.value.mainCategoryId > 0 ? this.form.value.mainCategoryId : 0);
     formData.append("subCategoryId", this.form.value.subCategoryId > 0 ? this.form.value.subCategoryId : 0);
+    formData.append("categoryType", this.form.value.categoryType);
     this.content.updateSalonBanner(formData).subscribe(response => {
       if (response.isSuccess) {
         this.spinner.hide();
@@ -263,6 +267,18 @@ export class EditSalonBannerComponent implements OnInit {
     // Perform any other actions based on the selected value
     
   }
+  onGenderChange(event: any) {
+    const selectedGender = event.target.value;
+    if (selectedGender === '1') {
+      this.categoryType = this.form.patchValue({ male: true, female: false });
+    } else if (selectedGender === '2') {
+      this.categoryType = this.form.patchValue({ male: false, female: true });
+    } 
+    // else if (selectedGender === '3') {
+    //   this.categoryType = this.form.patchValue({ male: true, female: true });
+    // }
+  }
+
 }
   //onclick toggling both
   // onBannerTypeChange(selectedValue: string) {

@@ -239,7 +239,10 @@ debugger
 
 
   getSubcategoryList(mainCategoryId: any) {
-debugger
+    if (!mainCategoryId) {
+      this.subCategoryList = [];
+      return;
+    }
     this.contentService.SuperSubCategory(mainCategoryId).subscribe(response => {
       if (response.isSuccess) {
         this.subCategoryList = response.data;
