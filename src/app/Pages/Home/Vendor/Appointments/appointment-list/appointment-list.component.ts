@@ -89,8 +89,6 @@ export class AppointmentListComponent implements OnInit {
 
   applyFilter(params: any): void {
     // Apply filter logic with the provided params
-    debugger
-   
     this.form.patchValue({
       fromDate         : params.fromDate          || '',
       toDate           : params.toDate            || '',

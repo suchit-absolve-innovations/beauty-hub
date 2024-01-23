@@ -21,6 +21,7 @@ export class AddEditSubCategoryComponent implements OnInit {
   editImages: any;
   submitted: boolean = false;
   imageFile!: { link: any; file: any; name: any; type: any; };
+  imageFile1!: { link: any; file: any; name: any; type: any; };
   id: any;
   rootUrl!: string;
   Id2: any;
@@ -29,12 +30,18 @@ export class AddEditSubCategoryComponent implements OnInit {
   login = localStorage.getItem('role');
   previewImage: string = '';
   urls1: any = [];
+  urls2: any = [];
   image1: any;
   imageUrl: any;
   imageUrl1: any;
   errorMessage: string = '';
   isValid: boolean = false;
   categoryTypes: any;
+  previewImage2: any;
+  isValid2: any;
+  isValid1: any;
+  previewImage1: any;
+  errorMessage2: any;
 
   constructor(
     private spinner: NgxSpinnerService,
@@ -67,8 +74,10 @@ export class AddEditSubCategoryComponent implements OnInit {
     this.form = this.formBuilder.group({
       categoryName: ['', [Validators.required]],
       categoryDescription: ['',[this.maxLengthValidator(160)]],
-      categoryType: ['', [Validators.required]],
-      bannerimage : ['',[Validators.required]]
+      categoryType: ['1', [Validators.required]],
+      categoryImageMale: [''],
+      categoryImageFemale: ['']
+      // bannerimage : ['',[Validators.required]]
     });
   }
   maxLengthValidator(maxLength: number) {
@@ -125,10 +134,6 @@ export class AddEditSubCategoryComponent implements OnInit {
     
   }
 
-
-
-
-
   get f() {
     return this.form['controls'];
   }
@@ -156,8 +161,6 @@ export class AddEditSubCategoryComponent implements OnInit {
     }
   }
 
-
-
   ok() {
     this.router.navigate(['/category-list'])
       .then(() => {
@@ -169,9 +172,7 @@ export class AddEditSubCategoryComponent implements OnInit {
     $('#myModal').modal('show');
   }
 
-
-  /*** Image Upload ***/
-  imagesUpload(event: any) {
+  imagesUpload1(event: any) {
     const file = event.target.files[0];
 
     if (file) {
@@ -199,12 +200,12 @@ export class AddEditSubCategoryComponent implements OnInit {
                     name: file.name,
                     type: file.type
                   };
-                  this.previewImage = imageDataUrl;
+                  this.previewImage1 = imageDataUrl;
                   this.urls1.push(imageDataUrl);
-                  this.isValid = true;
+                  this.isValid1 = true;
                   this.errorMessage = ''; // No error message if the image meets criteria
                 } else {
-                  this.isValid = false;
+                  this.isValid1 = false;
                   this.errorMessage = 'Please select a 512x512 pixels (width×height) & JPEG or PNG image.'; // Error message for invalid image
                   // You can add further handling if needed for invalid images
                 }
@@ -214,8 +215,59 @@ export class AddEditSubCategoryComponent implements OnInit {
           }
         } else {
                  this.errorMessage = 'Please select a 512x512 pixels (width×height) & JPEG or PNG image.';
-                this.isValid = false;
-                
+                this.isValid1 = false;
+                 this.imageUrl1 = '';
+                 return;
+               }
+        
+      }
+    }
+  }
+  imagesUpload2(event: any) {
+    const file = event.target.files[0];
+
+    if (file) {
+      const fileType = file.type;
+      const fileName = file.name;
+
+      if ((fileType === 'image/jpeg' || fileType === 'image/png')) {
+        if (fileName.toLowerCase().endsWith('.jpeg') || (fileName.toLowerCase().endsWith('.png')) || (fileName.toLowerCase().endsWith('.jpg'))) {
+          const imageSize = file.size / 1024; // in KB
+          const image = new Image();
+
+          if (event.target.files && event.target.files[0]) {
+            const file = event.target.files[0];
+            const imageSize = file.size / 1024; // in KB
+            const reader = new FileReader();
+            reader.onload = (_event: any) => {
+              const image = new Image();
+              image.src = _event.target.result as string;
+              image.onload = () => {
+                if (image.width === 512 && image.height === 512 && imageSize <= 512) {
+                  const imageDataUrl = reader.result as string;
+                  this.imageFile1 = {
+                    link: _event.target.result,
+                    file: file,
+                    name: file.name,
+                    type: file.type
+                  };
+                  this.previewImage2 = imageDataUrl;
+                  this.urls2.push(imageDataUrl);
+                  this.isValid2 = true;
+                  this.errorMessage2 = ''; // No error message if the image meets criteria
+                } else {
+                  this.isValid2 = false;
+                  this.errorMessage2 = 'Please select a 512x512 pixels (width×height) & JPEG or PNG image.'; // Error message for invalid image
+                  // You can add further handling if needed for invalid images
+                }
+              };
+            };
+            reader.readAsDataURL(file);
+          }
+        } else {
+                 this.errorMessage2 = 'Please select a 512x512 pixels (width×height) & JPEG or PNG image.';
+                this.isValid2 = false;
+                 this.imageUrl1 = '';
                  return;
                }
         
@@ -225,7 +277,8 @@ export class AddEditSubCategoryComponent implements OnInit {
 
   fileChangeEvent() {
     let formData = new FormData();
-    formData.append("categoryImage", this.imageFile?.file);
+    formData.append("CategoryImageMale", this.imageFile?.file);
+    formData.append("categoryImageFemale", this.imageFile1?.file);
     formData.append("subCategoryId", this.subId);
     this.content.categoryImage(formData).subscribe(response => {
 

@@ -26,7 +26,12 @@
                         <td>
                             {{item?.categoryName}}
                         </td>
-                        <td class="profile"><img [src]="rootUrl + item?.categoryImage" class="img-responsive"></td>
+                        <td *ngIf="item?.categoryType !== 3" class="profile"><img *ngIf="item?.categoryType == 1" [src]="rootUrl + item?.categoryImageMale" class="img-responsive">
+                            <img *ngIf="item?.categoryType == 2" [src]="rootUrl + item?.categoryImageFemale" class="img-responsive">
+                        </td>
+                        <td *ngIf="item?.categoryType == 3" class="profile"><img [src]="rootUrl + item?.categoryImageMale" class="img-responsive">
+                            <img [src]="rootUrl + item?.categoryImageFemale" class="img-responsive">
+                        </td>
                         <td *ngIf="item?.categoryType == 1">Male</td>
                         <td *ngIf="item?.categoryType == 2">Female</td>
                         <td *ngIf="item?.categoryType == 3">Male & Female</td>
@@ -214,8 +219,6 @@
             <div class="tab-content" id="pills-tabContent">
                 <div *ngIf="activeTab === 'pills-categorylist'" class="tab-pane fade show active"
                     id="pills-categorylist" role="tabpanel">
-
-
                     <div class="table-responsive">
                         <table class="table admin_table">
 
@@ -232,7 +235,11 @@
                                 <td>
                                     {{item?.categoryName}}
                                 </td>
-                                <td class="profile"><img [src]="rootUrl + item?.categoryImage" class="img-responsive">
+                                <td *ngIf="item?.categoryType !== 3" class="profile"><img *ngIf="item?.categoryType == 1" [src]="rootUrl + item?.categoryImageMale" class="img-responsive">
+                                    <img *ngIf="item?.categoryType == 2" [src]="rootUrl + item?.categoryImageFemale" class="img-responsive">
+                                </td>
+                                <td *ngIf="item?.categoryType == 3" class="profile"><img [src]="rootUrl + item?.categoryImageMale" class="img-responsive">
+                                    <img [src]="rootUrl + item?.categoryImageFemale" class="img-responsive">
                                 </td>
                                 <td *ngIf="item?.categoryType == 1">Male</td>
                                 <td *ngIf="item?.categoryType == 2">Female</td>

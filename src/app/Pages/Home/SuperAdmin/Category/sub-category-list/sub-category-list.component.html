@@ -34,7 +34,12 @@
                 <tr
                     *ngFor="let item of categoryList | filter:searchText | paginate: {itemsPerPage: 5, currentPage: page, totalItems: totalItems,id: '1' } ">
                     <td>{{item?.categoryName}}</td>
-                    <td class="profile"><img [src]="rootUrl + item?.categoryImage" class="img-responsive"></td>
+                    <td *ngIf="item?.categoryType !== 3" class="profile"><img *ngIf="item?.categoryType == 1" [src]="rootUrl + item?.categoryImageMale" class="img-responsive">
+                        <img *ngIf="item?.categoryType == 2" [src]="rootUrl + item?.categoryImageFemale" class="img-responsive">
+                    </td>
+                    <td *ngIf="item?.categoryType == 3" class="profile"><img [src]="rootUrl + item?.categoryImageMale" class="img-responsive">
+                        <img [src]="rootUrl + item?.categoryImageFemale" class="img-responsive">
+                    </td>
                     <td *ngIf="item?.categoryType == 1">Male</td>
                     <td *ngIf="item?.categoryType == 2">Female</td>
                     <td *ngIf="item?.categoryType == 3">Male & Female</td>
