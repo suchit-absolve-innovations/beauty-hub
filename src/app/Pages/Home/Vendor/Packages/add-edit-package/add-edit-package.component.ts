@@ -225,9 +225,12 @@ timeValidator(control: AbstractControl): ValidationErrors | null {
       this.type = data
      if(this.type == 'Male'){
      this.categoryType = 1
-     } else if (this.type == 'Female'){
+     } if (this.type == 'Female'){
      this.categoryType = 2 
-    } else {
+    } else if (this.type == 'All') {
+    this.categoryType = 0
+   }
+   else {
     this.categoryType = 3
    }
    let payload = {

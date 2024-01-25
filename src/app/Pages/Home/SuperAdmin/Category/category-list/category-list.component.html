@@ -98,7 +98,6 @@
 
 
         <!-- <-- // admin category -->
-
         <div class="category-section" *ngIf="login == 'Admin'">
             <div class="d-flex if_xs_btn mt-30">
                 <input type="text" placeholder="Search Here" class="btn_border search_here" (input)="addSpaceAfterText()" [(ngModel)]="searchText"
@@ -123,7 +122,12 @@
                         <td>
                             {{item?.categoryName}}
                         </td>
-                        <td class="profile"><img [src]="rootUrl + item?.categoryImage" class="img-responsive"></td>
+                        <td *ngIf="item?.categoryType !== 3" class="profile"><img *ngIf="item?.categoryType == 1" [src]="rootUrl + item?.categoryImageMale" class="img-responsive">
+                            <img *ngIf="item?.categoryType == 2" [src]="rootUrl + item?.categoryImageFemale" class="img-responsive">
+                        </td>
+                        <td *ngIf="item?.categoryType == 3" class="profile"><img [src]="rootUrl + item?.categoryImageMale" class="img-responsive">
+                            <img [src]="rootUrl + item?.categoryImageFemale" class="img-responsive">
+                        </td>
                         <td *ngIf="item?.categoryType == 1">Male</td>
                         <td *ngIf="item?.categoryType == 2">Female</td>
                         <td *ngIf="item?.categoryType == 3">Male & Female</td>
@@ -280,6 +284,8 @@
                                                 <img src="assets\img\warning.png">
                                                 <h2>Alert</h2>
                                                 <p>Are You Sure, You want to Delete it?</p>
+                                              <p>If you delete Category all Services in this Category is deleted</p>
+
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class=" border-btn"
@@ -373,6 +379,7 @@
                                                 <img src="assets\img\warning.png">
                                                 <h2>Alert</h2>
                                                 <p>Are You Sure, You want to Delete it?</p>
+                                                
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class=" border-btn"

@@ -91,7 +91,7 @@ export class ShopBannerListComponent implements OnInit {
   onSearch(searchTerm: string): void {
     // Update query parameters for search
     this.router.navigate([], {
-      queryParams: { search: searchTerm, page: 1 }, // Reset to the first page when searching
+      queryParams: { search: searchTerm, page:1 }, // Reset to the first page when searching
       queryParamsHandling: 'merge',
     });
   }
@@ -100,7 +100,7 @@ export class ShopBannerListComponent implements OnInit {
     // Update query parameters for pagination
     this.router.navigate([], {
       relativeTo: this.route,
-      queryParams: { page: page },
+      queryParams: { page: null },
       queryParamsHandling: 'merge',
     });
   }
@@ -124,6 +124,7 @@ export class ShopBannerListComponent implements OnInit {
     this.selectedFilter = selectedValue === 'SalonCategoryBanner' ? 'Main' : selectedValue === 'SalonCategoryBanner' ? 'Sub' :  '';
     this.filterAllBannersList(); 
     this.clearAllCategories();
+    this.performSearch();
   }
   onCategoryFilterChange(filter: string) {
     this.selectedFilter = filter;

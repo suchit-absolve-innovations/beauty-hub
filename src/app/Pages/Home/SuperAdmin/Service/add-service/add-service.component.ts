@@ -482,6 +482,7 @@ export class AddServiceComponent implements OnInit {
   }
   // submit 
   postSubmit() {
+    debugger
     if (this.role == 'SuperAdmin') {
       this.submit();
     } else if (this.role == 'Vendor') {
@@ -531,6 +532,7 @@ export class AddServiceComponent implements OnInit {
   }
 
   submitVendor() {
+    debugger
     this.submitted = true;
     if (this.form.invalid) {
       this.toasterService.error("Form Incomplete: Please fill in all the required fields correctly");

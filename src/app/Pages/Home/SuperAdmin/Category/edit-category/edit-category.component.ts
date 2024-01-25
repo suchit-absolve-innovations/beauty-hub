@@ -36,9 +36,9 @@ export class EditCategoryComponent implements OnInit {
   imageUrl1: any;
   errorMessage: string = '';
   isValid: boolean = false;
-  isValid2: any;
-  previewImage2: any;
-  errorMessage2: any;
+  isValid2: boolean = false;
+  previewImage2:string = '';
+  errorMessage2: string = '';
   constructor(
     private formBuilder: FormBuilder,
     private contentService: ContentService,
@@ -203,8 +203,7 @@ export class EditCategoryComponent implements OnInit {
           }
         } else {
                  this.errorMessage = 'Please select a 512x512 pixels (width×height) & JPEG or PNG image.';
-                this.isValid = false;
-                 
+                this.isValid = false;    
                  return;
                }
       }
@@ -255,7 +254,6 @@ export class EditCategoryComponent implements OnInit {
         } else {
                  this.errorMessage2 = 'Please select a 512x512 pixels (width×height) & JPEG or PNG image.';
                 this.isValid2 = false;
-                 
                  return;
                }
       }

@@ -7,7 +7,8 @@
         </div> -->
 
         <div class="d-flex if_xs_btn mt-30">
-            <input type="text" placeholder="Search Here" class="btn_border search_here" [(ngModel)]="searchText" (input)="addSpaceAfterText()" (click)="onSearch(search)"   (input)="searchlist()"  (click)="performSearch()" >
+            <input type="text" placeholder="Search Here" class="btn_border search_here" [(ngModel)]="searchText"
+             (input)="addSpaceAfterText()" (click)="onSearch(search)"  (input)="searchlist()"  (input)="performSearch()" >
             <a [routerLink]="['/salon-banner-list/add-salon-banner']" class="btn_blue ml-auto">Add New Banner</a>
             <!-- [routerLink]="['/banner-list/banner-detail/'] + item?.bannerId " -->
         </div>
@@ -19,7 +20,7 @@
                 <div class="cate-align ">
                     <label>Banner Type</label>
                     <select type="text" class="control-form mr-20 btn_border" formControlName="salonBannerType"
-                        #bannerTypeSelect (change)="onBannerTypeChange(bannerTypeSelect.value)">
+                        #bannerTypeSelect (change)="onBannerTypeChange(bannerTypeSelect.value)" >
                         <option value="" >Select</option>
                         <option value="SalonBanner">Salon Banner </option>
                         <option value="SalonCategoryBanner">Salon Category Banner </option>

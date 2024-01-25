@@ -40,8 +40,9 @@ export class AddEditSubCategoryComponent implements OnInit {
   previewImage2: any;
   isValid2: any;
   isValid1: any;
-  previewImage1: any;
-  errorMessage2: any;
+  previewImage1: string = '';
+  errorMessage2: string = '';
+  errorMessage1: any;
 
   constructor(
     private spinner: NgxSpinnerService,
@@ -74,7 +75,7 @@ export class AddEditSubCategoryComponent implements OnInit {
     this.form = this.formBuilder.group({
       categoryName: ['', [Validators.required]],
       categoryDescription: ['',[this.maxLengthValidator(160)]],
-      categoryType: ['1', [Validators.required]],
+      categoryType: ['', [Validators.required]],
       categoryImageMale: [''],
       categoryImageFemale: ['']
       // bannerimage : ['',[Validators.required]]
@@ -91,12 +92,11 @@ export class AddEditSubCategoryComponent implements OnInit {
   }
 
   getCategoryType() {
+    debugger
     this.content.getCategorytypes(this.Id).subscribe(response => {
       if (response.isSuccess) {
         this.categoryTypes = response.data.mainCategoryType;
         console.log(this.categoryTypes)
-
-
       }
 
     });
@@ -116,10 +116,9 @@ export class AddEditSubCategoryComponent implements OnInit {
   postCategory() {
     debugger
     this.submitted = true;
-    if (this.form.invalid) {
-      return;
-    }
-  
+    // if (this.form.invalid) {
+    //   return;
+    // }
       let payload = {
         mainCategoryId: this.Id,
         categoryName: this.form.value.categoryName,
@@ -203,10 +202,10 @@ export class AddEditSubCategoryComponent implements OnInit {
                   this.previewImage1 = imageDataUrl;
                   this.urls1.push(imageDataUrl);
                   this.isValid1 = true;
-                  this.errorMessage = ''; // No error message if the image meets criteria
+                  this.errorMessage1 = ''; // No error message if the image meets criteria
                 } else {
                   this.isValid1 = false;
-                  this.errorMessage = 'Please select a 512x512 pixels (width×height) & JPEG or PNG image.'; // Error message for invalid image
+                  this.errorMessage1 = 'Please select a 512x512 pixels (width×height) & JPEG or PNG image.'; // Error message for invalid image
                   // You can add further handling if needed for invalid images
                 }
               };
@@ -214,7 +213,7 @@ export class AddEditSubCategoryComponent implements OnInit {
             reader.readAsDataURL(file);
           }
         } else {
-                 this.errorMessage = 'Please select a 512x512 pixels (width×height) & JPEG or PNG image.';
+                 this.errorMessage1 = 'Please select a 512x512 pixels (width×height) & JPEG or PNG image.';
                 this.isValid1 = false;
                  this.imageUrl1 = '';
                  return;

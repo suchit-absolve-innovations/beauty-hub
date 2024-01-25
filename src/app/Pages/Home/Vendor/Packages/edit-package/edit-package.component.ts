@@ -208,15 +208,28 @@ export class EditPackageComponent implements OnInit {
     this.listingPrice = this.basePrice - this.discount;
   }
 
-  getcategoryList(data:any) {
-    this.spinner.show();
-    this.type = data
-if(this.type == 'Male'){
-this.categoryType = 1
-} else if (this.type == 'Female'){
-  this.categoryType = 2 
-} else {
-  this.categoryType = 3
+//   getcategoryList(data:any) {
+//     this.spinner.show();
+//     this.type = data
+// if(this.type == 'Male'){
+// this.categoryType = 1
+// } else if (this.type == 'Female'){
+//   this.categoryType = 2 
+// } else {
+//   this.categoryType = 3
+// }
+getcategoryList(data:any) {
+  this.spinner.show();
+  this.type = data
+ if(this.type == 'Male'){
+ this.categoryType = 1
+ } if (this.type == 'Female'){
+ this.categoryType = 2 
+} else if (this.type == 'All') {
+this.categoryType = 0
+}
+else {
+this.categoryType = 3
 }
 let payload = {
   salonId : this.salonIds,

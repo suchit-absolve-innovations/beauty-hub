@@ -42,12 +42,12 @@
                                     <!-- ///female/// -->
                                     <h4 *ngIf="form.get('categoryType')?.value == '2'"
                                         style="text-align: center; font-size: 23px; font-weight: 600; margin-bottom: 30px;">
-                                        Add Female Sub Category Picture
+                                        Add Female Category Picture
                                     </h4>
                                     <div *ngIf="form.get('categoryType')?.value == '2'" class="imgUp m-auto">
-                                        <div *ngIf="isValid1" style="height: 270px; width: 220px;" class="imagePreview"
-                                            [style.background-image]="'url(' + previewImage1 + ')'"></div>
-                                        <div *ngIf="!isValid1 && errorMessage" class="error"></div>
+                                        <div *ngIf="isValid2" style="height: 270px; width: 220px;" class="imagePreview"
+                                            [style.background-image]="'url(' + previewImage2 + ')'"></div>
+                                        <div *ngIf="!isValid2 && errorMessage" class="error"></div>
                                         <label class="upload button btn btn-primary">
                                             Upload<input type="file" class="uploadFile img" name="categoryImageFemale"
                                                 formControlName="categoryImageFemale"
@@ -145,7 +145,7 @@
                             <select type="text" class="control-form" formControlName="categoryType"
                                 (change)="onGenderChange($event)">
                                 <!-- <option value="" disabled selected>Select</option> -->
-                                <option value="1" selected>Male</option>
+                                <option value="1" >Male</option>
                                 <option value="2">Female</option>
                                 <option value="3">Male & Female</option>
                             </select>

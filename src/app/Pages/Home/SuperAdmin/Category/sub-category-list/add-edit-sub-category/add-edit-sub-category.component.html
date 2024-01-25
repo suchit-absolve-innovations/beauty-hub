@@ -11,7 +11,7 @@
                 <div class="this_row">
                     <div class="row">
 
-                        <div *ngIf="form.get('categoryType')?.value !== '3'"
+                        <div *ngIf="form.get('categoryType')?.value !== '3'" 
                             class="col-lg-12 col-md-12 mb-30 text-center">
                             <h4 *ngIf="form.get('categoryType')?.value == '1'"
                                 style="text-align: center; font-size: 23px; font-weight: 600; margin-bottom: 30px;">
@@ -20,7 +20,7 @@
                             <div class="upload_file text-center">
                                 <div class="imges-upload mb-0">
                                     <div *ngIf="form.get('categoryType')?.value == '1'" class="imgUp m-auto">
-                                        <div *ngIf="isValid1" style="height: 270px; width: 220px;" class="imagePreview"
+                                        <div *ngIf="isValid1" class="imagePreview"
                                             [style.background-image]="'url(' + previewImage1 + ')'"></div>
                                         <div *ngIf="!isValid1 && errorMessage" class="error"></div>
                                         <label class="upload button btn btn-primary">
@@ -35,8 +35,8 @@
                                                 Male Sub Category Image is required
                                             </div>
                                         </div>
-                                        <div *ngIf="errorMessage" class="help-block" style="color: #fd0000;">{{
-                                            errorMessage }}</div>
+                                        <div *ngIf="errorMessage1" class="help-block" style="color: #fd0000;">{{
+                                            errorMessage1 }}</div>
                                     </div>
                                     <!-- ///female/// -->
                                     <h4 *ngIf="form.get('categoryType')?.value == '2'"
@@ -44,14 +44,14 @@
                                         Add Female Sub Category Picture
                                     </h4>
                                     <div *ngIf="form.get('categoryType')?.value == '2'" class="imgUp m-auto">
-                                        <div *ngIf="isValid2" style="height: 270px; width: 220px;" class="imagePreview"
-                                            [style.background-image]="'url(' + previewImage1 + ')'"></div>
+                                        <div *ngIf="isValid2" class="imagePreview"
+                                            [style.background-image]="'url(' + previewImage2 + ')'"></div>
                                         <div *ngIf="!isValid2 && errorMessage" class="error"></div>
                                         <label class="upload button btn btn-primary">
                                             Upload<input type="file" class="uploadFile img" name="categoryImageFemale"
                                                 formControlName="categoryImageFemale"
                                                 style="width: 0px; height: 0px; overflow: hidden; border-style: none;"
-                                                id="categoryImageFemale" (change)="imagesUpload1($event)">
+                                                id="categoryImageFemale" (change)="imagesUpload2($event)">
                                         </label>
                                         <div *ngIf="submitted && f['categoryImageFemale'].errors" class="help-block">
                                             <div *ngIf="f['categoryImageFemale'].errors['required']"
@@ -66,7 +66,7 @@
                             </div>
                         </div>
 
-                        <div *ngIf="form.get('categoryType')?.value === '3'" class="col-lg-12 col-md-12 mb-30"
+                        <div *ngIf="form.get('categoryType')?.value == '3'" class="col-lg-12 col-md-12 mb-30"
                             style="display: flex; justify-content: space-around;">
                             <div class="col-lg-6" style="margin-bottom: 20px;">
                                 <h4 style="text-align: center; font-size: 23px; font-weight: 600; margin-bottom: 30px;">
@@ -90,8 +90,8 @@
                                                     Male Sub Category Image is required
                                                 </div>
                                             </div>
-                                            <div *ngIf="errorMessage" class="help-block" style="color: #fd0000;">{{
-                                                errorMessage }}</div>
+                                            <div *ngIf="errorMessage1" class="help-block" style="color: #fd0000;">{{
+                                                errorMessage1 }}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -140,7 +140,7 @@
                         <div class="col-lg-6 col-md-12">
                             <label>Category Type</label>
                             <select type="text" class="control-form" formControlName="categoryType">
-                                <!-- <option>Select</option> -->
+                                <option>Select</option>
                                 <ng-container *ngIf="categoryTypes == '1'">
                                     <option value="1">Male</option>
                                 </ng-container>
@@ -152,8 +152,6 @@
                                     <option value="2">Female</option>
                                     <option value="3">Male & Female</option>
                                 </ng-container>
-
-
                             </select>
                             <div *ngIf="submitted && f['categoryType'].errors" class="help-block">
                                 <div *ngIf="f['categoryType'].errors['required']" style="color: #fd0000;">Category Type
