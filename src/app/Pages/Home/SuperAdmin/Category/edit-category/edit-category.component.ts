@@ -203,7 +203,11 @@ export class EditCategoryComponent implements OnInit {
           }
         } else {
                  this.errorMessage = 'Please select a 512x512 pixels (width×height) & JPEG or PNG image.';
+<<<<<<< Updated upstream
                 this.isValid = false;    
+=======
+                this.isValid = false;
+>>>>>>> Stashed changes
                  return;
                }
       }
