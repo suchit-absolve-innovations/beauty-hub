@@ -148,8 +148,8 @@
             <ng-multiselect-dropdown [settings]="dropdownSettings" [data]="bindServiceList"
             [(ngModel)]="selectedItems" formControlName="includeServiceId"
             (onDeSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)"  (onSelect)="toggleSelection($event)">
-            <option *ngFor="let serviceId of serviceList" [value]="serviceId.serviceId">
-                {{serviceId.serviceName}}
+            <option *ngFor="let serviceId of bindServiceList" [value]="serviceId.serviceId">
+                {{ serviceId.item_text }} - {{ serviceId.item_text3 }} - ₹{{ serviceId.item_text2 }}
             </option>
         </ng-multiselect-dropdown>
                                 </div>
