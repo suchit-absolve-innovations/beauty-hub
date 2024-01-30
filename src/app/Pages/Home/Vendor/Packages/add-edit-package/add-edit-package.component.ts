@@ -225,13 +225,11 @@ timeValidator(control: AbstractControl): ValidationErrors | null {
       this.type = data
      if(this.type == 'Male'){
      this.categoryType = 1
-     } if (this.type == 'Female'){
+     }  if (this.type == 'Female'){
      this.categoryType = 2 
-    } else if (this.type == 'All') {
+    } 
+   else if (this.type == 'Male & Female') {
     this.categoryType = 0
-   }
-   else {
-    this.categoryType = 3
    }
    let payload = {
     salonId : this.salonIds,
@@ -313,6 +311,7 @@ getServicesListByCategories() {
     salonId: this.salonIds,
     mainCategoryId: this.form.value.mainCategoryId ? this.form.value.mainCategoryId : '',
     subCategoryId: this.form.value.subCategoryId ? this.form.value.subCategoryId : '',
+    genderPreferences: this.form.value.genderPreferences === "Male & Female" ? '' : this.form.value.genderPreferences
 
   }
   this.contentService.getfilteListBycategories(payload).subscribe(response => {
@@ -334,7 +333,22 @@ getServicesListByCategories() {
   })
 }
 
-  
+
+performSearch() {
+
+  this.router.navigate([], {
+    relativeTo: this.route,
+    queryParams: { page: null },
+    queryParamsHandling: 'merge'      
+  });
+  this.form.get('mainCategoryId').setValue('');
+  this.form.get('subCategoryId').setValue('');
+  this.serviceList()
+  // this.form.get('genderPreferences').setValue('');
+  // this.subCategoryList = [];
+  // this. getList();
+}
+
 
 convertSelectedItemsToString(): string {
   return this.selectedItems.map(item => item.item_id).join(',');

@@ -90,8 +90,8 @@ export class EditPackageComponent implements OnInit {
     this.rootUrl = environment.rootPathUrl;
     this.getServiceDetail()
     this.serviceForm();
-    // this.getcategoryList();
-     this.getServicesList();
+      // If gender preference is already selected, load the service list
+      this.getServicesListByCategories();
 
     this.salonId = this.route.snapshot.queryParams
     if(this.packageDetailPatch.includeServiceId = '') {
@@ -225,12 +225,10 @@ getcategoryList(data:any) {
  this.categoryType = 1
  } if (this.type == 'Female'){
  this.categoryType = 2 
-} else if (this.type == 'All') {
+} else if (this.type == 'Male & Female') {
 this.categoryType = 0
 }
-else {
-this.categoryType = 3
-}
+
 let payload = {
   salonId : this.salonIds,
   categoryType : this.categoryType
@@ -310,7 +308,7 @@ debugger
       salonId: this.salonIds,
       mainCategoryId: this.form.value.mainCategoryId ? this.form.value.mainCategoryId : '',
       subCategoryId: this.form.value.subCategoryId ? this.form.value.subCategoryId : '',
-
+      genderPreferences: this.form.value.genderPreferences === "Male & Female" ? '' : this.form.value.genderPreferences
     }
     this.contentService.getfilteListBycategories(payload).subscribe(response => {
       if (response.isSuccess) {

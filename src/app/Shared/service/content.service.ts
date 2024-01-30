@@ -385,7 +385,7 @@ export class ContentService {
   }
 
   getfilteListBycategories(data: any) {
-    return this.http.get<any>(environment.apiUrl + ApiEndPoint.serviceList + '?pageNumber=' + data.pageNumber + '&pageSize=' + data.pageSize + '&salonId=' + data.salonId + '&mainCategoryId=' + data.mainCategoryId + '&subCategoryId=' + data.subCategoryId)
+    return this.http.get<any>(environment.apiUrl + ApiEndPoint.serviceList + '?pageNumber=' + data.pageNumber + '&pageSize=' + data.pageSize + '&salonId=' + data.salonId + '&mainCategoryId=' + data.mainCategoryId + '&subCategoryId=' + data.subCategoryId + '&genderPreferences=' + data.genderPreferences )
   }
 
   getserviceGender(data: any) {

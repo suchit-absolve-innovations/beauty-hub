@@ -96,9 +96,8 @@
 
                         <div class="col-lg-6 col-md-12">
                             <label>Gender <i class="fa fa-asterisk" aria-hidden="true"></i></label>
-                            <select type="text" class="control-form" formControlName="genderPreferences" (change)="getcategoryList(f['genderPreferences'].value)" >
+                            <select type="text" class="control-form" formControlName="genderPreferences" (change)="getcategoryList(f['genderPreferences'].value)"  (change)="getServicesListByCategories()">
                                 <option value="" selected>Choose Gender</option>
-                                <option>All</option>
                                 <option>Male</option>
                                 <option>Female</option>
                                 <option>Male & Female</option>
@@ -149,7 +148,7 @@
                                     <option *ngFor="let item of productList">{{item.productName}}</option>
                                 </select> -->
                                     <ng-multiselect-dropdown [settings]="dropdownSettings" [data]="bindServiceList"
-                                        [(ngModel)]="selectedItems" formControlName="includeServiceId"
+                                        [(ngModel)]="selectedItems" formControlName="includeServiceId" (click)="getServicesListByCategories()"
                                         (onDeSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)"
                                        >
                                        <!-- <option *ngFor="let serviceId of serviceList" [value]="serviceId.serviceId">
