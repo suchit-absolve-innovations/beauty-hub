@@ -147,21 +147,17 @@
             </select> -->
             <ng-multiselect-dropdown [settings]="dropdownSettings" [data]="bindServiceList"
             [(ngModel)]="selectedItems" formControlName="includeServiceId"
-            (onDeSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
+            (onDeSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)"  (onSelect)="toggleSelection($event)">
             <option *ngFor="let serviceId of serviceList" [value]="serviceId.serviceId">
                 {{serviceId.serviceName}}
             </option>
         </ng-multiselect-dropdown>
                                 </div>
-
-
                             </div>
-
-
                         </div>
                         <div class="col-lg-4 col-md-12 mb-20 ">
                             <label>Base Price <i class="fa fa-asterisk" aria-hidden="true"></i></label>
-                            <input type="text" class="form-control" formControlName="basePrice" [(ngModel)]="basePrice"  (input)="calculateSellingPrice()" OnlyNumbers />
+                            <input type="text" class="form-control" formControlName="basePrice" [(ngModel)]="totalPrice"  OnlyNumbers />
                             <div *ngIf="submitted && f['basePrice'].errors" class="help-block">
                                 <div *ngIf="f['basePrice'].errors" style="color: #fd0000">
                                     Base Price is required.</div>

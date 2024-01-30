@@ -55,10 +55,13 @@ export class AddEditPackageComponent implements OnInit {
   discount : any = 0 ;
   listingPrice: any = 0 ;
   maxDiscountValue: any;
-
+  selectedServices: any[] = [];
+  totalPrice: number = 0;
+  
   public isGenderSelected = false;
   type: any;
   categoryType!: number;
+
 
 
   constructor(
@@ -137,7 +140,10 @@ export class AddEditPackageComponent implements OnInit {
   }
   
 
-  onItemSelect(item: any) { }
+  onItemSelect(item: any) { 
+    debugger
+    this.toggleSelection(item);
+  }
 
   onSelectAll(items: any) { }
 
@@ -219,7 +225,22 @@ timeValidator(control: AbstractControl): ValidationErrors | null {
   
       this.listingPrice = this.basePrice - this.discount;
     } 
-
+   
+    toggleSelection(service: any) {
+      debugger
+      const index = this.selectedServices.findIndex(selectedService => selectedService === service);
+      if (index === -1) {
+        this.selectedServices.push(service);
+      } else {
+        this.selectedServices.splice(index, 1);
+      }
+      this.calculateTotalPrice();
+    }
+  
+    calculateTotalPrice() {
+      debugger
+      this.totalPrice = this.selectedServices.reduce((total, service) => total + service.listingPrice, 0);
+    }
     getcategoryList(data:any) {
       this.spinner.show();
       this.type = data
