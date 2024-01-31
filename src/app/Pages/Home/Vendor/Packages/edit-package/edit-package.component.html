@@ -149,7 +149,7 @@
                                 </select> -->
                                     <ng-multiselect-dropdown [settings]="dropdownSettings" [data]="bindServiceList"
                                         [(ngModel)]="selectedItems" formControlName="includeServiceId" (click)="getServicesListByCategories()"
-                                        (onDeSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)"
+                                        (onDeSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)" (onSelect)="toggleSelection($event)"
                                        >
                                        <!-- <option *ngFor="let serviceId of serviceList" [value]="serviceId.serviceId">
                                         {{ serviceId.serviceName }}
@@ -169,11 +169,11 @@
                         <div class="col-lg-4 col-md-12">
                             <label>Discount</label>
                             <input type="tel" class="control-form" formControlName="discount" [(ngModel)]="discount" (input)="calculateSellingPrice()" (input)="resetDiscount()" numbersOnly />
-                            <div *ngIf="submitted && f['discount'].errors" class="help-block">
+                            <!-- <div *ngIf="submitted && f['discount'].errors" class="help-block">
                                 <div *ngIf="f['discount'].errors" style="color: #fd0000">
                                     Discount is required.
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
 
                         <div class="col-lg-4 col-md-12">

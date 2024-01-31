@@ -68,7 +68,10 @@ export class EditPackageComponent implements OnInit {
   maxDiscountValue: any;
   type: any;
   categoryType!: number;
-
+  selectedServices: any[] = [];
+  amount:  any[] = [];
+  totalPrice: any;
+ 
   constructor(private router: Router,
     private formBuilder: FormBuilder,
     private contentService: ContentService,
@@ -121,7 +124,9 @@ export class EditPackageComponent implements OnInit {
     });
   }
 
-  onItemSelect(item: any) { }
+  onItemSelect(item: any) { 
+    this.toggleSelection(item);
+  }
 
   onSelectAll(items: any) { }
 
@@ -200,14 +205,48 @@ export class EditPackageComponent implements OnInit {
 
     }
 
+
     // Update the discount property with the validated discount value
     this.discount = discount;
   }
+  
   resetDiscount() {
 
     this.listingPrice = this.basePrice - this.discount;
   }
 
+  toggleSelection(service: any) {
+    debugger;
+    const index = this.selectedServices.findIndex(selectedService => selectedService === service);
+    if (index === -1) {
+      this.selectedServices.push(service);
+      // Extracting the price from the selected service
+      const priceString = service.customDisplayText.split(' - ')[2]; // Splitting the string by ' - ' and selecting the third part
+      const price = parseFloat(priceString.substr(1)); // Removing the '₹' symbol and converting to a number
+      // Push the price into the amount array
+      this.amount.push(price);
+    } else {
+      this.selectedServices.splice(index, 1);
+      // If the service is deselected, remove its price from the amount array
+      const priceString = service.customDisplayText.split(' - ')[2];
+      const price = parseFloat(priceString.substr(1));
+      const priceIndex = this.amount.findIndex(amount => amount === price);
+      if (priceIndex !== -1) {
+        this.amount.splice(priceIndex, 1);
+      }
+    }
+    this.calculateTotalPrice();
+
+   
+  }
+  
+  calculateTotalPrice() {
+    debugger;
+    this.basePrice = this.amount.reduce((total, price) => {
+      return total + price;
+    }, 0);
+    this.calculateSellingPrice();
+  }
 //   getcategoryList(data:any) {
 //     this.spinner.show();
 //     this.type = data

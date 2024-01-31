@@ -115,11 +115,11 @@
                             <label>Discount</label>
                             <input type="tel" class="control-form" formControlName="discount" OnlyNumbers
                                 [(ngModel)]="discount" (input)="calculateSellingPrice()" (input)="resetDiscount()" />
-                            <div *ngIf="submitted && f['discount'].errors" class="help-block">
+                            <!-- <div *ngIf="submitted && f['discount'].errors" class="help-block">
                                 <div *ngIf="f['discount'].errors" style="color: #fd0000">
                                     Discount is required.
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
 
                         <div class="col-lg-6 col-md-12">
@@ -162,18 +162,18 @@
                           </div> -->
                         </div>
                         <div class="col-lg-6 col-md-12">
-                            <label>Sub Category</label>
+                            <label>Sub Category <i class="fa fa-asterisk" aria-hidden="true"></i></label>
 
                             <select type="text" class="control-form mr-20 btn_border" formControlName="subCategoryId">
-                                <option value="0" selected>Select </option>
+                                <option value="" selected>Select </option>
                                 <option *ngFor="let item of subCategoryList" [ngValue]="item?.subCategoryId">
                                     {{item?.categoryName}}</option>
                             </select>
-                            <!-- <div *ngIf="submitted && f['subCategoryId'].errors" class="help-block">
+                            <div *ngIf="submitted && f['subCategoryId'].errors" class="help-block">
                                 <div *ngIf="f['subCategoryId'].errors" style="color: #fd0000">
                                     Sub Category is required.
                                 </div>
-                            </div> -->
+                            </div>
                         </div>
 
 

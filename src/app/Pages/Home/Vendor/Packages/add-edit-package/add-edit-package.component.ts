@@ -51,12 +51,12 @@ export class AddEditPackageComponent implements OnInit {
   errorMessages: string = '';
   isValid: boolean = false;
   previewImage: any;
-  basePrice: any;
-  discount : any = 0 ;
-  listingPrice: any = 0 ;
+  basePrice: any ;
+  discount : any  ;
+  listingPrice: any ;
   maxDiscountValue: any;
   selectedServices: any[] = [];
-  totalPrice: number = 0;
+  // totalPrice: number = 0;
   
   public isGenderSelected = false;
   type: any;
@@ -85,7 +85,6 @@ export class AddEditPackageComponent implements OnInit {
     this.salonIds = localStorage.getItem('salonId');
     this.rootUrl = environment.rootPathUrl;
     this.serviceForm();
-   
     this.getServicesList();
     this.salonId = this.route.snapshot.queryParams
     this.dropdownSettings = {
@@ -154,7 +153,7 @@ export class AddEditPackageComponent implements OnInit {
     this.form = this.formBuilder.group({
       serviceName          : ['', [Validators.required]],
       basePrice            : ['', [Validators.required]],
-      discount             : [0 , [Validators.required]],
+      discount             : [''],
       listingPrice         : ['', [Validators.required]],
       mainCategoryId       : [{ value: '', disabled: true }],
       subCategoryId        : [0],
@@ -219,7 +218,6 @@ timeValidator(control: AbstractControl): ValidationErrors | null {
         discount = 0;
 
       }
-    
     // Update the discount property with the validated discount value
     this.discount = discount;
   }
@@ -253,9 +251,10 @@ timeValidator(control: AbstractControl): ValidationErrors | null {
     
     calculateTotalPrice() {
       debugger;
-      this.totalPrice = this.amount.reduce((total, price) => {
+      this.basePrice = this.amount.reduce((total, price) => {
         return total + price;
       }, 0);
+      this.calculateSellingPrice();
     }
     
     

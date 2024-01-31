@@ -87,7 +87,7 @@ export class AddServiceComponent implements OnInit {
       discount: ['', [Validators.required]],
       listingPrice: ['', [Validators.required]],
       mainCategoryId: ['', [Validators.required]],
-      subCategoryId: [0],
+      subCategoryId: ['' , [Validators.required]],
       ageRestrictions: ['', [Validators.required]],
       genderPreferences: ['', [Validators.required]],
       totalCountPerDuration: ['', [Validators.required]],

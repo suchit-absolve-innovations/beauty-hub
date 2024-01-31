@@ -30,7 +30,7 @@
                 </a>
             </div>
            
-            <div class="vendor-form mt-40" style="background: #fff; padding-bottom: 60px;">
+            <div class="vendor-form mt-10" style="background: #fff; padding-bottom: 30px;">
                 <div class="this_row">
                     <div class="row">
                         <div class="col-lg-6 col-md-12">
@@ -53,10 +53,10 @@
                     </div>
                 </div>
             </div>
-            <div class="vendor-form mt-30" style="background: #fff; padding-bottom: 60px;">
+            <div class="vendor-form mt-20" style="background: #fff; padding-bottom: 40px;">
                 <div class="this_row">
                     <div class="row ">
-                        <div class="col-lg-12 col-md-12">
+                        <div class="col-lg-6 col-md-12">
                             <dl class="d-flex inform_text">
                                 <dt>Package Name:</dt>
                                 <dd>{{packageDetail?.serviceName}}</dd>
@@ -66,6 +66,19 @@
                                 <dt>SKUID:</dt>
                                 <dd>{{serviceDetail?.skuid}}</dd>
                             </dl> -->
+                           
+                            <!-- <dl class="d-flex inform_text">
+                                <dt>Sub Sub Category Name:</dt>
+                                <dd>{{serviceDetail?.subSubProductCategoryName}}</dd>
+                            </dl> -->
+                            <dl class="d-flex inform_text">
+                                <dt>Package Icon Image:</dt>
+                                <dd><a href="" data-toggle="modal" data-target="#myModal">Preview</a></dd>
+                            </dl>
+                          
+                           
+                        </div>
+                        <div class="col-lg-6 col-md-12">
                             <dl class="d-flex inform_text">
                                 <dt>Main Category Name:</dt>
                                 <dd>{{packageDetail?.mainCategoryName}}</dd>
@@ -74,26 +87,19 @@
                                 <dt>Sub Category Name:</dt>
                                 <dd>{{packageDetail?.subCategoryName}}</dd>
                             </dl>
-                            <!-- <dl class="d-flex inform_text">
-                                <dt>Sub Sub Category Name:</dt>
-                                <dd>{{serviceDetail?.subSubProductCategoryName}}</dd>
-                            </dl> -->
-
+                        </div>
+                        <div class="col-lg-12 col-md-12" >
                             <dl class=" inform_text">
                                 <dt>Package Description :</dt>
                                 <dd>
                                     {{packageDetail?.serviceDescription}}</dd>
-                            </dl>
-                            <dl class=" inform_text">
-                                <dt>Package Icon Image:</dt>
-                                <dd><a href="" data-toggle="modal" data-target="#myModal">Preview</a></dd>
                             </dl>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="vendor-form mt-40" style="background: #fff; padding-bottom: 60px;">
+            <div class="vendor-form mt-20" style="background: #fff; padding-bottom: 40px;">
                 <div class="this_row">
                     <div class="row">
                         <div class="col-lg-6 col-md-12">
@@ -123,8 +129,8 @@
                             </dl>
                             <dl class="d-flex inform_text">
                                 <dt>Status:</dt>
+                                <dd *ngIf="packageDetail?.status == 0" >InActive</dd>
                                 <dd *ngIf="packageDetail?.status == 1" >Active</dd>
-                                <dd *ngIf="packageDetail?.status == 2" >InActive</dd>
                             </dl>
                             <!-- <dl class="d-flex inform_text">
                                 <dt>Is Slot Available:</dt>
@@ -134,18 +140,12 @@
                                 <dt>Age Restrictions:</dt>
                                 <dd>{{packageDetail?.ageRestrictions}}</dd>
                             </dl>
-
-
-
-
                         </div>
-                        
-                     
                     </div>
                 </div>
             </div>
 
-            <h3 class="mt-30">Service Detail</h3>
+            <h3 class="mt-20">Service Detail</h3>
 
             <div #scrollToElement class="table-responsive mt-40">
                 <table class="table admin_table  product-detail-table">

@@ -139,13 +139,16 @@
                         </div>
 
                         <div class="col-lg-6 col-md-12">
-                            <label>Sub Category</label>
+                            <label>Sub Category <i class="fa fa-asterisk" aria-hidden="true"></i></label>
                             <select type="text" class="control-form" formControlName="subCategoryId">
-                                <option value="0" >Select</option>
+                                <option value="" >Select</option>
                                 <option *ngFor="let item of subCategoryList" [ngValue]="item?.subCategoryId">
                                     {{item?.categoryName}}
                                 </option>
                             </select>
+                            <label *ngIf="submitted && f['subCategoryId'].errors" class="invalid-formdata">
+                                Sub Category is required
+                            </label>
                         </div>
 
 
