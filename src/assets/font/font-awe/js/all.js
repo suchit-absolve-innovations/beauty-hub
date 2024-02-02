@@ -3862,7 +3862,7 @@
       } catch (e) {
         if (!PRODUCTION) {
           if (e instanceof MissingIcon) {
-            console.error(e);
+         
           }
         }
       }

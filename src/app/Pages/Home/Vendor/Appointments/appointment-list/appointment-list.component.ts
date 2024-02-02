@@ -79,7 +79,6 @@ export class AppointmentListComponent implements OnInit {
 
     });
     const filterParams = this.filterService.getFilterParams();
-    debugger
     if (filterParams) {
       this.applyFilter(filterParams);
     

@@ -360,7 +360,6 @@ export class VendorProfileComponent implements OnInit {
 
   getAddress(addressLat: number, addressLong: number) {
     this.geoCoder.geocode({ 'location': { lat: addressLat, lng: addressLong } }, (results, status) => {
-      console.log(results);
       if (status === 'OK') {
         if (results[0]) {
           this.zoom = 12;
@@ -375,8 +374,6 @@ export class VendorProfileComponent implements OnInit {
   
           // Concatenate the formatted parts
           this.addressStreet = filteredAddressComponents.map(component => component.long_name).join(', ');
-  
-          console.log(this.addressStreet);
         } else {
           window.alert('No results found');
         }
@@ -410,7 +407,6 @@ export class VendorProfileComponent implements OnInit {
         this.patchShopDetail();
         this.patchBankDetail();
         this.getlocation();
-        console.log(this.addressStreet)
         this.form.patchValue({
           firstName: this.vendorDetailPatch.firstName,
           lastName: this.vendorDetailPatch.lastName,

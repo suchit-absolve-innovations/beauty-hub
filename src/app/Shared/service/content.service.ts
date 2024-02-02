@@ -417,7 +417,6 @@ export class ContentService {
   }
 
   getScheduleDetail(queryDate: any) {
-    debugger
     return this.http.get<any>(environment.apiUrl + ApiEndPoint.getUpcomingScheduleDetail + '?queryDate=' + queryDate);
   }
 

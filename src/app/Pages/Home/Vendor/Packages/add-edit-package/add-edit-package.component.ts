@@ -142,7 +142,6 @@ export class AddEditPackageComponent implements OnInit {
   
 
   onItemSelect(item: any) { 
-    debugger
     this.toggleSelection(item);
   }
 
@@ -227,7 +226,6 @@ timeValidator(control: AbstractControl): ValidationErrors | null {
     } 
    
     toggleSelection(service: any) {
-      debugger;
       const index = this.selectedServices.findIndex(selectedService => selectedService === service);
       if (index === -1) {
         this.selectedServices.push(service);
@@ -250,7 +248,6 @@ timeValidator(control: AbstractControl): ValidationErrors | null {
     }
     
     calculateTotalPrice() {
-      debugger;
       this.basePrice = this.amount.reduce((total, price) => {
         return total + price;
       }, 0);
@@ -274,7 +271,6 @@ timeValidator(control: AbstractControl): ValidationErrors | null {
     salonId : this.salonIds,
     categoryType : this.categoryType
   }
-  debugger
       this.contentService.getcategoryService(payload).subscribe(response => {
         if (response.isSuccess) {
           this.categoryList = response.data;
@@ -336,7 +332,6 @@ timeValidator(control: AbstractControl): ValidationErrors | null {
 }
 
 getServicesListByCategories() {
-  debugger
   this.spinner.show();
   // if (this.form.value.mainCategoryId === '' || this.packageDetailPatch.mainCategoryId === '') {
   //   this.bindServiceList = [];
@@ -483,7 +478,7 @@ onTimeInputChange2(event: Event) {
   // Format the time as "hh:mm tt"
   const formattedTime = `${parsedHours.toString().padStart(2, '0')}:${selectedTime.slice(3)} ${period}`;
   this.time2 = formattedTime
-  console.log('Formatted Time:', formattedTime);
+  // console.log('Formatted Time:', formattedTime);
 
   // Now 'formattedTime' contains the time in "hh:mm tt" format with 12-hour time
 }
@@ -620,8 +615,6 @@ onFileSelected(event: any) {
   }
 }
 onImageSelect(event: any) {
-  debugger;
-
   const file = event.target.files[0];
 
   if (file) {

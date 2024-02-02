@@ -92,11 +92,9 @@ export class AddEditSubCategoryComponent implements OnInit {
   }
 
   getCategoryType() {
-    debugger
     this.content.getCategorytypes(this.Id).subscribe(response => {
       if (response.isSuccess) {
         this.categoryTypes = response.data.mainCategoryType;
-        console.log(this.categoryTypes)
       }
 
     });
@@ -114,7 +112,6 @@ export class AddEditSubCategoryComponent implements OnInit {
   // }
 
   postCategory() {
-    debugger
     this.submitted = true;
     // if (this.form.invalid) {
     //   return;

@@ -55,7 +55,7 @@ export class LayoutComponent implements OnInit {
         element?.classList?.add("sidebar-mobile-open");
       }
 
-      console.log("You are using a Mobile Device");
+      // console.log("You are using a Mobile Device");
     } else {
 
       var element = document.getElementById("sideBar");
@@ -67,7 +67,7 @@ export class LayoutComponent implements OnInit {
       }
 
 
-      console.log("You are using Desktop");
+      // console.log("You are using Desktop");
     }
 
     // this.show = event.target.value;
@@ -153,7 +153,7 @@ export class LayoutComponent implements OnInit {
         // this.unreadNotificationCount = this.notification.unreadnotificationCount
         const newCount = this.notification.unreadnotificationCount
         this.notificationList = this.notification.notificationList.dataList
-        console.log(this.unreadNotificationCount)
+        // console.log(this.unreadNotificationCount)
         this.getNotifictionCount();
         // console.log(this.notificationList)
         // if (newCount !== this.count) {
@@ -183,7 +183,6 @@ export class LayoutComponent implements OnInit {
   if (response.isSuccess) {
     // this.getNotifictionCount();
     this.count = response.data.notificationCount
-    console.log(this.count)
 
 
   }

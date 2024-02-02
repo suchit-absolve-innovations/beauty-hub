@@ -1,57 +1,53 @@
-<div class="app-main__outer">							
+<div class="app-main__outer">
     <div class="admin_a">
         <div class="top-head">
             <img (click)="backClicked()" src="assets\img\backimage.svg" class="backimage-butn">
             <h2>Banner Detail</h2>
-          </div>
-        
+        </div>
+
         <div class="vendor-form mt-40" style="background:#fff; padding:25px;">
             <div class="this_row">
-                <div class="row">										
+                <div class="row">
                     <div class="col-lg-6 col-md-12">
-                        
+
                         <dl class="d-flex inform_text" style="margin:0px;">
                             <dt>Banner:</dt>
                             <dd>{{ShopBannerdetail?.bannerType}}</dd>
-                        </dl>			
+                        </dl>
                         <dl class="d-flex inform_text" style="margin:0px;">
                             <dt>Date:</dt>
                             <dd>&nbsp; &nbsp; {{ShopBannerdetail?.createDate}}</dd>
-                        </dl>	
+                        </dl>
                     </div>
-                    
+
                     <div class="col-lg-6 col-md-12">
-                        
+
                         <dl class="d-flex inform_text" style="margin:0px;">
                             <dt>Gender:</dt>
-                                <dd *ngIf="ShopBannerdetail?.categoryType == 1" >Male</dd>
-                                <dd *ngIf="ShopBannerdetail?.categoryType == 2" >Female</dd>
-                                <dd *ngIf="ShopBannerdetail?.categoryType == 3" >Male & Female</dd>
-                        </dl>	
-                        
-                        
-                        
-                    </div>									
+                            <dd *ngIf="ShopBannerdetail?.categoryType == 1">Male</dd>
+                            <dd *ngIf="ShopBannerdetail?.categoryType == 2">Female</dd>
+                            <dd *ngIf="ShopBannerdetail?.categoryType == 3">Male & Female</dd>
+                        </dl>
+
+                    </div>
                 </div>
             </div>
         </div>
-        
+
         <div class="vendor-form mt-40" style="background:#fff; padding:25px;">
             <div class="this_row">
-                <div class="row">										
+                <div class="row">
                     <div class="col-lg-12 col-md-12">
-                        
-                        <h3>Banner Image</h3>				
-                        
+                        <h3>Banner Image</h3>
                     </div>
-                    
-                    <div class="col-lg-12 col-md-12">				
+
+                    <div class="col-lg-12 col-md-12">
                         <img [src]="rootUrl + ShopBannerdetail?.bannerImage" class="img-responsive w-100">
-                    </div>									
+                    </div>
                 </div>
             </div>
         </div>
-        
-        
-    </div>						
-</div>	
+
+
+    </div>
+</div>

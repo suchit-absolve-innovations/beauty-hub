@@ -94,7 +94,7 @@ export class EditSubCategoryComponent implements OnInit {
       this.content.getCategorytypes(this.Id).subscribe( response => { 
         if (response.isSuccess) {
           this.categoryTypes = response.data.mainCategoryType;
-          console.log(this.categoryTypes)
+       
         }
       });
     }

@@ -233,7 +233,6 @@ export class ServiceListComponent implements OnInit {
         this.list = response.data.dataList;
 
            // Apply filtering if searchText is provided
-           debugger
 
     //    this.spinner.hide();
       } else {
@@ -449,8 +448,6 @@ postUnActiveServiceStatus(data: any) {
 
 
   getSubcategoryList(MainCategoryId: any) {
-    // this.details
-    debugger
     if (!MainCategoryId) {
     window.location.reload();    
     }
@@ -468,7 +465,6 @@ postUnActiveServiceStatus(data: any) {
   }
 
   // onSearchInputChange(searchText: any): void {
-  //   debugger
   //   this.searchText = searchText.value;
   //   this.searchlist();
   // }

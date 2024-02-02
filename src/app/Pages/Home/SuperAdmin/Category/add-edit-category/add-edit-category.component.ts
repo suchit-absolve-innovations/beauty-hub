@@ -85,7 +85,6 @@ export class AddEditCategoryComponent implements OnInit {
   }
 
   postCategory() {
-    debugger
     this.submitted = true;
     if (this.form.invalid) {
       return;
@@ -238,7 +237,6 @@ export class AddEditCategoryComponent implements OnInit {
   }
 
   fileChangeEvent() {
-    debugger
     let formData = new FormData();
     formData.append("categoryImageMale", this.imageFile?.file);
     formData.append("categoryImageFemale", this.imageFile1?.file);

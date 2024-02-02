@@ -31,7 +31,8 @@
                                         [minDate]="minToDate" [readonly]="true">
                                 </div>
 
-                                <i class="col-lg-1" class="fa fa-refresh" aria-hidden="true" (click)="performSearch()" (click)="clear()"  ></i>
+                                <i class="col-lg-1" class="fa fa-refresh" aria-hidden="true" (click)="performSearch()"
+                                    (click)="clear()"></i>
 
                                 <div class="col-lg-1" style="position: relative; top:-8px;"><button type="submit"
                                         class="go_now" style="color: white;" (click)="filterAllList()">
@@ -185,7 +186,7 @@
             </div>
             <pagination-controls *ngIf="appointmentsList?.length > 0" (pageChange)="((page = $event))" id="1"
                 (pageIndex)="page" class="paginate-doctor-list" queryParamsHandling="merge" (pageChange)="refresh()"
-                (click)="setScrollPosition()"  (pageChange)="onPageChange($event)">
+                (click)="setScrollPosition()" (pageChange)="onPageChange($event)">
             </pagination-controls>
 
         </div>

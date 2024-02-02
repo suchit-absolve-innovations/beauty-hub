@@ -165,7 +165,6 @@ export class AddEditSalonBannerComponent implements OnInit {
   // Shop Detail
 
   fileChangeEvent() {
-    debugger
     this.spinner.show();
     let formData = new FormData();
     formData.append("bannerImage", this.imageFile?.file);

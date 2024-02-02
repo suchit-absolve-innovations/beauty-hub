@@ -162,7 +162,6 @@ export class PackageListComponent implements OnInit {
   }
 
   postUnActiveServiceStatus(data: any) {
-
     let payload = {
       serviceId: data,
       status: 0
@@ -172,9 +171,6 @@ export class PackageListComponent implements OnInit {
       this.spinner.hide();
     });
   }
-
-
-
 
   delet(data: any) {
     this.itemToDelete = data;
@@ -202,7 +198,6 @@ export class PackageListComponent implements OnInit {
   }
   }
 
-  // edit user 
   editPackage(data: any) {
 
     this.router.navigate(['/package-list/edit-package'],

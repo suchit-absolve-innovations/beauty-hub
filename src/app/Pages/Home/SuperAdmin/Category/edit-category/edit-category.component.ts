@@ -88,7 +88,6 @@ export class EditCategoryComponent implements OnInit {
   }
 
   postCategory() {
-    debugger
     this.submitted = true;
     if (this.form.invalid) {
       return;
@@ -143,7 +142,6 @@ export class EditCategoryComponent implements OnInit {
   }
 
   getCategoryDetail(id: string) {
-    debugger
     this.contentService.categoryDetail(id).subscribe(response => {
       if (response.isSuccess) {
         this.detail = response.data;
@@ -160,7 +158,6 @@ export class EditCategoryComponent implements OnInit {
   }
   
   imagesUpload(event: any) {
-    debugger
     const file = event.target.files[0];
 
     if (file) {
@@ -210,8 +207,7 @@ export class EditCategoryComponent implements OnInit {
     }
   }
 
-  imagesUpload2(event: any) {
-    debugger
+  imagesUpload2(event: any) {    
     const file = event.target.files[0];
     if (file) {
       const fileType = file.type;

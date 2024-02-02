@@ -195,8 +195,6 @@ export class AddSalonsComponent implements OnInit {
     
             // Concatenate the formatted parts
             this.addressStreet = filteredAddressComponents.map(component => component.long_name).join(', ');
-    
-            console.log(this.addressStreet);
           } else {
             window.alert('No results found');
           }

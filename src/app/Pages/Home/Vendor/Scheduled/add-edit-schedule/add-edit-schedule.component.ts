@@ -224,7 +224,6 @@ export class AddEditScheduleComponent implements OnInit {
     this.spinner.show();
     this.contentService.addSchedule(payload).subscribe(response => {
       if (response.isSuccess) {
-        debugger
         this.spinner.hide();
         //    this.getScheduleDayTime();
         //   this.toasterService.success(response.messages);
@@ -237,11 +236,9 @@ export class AddEditScheduleComponent implements OnInit {
   }
 
   getSchedule() {
-    debugger
     this.contentService.getUpcomingSchedules(this.salonId).subscribe(response => {
       if (response.isSuccess) {
         this.list = response.data;
-        console.log(this.list)
       } else {
         // this.spinner.hide();
       }

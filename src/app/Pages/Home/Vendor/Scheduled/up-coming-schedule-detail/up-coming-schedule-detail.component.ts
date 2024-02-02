@@ -33,7 +33,6 @@ export class UpComingScheduleDetailComponent implements OnInit {
   }
   getScheduleDetail() {
     this.spinner.show();
-    debugger
     this.content.getScheduleDetail(this.date).subscribe(response => {
       if (response.isSuccess) {
         this.toasterService.success(response.messages)

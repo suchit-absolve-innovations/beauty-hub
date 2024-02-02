@@ -216,7 +216,6 @@ export class EditPackageComponent implements OnInit {
   }
 
   toggleSelection(service: any) {
-    debugger;
     const index = this.selectedServices.findIndex(selectedService => selectedService === service);
     if (index === -1) {
       this.selectedServices.push(service);
@@ -241,7 +240,6 @@ export class EditPackageComponent implements OnInit {
   }
   
   calculateTotalPrice() {
-    debugger;
     this.basePrice = this.amount.reduce((total, price) => {
       return total + price;
     }, 0);
@@ -272,7 +270,6 @@ let payload = {
   salonId : this.salonIds,
   categoryType : this.categoryType
 }
-debugger
     this.contentService.getcategoryService(payload).subscribe(response => {
       if (response.isSuccess) {
         this.categoryList = response.data;
@@ -333,7 +330,6 @@ debugger
   }
 
   getServicesListByCategories() {
-    debugger
     this.spinner.show();
     // if (this.form.value.mainCategoryId === '' || this.packageDetailPatch.mainCategoryId === '') {
     //   this.bindServiceList = [];
@@ -386,7 +382,6 @@ debugger
     this.contentService.getPackageDetail(payload).subscribe(response => {
 
       if (response.isSuccess) {
-debugger
         this.imageConvert64();
         this.packageDetailPatch = response.data
         this.getcategoryList(this.packageDetailPatch.genderPreferences);
@@ -429,7 +424,6 @@ debugger
             customDisplayText: `${element.serviceName} - ${element.genderPreferences} - ₹${element.listingPrice}`,
           })),
         });
-        debugger
    
 // this.getServicesListByCategories();
     // this.getSubcategoryList(this.packageDetailPatch?.mainCategoryId);
@@ -449,12 +443,10 @@ debugger
   // submit 
   postSubmit() {
     this.submitted = true;
-    if (this.form.invalid) {
-      debugger
+    if (this.form.invalid) {      
       this.toasterService.error("Form Incomplete: Please fill in all the required fields correctly");
       return;
     }
-    debugger
     const selectedItemsString = this.convertSelectedItemsToString();
     let payload = {
       serviceId: this.serviceId.id,
@@ -550,10 +542,10 @@ debugger
                   if (isBannerImage) {
                     this.errorMessages = '';
                     this.isValid = true;
-                    debugger
+                  
                     this.previewImage = image.src;
                   } else {
-                    debugger
+                 
                     this.previewImage = this.sanitizer.bypassSecurityTrustUrl(image.src) as SafeUrl;
                     this.base64Image.push(image.src);
                   }
@@ -594,7 +586,6 @@ debugger
         image.onload = () => {
           if (image.width === 1280 && image.height === 720) {
             this.errorMessages = '';
-            debugger
             this.previewImage = this.sanitizer.bypassSecurityTrustUrl(image.src) as SafeUrl;
           } else {
             this.errorMessages = 'Please select a 1280x720 pixels (width×height) & JPEG or PNG image.';
@@ -632,7 +623,6 @@ debugger
     });
   }
   onImageSelect(event: any) {
-    debugger;
 
     const file = event.target.files[0];
 
@@ -667,7 +657,6 @@ debugger
   }
 
   handleFileInput(event: any) {
-    debugger
     const files = event.target.files;
     for (let e = 0; e < files.length; e++) {
       const file = files[e];

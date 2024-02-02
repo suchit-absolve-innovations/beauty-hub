@@ -57,7 +57,6 @@ export class AppointmentDetailComponent implements OnInit {
       
 
       // Use the retrieved parameters as needed
-      console.log('Search Term:', this.searchTerm);
       
     });
     // this.appointmentId = this.route.snapshot.paramMap.get('id');
