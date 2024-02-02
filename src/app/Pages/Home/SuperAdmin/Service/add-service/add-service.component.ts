@@ -73,7 +73,6 @@ export class AddServiceComponent implements OnInit {
     this.getcategoryList();
     this.salonId = this.route.snapshot.queryParams;
     this.form.get('mainCategoryId').valueChanges.subscribe(() => {
-      // Reset subCategoryId when mainCategoryId changes
       this.form.get('subCategoryId').setValue('');
       this.subCategoryList = ['select'];
     });
@@ -267,30 +266,7 @@ export class AddServiceComponent implements OnInit {
       return;
     }
   }
-  // onFileSelected(event: any) {
-  //   const file = event.target.files[0];
-
-  //   if (file) {
-  //     const imageSize = file.size / 1024; // in KB
-  //     const image = new Image();
-
-  //     image.src = URL.createObjectURL(file);
-
-  //     image.onload = () => {
-  //       if (image.width === 1280 && image.height === 720 && imageSize <= 1000) {
-  //         this.errorMessages = '';
-  //         // this.submitted = true;
-  //         this.previewImage = image.src;
-  //       } else {
-  //         this.errorMessages = 'Please select 1280x720 pixels (width×height) image.';
-  //         // this.submitted = false;
-  //         this.previewImage = '';
-  //       }
-
-  //     };
-
-  //   }
-  // }
+ 
   onselect(event: any) {
     const files = event.target.files;
     const totalImages = this.urls.length + files.length;
@@ -410,45 +386,7 @@ export class AddServiceComponent implements OnInit {
       }
     }
   }
-  // handleImageInput(event: any) {
-  //   const files = event.target.files;
-  //   const file = event.target.files[0];
-
-  //   if (file) {
-  //     const fileType = file.type;
-  //     const fileName = file.name;
-
-  //     if ((fileType === 'image/jpeg' || fileType === 'image/png')) {
-  //       if (fileName.toLowerCase().endsWith('.jpeg') || (fileName.toLowerCase().endsWith('.png')) || (fileName.toLowerCase().endsWith('.jpg'))) {
-  //         const imageSize = file.size / 1024; // in KB
-  //         const image = new Image();
-  //         const reader = new FileReader();
-  //         reader.readAsDataURL(file);
-  //         reader.onload = () => {
-  //           const image = new Image();
-  //           image.src = reader.result as string;
-  //           image.onload = () => {
-  //             if (image.width === 512 && image.height === 512 && imageSize <= 512) {
-  //               // Add image to the array and set as valid if it meets criteria
-  //               const imageDataUrl = reader.result as string;
-  //               this.errorMessage = '';
-  //               this.isValid = true;
-  //               this.previewImages = image.src;
-  //               this.urls1.push(imageDataUrl);
-  //             } else {
-  //               // Set as invalid if criteria not met
-  //               this.errorMessage = 'Please select 512x512 pixels (width×height) image.';
-  //               this.isValid = false;
-  //               this.previewImages = '';
-  //             }
-  //           };
-  //         };
-  //       }
-  //     } else {
-  //       this.errorMessage = 'Please select a valid JPEG or PNG image.';
-  //     }
-  //   }
-  // }
+  
   fileChangeEvents() {
     const formData = new FormData();
     for (let e = 0; e < this.urls1.length; e++) {

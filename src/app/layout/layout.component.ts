@@ -65,16 +65,10 @@ export class LayoutComponent implements OnInit {
       } else {
         element?.classList?.add("closed-sidebar");
       }
-
-
       // console.log("You are using Desktop");
     }
-
     // this.show = event.target.value;
   }
-
-
-
   sideNav() {
     /* Storing user's device details in a variable*/
     let details = navigator.userAgent;
@@ -151,8 +145,8 @@ export class LayoutComponent implements OnInit {
         
         this.notification = response.data;
         // this.unreadNotificationCount = this.notification.unreadnotificationCount
-        const newCount = this.notification.unreadnotificationCount
-        this.notificationList = this.notification.notificationList.dataList
+        const newCount = this.notification.unreadnotificationCount;
+        this.notificationList = this.notification.notificationList.dataList;
         // console.log(this.unreadNotificationCount)
         this.getNotifictionCount();
         // console.log(this.notificationList)

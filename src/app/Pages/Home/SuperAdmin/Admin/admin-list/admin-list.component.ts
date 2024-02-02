@@ -23,10 +23,7 @@ export class AdminListComponent implements OnInit {
   totalItems!: number;
   form!: FormGroup;
   rootUrl: any;
-
   // Get value to set list accept reject condition 
-
-  
    value = localStorage.getItem('user');
   vendorId: any;
   membershipRecordId: any;
@@ -50,7 +47,6 @@ export class AdminListComponent implements OnInit {
 
   ngOnInit(): void {
     this.rootUrl = environment.rootPathUrl;
-   
      this.getAdminUserLists();
      this.route.queryParams.subscribe((params) => {
       this.search = params['search'] || '';

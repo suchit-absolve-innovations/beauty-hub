@@ -73,7 +73,6 @@ export class AdminProfileComponent implements OnInit {
 
    
     getCountry() {
-      // this.countryIds = this.form.controls['countryId'].value;
       this.contentService.getAllStates(101).subscribe((response) => {
         if (response.statusCode) {
           this.statesLists = response.data;
@@ -87,14 +86,10 @@ export class AdminProfileComponent implements OnInit {
    
 
     adminDetail(){
-      
-      // this.spinner.show();
       this.contentService.getAdminDetail(this.userAdminId).subscribe(response => {
         if (response.isSuccess) {
           this.spinner.hide();
           this.adminDetailPatch = response.data
-       
-      
           this.editImages = this.rootUrl + this.adminDetailPatch?.profilePic;  
           this.getCountry();
           this.form.patchValue({
@@ -105,7 +100,6 @@ export class AdminProfileComponent implements OnInit {
             phoneNumber: this.adminDetailPatch.phoneNumber,
             countryName: this.adminDetailPatch.countryName,
             email: this.adminDetailPatch.email,
-  
           });
         }
       });
@@ -125,18 +119,14 @@ export class AdminProfileComponent implements OnInit {
         };
       };
       reader.readAsDataURL(event.target.files[0]);
-
     }
   }
 
-
   fileChangeEvent() {
-    
     let formData = new FormData();
     formData.append("ProfilePic", this.imageFile?.file);
     formData.append("Id", this.id);
     this.contentService.uploadImage(formData).subscribe(response => {
-
     });
   }
 
@@ -181,6 +171,5 @@ export class AdminProfileComponent implements OnInit {
         window.location.reload();
       });
     }
-
 }
 

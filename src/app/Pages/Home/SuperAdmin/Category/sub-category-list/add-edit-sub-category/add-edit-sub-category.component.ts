@@ -134,8 +134,6 @@ export class AddEditSubCategoryComponent implements OnInit {
     return this.form['controls'];
   }
 
-
-
   afterResponse(response: any) {
     if (response && response.statusCode == 200) {
       if (this.login == 'SuperAdmin') {
@@ -266,7 +264,6 @@ export class AddEditSubCategoryComponent implements OnInit {
                  this.imageUrl1 = '';
                  return;
                }
-        
       }
     }
   }
@@ -280,6 +277,4 @@ export class AddEditSubCategoryComponent implements OnInit {
 
     });
   }
-
-
 }
