@@ -313,14 +313,13 @@ timeValidator(control: AbstractControl): ValidationErrors | null {
   }
   this.contentService.getservice(payload).subscribe(response => {
     if (response.isSuccess) {
-      this.serviceList = response.data.dataList
+      this.serviceList = response.data.dataList;
       this.bindServiceList = this.serviceList.map((element:{ serviceId: any; serviceName: any; listingPrice:any; genderPreferences:any } ) => ({
         item_id: element.serviceId,
         item_text: element.serviceName,
         item_text2: element.listingPrice,
         item_text3: element.genderPreferences,
         customDisplayText: `${element.serviceName} - ${element.genderPreferences} - ₹${element.listingPrice}`,
-        
       }));
       // this.shopId = response.data.dataList.shopId
       // this.getFilterMainCategoryList(this.productList);
@@ -328,7 +327,7 @@ timeValidator(control: AbstractControl): ValidationErrors | null {
 
       this.spinner.hide();
     }
-  })
+  });
 }
 
 getServicesListByCategories() {
@@ -346,7 +345,6 @@ getServicesListByCategories() {
     mainCategoryId: this.form.value.mainCategoryId ? this.form.value.mainCategoryId : '',
     subCategoryId: this.form.value.subCategoryId ? this.form.value.subCategoryId : '',
     genderPreferences: this.form.value.genderPreferences === "Male & Female" ? '' : this.form.value.genderPreferences
-
   }
   this.contentService.getfilteListBycategories(payload).subscribe(response => {
     if (response.isSuccess) {
