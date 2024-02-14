@@ -55,7 +55,6 @@ export class CategoryListComponent implements OnInit {
     private formBuilder: FormBuilder,
     private searchService: SearchService,
     private filterService: FilterService,
-
     ) {
       this.debouncer.pipe(
         debounceTime(300),
@@ -91,10 +90,10 @@ export class CategoryListComponent implements OnInit {
       this.activeTab = 'pills-categorylist';
       // Update the query parameters with the default active tab
       this.updateQueryParams();
-      
+            
     }
     // this.getvendorDetail();
-    this.getCategoryRequestList();
+    this.getCategoryRequestList();  
     this.getList();
 
     // this.getsuperlist();

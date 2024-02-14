@@ -201,7 +201,6 @@ export class EditServiceComponent implements OnInit {
           serviceDescription: this.serviceDetailPatch.serviceDescription,
         });
         this.getSubcategoryList(this.serviceDetailPatch?.mainCategoryId);
-
       }
     });
   }
