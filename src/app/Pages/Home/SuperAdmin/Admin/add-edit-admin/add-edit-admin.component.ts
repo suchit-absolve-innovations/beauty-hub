@@ -110,7 +110,6 @@ export class AddEditAdminComponent implements OnInit {
 
 
   /*** Image Upload ***/
-  // image upload 
   imagesUpload(event: any) {
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader();
@@ -161,8 +160,6 @@ export class AddEditAdminComponent implements OnInit {
         this.id = response.data?.id;
         this.fileChangeEvent();
         this.updateAfterResponse(response);
-        
-        
       });
 
     } else {
@@ -190,9 +187,7 @@ export class AddEditAdminComponent implements OnInit {
   updateAfterResponse(response: any) {
     if (response && response.statusCode == 200) {
       if (response.isSuccess) {
-        
         this.toasterService.success(response.messages);
-      
       }
       else {
         this.toasterService.error(response.messages);

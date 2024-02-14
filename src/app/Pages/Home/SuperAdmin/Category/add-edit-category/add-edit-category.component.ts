@@ -164,11 +164,10 @@ export class AddEditCategoryComponent implements OnInit {
                   this.previewImage1 = imageDataUrl;
                   this.urls1.push(imageDataUrl);
                   this.isValid1 = true;
-                  this.errorMessage = ''; // No error message if the image meets criteria
+                  this.errorMessage = '';
                 } else {
                   this.isValid1 = false;
                   this.errorMessage = 'Please select a 512x512 pixels (width×height) & JPEG or PNG image.'; // Error message for invalid image
-                  // You can add further handling if needed for invalid images
                 }
               };
             };
@@ -180,7 +179,6 @@ export class AddEditCategoryComponent implements OnInit {
                  this.imageUrl1 = '';
                  return;
                }
-        
       }
     }
   }
@@ -231,7 +229,6 @@ export class AddEditCategoryComponent implements OnInit {
                  this.imageUrl1 = '';
                  return;
                }
-        
       }
     }
   }

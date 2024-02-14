@@ -166,9 +166,6 @@ export class SalonDetailComponent implements OnInit {
 
   }
 
-
-
-
   shareViaWhatsApp() {
     
     const element = this.htmlContainer.nativeElement;

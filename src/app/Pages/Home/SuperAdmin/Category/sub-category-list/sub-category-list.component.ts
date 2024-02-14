@@ -46,7 +46,6 @@ export class SubCategoryListComponent implements OnInit {
     private formBuilder: FormBuilder,
     private filterService: FilterService,
     private searchService: SearchService,
-    
   ) { }
 
   ngOnInit(): void {
@@ -55,14 +54,10 @@ export class SubCategoryListComponent implements OnInit {
     this.route.queryParams.subscribe((params) => {
       this.search = params['search'] || '';
       this.page = params['page'] ? parseInt(params['page'], 10) : 1;
-      // Fetch data based on the search term and page
       this.getList();
     });
-    // this.getvendorDetail();
-    
     
     this.filterSubListForm();
-    // this.getSubcategoryList();
     this.searchText = this.searchService.getSearchCriteria();
   }
 
@@ -71,7 +66,6 @@ export class SubCategoryListComponent implements OnInit {
     this.searchService.clearSearchCriteria();
   
   }
-  // status change
 
   performSearch() {
     this.router.navigate([], {
@@ -82,7 +76,6 @@ export class SubCategoryListComponent implements OnInit {
   }
 
   onPageChange(page: number): void {
-    // Update query parameters for pagination
     this.router.navigate([], {
       relativeTo: this.route,
       queryParams: { page: page },
@@ -95,7 +88,6 @@ export class SubCategoryListComponent implements OnInit {
   }
   
   onSearch(searchTerm: string): void {
-    // Update query parameters for search
     this.router.navigate([], {
       queryParams: { search: searchTerm, page: 1 }, // Reset to the first page when searching
       queryParamsHandling: 'merge',
@@ -118,12 +110,9 @@ export class SubCategoryListComponent implements OnInit {
     } else if (this.unActive == false) {
       this.postUnActiveStatus(data)
     }
-
   }
 
-
   postActiveStatus(data: any) {
-
     let payload = {
       subCategoryId: data,
       salonId:this.salonId,
@@ -134,6 +123,7 @@ export class SubCategoryListComponent implements OnInit {
 this.spinner.hide();
     });
   }
+
   postUnActiveStatus(data: any) {
     
     let payload = {
@@ -144,7 +134,6 @@ this.spinner.hide();
     this.spinner.show();
     this.content.statusPostCategory(payload).subscribe(response => {
       this.spinner.hide();
-
     });
   }
 
@@ -185,7 +174,6 @@ this.spinner.hide();
   // super and admin
 
   getSubcategory() {
-    
         this.spinner.show();
         // let payload = {
           this.MainCategoryId = parseInt(this.Id),
@@ -233,8 +221,6 @@ this.spinner.hide();
   // Vendor
 
   getVendorSubCategoryListFilter() {
-
-    // this.spinner.show();
       let payload = {
       mainCategoryId: parseInt(this.Id),
       salonId: this.salonId,

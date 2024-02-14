@@ -12,7 +12,6 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./banner-list.component.css']
 })
 export class BannerListComponent implements OnInit {
-  // serach 
   public searchText: any = '';
   page: number = 0;
   itemsPerPage!: number;

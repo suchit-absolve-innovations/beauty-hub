@@ -27,7 +27,7 @@ export class ServiceListComponent implements OnInit {
   itemsPerPage!: number;
   totalItems!: number;
   rootUrl: any;
-  salonId: any
+  salonId: any;
   serviceId: any;
   id: any;
   role: any;
@@ -189,7 +189,6 @@ export class ServiceListComponent implements OnInit {
     });
   }
 
-  // Service List 
 
   getList() {
 
@@ -231,10 +230,6 @@ export class ServiceListComponent implements OnInit {
     this.content.getservice(payload).subscribe(response => {
       if (response.isSuccess) {
         this.list = response.data.dataList;
-
-           // Apply filtering if searchText is provided
-
-    //    this.spinner.hide();
       } else {
      //   this.spinner.hide();
       }

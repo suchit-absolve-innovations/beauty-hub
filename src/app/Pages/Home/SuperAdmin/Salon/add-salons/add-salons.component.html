@@ -2,22 +2,21 @@
     <div class="admin_a form_dashbord">
         <div *ngIf="isValidFormSubmitted" class="submitted"> Form submitted successfully. </div>
         <div class="top-head">
-            <img  (click)="backClicked()" src="assets\img\backimage.svg" class="backimage-butn">
+            <img (click)="backClicked()" src="assets\img\backimage.svg" class="backimage-butn">
             <h2>Vendor form</h2>
-          </div>
-       
+        </div>
+
         <form [formGroup]="form">
             <div class="vendor-form mt-40 bg-white">
                 <div class="this_row">
                     <div class="row">
-  
+
                         <div class="col-lg-12 col-md-12">
                             <div class="text-center">
                                 <h2>Add Profile Picture</h2>
                             </div>
-                           
                         </div>
-  
+
                         <div class="col-lg-12 col-md-12 mt-30">
                             <!-- <div class="upload_file text-center">
                             <input type="file" class="control-form">
@@ -25,10 +24,10 @@
                         </div> -->
                             <div class="imges-upload mb-0">
                                 <div class="imgUp m-auto">
-  
+
                                     <div class="imagePreview" [style.background-image]="'url(' + editImages + ')'">
                                     </div>
-  
+
                                     <!-- {{imageFile}}/ -->
                                     <label class="upload button btn btn-primary">
                                         <!-- <input value="rootUrl + homeServicesData.imagePath" name="bannerHidden" type="hidden"> -->
@@ -38,48 +37,46 @@
                                     </label>
                                     <div>
                                     </div>
-  
-  
                                 </div>
                                 <br>
                                 <br>
                             </div>
                         </div>
-  
+
                     </div>
                 </div>
-  
+
                 <h3>Personal Detail</h3><!-- Title Here -->
-  
+
                 <div class="this_row">
                     <div class="row">
                         <div class="col-lg-6 col-md-12">
                             <label>First Name</label>
-                            <input type="text" class="control-form" formControlName="firstName" appAlphabeticOnly noSpacesAtStart appCapitalizeFirstLetter> 
+                            <input type="text" class="control-form" formControlName="firstName" appAlphabeticOnly
+                                noSpacesAtStart appCapitalizeFirstLetter>
                             <label *ngIf="firstName?.invalid && submitted != null && !submitted"
                                 class="invalid-formdata">
                                 First name is required.
                             </label>
-  
                         </div>
-  
                         <div class="col-lg-6 col-md-12">
                             <label>Last Name</label>
-                            <input type="text" class="control-form" formControlName="lastName" appAlphabeticOnly noSpacesAtStart appCapitalizeFirstLetter>
+                            <input type="text" class="control-form" formControlName="lastName" appAlphabeticOnly
+                                noSpacesAtStart appCapitalizeFirstLetter>
                             <label *ngIf="lastName?.invalid && submitted != null && !submitted"
                                 class="invalid-formdata">
                                 Last name is required.
                             </label>
                         </div>
-  
+
                         <div class="col-lg-6 col-md-12">
                             <label>Email</label>
-                            <input type="email" class="control-form" formControlName="email" >
+                            <input type="email" class="control-form" formControlName="email">
                             <label *ngIf="email?.invalid && submitted != null && !submitted" class="invalid-formdata">
                                 Email is required.
                             </label>
                         </div>
-  
+
                         <div class="col-lg-6 col-md-12">
                             <label>Gender</label>
                             <select type="text" class="control-form" formControlName="gender">
@@ -91,29 +88,30 @@
                                 Gender is required.
                             </label>
                         </div>
-  
+
                         <div class="col-lg-6 col-md-12">
                             <label>Dial Code</label>
-                            <input type="text" class="control-form" formControlName="dialCode" style="background-color: rgb(218, 231, 243);" [readonly]="true" numbersOnly >
+                            <input type="text" class="control-form" formControlName="dialCode"
+                                style="background-color: rgb(218, 231, 243);" [readonly]="true" numbersOnly>
                             <label *ngIf="dialCode?.invalid && submitted != null && !submitted"
                                 class="invalid-formdata">
                                 Dial Code is required.
                             </label>
                         </div>
-  
+
                         <div class="col-lg-6 col-md-12">
                             <label>Phone Number</label>
-                            <input type="text" class="control-form" formControlName="phoneNumber" OnlyNumbers >
+                            <input type="text" class="control-form" formControlName="phoneNumber" OnlyNumbers>
                             <label
-                            *ngIf="form.get('phoneNumber')?.errors?.['required'] && submitted != null && !submitted"
-                            class="invalid-formdata">
-                           Phone number is required.
-                        </label>
+                                *ngIf="form.get('phoneNumber')?.errors?.['required'] && submitted != null && !submitted"
+                                class="invalid-formdata">
+                                Phone number is required.
+                            </label>
                             <label
-                            *ngIf="form.get('phoneNumber')?.errors?.['pattern'] && submitted != null && !submitted"
-                            class="invalid-formdata">
-                            Please enter a 10 digit phone number.
-                        </label>
+                                *ngIf="form.get('phoneNumber')?.errors?.['pattern'] && submitted != null && !submitted"
+                                class="invalid-formdata">
+                                Please enter a 10 digit phone number.
+                            </label>
                         </div>
                         <div class="col-lg-6 col-md-12">
                             <label>Country</label>
@@ -126,7 +124,7 @@
                                 Country is required.
                             </label>
                         </div>
-  
+
                         <div class="col-lg-6 col-md-12">
                             <label>State</label>
                             <select type="text" class="control-form" formControlName="stateId">
@@ -138,50 +136,39 @@
                                 State is required.
                             </label>
                         </div>
-  
+
                     </div>
                 </div>
             </div>
-  
+
             <!-- end first form -->
-  
+
             <div class="vendor-form bg-white" formArrayName="salonDetail">
-  
+
                 <h3>Business Detail</h3><!-- Title Here -->
 
                 <div class="this_row" *ngFor="let item of salonDetail.controls;  let i = index;" [formGroupName]="i">
                     <div class="row">
-                        
+
                         <div class="col-lg-12 col-md-12 mb-20">
                             <label>Salon Image</label><br>
-                        <input class="uploadFile img" name="bannerimage"   #Image type="file" (change)="handleFileInput($event)"  />
-                       
-                       <!-- <label>{{imageUrl}}</label> -->
-                        <label class="preview-butn"  data-toggle="modal" data-target="#myModal">preview</label>
+                            <input class="uploadFile img" name="bannerimage" #Image type="file"
+                                (change)="handleFileInput($event)" />
+
+                            <label class="preview-butn" data-toggle="modal" data-target="#myModal">preview</label>
                         </div>
-                        <!-- <div class="col-lg-12 col-md-12">
-                            <label>Salon name</label>
-                            <input type="text" class="control-form" formControlName="salonName" value="salon Name">
-                            <label
-                                *ngIf="salonDetail.controls[i].get('salonName')?.errors?.['required'] && submitted != null && !submitted"
-                                class="invalid-formdata">
-                                Salon name is required.
-                            </label>
-  
-                        </div> -->
-
-
-
+                     
                         <div class="col-lg-6 col-md-12">
                             <label>Salon name</label>
-                            <input type="text" class="control-form" formControlName="salonName" value="salon Name"  noSpacesAtStart appCapitalizeFirstLetter>
+                            <input type="text" class="control-form" formControlName="salonName" value="salon Name"
+                                noSpacesAtStart appCapitalizeFirstLetter>
                             <label
                                 *ngIf="salonDetail.controls[i].get('salonName')?.errors?.['required'] && submitted != null && !submitted"
                                 class="invalid-formdata">
                                 Salon name is required.
                             </label>
                         </div>
-  
+
                         <div class="col-lg-6 col-md-12">
                             <label>Select Type</label>
                             <select type="text" class="control-form" formControlName="salonType">
@@ -191,17 +178,18 @@
                                 <option>Unisex</option>
                             </select>
                             <label
-                            *ngIf="salonDetail.controls[i].get('salonType')?.errors?.['required'] && submitted != null && !submitted"
-                            class="invalid-formdata">
-                           Salon type is required.
-                        </label>
+                                *ngIf="salonDetail.controls[i].get('salonType')?.errors?.['required'] && submitted != null && !submitted"
+                                class="invalid-formdata">
+                                Salon type is required.
+                            </label>
                         </div>
 
 
-  
+
                         <div class="col-lg-12 col-md-12">
                             <label>Salon Description</label>
-                            <textarea type="text" class="control-form" formControlName="salonDescription" noSpacesAtStart appCapitalizeFirstLetter></textarea>
+                            <textarea type="text" class="control-form" formControlName="salonDescription"
+                                noSpacesAtStart appCapitalizeFirstLetter></textarea>
                             <label
                                 *ngIf="salonDetail.controls[i].get('salonDescription')?.errors?.['required'] && submitted != null && !submitted"
                                 class="invalid-formdata">
@@ -211,10 +199,11 @@
                                 Maximum 200 characters for description.
                               </div> -->
                         </div>
-  
+
                         <div class="col-lg-12 col-md-12">
                             <label class="mb-3">Salon Address</label>
-                            <a type="button" class="map" (click)="setCurrentLocation()" style="color: blue;">Get Current Location</a>
+                            <a type="button" class="map" (click)="setCurrentLocation()" style="color: blue;">Get Current
+                                Location</a>
                             <input type="text" class="form-control" (keydown.enter)="$event.preventDefault()"
                                 placeholder="Search Nearest Location" autocorrect="on" autocapitalize="off"
                                 spellcheck="off" type="text" [(ngModel)]="addressStreet"
@@ -233,27 +222,29 @@
 
                             </agm-map>
                         </div>
-  
+
                         <div class="col-lg-6 col-md-12">
                             <label>Landmark</label>
-                            <input type="text" class="control-form" formControlName="landmark" noSpacesAtStart appCapitalizeFirstLetter>
+                            <input type="text" class="control-form" formControlName="landmark" noSpacesAtStart
+                                appCapitalizeFirstLetter>
                             <label
                                 *ngIf="salonDetail.controls[i].get('landmark')?.errors?.['required'] && submitted != null && !submitted"
                                 class="invalid-formdata">
                                 Landmark is required.
                             </label>
                         </div>
-  
+
                         <div class="col-lg-6 col-md-12">
                             <label>City</label>
-                            <input type="text" class="control-form" formControlName="city" appAlphabeticOnly noSpacesAtStart appCapitalizeFirstLetter>
+                            <input type="text" class="control-form" formControlName="city" appAlphabeticOnly
+                                noSpacesAtStart appCapitalizeFirstLetter>
                             <label
                                 *ngIf="salonDetail.controls[i].get('city')?.errors?.['required'] && submitted != null && !submitted"
                                 class="invalid-formdata">
                                 City is required.
                             </label>
                         </div>
-  
+
                         <div class="col-lg-3 col-md-12">
                             <label>Zip Code</label>
                             <input type="text" class="control-form" formControlName="zip" OnlyNumbers>
@@ -263,134 +254,146 @@
                                 Zip code is required.
                             </label>
                         </div>
-  
+
                         <div class="col-lg-3 col-md-12">
                             <label>GST No</label>
-                            <input type="text" class="control-form" formControlName="gstnumber" noSpacesAtStart alphanumericOnly >
-                            <label *ngIf="salonDetail.controls[i].get('gstnumber')?.errors?.['required'] && submitted != null && !submitted"
-                            class="invalid-formdata">
+                            <input type="text" class="control-form" formControlName="gstnumber" noSpacesAtStart
+                                alphanumericOnly>
+                            <label
+                                *ngIf="salonDetail.controls[i].get('gstnumber')?.errors?.['required'] && submitted != null && !submitted"
+                                class="invalid-formdata">
                                 GST number is required.
                             </label>
-                            <label *ngIf="salonDetail.controls[i].get('gstnumber')?.errors?.['pattern'] && submitted != null && !submitted"
-                            class="invalid-formdata">
+                            <label
+                                *ngIf="salonDetail.controls[i].get('gstnumber')?.errors?.['pattern'] && submitted != null && !submitted"
+                                class="invalid-formdata">
                                 Please enter a 15 digit GST number.
                             </label>
                         </div>
-  
+
                         <div class="col-lg-6 col-md-12">
                             <label>PAN</label>
-                            <input type="text" class="control-form" formControlName="businessPAN" noSpacesAtStart alphanumericOnly>
+                            <input type="text" class="control-form" formControlName="businessPAN" noSpacesAtStart
+                                alphanumericOnly>
                             <label
                                 *ngIf="salonDetail.controls[i].get('businessPAN')?.errors?.['required'] && submitted != null && !submitted"
                                 class="invalid-formdata">
                                 Pan no. is required.
                             </label>
                             <label
-                            *ngIf="salonDetail.controls[i].get('businessPAN')?.errors?.['pattern'] && submitted != null && !submitted"
-                            class="invalid-formdata">
-                            Please enter a 10 digit pan number.
-                        </label>
+                                *ngIf="salonDetail.controls[i].get('businessPAN')?.errors?.['pattern'] && submitted != null && !submitted"
+                                class="invalid-formdata">
+                                Please enter a 10 digit pan number.
+                            </label>
                         </div>
-  
+
                     </div>
                 </div>
             </div>
             <!-- end first form -->
-  
+
             <div class="vendor-form bg-white">
-  
+
                 <h3>Bank Detail</h3><!-- Title Here -->
-  
+
                 <div class="this_row" formArrayName="bankDetail">
                     <div class="row" *ngFor="let item of bankDetail.controls;  let i = index;" [formGroupName]="i">
-  
+
                         <div class="col-lg-6 col-md-12">
                             <label>Bank Name</label>
-                            <input type="text" class="control-form" formControlName="bankName"  noSpacesAtStart appCapitalizeFirstLetter>
-  
+                            <input type="text" class="control-form" formControlName="bankName" noSpacesAtStart
+                                appCapitalizeFirstLetter>
+
                             <label
                                 *ngIf="bankDetail.controls[i].get('bankName')?.errors?.['required'] && submitted != null && !submitted"
                                 class="invalid-formdata">
                                 Bank name required.
                             </label>
                         </div>
-  
+
                         <div class="col-lg-6 col-md-12">
                             <label>Branch Name</label>
-                            <input type="text" class="control-form" formControlName="branchName" noSpacesAtStart  appCapitalizeFirstLetter>
+                            <input type="text" class="control-form" formControlName="branchName" noSpacesAtStart
+                                appCapitalizeFirstLetter>
                             <label
                                 *ngIf="bankDetail.controls[i].get('branchName')?.errors?.['required'] && submitted != null && !submitted"
                                 class="invalid-formdata">
                                 Branch name required.
                             </label>
                         </div>
-  
+
                         <div class="col-lg-6 col-md-12">
                             <label>Account Holder Name</label>
-                            <input type="text" class="control-form" formControlName="bankAccountHolderName" noSpacesAtStart appCapitalizeFirstLetter>
+                            <input type="text" class="control-form" formControlName="bankAccountHolderName"
+                                noSpacesAtStart appCapitalizeFirstLetter>
                             <label
                                 *ngIf="bankDetail.controls[i].get('bankAccountHolderName')?.errors?.['required'] && submitted != null && !submitted"
                                 class="invalid-formdata">
                                 Bank holder name is required.
                             </label>
                         </div>
-  
+
                         <div class="col-lg-6 col-md-12">
                             <label>Account No.</label>
-                            <input type="password" class="control-form" formControlName="bankAccountNumber" 
-                                (cut)="DisableCut($event)" (copy)="DisableCopy($event)" (paste)="DisablePaste($event)" OnlyNumbers>
+                            <input type="password" class="control-form" formControlName="bankAccountNumber"
+                                (cut)="DisableCut($event)" (copy)="DisableCopy($event)" (paste)="DisablePaste($event)"
+                                OnlyNumbers>
                             <label
                                 *ngIf="bankDetail.controls[i].get('bankAccountNumber')?.errors?.['required'] && submitted != null && !submitted"
                                 class="invalid-formdata">
                                 Account no. is required.
                             </label>
                         </div>
-  
+
                         <div class="col-lg-6 col-md-12">
                             <label>Confirm Account No.</label>
                             <input type="password" class="control-form" formControlName="confirmbankAccountNumber"
-                                (cut)="DisableCut($event)" (copy)="DisableCopy($event)" (paste)="DisablePaste($event)" OnlyNumbers>
+                                (cut)="DisableCut($event)" (copy)="DisableCopy($event)" (paste)="DisablePaste($event)"
+                                OnlyNumbers>
                             <label
                                 *ngIf="bankDetail.controls[i].get('confirmbankAccountNumber')?.errors?.['required'] && submitted != null && !submitted"
                                 class="invalid-formdata">
                                 Confirm bank account number.
                             </label>
-                            <label *ngIf="bankDetail.controls[i].get('confirmbankAccountNumber')?.errors?.['mustMatch'] && submitted != null && !submitted"
+                            <label
+                                *ngIf="bankDetail.controls[i].get('confirmbankAccountNumber')?.errors?.['mustMatch'] && submitted != null && !submitted"
                                 class="invalid-formdata">
                                 Account number must be same.</label>
                         </div>
-  
+
                         <div class="col-lg-6 col-md-12">
                             <label>IFSC CODE</label>
-                            <input type="text" class="control-form" formControlName="ifsc" noSpacesAtStart alphanumericOnly>
-                            <label
-                                *ngIf="bankDetail.controls[i].get('ifsc')?.errors && submitted != null && !submitted"
+                            <input type="text" class="control-form" formControlName="ifsc" noSpacesAtStart
+                                alphanumericOnly>
+                            <label *ngIf="bankDetail.controls[i].get('ifsc')?.errors && submitted != null && !submitted"
                                 class="invalid-formdata">
                                 Ifsc code is required.
                             </label>
                         </div>
                     </div>
                 </div>
-  
+
             </div>
-        
+
             <div class="vendor-form bg-white">
-               
+
                 <div class="this_row" formArrayName="upiDetail">
-                    <div class="row" >
+                    <div class="row">
                         <div class="col-lg-12">
                             <div class="upi-detail-head">
-                            <h3>UPI Detail</h3>
-                            <a class="btn_blue add-butn"  (click)="add()"><i class="fa fa-plus mr-2" aria-hidden="true" ></i> Add</a>
-                        </div>
+                                <h3>UPI Detail</h3>
+                                <a class="btn_blue add-butn" (click)="add()"><i class="fa fa-plus mr-2"
+                                        aria-hidden="true"></i> Add</a>
+                            </div>
                         </div>
                     </div>
-                        <div  class="row" *ngFor="let item of List1().controls;  let i = index;" [formGroupName]="i">
-                  
-  
+                    <div class="row" *ngFor="let item of List1().controls;  let i = index;" [formGroupName]="i">
+
+
                         <div class="col-lg-10 col-md-12">
                             <label>Account Holder Name</label>
-                            <input type="text"formControlName="accountHolderName" class="control-form"  noSpacesAtStart appCapitalizeFirstLetter>
+                            <input type="text" formControlName="accountHolderName" class="control-form" noSpacesAtStart
+                                appCapitalizeFirstLetter>
                             <label
                                 *ngIf="List1().controls[i].get('accountHolderName')?.errors?.['required'] && submitted != null && !submitted"
                                 class="invalid-formdata">
@@ -400,60 +403,61 @@
                         <div class="col-lg-2">
                             <a class="trash-butn" (click)="deleteHomeData(item,i)"><i class="fa fa-trash"></i></a>
                         </div>
-  
+
                         <div class="col-lg-5 col-md-12">
                             <label>UPI Id </label>
-                            <input type="text" formControlName="upiid" class="control-form"noSpacesAtStart>
+                            <input type="text" formControlName="upiid" class="control-form" noSpacesAtStart>
                             <label
-                            *ngIf="List1().controls[i].get('upiid')?.errors?.['required'] && submitted != null && !submitted"
-                            class="invalid-formdata">
-                            UPI id required.
-                        </label>
+                                *ngIf="List1().controls[i].get('upiid')?.errors?.['required'] && submitted != null && !submitted"
+                                class="invalid-formdata">
+                                UPI id required.
+                            </label>
                         </div>
                         <div class="col-lg-5 col-md-12">
                             <label>QR Image</label><br>
                             <!-- <label><img [src]="item.value.qrcode"></label>   -->
-                             <input class="uploadFile img"name="bannerimage" #Image type="file" (change)="handleQrFileInput($event,i)"/>
-                            <label data-toggle="modal" data-target="#myModal4"
-                                class="preview-butn" >preview</label>
-                                
-                                <!-- <img [src]="List1().at(i).get('imagePreviewUrl')?.value" alt="QR Image Preview" *ngIf="List1().at(i).get('imagePreviewUrl')?.value" /> -->
+                            <input class="uploadFile img" name="bannerimage" #Image type="file"
+                                (change)="handleQrFileInput($event,i)" />
+                            <label data-toggle="modal" data-target="#myModal4" class="preview-butn">preview</label>
+
+                            <!-- <img [src]="List1().at(i).get('imagePreviewUrl')?.value" alt="QR Image Preview" *ngIf="List1().at(i).get('imagePreviewUrl')?.value" /> -->
 
                         </div>
-  
-  
+
+
                         <div class="col-lg-6 col-md-12 mt-3">
                             <label class="mr-3">Status</label>
                             <label class="switch">
-                                <input type="checkbox"  formControlName="isActive"  (change)='checkStatus($event)'>
-                                 >
-                                    
+                                <input type="checkbox" formControlName="isActive" (change)='checkStatus($event)'>
+                                >
+
                                 <span class="slider round"></span>
                             </label>
                         </div>
                     </div>
-                   
+
                 </div>
-            </div> 
+            </div>
 
             <div class="vendor-form bg-white ">
                 <div class="col-lg-12 col-md-12  text-center">
-                    <button class="border-btn" type="submit" value="" data-toggle="modal" data-target="#cancel-mess">Cancel</button>
+                    <button class="border-btn" type="submit" value="" data-toggle="modal"
+                        data-target="#cancel-mess">Cancel</button>
                     <button class="btn_blue " type="submit" (click)="postVendor()" value="">Submit</button>
                 </div>
-            </div> 
-  
+            </div>
+
         </form>
         <!-- end first form -->
-  
+
     </div>
-  
-  </div>
-  
-  
-  
-  <!-- Modal -->
-  <!-- <div class="modal fade" id="myModal" role="dialog">
+
+</div>
+
+
+
+<!-- Modal -->
+<!-- <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -470,10 +474,11 @@
       </div>
     </div>
     </div> -->
-  <!-- Modal -->
-  <div class="modal fade vendor-popup" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+<!-- Modal -->
+<div class="modal fade vendor-popup" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
     aria-hidden="true">
-    <div class="modal-dialog max_sf modal-dialog-centered" role="document" style="border-radius:15px; overflow:hidden; border:none;">
+    <div class="modal-dialog max_sf modal-dialog-centered" role="document"
+        style="border-radius:15px; overflow:hidden; border:none;">
         <div class="modal-content popup_advance">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -482,62 +487,54 @@
                 <div class="imagePreview">
                     <img [src]="imageUrl">
                 </div>
-  
-  
+
+
             </div>
-  
+
         </div>
     </div>
-  </div>
-  
-  <div class="modal fade vendor-popup" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitles"
-  aria-hidden="true">
-  <div class="modal-dialog max_sf modal-dialog-centered modal-sm" role="document"
-    style="border-radius: 15px; overflow: hidden; border: none;">
-    <div class="modal-content popup_advance">
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-      <div class="modal-body text-center">
-        <div class="uploaded-images">
-          <div class="image-preview" *ngFor="let uploadedImage of uploadedImages; let i = index;">
-            <img [src]="uploadedImage.previewUrl" alt="Uploaded Image" *ngIf="uploadedImage.previewUrl">
-            <button (click)="deleteUploadedImage(i)">Remove</button>
-          </div>
-        </div>
-      </div>
-        </div>
-      </div>
-    </div>
-  <!-- </div>
-</div> -->
-  
-  <!--Cancel Modal -->
-  <div class="modal fade" id="cancel-mess" tabindex="-1" role="dialog" aria-labelledby="cancel-messLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content warning-content">
-        
-        <div class="modal-body text-center warning-mess-sec">
-            <button type="button" class="close float-right" data-dismiss="modal" aria-label="Close">
+</div>
+
+<div class="modal fade vendor-popup" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitles"
+    aria-hidden="true">
+    <div class="modal-dialog max_sf modal-dialog-centered modal-sm" role="document"
+        style="border-radius: 15px; overflow: hidden; border: none;">
+        <div class="modal-content popup_advance">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
-              </button>
-            <img src="assets\img\warning.png">
-            <h2>Alert</h2>
-          <p>Are You Sure, You want to Cancel it?</p>
+            </button>
+            <div class="modal-body text-center">
+                <div class="uploaded-images">
+                    <div class="image-preview" *ngFor="let uploadedImage of uploadedImages; let i = index;">
+                        <img [src]="uploadedImage.previewUrl" alt="Uploaded Image" *ngIf="uploadedImage.previewUrl">
+                        <button (click)="deleteUploadedImage(i)">Remove</button>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class=" border-btn" data-dismiss="modal">Close</button>
-          <button type="button" class=" btn_blue" (click)="  cancel()">Yes, Cancel It</button>
-        </div>
-      </div>
     </div>
-  </div>
+</div>
+<!-- </div>
+</div> -->
 
+<!--Cancel Modal -->
+<div class="modal fade" id="cancel-mess" tabindex="-1" role="dialog" aria-labelledby="cancel-messLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content warning-content">
 
-
-
-
-
-
-
-
+            <div class="modal-body text-center warning-mess-sec">
+                <button type="button" class="close float-right" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <img src="assets\img\warning.png">
+                <h2>Alert</h2>
+                <p>Are You Sure, You want to Cancel it?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class=" border-btn" data-dismiss="modal">Close</button>
+                <button type="button" class=" btn_blue" (click)="  cancel()">Yes, Cancel It</button>
+            </div>
+        </div>
+    </div>
+</div>

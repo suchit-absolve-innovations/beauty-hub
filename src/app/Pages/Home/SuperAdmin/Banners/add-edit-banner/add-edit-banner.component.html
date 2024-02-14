@@ -12,17 +12,16 @@
                     <div class="col-lg-12 col-md-12 mb-30 text-center">
                         <h3>Add Banner Picture</h3>
                     </div>
-
                     <div class="col-lg-12 col-md-12 ">
                         <div class="upload_file text-center">
                             <div class="imges-upload mb-0">
                                 <div class="imgUp m-auto">
-                                  
                                     <div>
-                                        <div *ngIf="!isValid "class="imagePreview"><img src="{{editImages}}"></div>
-    
-                                        <div *ngIf="isValid" class="imagePreview" [style.background-image]="'url(' + previewImage + ')'"></div>
-                                      </div>
+                                        <div *ngIf="!isValid " class="imagePreview"><img src="{{editImages}}"></div>
+
+                                        <div *ngIf="isValid" class="imagePreview"
+                                            [style.background-image]="'url(' + previewImage + ')'"></div>
+                                    </div>
 
                                     <label class="upload button btn btn-primary">
                                         <!-- <input value="rootUrl + homeServicesData.imagePath" name="bannerHidden" type="hidden"> -->

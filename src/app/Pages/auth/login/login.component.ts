@@ -113,9 +113,9 @@ onLogin(){
 updateToken(){
   //  this.test = this.fcm?.value;
   let payload = {
-    fcmToken : localStorage.getItem('token' )
+    fcmToken : localStorage.getItem('token')
   }
-  console.log(payload)
+  // console.log(payload)
   // this.fcmToken = { 'fcmToken' : localStorage.getItem('token' )};
     this.auth.fcmToken(payload).subscribe((response:any) => {  
       if (response.status){

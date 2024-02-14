@@ -100,8 +100,6 @@ export class CategoryListComponent implements OnInit {
     this.filterListForm();
   }
 
- 
-
   // clearSearchedData(): void {
   //   // Call the clearSearchCriteria method when the sidebar is clicked
   //   this.searchService.clearSearchCriteria();
