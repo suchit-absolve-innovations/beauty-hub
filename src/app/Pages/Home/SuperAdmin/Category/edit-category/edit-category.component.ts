@@ -103,6 +103,7 @@ export class EditCategoryComponent implements OnInit {
       this.contentService.UpdateCategory(payload).subscribe(response => {
         this.mainId = response.data?.mainCategoryId;
         this.fileChangeEvent();
+        debugger
         this.afterResponse(response);
       });
     }
@@ -175,7 +176,7 @@ export class EditCategoryComponent implements OnInit {
             const reader = new FileReader();
             reader.onload = (_event: any) => {
               const image = new Image();
-              image.src = _event.target.result as string;
+              image.src = _event.targe8t.result as string;
               image.onload = () => {
                 if (image.width === 512 && image.height === 512 && imageSize <= 512) {
                   const imageDataUrl = reader.result as string;
