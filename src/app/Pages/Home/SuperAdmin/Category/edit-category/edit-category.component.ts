@@ -158,9 +158,9 @@ export class EditCategoryComponent implements OnInit {
     });
   }
   
-  imagesUpload(event: any) {
-    const file = event.target.files[0];
 
+  imagesUpload(event: any) {    
+    const file = event.target.files[0];
     if (file) {
       const fileType = file.type;
       const fileName = file.name;
@@ -176,7 +176,7 @@ export class EditCategoryComponent implements OnInit {
             const reader = new FileReader();
             reader.onload = (_event: any) => {
               const image = new Image();
-              image.src = _event.targe8t.result as string;
+              image.src = _event.target.result as string;
               image.onload = () => {
                 if (image.width === 512 && image.height === 512 && imageSize <= 512) {
                   const imageDataUrl = reader.result as string;
@@ -201,12 +201,14 @@ export class EditCategoryComponent implements OnInit {
           }
         } else {
                  this.errorMessage = 'Please select a 512x512 pixels (width×height) & JPEG or PNG image.';
-                this.isValid = false;    
+                this.isValid = false;
                  return;
                }
       }
     }
   }
+
+
 
   imagesUpload2(event: any) {    
     const file = event.target.files[0];
@@ -258,8 +260,9 @@ export class EditCategoryComponent implements OnInit {
   }
 
   fileChangeEvent() {
+    debugger
     let formData = new FormData();
-    formData.append("CategoryImageMale", this.imageFile?.file);
+    formData.append("categoryImageMale", this.imageFile?.file);
     formData.append("categoryImageFemale", this.imageFile1?.file);
     formData.append("MainCategoryId", this.mainId);
     this.contentService.categoryImage(formData).subscribe(response => {

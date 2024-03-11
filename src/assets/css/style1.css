@@ -2981,6 +2981,7 @@ label.invalid-formdata {
 
 #myDIV5 a.clear-notify:not([href]) {
      color: #85214f !important;
+     cursor: pointer;
 }
 
 .notify-box {
@@ -3569,6 +3570,7 @@ a:not([href]):not([tabindex]) {
 a:not([href]):not([tabindex]) { 
     /* color: inherit !important; */
     text-decoration: none;
+    cursor: pointer;
 }
 .map:hover {
     text-decoration: underline !important;
